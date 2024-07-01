@@ -4,8 +4,11 @@ const Home = () => {
   return (
     <HomeStyle>
       <div className="title">HOME</div>
-      <div className="subTitle1">드라마 속 그곳! 어디지?</div>
-      <div className="subTitle2">드라마 속 그곳! 어디지?</div>
+      <div className="subTitle">subTitle</div>
+      <div className="body1">body1</div>
+      <div className="body2">body2</div>
+      <div className="body3">body3</div>
+      <div className="body4">body4</div>
     </HomeStyle>
   );
 };
@@ -13,15 +16,27 @@ const Home = () => {
 const HomeStyle = styled.main`
   .title {
     color: ${({ theme }) => theme.color.keyColor};
-    font-weight: 800;
+    ${({ theme }) => theme.font.title}
   }
-  .subTitle1 {
+  .subTitle {
     color: ${({ theme }) => theme.color.subColor1};
-    font-weight: 600;
+    ${({ theme }) => theme.font.subTitle}
   }
-  .subTitle2 {
+  .body1 {
     color: ${({ theme }) => theme.color.subColor2};
-    font-weight: 500;
+    ${({ theme }) => theme.font.body1}
+  }
+  .body2 {
+    color: ${({ theme }) => theme.color.subColor2};
+    ${({ theme }) => theme.font.body2}
+  }
+  .body3 {
+    color: ${({ theme }) => theme.color.subColor2};
+    ${({ theme }) => theme.font.body3}
+  }
+  .body4 {
+    color: ${({ theme }) => theme.color.subColor2};
+    ${({ theme }) => theme.font.body4}
   }
 `;
 
