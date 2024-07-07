@@ -9,7 +9,7 @@ const Layout = ({ children }: LayoutProps) => {
 const LayoutStyle = styled.main`
   width: 100%;
   margin: 0 auto;
-  padding: 10px 20px;
+  padding: 10px 25px;
   min-height: 100vh;
 `;
 export default Layout;

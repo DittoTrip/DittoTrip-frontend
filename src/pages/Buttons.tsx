@@ -1,4 +1,4 @@
-import Button from '../components/Button';
+import Button from '../components/common/Button';
 
 const Buttons = () => {
   return (
@@ -12,7 +12,7 @@ const Buttons = () => {
       </Button>
       large / subButton
       <Button size="large" scheme="kakao">
-        카카오로 로그인
+        카카오톡 로그인
       </Button>
       large / kakao
       <br />

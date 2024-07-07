@@ -20,43 +20,36 @@ const fonts = {
     font-size: 36px;
     font-weight: 800;
     line-height: 130%;
-    letter-spacing: -0.024rem;
   `,
   subTitle: css`
     font-size: 24px;
     font-weight: 700;
     line-height: 130%;
-    letter-spacing: -0.024rem;
   `,
   body1: css`
     font-size: 20px;
     font-weight: 500;
     line-height: 130%;
-    letter-spacing: -0.024rem;
   `,
   body2: css`
     font-size: 16px;
     font-weight: 700;
     line-height: 130%;
-    letter-spacing: -0.024rem;
   `,
   body3: css`
     font-size: 16px;
     font-weight: 500;
     line-height: 100%;
-    letter-spacing: -0.024rem;
   `,
   body4: css`
     font-size: 14px;
     font-weight: 400;
     line-height: 100%;
-    letter-spacing: -0.024rem;
   `,
   body5: css`
     font-size: 10px;
     font-weight: 600;
     line-height: 100%;
-    letter-spacing: -0.024rem;
   `,
 };
 
@@ -92,6 +85,7 @@ const colors = {
   gray60: '#AAAAAA',
   gray80: '#717171',
   kakao: '#FBE750',
+  kakaoText: '#2F1F00',
 };
 export const light: Theme = {
   name: 'light',
@@ -118,7 +112,7 @@ export const light: Theme = {
       backgroundColor: colors.subColor1,
     },
     kakao: {
-      color: 'black',
+      color: colors.kakaoText,
       backgroundColor: colors.kakao,
     },
   },
