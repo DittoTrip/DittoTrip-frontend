@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   placeholder?: string;
-  inputType?: 'text' | 'email' | 'number' | 'password';
+  inputType?: 'email' | 'password';
 }
 
 const InputText = React.forwardRef(

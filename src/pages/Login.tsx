@@ -1,24 +1,66 @@
 import { styled } from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+
 import InputText from '../components/Login/InputText';
 import Button from '../components/common/Button';
 
+import { login } from '../api/auth.api';
+import { useAuthStore } from '../store/authStore';
 import kakaoImg from '../assets/kakao.png';
 
+export interface LoginProps {
+  email: string;
+  password: string;
+}
+
 const Login = () => {
+  const navigate = useNavigate();
+  const { storeLogin } = useAuthStore();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginProps>();
+
+  const onSubmit = (data: LoginProps) => {
+    login(data).then(
+      res => {
+        storeLogin(res.token);
+        alert('환영합니다!');
+        navigate('/');
+      },
+      error => {
+        console.log(error);
+        alert('로그인에 실패했습니다.');
+      }
+    );
+  };
+
   return (
     <LoginStyle>
       <div className="title">
-        어서오세요
+        어서오세요!
         <br />
         오늘은 무슨 디토를 해볼까요?
       </div>
-      <div className="input">
-        <InputText placeholder="이메일" inputType="email" />
-        <InputText placeholder="비밀번호" inputType="password" />
-        <Button size="large" scheme="keyButton">
-          로그인
-        </Button>
-      </div>
+
+      <form className="input" onSubmit={handleSubmit(onSubmit)}>
+        <fieldset>
+          <InputText placeholder="이메일" inputType="email" {...register('email', { required: true })} />
+          {errors.email && <p className="error-text">이메일을 입력해주세요</p>}
+        </fieldset>
+        <fieldset>
+          <InputText placeholder="비밀번호" inputType="password" {...register('password', { required: true })} />
+          {errors.password && <p className="error-text">비밀번호를 입력해주세요</p>}
+        </fieldset>
+        <fieldset>
+          <Button type="submit" size="large" scheme="keyButton">
+            로그인
+          </Button>
+        </fieldset>
+      </form>
 
       <div className="container">
         <div>
@@ -34,6 +76,7 @@ const Login = () => {
         </div>
       </div>
       <div className="text">또는</div>
+
       <Button size="large" scheme="kakao">
         <img src={kakaoImg} alt="" className="kakao-img" />
         카카오톡 로그인
@@ -56,6 +99,17 @@ const LoginStyle = styled.div`
     margin-bottom: 30px;
     text-align: left;
     width: 100%;
+  }
+  form {
+    width: 100%;
+  }
+  fieldset {
+    border: none;
+    padding: 0;
+    .error-text {
+      color: red;
+      margin: 0 0 10px 0;
+    }
   }
 
   .input {
