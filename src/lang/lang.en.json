@@ -1,3 +1,15 @@
 {
-  "greeting": "Hello this is Ditto Trip"
+  "error": "error page",
+  "login": {
+    "welcome": "welcome",
+    "suggest": "enjoy your ditto",
+    "email": "email",
+    "password": "password",
+    "login": "login",
+    "findId": "find id",
+    "findPassword": "find password",
+    "join": "join",
+    "or": "or",
+    "kakaoLogin": "Kakao Login"
+  }
 }

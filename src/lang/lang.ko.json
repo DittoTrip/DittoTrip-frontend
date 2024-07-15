@@ -1,3 +1,15 @@
 {
-  "greeting": "안녕하세요 여기는 디토 트립입니다."
+  "error": "에러 페이지",
+  "login": {
+    "welcome": "어서오세요!",
+    "suggest": "오늘은 어떤 디토를 해 볼까요?",
+    "email": "이메일",
+    "password": "비밀번호",
+    "login": "로그인",
+    "findId": "아이디 찾기",
+    "findPassword": "비밀번호 찾기",
+    "join": "회원가입",
+    "or": "또는",
+    "kakaoLogin": "카카오톡 로그인"
+  }
 }
