@@ -1,11 +1,12 @@
 // import styled from 'styled-components';
 import { DittoProvider } from './context/themeContext';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import './App.css';
 import Layout from './layout/Layout';
 import Home from './pages/Home';
 import ErrorPage from './pages/Error';
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import LangPage from './pages/LangPage';
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,14 @@ const router = createBrowserRouter([
     errorElement: (
       <Layout>
         <ErrorPage />
+      </Layout>
+    ),
+  },
+  {
+    path: '/lang',
+    element: (
+      <Layout>
+        <LangPage />
       </Layout>
     ),
   },
