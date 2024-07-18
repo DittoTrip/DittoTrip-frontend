@@ -8,6 +8,8 @@ import Button from '../components/common/Button';
 import { login } from '../api/auth.api';
 import { useAuthStore } from '../store/authStore';
 import kakaoImg from '../assets/kakao.png';
+import { useTranslation } from 'react-i18next';
+import LangSelectButton from '../components/LangSelectButton';
 
 export interface LoginProps {
   email: string;
@@ -17,6 +19,7 @@ export interface LoginProps {
 const Login = () => {
   const navigate = useNavigate();
   const { storeLogin } = useAuthStore();
+  const { t } = useTranslation();
 
   const {
     register,
@@ -40,46 +43,51 @@ const Login = () => {
 
   return (
     <LoginStyle>
+      <LangSelectButton />
       <div className="title">
-        어서오세요!
+        {t('login.welcome')}
         <br />
-        오늘은 무슨 디토를 해볼까요?
+        {t('login.suggest')}
       </div>
 
       <form className="input" onSubmit={handleSubmit(onSubmit)}>
         <fieldset>
-          <InputText placeholder="이메일" inputType="email" {...register('email', { required: true })} />
-          {errors.email && <p className="error-text">이메일을 입력해주세요</p>}
+          <InputText placeholder={t('login.email')} inputType="email" {...register('email', { required: true })} />
+          {errors.email && <p className="error-text">{t('login.enterEmail')} </p>}
         </fieldset>
         <fieldset>
-          <InputText placeholder="비밀번호" inputType="password" {...register('password', { required: true })} />
-          {errors.password && <p className="error-text">비밀번호를 입력해주세요</p>}
+          <InputText
+            placeholder={t('login.password')}
+            inputType="password"
+            {...register('password', { required: true })}
+          />
+          {errors.password && <p className="error-text">{t('login.enterPassword')}</p>}
         </fieldset>
         <fieldset>
           <Button type="submit" size="large" scheme="keyButton">
-            로그인
+            {t('login.login')}
           </Button>
         </fieldset>
       </form>
 
       <div className="container">
         <div>
-          <a href="/find-id">아이디 찾기</a>
+          <a href="/find-id">{t('login.findId')}</a>
         </div>
         <div className="divider"></div>
         <div>
-          <a href="/find-password">비밀번호 찾기</a>
+          <a href="/find-password">{t('login.findPassword')}</a>
         </div>
         <div className="divider"></div>
         <div>
-          <a href="/signup">회원가입</a>
+          <a href="/signup">{t('login.join')}</a>
         </div>
       </div>
-      <div className="text">또는</div>
+      <div className="text">{t('login.or')}</div>
 
       <Button size="large" scheme="kakao">
         <img src={kakaoImg} alt="" className="kakao-img" />
-        카카오톡 로그인
+        {t('login.kakaoLogin')}
       </Button>
     </LoginStyle>
   );

@@ -1,5 +1,9 @@
+import { useTranslation } from 'react-i18next';
+
 const ErrorPage = () => {
-  return <>에러 페이지입니다.</>;
+  const { t } = useTranslation();
+
+  return <> {t('error')}</>;
 };
 
 export default ErrorPage;

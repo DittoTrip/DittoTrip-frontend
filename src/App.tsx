@@ -9,6 +9,8 @@ import Home from './pages/Home';
 import ErrorPage from './pages/Error';
 import Login from './pages/Login';
 import Buttons from './pages/Buttons';
+import LangPage from './pages/LangPage';
+
 
 const router = createBrowserRouter([
   {
@@ -38,6 +40,14 @@ const router = createBrowserRouter([
     element: (
       <Layout>
         <Buttons />
+      </Layout>
+    ),
+  },
+  {
+    path: '/lang',
+    element: (
+      <Layout>
+        <LangPage />
       </Layout>
     ),
   },
