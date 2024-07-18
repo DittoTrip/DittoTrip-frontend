@@ -7,7 +7,7 @@ const LangPage = () => {
   return (
     <div>
       <LangSelectButton />
-      {t('greeting')}
+      {t('login.welcome')}
     </div>
   );
 };
