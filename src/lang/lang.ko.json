@@ -11,5 +11,8 @@
     "join": "회원가입",
     "or": "또는",
     "kakaoLogin": "카카오톡 로그인"
+  },
+  "search": {
+    "placeHolder": "검색어를 입력해주세요"
   }
 }

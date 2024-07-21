@@ -7,6 +7,7 @@ import Layout from './layout/Layout';
 import Home from './pages/Home';
 import ErrorPage from './pages/Error';
 import LangPage from './pages/LangPage';
+import SearchPage from './pages/SearchPage';
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,14 @@ const router = createBrowserRouter([
     element: (
       <Layout>
         <LangPage />
+      </Layout>
+    ),
+  },
+  {
+    path: '/search',
+    element: (
+      <Layout>
+        <SearchPage />
       </Layout>
     ),
   },
