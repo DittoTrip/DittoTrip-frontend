@@ -7,6 +7,7 @@ import Layout from './layout/Layout';
 import Home from './pages/Home';
 import ErrorPage from './pages/Error';
 import LangPage from './pages/LangPage';
+import TapPage from './pages/TapPage';
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,14 @@ const router = createBrowserRouter([
     element: (
       <Layout>
         <LangPage />
+      </Layout>
+    ),
+  },
+  {
+    path: '/tap',
+    element: (
+      <Layout>
+        <TapPage />
       </Layout>
     ),
   },

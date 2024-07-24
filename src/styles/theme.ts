@@ -27,25 +27,21 @@ const fonts = {
   body1: css`
     font-size: 20px;
     font-weight: 500;
-    line-height: 130%;
     letter-spacing: -0.024rem;
   `,
   body2: css`
     font-size: 16px;
     font-weight: 700;
-    line-height: 130%;
     letter-spacing: -0.024rem;
   `,
   body3: css`
     font-size: 16px;
     font-weight: 500;
-    line-height: 100%;
     letter-spacing: -0.024rem;
   `,
   body4: css`
     font-size: 14px;
     font-weight: 400;
-    line-height: 100%;
     letter-spacing: -0.024rem;
   `,
 };
