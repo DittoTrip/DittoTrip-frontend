@@ -11,5 +11,8 @@
     "join": "join",
     "or": "or",
     "kakaoLogin": "Kakao Login"
+  },
+  "search": {
+    "placeHolder": "search"
   }
 }
