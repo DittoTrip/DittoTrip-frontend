@@ -9,7 +9,6 @@ import ErrorPage from './pages/Error';
 import LangPage from './pages/LangPage';
 import SearchPage from './pages/SearchPage';
 import TapPage from './pages/TapPage';
-import Category from './pages/Category';
 
 const router = createBrowserRouter([
   {
@@ -47,14 +46,6 @@ const router = createBrowserRouter([
     element: (
       <Layout>
         <TapPage />
-      </Layout>
-    ),
-  },
-  {
-    path: '/category',
-    element: (
-      <Layout>
-        <Category />
       </Layout>
     ),
   },
