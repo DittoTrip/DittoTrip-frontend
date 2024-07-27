@@ -2,13 +2,11 @@
 import { DittoProvider } from './context/themeContext';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
-import './App.css';
 import Layout from './layout/Layout';
 import Home from './pages/Home';
 import ErrorPage from './pages/Error';
 import LangPage from './pages/LangPage';
-import SearchPage from './pages/SearchPage';
-import TapPage from './pages/TapPage';
+import Category from './pages/Category';
 
 const router = createBrowserRouter([
   {
@@ -34,18 +32,10 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: '/searchPage',
+    path: '/category',
     element: (
       <Layout>
-        <SearchPage />
-      </Layout>
-    ),
-  },
-  {
-    path: '/tapBar',
-    element: (
-      <Layout>
-        <TapPage />
+        <Category />
       </Layout>
     ),
   },

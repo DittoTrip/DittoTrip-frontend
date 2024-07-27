@@ -8,7 +8,7 @@ interface SearchBarProps {
   placeHolder: string;
 }
 
-const SearchBar: React.FC<SearchBarProps> = ({ setSearchWord, placeHolder }: SearchBarProps) => {
+const SearchBar = ({ setSearchWord, placeHolder }: SearchBarProps) => {
   const [searchTerm, setSearchTerm] = useState('');
   const handleSearch = () => {
     setSearchWord(searchTerm);
