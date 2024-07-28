@@ -50,21 +50,40 @@ const Category = () => {
 
   return (
     <CategoryStyled>
+      <div className="title">카테고리</div>
       <SearchBar setSearchWord={setSearchWord} placeHolder={t('search.placeHolder')} />
       <Tap tapData={tapData} selectedId={selectedId} setSelectedId={setSelectedId} />
-      영화
-      <Slide carouselList={CAROUSEL_IMAGES} />
-      드라마
-      <Slide carouselList={CAROUSEL_IMAGES} />
-      {/* <div className="content">{tapData.find(item => item.id === selectedId)?.content}</div> */}
+
+      <div className="content">
+        <div className="subTitle">영화</div>
+        <Slide carouselList={CAROUSEL_IMAGES} />
+      </div>
+
+      <div className="content">
+        <div className="subTitle">영화</div>
+        <Slide carouselList={CAROUSEL_IMAGES} />
+      </div>
+
+      <div className="content">
+        <div className="subTitle">영화</div>
+        <Slide carouselList={CAROUSEL_IMAGES} />
+      </div>
     </CategoryStyled>
   );
 };
 
 const CategoryStyled = styled.div`
   padding: 20px 0;
+  .title {
+    margin-bottom: 20px;
+    color: ${({ theme }) => theme.color.keyColor};
+    ${({ theme }) => theme.font.subTitle};
+  }
+  .subTitle {
+    ${({ theme }) => theme.font.body2};
+  }
   .content {
-    margin-top: 30px;
+    padding: 12px 0;
   }
 `;
 export default Category;

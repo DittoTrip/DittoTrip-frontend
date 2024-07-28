@@ -40,7 +40,6 @@ const SearchBar = ({ setSearchWord, placeHolder }: SearchBarProps) => {
 // 스타일드 컴포넌트 정의
 const SearchContainer = styled.div`
   display: flex;
-  margin-bottom: 20px;
   height: 45px;
   align-items: center;
   border: 1px solid ${({ theme }) => theme.color.subColor1};

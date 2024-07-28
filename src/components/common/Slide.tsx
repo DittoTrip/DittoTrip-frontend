@@ -27,19 +27,16 @@ const SlideStyled = styled.div`
     overflow-x: scroll;
     display: grid;
     grid-auto-flow: column;
-    padding: 10px 16px;
-    margin-top: 8px;
+    padding: 10px 0;
     box-sizing: border-box;
     grid-template-rows: repeat(1, auto);
     grid-auto-columns: calc(33.3333% - 3.33333px);
     gap: 24px 5px;
     list-style: none;
+    margin: 0;
 
     -ms-overflow-style: none; /* 인터넷 익스플로러 */
     scrollbar-width: none; /* 파이어폭스 */
-
-    li {
-    }
   }
 
   .carousel::-webkit-scrollbar {

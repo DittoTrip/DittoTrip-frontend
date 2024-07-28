@@ -28,6 +28,7 @@ const TabStyled = styled.div`
   .tapMenu {
     width: 100%;
     display: flex;
+    padding: 12px 0;
   }
 
   .tapMenu .tapItem {

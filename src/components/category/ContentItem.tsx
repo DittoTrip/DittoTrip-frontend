@@ -13,21 +13,7 @@ const ContentItem = ({ img, name }: ContentItemProps) => {
 };
 
 const ContentItemStyled = styled.div`
-  // display: flex;
-  // align-items: center;
-  // justify-content: center;
-  // width: 100%;
-  // height: 350px;
-  // padding: 10px 0 15px;
-  // overflow: hidden;
-  // transition: border 300ms;
-
-  // img {
-  //   flex-shrink: 0;
-  //   min-width: 100%;
-  //   min-height: 100%;
-  // }
-  padding: 0 10px;
+  margin-right: 16px;
 
   .content-item-img {
     width: 100px;
@@ -36,6 +22,7 @@ const ContentItemStyled = styled.div`
   }
   .content-item-name {
     ${({ theme }) => theme.font.body4}
+    text-align: center;
   }
 `;
 
