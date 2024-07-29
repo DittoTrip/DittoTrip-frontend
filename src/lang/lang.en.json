@@ -1,11 +1,13 @@
 {
   "error": "error page",
   "login": {
-    "welcome": "welcome",
-    "suggest": "enjoy your ditto",
+    "welcome": "Welcome",
+    "suggest": "Enjoy your Ditto",
     "email": "email",
+    "enterEmail": "Please enter your e-mail",
     "password": "password",
-    "login": "login",
+    "enterPassword": "Please enter your password",
+    "login": "Login",
     "findId": "find id",
     "findPassword": "find password",
     "join": "join",
