@@ -13,6 +13,22 @@
     "kakaoLogin": "카카오톡 로그인"
   },
   "search": {
-    "placeHolder": "검색어를 입력해주세요"
+    "placeHolder": "좋아하는 콘텐츠나 연예인을 검색해 보세요"
+  },
+  "category": {
+    "tap": {
+      "contents": "영상 콘텐츠",
+      "celebrity": "연예인"
+    },
+    "contents": {
+      "entertainment": "예능",
+      "drama": "드라마",
+      "movie": "영화  "
+    },
+    "celebrity": {
+      "actor": "배우",
+      "singer": "가수",
+      "comedian": "개그맨"
+    }
   }
 }

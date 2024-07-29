@@ -15,11 +15,6 @@ export interface contentItem {
   name: string;
 }
 
-const tapData: TapItem[] = [
-  { id: 1, title: '영상 컨텐츠', content: <div>드라마 / 영화</div> },
-  { id: 2, title: '연예인', content: <div>연예인들</div> },
-];
-
 const CAROUSEL_IMAGES = [
   { img: 'https://img.freepik.com/free-photo/vivid-blurred-colorful-background_58702-2545.jpg', name: '김수현' },
   {
@@ -41,6 +36,11 @@ const CAROUSEL_IMAGES = [
 ];
 const Category = () => {
   const { t } = useTranslation();
+  const tapData: TapItem[] = [
+    { id: 1, title: `${t('category.tap.contents')}`, content: <div>드라마 / 영화</div> },
+    { id: 2, title: `${t('category.tap.celebrity')}`, content: <div>연예인들</div> },
+  ];
+
   const [searchWord, setSearchWord] = useState('');
   const [selectedId, setSelectedId] = useState<number>(tapData[0]?.id);
 
@@ -55,17 +55,17 @@ const Category = () => {
       <Tap tapData={tapData} selectedId={selectedId} setSelectedId={setSelectedId} />
 
       <div className="content">
-        <div className="subTitle">영화</div>
+        <div className="subTitle">{t('category.contents.entertainment')}</div>
         <Slide carouselList={CAROUSEL_IMAGES} />
       </div>
 
       <div className="content">
-        <div className="subTitle">영화</div>
+        <div className="subTitle">{t('category.contents.drama')}</div>
         <Slide carouselList={CAROUSEL_IMAGES} />
       </div>
 
       <div className="content">
-        <div className="subTitle">영화</div>
+        <div className="subTitle">{t('category.contents.movie')}</div>
         <Slide carouselList={CAROUSEL_IMAGES} />
       </div>
     </CategoryStyled>

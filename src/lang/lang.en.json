@@ -14,5 +14,21 @@
   },
   "search": {
     "placeHolder": "search"
+  },
+  "category": {
+    "tap": {
+      "contents": "contents",
+      "celebrity": "celebrity"
+    },
+    "contents": {
+      "entertainment": "entertainment",
+      "drama": "drama",
+      "movie": "movie  "
+    },
+    "celebrity": {
+      "actor": "actor",
+      "singer": "singer",
+      "comedian": "comedian"
+    }
   }
 }
