@@ -11,5 +11,10 @@
     "join": "join",
     "or": "or",
     "kakaoLogin": "Kakao Login"
+  },
+  "home": {
+    "suggest": "Coming weekend! How is it here?",
+    "where": "That place in the drama! Where is it?",
+    "hot ditto": "What is this week’s HOT Ditto?"
   }
 }

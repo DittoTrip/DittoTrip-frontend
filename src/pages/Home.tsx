@@ -1,43 +1,47 @@
 import { styled } from 'styled-components';
+import LangSelectButton from '../components/LangSelectButton';
+import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import suggestImg from '../assets/homemain.png'
 
 const Home = () => {
+  const navigate = useNavigate();
+  const { t } = useTranslation();
   return (
     <HomeStyle>
+      <LangSelectButton />
       <div className="title">HOME</div>
-      <div className="subTitle">subTitle</div>
-      <div className="body1">body1</div>
-      <div className="body2">body2</div>
-      <div className="body3">body3</div>
-      <div className="body4">body4</div>
+      <div className="body2">{t('home.suggest')}</div>
+      <img src={suggestImg} className='suggest-img'></img>
+      <div className="body2">{t('home.where')}</div>
+      <div className="body2">{t('home.hot ditto')}</div>
+      
     </HomeStyle>
   );
 };
 
 const HomeStyle = styled.main`
+  display: flex;
+  flex-direction: column;
+
   .title {
     color: ${({ theme }) => theme.color.keyColor};
     ${({ theme }) => theme.font.title}
-  }
-  .subTitle {
-    color: ${({ theme }) => theme.color.subColor1};
-    ${({ theme }) => theme.font.subTitle}
-  }
-  .body1 {
-    color: ${({ theme }) => theme.color.subColor2};
-    ${({ theme }) => theme.font.body1}
+    text-align: left;
+    line-height: 49px;
+    margin-bottom:15px;
   }
   .body2 {
-    color: ${({ theme }) => theme.color.subColor2};
+    color: ${({ theme }) => theme.color.keyColor};
     ${({ theme }) => theme.font.body2}
   }
-  .body3 {
-    color: ${({ theme }) => theme.color.subColor2};
-    ${({ theme }) => theme.font.body3}
+  .suggest-img {
+    
+    width: 336px;
+    height: 376px;
+    
   }
-  .body4 {
-    color: ${({ theme }) => theme.color.subColor2};
-    ${({ theme }) => theme.font.body4}
-  }
+  
 `;
 
 export default Home;
