@@ -25,6 +25,9 @@ const LangSelectButton = () => {
 };
 
 const LangSelectButtonStyled = styled.div`
+  position: fixed;
+  top: 20px;
+  right: 20px;
   text-align: center;
   width: 30px;
   height: 30px;
