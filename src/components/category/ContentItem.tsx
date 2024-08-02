@@ -17,6 +17,7 @@ const ContentItemStyled = styled.div`
   display: flex;
   flex-direction: column;
   gap: 16px;
+  width: 100px;
 
   .content-item-img {
     width: 100px;

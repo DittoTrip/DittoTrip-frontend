@@ -10,6 +10,7 @@ import Login from './pages/Login';
 import Buttons from './pages/Buttons';
 import LangPage from './pages/LangPage';
 import Category from './pages/Category';
+// import Map from './pages/Map';
 import Map from './pages/Map';
 
 const router = createBrowserRouter([

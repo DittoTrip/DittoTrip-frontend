@@ -73,7 +73,10 @@ const Category = () => {
 };
 
 const CategoryStyled = styled.div`
-  padding: 20px 0;
+  min-height: 100vh;
+  width: 100%;
+  padding: 20px 28px;
+
   .title {
     margin-bottom: 20px;
     color: ${({ theme }) => theme.color.keyColor};

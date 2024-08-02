@@ -94,12 +94,14 @@ const Login = () => {
 };
 
 const LoginStyle = styled.div`
+  height: 100vh;
+  width: 100%;
+  padding: 0 28px;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  width: 100%;
 
   .title {
     color: ${({ theme }) => theme.color.keyColor};

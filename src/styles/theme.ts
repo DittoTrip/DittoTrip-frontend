@@ -20,11 +20,13 @@ const fonts = {
     font-size: 36px;
     font-weight: 800;
     line-height: 130%;
+    letter-spacing: -0.05em;
   `,
   subTitle: css`
     font-size: 24px;
     font-weight: 700;
     line-height: 130%;
+    letter-spacing: -0.05em;
   `,
   body1: css`
     font-size: 20px;
