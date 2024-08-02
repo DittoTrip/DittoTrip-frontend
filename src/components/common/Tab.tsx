@@ -33,7 +33,7 @@ const TabStyled = styled.div`
 
   .tapMenu .tapItem {
     flex: 1;
-    padding: 10px 20px;
+    padding: 12px;
     border-bottom: 1px solid #ccc;
 
     text-align: center;
