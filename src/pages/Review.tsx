@@ -14,7 +14,7 @@ const Review = () => {
 
   return (
     <ReviewStyle>
-      <Star rating={2.5} />
+      <Star rating={4.5} />
       <Tap tapData={tapData} selectedId={selectedId} setSelectedId={setSelectedId} />
       <div className="content">{tapData.find(item => item.id === selectedId)?.content}</div>
     </ReviewStyle>
