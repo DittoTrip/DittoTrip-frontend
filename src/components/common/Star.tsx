@@ -6,6 +6,7 @@ import { faStar as faStarEmpty } from '@fortawesome/free-regular-svg-icons';
 
 interface Props {
   rating: number;
+  showRatingValue: boolean;
 }
 
 const Star = ({ rating }: Props) => {
@@ -15,13 +16,20 @@ const Star = ({ rating }: Props) => {
 
   return (
     <StarStyle>
-      {[...Array(fullStars)].map(() => (
-        <FontAwesomeIcon icon={faStar} />
-      ))}
-      {halfStar && <FontAwesomeIcon icon={faStarHalfStroke} />}
-      {[...Array(emptyStars)].map(() => (
-        <FontAwesomeIcon icon={faStarEmpty} />
-      ))}
+      <div className="star">
+        {[...Array(fullStars)].map((_, idx) => (
+          <FontAwesomeIcon icon={faStar} key={idx} />
+        ))}
+        {halfStar && <FontAwesomeIcon icon={faStarHalfStroke} />}
+        {[...Array(emptyStars)].map((_, idx) => (
+          <FontAwesomeIcon icon={faStarEmpty} key={idx} />
+        ))}
+      </div>
+
+      <div className="text-rating">
+        <div className="rating">{rating}</div>
+        <div className="max"> / 5.0</div>
+      </div>
     </StarStyle>
   );
 };
@@ -29,9 +37,26 @@ const Star = ({ rating }: Props) => {
 const StarStyle = styled.div`
   display: flex;
   justify-content: center;
-  gap: 5px;
-  path {
-    color: ${({ theme }) => theme.color.keyColor};
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+
+  .star {
+    display: flex;
+    gap: 8px;
+
+    font-size: 24px;
+    path {
+      color: ${({ theme }) => theme.color.keyColor};
+    }
+  }
+  .text-rating {
+    display: flex;
+    ${({ theme }) => theme.font.body1};
+
+    .max {
+      color: ${({ theme }) => theme.color.gray60};
+    }
   }
 `;
 
