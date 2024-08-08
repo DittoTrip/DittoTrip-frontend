@@ -25,6 +25,9 @@ const Drama = ({dramaList}: Props) =>{
 }
 
 const DramaStyled = styled.div`
+    .drama-box {
+        margin: 3.5px;
+    }
     .drama-main{
         margin-left: 27px;
         padding: 0;
@@ -36,6 +39,7 @@ const DramaStyled = styled.div`
     }
     .drama-title {
         font-size: 10px;
+        word-spacing: -1px;
     }
 `;
 
