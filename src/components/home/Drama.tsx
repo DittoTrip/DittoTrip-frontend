@@ -8,10 +8,10 @@ interface Props {
 const Drama = ({dramaList}: Props) =>{
     return(
         <DramaStyled>
-            <ul >
-                {dramaList?.map((item)=>{
+            <ul className="drama-main">
+                {dramaList?.map((item,i)=>{
                     return (
-                        <li className="drama-list">
+                        <li key={i} className="drama-list">
                             <div className="drama-box">
                                 <img className="drama-img" src={item.img}></img>
                                 <div className="drama-title">{item.title}</div>
@@ -25,8 +25,14 @@ const Drama = ({dramaList}: Props) =>{
 }
 
 const DramaStyled = styled.div`
+    .drama-main{
+        margin-left: 27px;
+        padding: 0;
+    }
     .drama-list {
         display: inline-block;
+        text-align: center;
+        margin-right: 5.5px;
     }
     .drama-title {
         font-size: 10px;
