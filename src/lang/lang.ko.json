@@ -14,6 +14,12 @@
     "or": "또는",
     "kakaoLogin": "카카오톡 로그인"
   },
+
+  "home": {
+    "suggest": "다가오는 주말! 여긴 어때요?",
+    "where": "드라마 속 그곳! 어디지?",
+    "hot ditto": "이번 주 HOT 디토는?"
+
   "search": {
     "placeHolder": "좋아하는 콘텐츠나 연예인을 검색해 보세요"
   },
