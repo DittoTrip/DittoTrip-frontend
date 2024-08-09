@@ -29,7 +29,7 @@ const DramaStyled = styled.div`
         margin: 3.5px;
     }
     .drama-main{
-        margin-left: 27px;
+        margin-left: 22px;
         padding: 0;
     }
     .drama-list {

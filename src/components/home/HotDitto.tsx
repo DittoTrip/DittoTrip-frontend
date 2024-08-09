@@ -31,8 +31,8 @@ const DHotDittoStyled = styled.div`
     .ditto-box {
         position: relative;
         float: left;
-        margin-left: 23.5px;
-        margin-bottom: 20px;
+        margin-left: 18px;
+        margin-bottom: 18px;
     }
     .ditto-img {
         
@@ -43,6 +43,10 @@ const DHotDittoStyled = styled.div`
         color: white;
         ${({theme}) => theme.font.body2}
         left: 10px;
+        width: 9rem;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
     }
     .ditto-title {
         position: absolute;
@@ -50,6 +54,10 @@ const DHotDittoStyled = styled.div`
         color: white;
         ${({theme}) => theme.font.body4}
         left: 10px;
+        width: 9rem;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
     }
 `;
 

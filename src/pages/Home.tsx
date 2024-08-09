@@ -5,8 +5,7 @@ import { useTranslation } from 'react-i18next';
 import Weekend from '../components/home/Weekend';
 import Drama from '../components/home/Drama';
 import HotDitto from '../components/home/HotDitto';
-
-
+import 'sanitize.css';
 
 export interface dramaItem {
   img: string;
@@ -65,7 +64,7 @@ const DITTO_IMAGE = [
   },
   {
     img:'https://velog.velcdn.com/images/gogo6570/post/8b1d5b9c-c003-4f3d-908f-c970a65b431f/image.png',
-    location:'수원 방화수류정',
+    location:'수원 방화수류정asdwad',
     title:'수원 토박이'
   },
   {
@@ -95,7 +94,7 @@ const Home = () => {
 const HomeStyled = styled.div`
   padding: 0;
   margin: 0;
-  width: 393px;
+  width: 375px;
   height: 1459px;
   margin-left: auto;
   margin-right: auto;
@@ -109,7 +108,7 @@ const HomeStyled = styled.div`
     margin-bottom:10px;
     margin-left: 26.5px;
     display: inline-block;
-    width: 307.5px;
+    width: 300px;
     float: left;
   }
   .body2 {
