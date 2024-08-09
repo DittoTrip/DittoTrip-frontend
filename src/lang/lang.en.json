@@ -1,20 +1,43 @@
 {
   "error": "error page",
   "login": {
-    "welcome": "welcome",
-    "suggest": "enjoy your ditto",
+    "welcome": "Welcome",
+    "suggest": "Enjoy your Ditto",
     "email": "email",
+    "enterEmail": "Please enter your e-mail",
     "password": "password",
-    "login": "login",
+    "enterPassword": "Please enter your password",
+    "login": "Login",
     "findId": "find id",
     "findPassword": "find password",
     "join": "join",
     "or": "or",
     "kakaoLogin": "Kakao Login"
   },
+ 
   "home": {
     "suggest": "Coming weekend! How is it here?",
     "where": "That place in the drama! Where is it?",
     "hot ditto": "What is this week’s HOT Ditto?"
+
+  "search": {
+    "placeHolder": "search"
+  },
+  "category": {
+    "tap": {
+      "contents": "contents",
+      "celebrity": "celebrity"
+    },
+    "contents": {
+      "entertainment": "entertainment",
+      "drama": "drama",
+      "movie": "movie  "
+    },
+    "celebrity": {
+      "actor": "actor",
+      "singer": "singer",
+      "comedian": "comedian"
+    }
+
   }
 }
