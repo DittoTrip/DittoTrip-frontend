@@ -10,7 +10,7 @@ const Weekend = () => {
                 </div>
                 <div className="main-content">
                 도깨비 신부 김고은이 도깨비 공유를 불러낼면서 면장면을 만들어낸 장소로
-                유명한 이곳!
+                유명한 이곳! 김고은이 어쩌구 저쩌구
                 </div>
             </div>
         </WeekendStyled>
@@ -38,6 +38,12 @@ const WeekendStyled = styled.div`
         height: 66px;
         margin-left: 9px;
         word-spacing: 0.1px;
+        overflow:hidden;
+        text-overflow: ellipsis;
+        word-break: break-word;
+        display:-webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical
     }
     .main-content {
         color: white;
@@ -49,6 +55,12 @@ const WeekendStyled = styled.div`
         bottom: 20px;
         left: 13.5px;
         line-height: 18px;
+        overflow:hidden;
+        text-overflow: ellipsis;
+        word-break: break-word;
+        display:-webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical
     }
 `;
 
