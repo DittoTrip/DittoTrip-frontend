@@ -1,4 +1,3 @@
-import 'sanitize.css';
 import { createGlobalStyle } from 'styled-components';
 import { ThemeName } from './theme';
 

@@ -13,6 +13,9 @@ const NewReview = () => {
       <div>
         <input type="text" className="review-text" placeholder="1000자까지 작성가능합니다." />
       </div>
+      <div>포토</div>
+      <input type="file" />
+      {/* <ImageUploader /> */}
     </NewReviewStyle>
   );
 };
