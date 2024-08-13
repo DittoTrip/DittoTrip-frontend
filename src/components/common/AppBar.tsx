@@ -36,6 +36,7 @@ const AppBarStyle = styled.div`
     display: flex;
     align-items: center;
     font-size: 20px;
+    margin-right: 20px;
   }
 
   .title {

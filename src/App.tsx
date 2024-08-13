@@ -11,6 +11,7 @@ import Buttons from './pages/Buttons';
 import LangPage from './pages/LangPage';
 import Category from './pages/Category';
 import Review from './pages/Review';
+import NewReview from './pages/NewReview';
 
 const router = createBrowserRouter([
   {
@@ -64,6 +65,14 @@ const router = createBrowserRouter([
     element: (
       <Layout>
         <Review />
+      </Layout>
+    ),
+  },
+  {
+    path: '/new-review',
+    element: (
+      <Layout>
+        <NewReview />
       </Layout>
     ),
   },
