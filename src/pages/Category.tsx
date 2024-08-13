@@ -4,6 +4,7 @@ import Tap from '../components/common/Tab';
 import { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 import Slide from '../components/common/Slide';
+import SearchDetail from '../components/common/SearchDetail';
 
 export interface TapItem {
   id: number;
@@ -50,6 +51,7 @@ const Category = () => {
 
   return (
     <CategoryStyled>
+      <StyledSearchDetail/>
       <div className="title">카테고리</div>
       <SearchBar setSearchWord={setSearchWord} placeHolder={t('search.placeHolder')} />
       <Tap tapData={tapData} selectedId={selectedId} setSelectedId={setSelectedId} />
@@ -73,6 +75,7 @@ const Category = () => {
 };
 
 const CategoryStyled = styled.div`
+  position: relative;
   padding: 20px 0;
   .title {
     margin-bottom: 20px;
@@ -86,4 +89,12 @@ const CategoryStyled = styled.div`
     padding: 12px 0;
   }
 `;
+
+const StyledSearchDetail = styled(SearchDetail)`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+`;
+
 export default Category;
