@@ -12,6 +12,7 @@ import LangPage from './pages/LangPage';
 import Category from './pages/Category';
 import Review from './pages/Review';
 import NewReview from './pages/NewReview';
+import ReviewDetail from './pages/ReviewDetail';
 
 const router = createBrowserRouter([
   {
@@ -73,6 +74,14 @@ const router = createBrowserRouter([
     element: (
       <Layout>
         <NewReview />
+      </Layout>
+    ),
+  },
+  {
+    path: '/review/:id',
+    element: (
+      <Layout>
+        <ReviewDetail />
       </Layout>
     ),
   },
