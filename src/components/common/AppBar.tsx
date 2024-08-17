@@ -27,19 +27,15 @@ const AppBar = ({ leading, title, action }: Props) => {
 const AppBarStyle = styled.div`
   display: flex;
   justify-content: space-between;
-  height: 70px;
-  width: 100%;
-  padding: 18px 28px;
+  align-items: center;
+  height: 60px;
+  padding: 0 28px;
 
   .leading {
     display: flex;
     align-items: center;
     font-size: 20px;
     margin-right: 20px;
-  }
-
-  .title {
-    flex: 1;
   }
 `;
 

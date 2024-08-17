@@ -24,22 +24,22 @@ const Slide = ({ carouselList }: Props) => {
 
 const SlideStyled = styled.div`
   .slide {
-    overflow-x: scroll;
     display: grid;
     grid-auto-flow: column;
-    padding: 10px 0;
     box-sizing: border-box;
     grid-template-rows: repeat(1, auto);
     grid-auto-columns: calc(33.3333% - 3.33333px);
-    gap: 24px 5px;
     list-style: none;
+    gap: 24px 5px;
     margin: 0;
+    padding: 10px 0;
+    overflow-x: scroll;
 
     -ms-overflow-style: none; /* 인터넷 익스플로러 */
     scrollbar-width: none; /* 파이어폭스 */
   }
 
-  .carousel::-webkit-scrollbar {
+  .slide::-webkit-scrollbar {
     display: none;
   }
 `;

@@ -32,5 +32,14 @@
       "singer": "가수",
       "comedian": "개그맨"
     }
+  },
+  "review": {
+    "title": "리뷰",
+    "write comment": "댓글 달기",
+    "tap": {
+      "total": "전체",
+      "comment": "댓글 리뷰",
+      "photo": "포토 리뷰"
+    }
   }
 }

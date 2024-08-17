@@ -13,10 +13,12 @@ const ContentItem = ({ img, name }: ContentItemProps) => {
 };
 
 const ContentItemStyled = styled.div`
-  margin-right: 16px;
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 16px;
+
+  margin-right: 16px;
 
   .content-item-img {
     width: 100px;

@@ -7,23 +7,26 @@ import AppBar from '../components/common/AppBar';
 import LangSelectButton from '../components/LangSelectButton';
 // import DropDown from '../components/common/DropDown';
 import ReviewItem from '../components/review/ReviewItem';
+import { useTranslation } from 'react-i18next';
 
-const tapData: TapItem[] = [
-  {
-    id: 1,
-    title: '전체',
-    content: (
-      <div>
-        <ReviewItem />
-        <ReviewItem />
-        <ReviewItem />
-      </div>
-    ),
-  },
-  { id: 2, title: '댓글리뷰', content: <ReviewItem /> },
-  { id: 3, title: '포토리뷰', content: <ReviewItem /> },
-];
 const Review = () => {
+  const { t } = useTranslation();
+  const tapData: TapItem[] = [
+    {
+      id: 1,
+      title: t('review.tap.total'),
+      content: (
+        <div>
+          <ReviewItem />
+          <ReviewItem />
+          <ReviewItem />
+        </div>
+      ),
+    },
+    { id: 2, title: t('review.tap.comment'), content: <ReviewItem /> },
+    { id: 3, title: t('review.tap.photo'), content: <ReviewItem /> },
+  ];
+
   const [selectedId, setSelectedId] = useState<number>(tapData[0]?.id);
 
   return (
@@ -33,7 +36,8 @@ const Review = () => {
           leading={true}
           title={
             <div className="title">
-              리뷰<div className="count"> (102)</div>
+              {t('review.title')}
+              <div className="count"> (102)</div>
             </div>
           }
           action={<LangSelectButton />}

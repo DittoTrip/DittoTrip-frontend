@@ -32,5 +32,14 @@
       "singer": "singer",
       "comedian": "comedian"
     }
+  },
+  "review": {
+    "title": "review",
+    "write comment": "write comment",
+    "tap": {
+      "total": "total",
+      "comment": "comment",
+      "photo": "photo"
+    }
   }
 }
