@@ -15,7 +15,10 @@
     "kakaoLogin": "Kakao Login"
   },
   "search": {
-    "placeHolder": "search"
+    "placeHolder": "search",
+    "recentSearches": "recent",
+    "suggestion" : "suggestion",
+    "rising" : "soar ditto"
   },
   "category": {
     "tap": {

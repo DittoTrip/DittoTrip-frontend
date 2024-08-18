@@ -10,6 +10,7 @@ import Login from './pages/Login';
 import Buttons from './pages/Buttons';
 import LangPage from './pages/LangPage';
 import Category from './pages/Category';
+import SearchPage from './pages/SearchPage';
 
 
 const router = createBrowserRouter([
@@ -56,6 +57,14 @@ const router = createBrowserRouter([
     element: (
       <Layout>
         <Category />
+      </Layout>
+    ),
+  },
+  {
+    path: '/search',
+    element: (
+      <Layout>
+        <SearchPage />
       </Layout>
     ),
   },
