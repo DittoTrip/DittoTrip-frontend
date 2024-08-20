@@ -5,7 +5,7 @@ import { faThumbsUp as Thumb } from '@fortawesome/free-solid-svg-icons';
 import { faThumbsUp as empyThumb, faComment } from '@fortawesome/free-regular-svg-icons';
 
 import Star from '../common/Star';
-import UserProfile from '../common/UserProfile';
+import UserProfileWithComment from '../common/UserProfileWithComment';
 
 const ReviewItem = () => {
   const carouselList = [
@@ -19,10 +19,10 @@ const ReviewItem = () => {
 
   return (
     <ReviewItemStyle>
-      <UserProfile />
+      <UserProfileWithComment name={'변성은'} date={'24.01.05'} />
       <div className="review-content">
         <div className="review-star">
-          <Star rating={3.5} showRatingValue={false} size={16} gap={4} />
+          <Star rating={3.5} showRatingValue={false} size={16} gap={4} color="keyColor" />
         </div>
         <div className="slide">
           {carouselList?.map(item => {
@@ -60,7 +60,8 @@ const ReviewItemStyle = styled.div`
     align-items: flex-start;
 
     .review-star {
-      padding: 16px 0;
+      margin-bottom: 16px;
+      margin-top: 4px;
     }
 
     .slide {

@@ -2,6 +2,7 @@ import { styled } from 'styled-components';
 
 import LangSelectButton from '../components/LangSelectButton';
 import AppBar from '../components/common/AppBar';
+import ImageUploader from '../components/review/UploadImage';
 
 const NewReview = () => {
   return (
@@ -14,8 +15,7 @@ const NewReview = () => {
         <input type="text" className="review-text" placeholder="1000자까지 작성가능합니다." />
       </div>
       <div>포토</div>
-      <input type="file" />
-      {/* <ImageUploader /> */}
+      <ImageUploader />
     </NewReviewStyle>
   );
 };

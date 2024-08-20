@@ -41,5 +41,10 @@
       "comment": "comment",
       "photo": "photo"
     }
+  },
+  "comment": {
+    "comment": "comment",
+    "placeHolder": "Write comment here",
+    "submit": "submit"
   }
 }

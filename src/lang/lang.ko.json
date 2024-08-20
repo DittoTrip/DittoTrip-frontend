@@ -41,5 +41,10 @@
       "comment": "댓글 리뷰",
       "photo": "포토 리뷰"
     }
+  },
+  "comment": {
+    "comment": "댓글",
+    "placeHolder": "댓글을 남겨보세요.",
+    "submit": "등록"
   }
 }

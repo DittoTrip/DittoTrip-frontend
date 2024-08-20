@@ -31,7 +31,6 @@ function ImageUploader() {
     });
   };
 
-  // Clean up the object URLs to prevent memory leaks
   React.useEffect(() => {
     return () => {
       previewUrls.forEach(url => URL.revokeObjectURL(url));

@@ -2,6 +2,8 @@ import { styled } from 'styled-components';
 import AppBar from '../components/common/AppBar';
 import LangSelectButton from '../components/LangSelectButton';
 import ReviewItem from '../components/review/ReviewItem';
+import CommentList from '../components/comment/CommentList';
+import CommentInput from '../components/comment/CommentInput';
 
 const ReviewDetail = () => {
   return (
@@ -12,6 +14,10 @@ const ReviewDetail = () => {
       <div className="content">
         <ReviewItem />
       </div>
+      <div className="comment-list">
+        <CommentList />
+      </div>
+      <CommentInput />
     </ReviewDetailStyle>
   );
 };
@@ -23,6 +29,9 @@ const ReviewDetailStyle = styled.div`
     ${({ theme }) => theme.font.subTitle};
   }
   .content {
+    padding: 0 28px;
+  }
+  .comment-list {
     padding: 0 28px;
   }
 `;
