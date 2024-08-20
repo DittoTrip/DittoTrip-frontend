@@ -1,10 +1,18 @@
 import styled from 'styled-components';
+import GlobalNavigationBar from '../components/GlobalNavigationBar';
+import { GlobalNavigationBarType } from '../components/GlobalNavigationBar/types';
 
 interface LayoutProps {
   children: React.ReactNode;
+  GNBType?: GlobalNavigationBarType;
 }
-const Layout = ({ children }: LayoutProps) => {
-  return <LayoutStyle>{children}</LayoutStyle>;
+const Layout = ({ children, GNBType }: LayoutProps) => {
+  return (
+    <LayoutStyle>
+      {children}
+      <GlobalNavigationBar GNBType={GNBType} />
+    </LayoutStyle>
+  );
 };
 const LayoutStyle = styled.main`
   width: 100%;
