@@ -42,6 +42,11 @@
       "photo": "포토 리뷰"
     }
   },
+  "newReview": {
+    "review": "리뷰",
+    "photo": "포토",
+    "placeHolder": "스팟에 대해 공유하고 싶은 내용을 작성해 주세요."
+  },
   "comment": {
     "comment": "댓글",
     "placeHolder": "댓글을 남겨보세요.",

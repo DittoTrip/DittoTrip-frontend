@@ -42,6 +42,11 @@
       "photo": "photo"
     }
   },
+  "newReview": {
+    "review": "review",
+    "photo": "photo",
+    "placeHolder": "Please write what you would like to share about the spot."
+  },
   "comment": {
     "comment": "comment",
     "placeHolder": "Write comment here",
