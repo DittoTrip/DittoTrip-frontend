@@ -34,6 +34,4 @@ const LangSelectButtonStyled = styled.div`
   background-color: ${({ theme }) => theme.color.subColor1};
 `;
 
-
-
 export default LangSelectButton;
