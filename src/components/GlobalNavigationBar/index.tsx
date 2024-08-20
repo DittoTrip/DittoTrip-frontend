@@ -3,6 +3,7 @@ import { GNBItemDataType, GlobalNavigationBarType } from './types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHouse, faLayerGroup, faSearch, faUser } from '@fortawesome/free-solid-svg-icons';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { useNavigate } from 'react-router-dom';
 
 interface GlobalNavigationBarProps {
   GNBType: GlobalNavigationBarType;
@@ -16,13 +17,15 @@ const GNBItemData: GNBItemDataType[] = [
 ];
 
 const GlobalNavigationBar = ({ GNBType }: GlobalNavigationBarProps) => {
+  const navigate = useNavigate();
+
   if (GNBType === undefined) {
     return <></>;
   }
 
   const GNBItem = ({ item }: { item: GNBItemDataType }) => {
     return (
-      <button className={`gnb-item ${item.name === GNBType ? 'active' : ''}`}>
+      <button className={`gnb-item ${item.name === GNBType ? 'active' : ''}`} onClick={() => navigate(item.route)}>
         <FontAwesomeIcon icon={item.icon as IconProp} />
         {item.name}
       </button>
