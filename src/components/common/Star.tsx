@@ -8,24 +8,30 @@ import { ColorKey } from '../../styles/theme';
 
 interface Props {
   rating: number;
-  showRatingValue: boolean;
   size: number;
   gap: number;
   color?: ColorKey;
+  isEditable?: boolean;
+  showRatingValue?: boolean;
 }
 
 // 디폴트는 검정색, color 있으면 blue
 
-const Star = ({ rating, showRatingValue, color, gap, size }: Props) => {
+const Star = ({ rating, size, gap, color, isEditable, showRatingValue }: Props) => {
   const fullStars = Math.floor(rating);
   const halfStar = rating % 1 >= 0.5;
   const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
+
+  const handleStarClick = (idx: number) => {
+    if (!isEditable) return;
+    console.log(idx);
+  };
 
   return (
     <StarStyle color={color} gap={gap} size={size}>
       <div className="star">
         {[...Array(fullStars)].map((_, idx) => (
-          <FontAwesomeIcon icon={faStar} key={idx} />
+          <FontAwesomeIcon icon={faStar} key={idx} onClick={() => handleStarClick(idx)} />
         ))}
         {halfStar && <FontAwesomeIcon icon={faStarHalfStroke} />}
         {[...Array(emptyStars)].map((_, idx) => (
