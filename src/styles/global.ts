@@ -20,5 +20,6 @@ export const GlobalStyle = createGlobalStyle<Props>`
     *{
         font-family : 'Noto Sans KR', sans-serif;
         color: ${props => (props.themeName === 'light' ? 'black' : 'white')};
+        box-sizing: border-box;
     }
 `;
