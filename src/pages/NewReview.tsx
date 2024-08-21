@@ -19,7 +19,7 @@ const NewReview = () => {
       </div>
       <div className="location-rating-card">
         <div className="spot-name">촬영지 이름</div>
-        <Star rating={4.5} showRatingValue={false} color="keyColor" gap={12} size={28} />
+        <Star rating={4.5} showRatingValue={false} color="keyColor" gap={12} size={28} isEditable={true} />
       </div>
 
       <div className="review-input-box">
