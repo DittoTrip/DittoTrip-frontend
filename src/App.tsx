@@ -46,7 +46,7 @@ const router = createBrowserRouter([
   {
     path: '/review',
     element: (
-      <Layout>
+      <Layout GNBType="search">
         <Review />
       </Layout>
     ),
@@ -54,7 +54,7 @@ const router = createBrowserRouter([
   {
     path: '/review/new',
     element: (
-      <Layout>
+      <Layout GNBType="search">
         <NewReview />
       </Layout>
     ),
@@ -62,7 +62,7 @@ const router = createBrowserRouter([
   {
     path: '/review/:id',
     element: (
-      <Layout>
+      <Layout GNBType="search">
         <ReviewDetail />
       </Layout>
     ),

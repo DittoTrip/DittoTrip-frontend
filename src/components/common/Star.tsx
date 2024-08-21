@@ -1,35 +1,54 @@
 import { styled } from 'styled-components';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar } from '@fortawesome/free-solid-svg-icons';
+import { faStar, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { faStarHalfStroke } from '@fortawesome/free-solid-svg-icons';
 import { faStar as faStarEmpty } from '@fortawesome/free-regular-svg-icons';
 import { ColorKey } from '../../styles/theme';
+import { useEffect, useState } from 'react';
 
 interface Props {
   rating: number;
-  showRatingValue: boolean;
   size: number;
   gap: number;
   color?: ColorKey;
+  isEditable?: boolean;
+  showRatingValue?: boolean;
 }
 
 // 디폴트는 검정색, color 있으면 blue
 
-const Star = ({ rating, showRatingValue, color, gap, size }: Props) => {
-  const fullStars = Math.floor(rating);
-  const halfStar = rating % 1 >= 0.5;
-  const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
+const Star = ({ rating, size, gap, color, isEditable, showRatingValue }: Props) => {
+  const [curRating, setCurRating] = useState<number>(rating);
+  const [starIcons, setStarIcons] = useState<IconDefinition[]>([
+    faStarEmpty,
+    faStarEmpty,
+    faStarEmpty,
+    faStarEmpty,
+    faStarEmpty,
+  ]);
+  useEffect(() => {
+    const fullStars = Math.floor(curRating);
+    const halfStar = curRating % 1 >= 0.5;
+    const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
+
+    let stars = [...Array(fullStars)].reduce(acc => [...acc, faStar], []);
+    stars = halfStar ? [...stars, faStarHalfStroke] : stars;
+    stars = [...Array(emptyStars)].reduce(acc => [...acc, faStarEmpty], stars);
+    setStarIcons(stars);
+  }, [curRating]);
+
+  const handleStarClick = (idx: number) => {
+    if (!isEditable) return;
+
+    setCurRating(idx + 1);
+  };
 
   return (
     <StarStyle color={color} gap={gap} size={size}>
-      <div className="star">
-        {[...Array(fullStars)].map((_, idx) => (
-          <FontAwesomeIcon icon={faStar} key={idx} />
-        ))}
-        {halfStar && <FontAwesomeIcon icon={faStarHalfStroke} />}
-        {[...Array(emptyStars)].map((_, idx) => (
-          <FontAwesomeIcon icon={faStarEmpty} key={idx} />
+      <div className={`star ${isEditable ? 'editable' : ''}`}>
+        {starIcons?.map((starIcon: IconDefinition, idx: number) => (
+          <FontAwesomeIcon icon={starIcon} key={idx} onClick={() => handleStarClick(idx)} />
         ))}
       </div>
 
@@ -54,6 +73,10 @@ const StarStyle = styled.div<{ size: number; color?: ColorKey; gap: number }>`
     gap: ${({ gap }) => gap}px;
 
     font-size: ${({ size }) => size}px;
+
+    &.editable {
+      cursor: pointer;
+    }
     path {
       color: ${({ theme, color }) => (color ? theme.color[color] : theme.color.black)};
     }

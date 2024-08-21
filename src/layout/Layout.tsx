@@ -16,7 +16,10 @@ const Layout = ({ children, GNBType }: LayoutProps) => {
 };
 const LayoutStyle = styled.main`
   width: 100%;
-  margin: 0 auto;
   min-height: 100vh;
+  max-width: 600px;
+
+  margin: 0 auto;
+  padding-bottom: 160px;
 `;
 export default Layout;
