@@ -15,7 +15,7 @@
     "kakaoLogin": "카카오톡 로그인"
   },
   "search": {
-    "placeHolder": "좋아하는 콘텐츠나 연예인을 검색해 보세요"
+    "placeholder": "좋아하는 콘텐츠나 연예인을 검색해 보세요"
   },
   "category": {
     "tap": {
@@ -45,11 +45,11 @@
   "newReview": {
     "review": "리뷰",
     "photo": "포토",
-    "placeHolder": "스팟에 대해 공유하고 싶은 내용을 작성해 주세요."
+    "placeholder": "스팟에 대해 공유하고 싶은 내용을 작성해 주세요."
   },
   "comment": {
     "comment": "댓글",
-    "placeHolder": "댓글을 남겨보세요.",
+    "placeholder": "댓글을 남겨보세요.",
     "submit": "등록"
   }
 }

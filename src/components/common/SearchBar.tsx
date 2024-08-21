@@ -5,10 +5,10 @@ import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 
 interface SearchBarProps {
   setSearchWord: (searchWord: string) => void;
-  placeHolder: string;
+  placeholder: string;
 }
 
-const SearchBar = ({ setSearchWord, placeHolder }: SearchBarProps) => {
+const SearchBar = ({ setSearchWord, placeholder }: SearchBarProps) => {
   const [searchTerm, setSearchTerm] = useState('');
   const handleSearch = () => {
     setSearchWord(searchTerm);
@@ -28,7 +28,7 @@ const SearchBar = ({ setSearchWord, placeHolder }: SearchBarProps) => {
       <input
         className="input"
         type="text"
-        placeholder={placeHolder}
+        placeholder={placeholder}
         value={searchTerm}
         onChange={e => setSearchTerm(e.target.value)}
         onKeyDown={handleKeyDown} // 엔터 키 이벤트 핸들러

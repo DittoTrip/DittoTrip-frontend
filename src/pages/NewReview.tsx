@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { styled } from 'styled-components';
 import { useTranslation } from 'react-i18next';
 
@@ -9,6 +10,7 @@ import Button from '../components/common/Button';
 
 const NewReview = () => {
   const { t } = useTranslation();
+  const [reviewText, setReviewText] = useState('');
 
   return (
     <NewReviewStyle>
@@ -21,15 +23,22 @@ const NewReview = () => {
       </div>
 
       <div className="review-input-box">
-        <div>리뷰</div>
-        <input type="text" className="review-text" placeholder={t('')} />
+        <div className="input-title text-title">리뷰</div>
+        <input
+          type="text"
+          className="review-text"
+          placeholder={t('newReview.placeholder')}
+          onChange={e => setReviewText(e.target.value)}
+          value={reviewText}
+        />
+        <div className="text-length">({reviewText.length}/1000)</div>
 
-        <div>포토</div>
+        <div className="input-title photo-title">포토</div>
         <ImageUploader />
       </div>
 
       <div className="review-submit">
-        <Button size="large" scheme="subButton">
+        <Button size="large" scheme="subButton" className="review-submit-button">
           작성 완료
         </Button>
       </div>
@@ -61,6 +70,15 @@ const NewReviewStyle = styled.div`
   .review-input-box {
     padding: 0 28px;
 
+    .input-title {
+      ${({ theme }) => theme.font.body1};
+    }
+
+    .text-title {
+      margin-top: 28px;
+      margin-bottom: 12px;
+    }
+
     .review-text {
       height: 200px;
       width: 100%;
@@ -71,6 +89,16 @@ const NewReviewStyle = styled.div`
 
       background-color: ${({ theme }) => theme.color.gray20};
     }
+
+    .photo-title {
+      margin-top: 5px;
+      margin-bottom: 8px;
+    }
+
+    .text-length {
+      text-align: right;
+      color: ${({ theme }) => theme.color.gray60};
+    }
   }
 
   .review-submit {
@@ -78,8 +106,7 @@ const NewReviewStyle = styled.div`
     bottom: 87px;
     left: 0;
 
-    width: 100%;
-
+    width: 100vw;
     padding: 0 28px;
   }
 `;

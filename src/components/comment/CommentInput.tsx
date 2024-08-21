@@ -22,7 +22,7 @@ const CommentInput = () => {
         <input
           className="comment-input"
           type="text"
-          placeholder={t('comment.placeHolder')}
+          placeholder={t('comment.placeholder')}
           value={commentText}
           onChange={e => setCommentText(e.target.value)}
           onKeyDown={handleKeyDown} // 엔터 키 이벤트 핸들러

@@ -89,7 +89,6 @@ export const light: Theme = {
     large: {
       font: fonts.body2,
       padding: '15px 0',
-
       width: '100%',
     },
     small: {

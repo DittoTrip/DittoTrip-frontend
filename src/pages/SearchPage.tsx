@@ -10,7 +10,7 @@ const SearchPage = () => {
         setSearchWord={() => {
           alert('검색');
         }}
-        placeHolder={t('search.placeHolder')}
+        placeholder={t('search.placeholder')}
       />
     </div>
   );

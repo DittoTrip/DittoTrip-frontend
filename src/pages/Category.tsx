@@ -51,7 +51,7 @@ const Category = () => {
   return (
     <CategoryStyled>
       <div className="title">카테고리</div>
-      <SearchBar setSearchWord={setSearchWord} placeHolder={t('search.placeHolder')} />
+      <SearchBar setSearchWord={setSearchWord} placeholder={t('search.placeholder')} />
       <Tap tapData={tapData} selectedId={selectedId} setSelectedId={setSelectedId} />
 
       <div className="content">

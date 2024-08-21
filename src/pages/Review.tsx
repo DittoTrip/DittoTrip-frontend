@@ -8,6 +8,7 @@ import LangSelectButton from '../components/LangSelectButton';
 // import DropDown from '../components/common/DropDown';
 import ReviewItem from '../components/review/ReviewItem';
 import { useTranslation } from 'react-i18next';
+import DropDown from '../components/common/DropDown';
 
 const Review = () => {
   const { t } = useTranslation();
@@ -48,6 +49,7 @@ const Review = () => {
       </div>
 
       <Tap tapData={tapData} selectedId={selectedId} setSelectedId={setSelectedId} />
+      <DropDown setValue={() => setSelectedId} />
       <div className="content">
         {/* <DropDown setValue={() => alert('클릭')} /> */}
         {tapData.find(item => item.id === selectedId)?.content}
