@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { TapItem } from '../../pages/TapPage';
+import { TapItem } from '../../pages/Category';
 
 interface TapProps {
   tapData: TapItem[];

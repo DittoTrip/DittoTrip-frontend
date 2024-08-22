@@ -2,12 +2,10 @@
 import { DittoProvider } from './context/themeContext';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
+import './App.css';
 import Layout from './layout/Layout';
-
 import Home from './pages/Home';
 import ErrorPage from './pages/Error';
-import Login from './pages/Login';
-import Buttons from './pages/Buttons';
 import LangPage from './pages/LangPage';
 import Category from './pages/Category';
 import Review from './pages/Review';
@@ -19,29 +17,13 @@ const router = createBrowserRouter([
     path: '/',
 
     element: (
-      <Layout>
+      <Layout GNBType="home">
         <Home />
       </Layout>
     ),
     errorElement: (
       <Layout>
         <ErrorPage />
-      </Layout>
-    ),
-  },
-  {
-    path: '/login',
-    element: (
-      <Layout>
-        <Login />
-      </Layout>
-    ),
-  },
-  {
-    path: '/buttons',
-    element: (
-      <Layout>
-        <Buttons />
       </Layout>
     ),
   },
@@ -56,7 +38,7 @@ const router = createBrowserRouter([
   {
     path: '/category',
     element: (
-      <Layout>
+      <Layout GNBType="search">
         <Category />
       </Layout>
     ),
@@ -64,7 +46,7 @@ const router = createBrowserRouter([
   {
     path: '/review',
     element: (
-      <Layout>
+      <Layout GNBType="search">
         <Review />
       </Layout>
     ),
@@ -72,7 +54,7 @@ const router = createBrowserRouter([
   {
     path: '/review/new',
     element: (
-      <Layout>
+      <Layout GNBType="search">
         <NewReview />
       </Layout>
     ),
@@ -80,7 +62,7 @@ const router = createBrowserRouter([
   {
     path: '/review/:id',
     element: (
-      <Layout>
+      <Layout GNBType="search">
         <ReviewDetail />
       </Layout>
     ),

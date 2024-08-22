@@ -25,6 +25,14 @@ const LangSelectButton = () => {
 };
 
 const LangSelectButtonStyled = styled.div`
+  -ms-user-select: none;
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+
+  margin-top: 9px;
+  display: inline-block;
   text-align: center;
   width: 30px;
   height: 30px;
@@ -38,4 +46,5 @@ const LangSelectButtonStyled = styled.div`
     height: 100%;
   }
 `;
+
 export default LangSelectButton;

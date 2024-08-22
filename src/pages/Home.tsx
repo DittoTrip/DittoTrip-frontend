@@ -1,43 +1,128 @@
 import { styled } from 'styled-components';
+import LangSelectButton from '../components/LangSelectButton';
+import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import Weekend from '../components/home/Weekend';
+import Drama from '../components/home/Drama';
+import HotDitto from '../components/home/HotDitto';
+import 'sanitize.css';
+
+export interface dramaItem {
+  img: string;
+  title: string;
+}
+
+export interface dittoItem {
+  img: string;
+  location: string;
+  title: string;
+}
+
+const DRAMA_IMAGE = [
+  {
+    img :'https://velog.velcdn.com/images/gogo6570/post/a68996dd-2333-41bb-89a6-36c9e710d0b3/image.png',
+    title:'뷰티 인사이드'
+  },
+  {
+    img :'https://velog.velcdn.com/images/gogo6570/post/19a374e7-3cc0-4db5-8335-7c33d9ce2328/image.png',
+    title:'동백꽃 필 무렵'
+  },
+  {
+    img :'https://velog.velcdn.com/images/gogo6570/post/c0999bfc-93fd-4a41-a1ba-1a277d109ea8/image.png',
+    title:'눈물의 여왕'
+  },
+  {
+    img :'https://velog.velcdn.com/images/gogo6570/post/79bf120a-36d6-4d9c-972d-5866617a4ad0/image.png',
+    title:'도꺠비'
+  },
+  {
+    img :'https://velog.velcdn.com/images/gogo6570/post/7ea13176-f7e3-4aa4-8419-d29eec305775/image.png',
+    title:'나의 아저씨'
+  },
+];
+
+const DITTO_IMAGE = [
+  {
+    img:'https://velog.velcdn.com/images/gogo6570/post/8b1d5b9c-c003-4f3d-908f-c970a65b431f/image.png',
+    location:'수원 방화수류정',
+    title:'수원 토박이'
+  },
+  {
+    img:'https://velog.velcdn.com/images/gogo6570/post/8b1d5b9c-c003-4f3d-908f-c970a65b431f/image.png',
+    location:'수원 방화수류정',
+    title:'수원 토박이'
+  },
+  {
+    img:'https://velog.velcdn.com/images/gogo6570/post/8b1d5b9c-c003-4f3d-908f-c970a65b431f/image.png',
+    location:'수원 방화수류정',
+    title:'수원 토박이'
+  },
+  {
+    img:'https://velog.velcdn.com/images/gogo6570/post/8b1d5b9c-c003-4f3d-908f-c970a65b431f/image.png',
+    location:'수원 방화수류정',
+    title:'수원 토박이'
+  },
+  {
+    img:'https://velog.velcdn.com/images/gogo6570/post/8b1d5b9c-c003-4f3d-908f-c970a65b431f/image.png',
+    location:'수원 방화수류정asdwad',
+    title:'수원 토박이'
+  },
+  {
+    img:'https://velog.velcdn.com/images/gogo6570/post/8b1d5b9c-c003-4f3d-908f-c970a65b431f/image.png',
+    location:'수원 방화수류정',
+    title:'수원 토박이'
+  },
+];
 
 const Home = () => {
+  const navigate = useNavigate();
+  const { t } = useTranslation();
   return (
-    <HomeStyle>
+    <HomeStyled>
       <div className="title">HOME</div>
-      <div className="subTitle">subTitle</div>
-      <div className="body1">body1</div>
-      <div className="body2">body2</div>
-      <div className="body3">body3</div>
-      <div className="body4">body4</div>
-    </HomeStyle>
+      <LangSelectHomeButton/>
+      <div className="body2">{t('home.suggest')}</div>
+      <Weekend/>
+      <div className="body2">{t('home.where')}</div>
+      <Drama dramaList = {DRAMA_IMAGE}/>
+      <div className="body2">{t('home.hot ditto')}</div>
+      <HotDitto dittoList={DITTO_IMAGE}/>
+    </HomeStyled>
   );
 };
 
-const HomeStyle = styled.main`
+const HomeStyled = styled.div`
+  padding: 0;
+  margin: 0;
+  width: 375px;
+  height: 1459px;
+  margin-left: auto;
+  margin-right: auto;
+  div {
+    margin-left: auto;
+    margin-right: auto;
+  }
   .title {
     color: ${({ theme }) => theme.color.keyColor};
     ${({ theme }) => theme.font.title}
-  }
-  .subTitle {
-    color: ${({ theme }) => theme.color.subColor1};
-    ${({ theme }) => theme.font.subTitle}
-  }
-  .body1 {
-    color: ${({ theme }) => theme.color.subColor2};
-    ${({ theme }) => theme.font.body1}
+    margin-bottom:10px;
+    margin-left: 26.5px;
+    display: inline-block;
+    width: 300px;
+    float: left;
   }
   .body2 {
-    color: ${({ theme }) => theme.color.subColor2};
+    color: ${({ theme }) => theme.color.keyColor};
     ${({ theme }) => theme.font.body2}
+    margin-bottom: 8px;
+    margin-left: 26.5px;
+    margin-top: 23px;
+    clear: both;
   }
-  .body3 {
-    color: ${({ theme }) => theme.color.subColor2};
-    ${({ theme }) => theme.font.body3}
-  }
-  .body4 {
-    color: ${({ theme }) => theme.color.subColor2};
-    ${({ theme }) => theme.font.body4}
-  }
+`;
+
+const LangSelectHomeButton = styled(LangSelectButton)`
+  float: left;
 `;
 
 export default Home;
