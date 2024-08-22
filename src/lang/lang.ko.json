@@ -12,6 +12,28 @@
     "or": "또는",
     "kakaoLogin": "카카오톡 로그인"
   },
+  "search": {
+    "placeHolder": "좋아하는 콘텐츠나 연예인을 검색해 보세요",
+    "recentSearches": "최근 검색",
+    "suggestion" : "추천 검색어",
+    "rising" : "급상승 디토"
+  },
+  "category": {
+    "tap": {
+      "contents": "영상 콘텐츠",
+      "celebrity": "연예인"
+    },
+    "contents": {
+      "entertainment": "예능",
+      "drama": "드라마",
+      "movie": "영화  "
+    },
+    "celebrity": {
+      "actor": "배우",
+      "singer": "가수",
+      "comedian": "개그맨"
+    }
+  },
   "home": {
     "suggest": "다가오는 주말! 여긴 어때요?",
     "where": "드라마 속 그곳! 어디지?",
