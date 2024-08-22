@@ -18,7 +18,9 @@ const Button = ({ children, size, scheme, disabled, onClick }: Props) => {
 export const ButtonStyle = styled.button<Omit<Props, 'children'>>`
   display: ${({ theme, size }) => theme.button[size].display};
   padding: ${({ theme, size }) => theme.button[size].padding};
+  margin: 0 auto;
   ${({ theme, size }) => theme.button[size].width && `width: ${theme.button[size].width};`}
+  max-width: 600px;
 
   border: 0;
   border-radius: ${({ theme }) => theme.borderRadius.default};

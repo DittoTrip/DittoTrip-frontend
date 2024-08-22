@@ -19,13 +19,12 @@ const NewReview = () => {
       </div>
       <div className="location-rating-card">
         <div className="spot-name">촬영지 이름</div>
-        <Star rating={4.5} showRatingValue={false} color="keyColor" gap={12} size={28} isEditable={true} />
+        <Star rating={4} showRatingValue={false} color="keyColor" gap={12} size={28} isEditable={true} />
       </div>
 
       <div className="review-input-box">
         <div className="input-title text-title">리뷰</div>
-        <input
-          type="text"
+        <textarea
           className="review-text"
           placeholder={t('newReview.placeholder')}
           onChange={e => setReviewText(e.target.value)}
@@ -82,6 +81,7 @@ const NewReviewStyle = styled.div`
     .review-text {
       height: 200px;
       width: 100%;
+      padding: 15px;
 
       border-radius: 12px;
       border: none;
@@ -102,11 +102,14 @@ const NewReviewStyle = styled.div`
   }
 
   .review-submit {
+    display: flex;
+    justify-content: center;
+
     position: fixed;
-    bottom: 87px;
+    bottom: 100px;
     left: 0;
 
-    width: 100vw;
+    width: 100%;
     padding: 0 28px;
   }
 `;

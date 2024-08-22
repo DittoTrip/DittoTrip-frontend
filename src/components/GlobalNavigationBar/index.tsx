@@ -71,6 +71,7 @@ export const GlobalNavigationBarStyled = styled.div`
       height: 60px;
 
       cursor: pointer;
+      border: none;
 
       .GNB-fa-icon {
         color: blue;
