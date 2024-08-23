@@ -8,8 +8,8 @@ import { useNavigate } from "react-router-dom";
 import LangSelectButton from "../components/LangSelectButton";
 import AppBar from "../components/common/AppBar";
 import TextSlide from "../components/common/TextSlide";
-import Tap from "../components/common/Tab";
 import DittoTap from "../components/search/DittoTap";
+import DittoSlide from "../components/search/DittoSlide";
 
 export interface searchItem {
     title : string;
@@ -20,6 +20,35 @@ export interface TapItem {
     title: string;
     content: JSX.Element;
 }
+
+export interface dittoItem {
+    img : string;
+    title: string;
+}
+
+const CAROUSEL_IMAGES = [
+    {   img : "https://velog.velcdn.com/images/gogo6570/post/43eb6553-a55e-4856-b497-e6c4f86b94e7/image.png",
+        title : "1.눈물의 여왕",
+    },
+    {   img : "https://velog.velcdn.com/images/gogo6570/post/43eb6553-a55e-4856-b497-e6c4f86b94e7/image.png",
+        title : "2.눈물의 여왕",
+    },
+    {   img : "https://velog.velcdn.com/images/gogo6570/post/43eb6553-a55e-4856-b497-e6c4f86b94e7/image.png",
+        title : "3.눈물의 여왕",
+    },
+    {   img : "https://velog.velcdn.com/images/gogo6570/post/43eb6553-a55e-4856-b497-e6c4f86b94e7/image.png",
+        title : "4.눈물의 여왕",
+    },
+    {   img : "https://velog.velcdn.com/images/gogo6570/post/43eb6553-a55e-4856-b497-e6c4f86b94e7/image.png",
+        title : "5.눈물의 여왕",
+    },
+    {   img : "https://velog.velcdn.com/images/gogo6570/post/43eb6553-a55e-4856-b497-e6c4f86b94e7/image.png",
+        title : "6.눈물의 여왕",
+    },
+    {   img : "https://velog.velcdn.com/images/gogo6570/post/43eb6553-a55e-4856-b497-e6c4f86b94e7/image.png",
+        title : "7.눈물의 여왕",
+    },
+]
 
 const CAROUSEL_TEXTS = [
     { title : "도꺠비"},{ title : "공유"},{ title : "강원도"},
@@ -65,15 +94,23 @@ const Search = () => {
                 <div className="clear"/>
                 
                 <div className="search-title"> 추천 검색어</div>
-                <TextSlide carouselList={CAROUSEL_TEXTS}/>
+                <TextSlide carouselTextList={CAROUSEL_TEXTS}/>
                 
-                <div className="search-title">급상승 디토</div>
-                <DittoTap tapData={tapData} selectedId={selectedId} setSelectedId={setSelectedId}/>
+                <RiseDittoStyled>
+                    <div className="ditto-title">급상승 디토</div>
+                    <div className="ditto">|</div>
+                    <DittoTap tapData={tapData} selectedId={selectedId} setSelectedId={setSelectedId}/>
+                </RiseDittoStyled>
+                <DittoSlide carouselDittoList={CAROUSEL_IMAGES}/>
             </div>
             
         </SearchStyled>
     )
 }
+
+const RiseDittoStyled = styled.div`
+    display: flex;
+`
 
 const SearchStyled = styled.div`
     .app-bar .title {
@@ -88,6 +125,16 @@ const SearchStyled = styled.div`
         ${({theme})=>theme.font.body2};
         display: inline-block;
     }
+    .ditto-title {
+        ${({theme})=>theme.font.body2};
+        margin-top: 24px;
+    }
+    .ditto {
+        margin-top: 22px;
+        padding-left: 14.5px;
+        color : ${({theme})=>theme.color.gray80};
+    }
+    
     .container {
         margin: 0 27px;
     }
