@@ -38,6 +38,12 @@
       "total": "total",
       "comment": "comment",
       "photo": "photo"
+    },
+    "reviewSortOptions": {
+      "newest": "newest",
+      "oldest": "oldest",
+      "highest": "highest",
+      "lowest": "lowest"
     }
   },
   "newReview": {
@@ -54,5 +60,12 @@
     "suggest": "Coming weekend! How is it here?",
     "where": "That place in the drama! Where is it?",
     "hot ditto": "What is this week’s HOT Ditto?"
+  },
+  "bottomsheet": {
+    "sort": "sort",
+    "viewDetail": "View Detail",
+    "report": "report",
+    "delete": "delete",
+    "modify": "modify"
   }
 }

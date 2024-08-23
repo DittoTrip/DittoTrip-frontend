@@ -53,6 +53,7 @@ export const GlobalNavigationBarStyled = styled.div`
   height: 87px;
 
   background: ${({ theme }) => theme.color.background};
+  z-index: 30;
 
   .gnb-item-wrapper {
     display: flex;

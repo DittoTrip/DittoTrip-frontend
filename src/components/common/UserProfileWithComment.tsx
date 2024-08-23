@@ -8,9 +8,10 @@ import profileImg from '../../assets/profile.png';
 interface Props {
   name: string;
   date: string;
+  setIsExpandedOption: (expanded: boolean) => void;
   comment?: string;
 }
-const UserProfileWithComment = ({ name, date, comment }: Props) => {
+const UserProfileWithComment = ({ name, date, comment, setIsExpandedOption }: Props) => {
   return (
     <UserProfileWithCommentStyle>
       {/* 마이페이지 이동 필요   */}
@@ -25,7 +26,13 @@ const UserProfileWithComment = ({ name, date, comment }: Props) => {
           </div>
 
           <div className="actions">
-            <FontAwesomeIcon className="icon" icon={faEllipsis} onClick={() => {}} />
+            <FontAwesomeIcon
+              className="icon"
+              icon={faEllipsis}
+              onClick={() => {
+                setIsExpandedOption(true);
+              }}
+            />
           </div>
         </div>
 

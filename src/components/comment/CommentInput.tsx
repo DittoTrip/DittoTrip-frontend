@@ -17,7 +17,7 @@ const CommentInput = () => {
   };
 
   return (
-    <CommentInputSyled>
+    <CommentInputStyled>
       <div className="comment-input-wrapper">
         <input
           className="comment-input"
@@ -29,11 +29,11 @@ const CommentInput = () => {
         />
         <button className="comment-submit">{t('comment.submit')}</button>
       </div>
-    </CommentInputSyled>
+    </CommentInputStyled>
   );
 };
 
-const CommentInputSyled = styled.div`
+const CommentInputStyled = styled.div`
   display: flex;
   align-items: center;
 
@@ -50,7 +50,7 @@ const CommentInputSyled = styled.div`
     display: flex;
     flex: 1;
     justify-content: space-between;
-    padding: 10px 20px;
+    padding: 5px 20px;
     margin: 10px 28px;
 
     border: 1px solid ${({ theme }) => theme.color.keyColor};
