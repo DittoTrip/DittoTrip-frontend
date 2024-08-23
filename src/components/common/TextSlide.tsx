@@ -3,14 +3,14 @@ import { searchItem } from "../../pages/Search";
 import SearchItem from "../search/SearchItem";
 
 interface Props {
-    carouselList: searchItem[];
+    carouselTextList: searchItem[];
 }
 
-const TextSlide = ({carouselList}: Props) => {
+const TextSlide = ({carouselTextList}: Props) => {
     return (
         <TextSlideStyled>
             <ul className="slide">
-                {carouselList?.map(item => {
+                {carouselTextList?.map(item => {
                     return (
                         <li>
                             <SearchItem title={item.title}/>

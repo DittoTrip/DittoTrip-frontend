@@ -25,6 +25,7 @@ const DittoTap = ({ tapData, selectedId, setSelectedId }: TapProps) => {
 };
 
 const TabStyled = styled.div`
+  white-space: nowrap; 
   .tapMenu {
     width: 100%;
     display: flex;
