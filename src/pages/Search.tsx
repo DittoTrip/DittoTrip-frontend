@@ -8,9 +8,17 @@ import { useNavigate } from "react-router-dom";
 import LangSelectButton from "../components/LangSelectButton";
 import AppBar from "../components/common/AppBar";
 import TextSlide from "../components/common/TextSlide";
+import Tap from "../components/common/Tab";
+import DittoTap from "../components/search/DittoTap";
 
 export interface searchItem {
     title : string;
+}
+
+export interface TapItem {
+    id : number;
+    title: string;
+    content: JSX.Element;
 }
 
 const CAROUSEL_TEXTS = [
@@ -22,6 +30,13 @@ const Search = () => {
     const { t } = useTranslation();
     const [searchWord, setSearchWord] = useState('');
     let navigate = useNavigate();
+
+    const tapData: TapItem[] = [
+        {id: 1, title: `${t('category.tap.contents')}`, content: <div>영상 컨턴츠</div>},
+        {id: 2, title: `${t('category.tap.celebrity')}`, content: <div>연예인</div>}
+    ]
+
+    const [selectedId, setSelectedId] = useState<number>(tapData[0]?.id);
     return (
         <SearchStyled>
             <div className="app-bar">
@@ -53,7 +68,7 @@ const Search = () => {
                 <TextSlide carouselList={CAROUSEL_TEXTS}/>
                 
                 <div className="search-title">급상승 디토</div>
-                
+                <DittoTap tapData={tapData} selectedId={selectedId} setSelectedId={setSelectedId}/>
             </div>
             
         </SearchStyled>
@@ -71,6 +86,7 @@ const SearchStyled = styled.div`
         margin-top: 32px;
         margin-bottom: 16px;
         ${({theme})=>theme.font.body2};
+        display: inline-block;
     }
     .container {
         margin: 0 27px;
@@ -89,8 +105,6 @@ const SearchStyled = styled.div`
     .clear {
         clear: both;
     }
-
-
 `
 
 export default Search;
