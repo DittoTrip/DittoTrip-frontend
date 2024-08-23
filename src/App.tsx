@@ -11,6 +11,7 @@ import Category from './pages/Category';
 import Review from './pages/Review';
 import NewReview from './pages/NewReview';
 import ReviewDetail from './pages/ReviewDetail';
+import Search from './pages/Search';
 
 const router = createBrowserRouter([
   {
@@ -67,6 +68,14 @@ const router = createBrowserRouter([
       </Layout>
     ),
   },
+  {
+    path: '/search',
+    element: (
+      <Layout GNBType="search">
+        <Search />
+      </Layout>
+    )
+  }
 ]);
 
 function App() {
