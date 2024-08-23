@@ -4,6 +4,7 @@ import Tap from '../components/common/Tab';
 import { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 import Slide from '../components/common/Slide';
+import AppBar from '../components/common/AppBar';
 
 export interface TapItem {
   id: number;
@@ -50,40 +51,50 @@ const Category = () => {
 
   return (
     <CategoryStyled>
-      <div className="title">카테고리</div>
-      <SearchBar setSearchWord={setSearchWord} placeholder={t('search.placeholder')} />
+      <AppBar leading={false} title={<div className="title">카테고리</div>} />
+      <div className="searchBar">
+        <SearchBar setSearchWord={setSearchWord} placeholder={t('search.placeholder')} />
+      </div>
+
       <Tap tapData={tapData} selectedId={selectedId} setSelectedId={setSelectedId} />
+      <div className="content-wrapper">
+        <div className="content">
+          <div className="subTitle">{t('category.contents.entertainment')}</div>
+          <Slide carouselList={CAROUSEL_IMAGES} />
+        </div>
 
-      <div className="content">
-        <div className="subTitle">{t('category.contents.entertainment')}</div>
-        <Slide carouselList={CAROUSEL_IMAGES} />
-      </div>
+        <div className="content">
+          <div className="subTitle">{t('category.contents.drama')}</div>
+          <Slide carouselList={CAROUSEL_IMAGES} />
+        </div>
 
-      <div className="content">
-        <div className="subTitle">{t('category.contents.drama')}</div>
-        <Slide carouselList={CAROUSEL_IMAGES} />
-      </div>
-
-      <div className="content">
-        <div className="subTitle">{t('category.contents.movie')}</div>
-        <Slide carouselList={CAROUSEL_IMAGES} />
+        <div className="content">
+          <div className="subTitle">{t('category.contents.movie')}</div>
+          <Slide carouselList={CAROUSEL_IMAGES} />
+        </div>
       </div>
     </CategoryStyled>
   );
 };
 
 const CategoryStyled = styled.div`
-  padding: 20px 0;
   .title {
-    margin-bottom: 20px;
     color: ${({ theme }) => theme.color.keyColor};
+    text-align: left;
+    flex: 1;
     ${({ theme }) => theme.font.subTitle};
+  }
+  .searchBar {
+    margin: 8px 28px 0 28px;
   }
   .subTitle {
     ${({ theme }) => theme.font.body2};
   }
   .content {
     padding: 12px 0;
+  }
+  .content-wrapper {
+    margin: 0 28px;
   }
 `;
 export default Category;
