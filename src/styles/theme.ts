@@ -1,7 +1,7 @@
 import { RuleSet, css } from 'styled-components';
 
 // 버튼
-export type ButtonSize = 'large' | 'small';
+export type ButtonSize = 'large' | 'medium' | 'small';
 export type ButtonScheme = 'keyButton' | 'subButton' | 'kakao';
 
 export type ThemeName = 'light' | 'dark';
@@ -81,6 +81,7 @@ const colors = {
   gray80: '#717171',
   kakao: '#FBE750',
   kakaoText: '#2F1F00',
+  red: '#E31D1C',
 };
 export const light: Theme = {
   name: 'light',
@@ -90,6 +91,11 @@ export const light: Theme = {
       font: fonts.body2,
       padding: '15px 0',
       width: '100%',
+    },
+    medium: {
+      font: fonts.body2,
+      padding: '15px 0',
+      width: '104px',
     },
     small: {
       font: fonts.body5,

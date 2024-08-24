@@ -11,6 +11,7 @@ import Category from './pages/Category';
 import Review from './pages/Review';
 import NewReview from './pages/NewReview';
 import ReviewDetail from './pages/ReviewDetail';
+import Join from './pages/Join';
 
 const router = createBrowserRouter([
   {
@@ -64,6 +65,14 @@ const router = createBrowserRouter([
     element: (
       <Layout GNBType="search">
         <ReviewDetail />
+      </Layout>
+    ),
+  },
+  {
+    path: '/join',
+    element: (
+      <Layout>
+        <Join />
       </Layout>
     ),
   },
