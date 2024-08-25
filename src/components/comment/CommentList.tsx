@@ -7,12 +7,23 @@ const CommenList = () => {
   return (
     <CommentListStyled>
       <div className="comment-title">{t('comment.comment')}</div>
-      <UserProfileWithComment name={'권수연'} date={'24.01.05'} comment="얼마나 멋있나요?" />
-      <UserProfileWithComment name={'변성은'} date={'24.01.05'} comment="본인이 찍었나요?" />
+      <UserProfileWithComment
+        name={'변성은'}
+        date={'24.01.05'}
+        comment="얼마나 멋있나요?"
+        setIsExpandedOption={() => {}}
+      />
+      <UserProfileWithComment
+        name={'권수연'}
+        date={'24.01.05'}
+        comment="본인이 찍었나요? 도용 아닌가요?"
+        setIsExpandedOption={() => {}}
+      />
       <UserProfileWithComment
         name={'호빵맨에게 물린 호빵'}
         date={'24.01.05'}
         comment="가족들과 가보려고 합니다. 가족들과 가기에도 괜찮나요"
+        setIsExpandedOption={() => {}}
       />
     </CommentListStyled>
   );

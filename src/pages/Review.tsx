@@ -114,11 +114,12 @@ const Review = () => {
           }
         />
       </div>
-      <div className="rating">
+      <div className="star-rating">
         <Star rating={4.5} showRatingValue={true} color={'keyColor'} gap={8} size={24} />
       </div>
-
-      <Tap tapData={tapData} selectedId={selectedTapId} setSelectedId={setSelectedTapId} />
+      <div className="tap">
+        <Tap tapData={tapData} selectedId={selectedTapId} setSelectedId={setSelectedTapId} />
+      </div>
       <div className="dropdown">
         <DropDown setIsOpen={() => setIsOpen(true)} value={reviewSortOptions[selectedSortId]} />
       </div>
@@ -155,6 +156,12 @@ const ReviewStyle = styled.div`
     .count {
       color: ${({ theme }) => theme.color.gray60};
     }
+  }
+  .star-rating {
+    margin-top: 8px;
+  }
+  .tap {
+    margin-top: 4px;
   }
 
   .dropdown {

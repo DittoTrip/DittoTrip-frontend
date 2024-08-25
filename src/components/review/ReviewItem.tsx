@@ -89,7 +89,7 @@ const ReviewItemStyle = styled.div`
       display: none;
     }
     .review-text {
-      padding: 20px 0;
+      padding: 20px 0 24px 0;
     }
   }
   .review-info {
