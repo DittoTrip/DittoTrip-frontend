@@ -13,6 +13,7 @@ import NewReview from './pages/NewReview';
 import ReviewDetail from './pages/ReviewDetail';
 import Search from './pages/Search';
 import Join from './pages/Join';
+import Report from './pages/Report';
 
 const router = createBrowserRouter([
   {
@@ -82,6 +83,15 @@ const router = createBrowserRouter([
     element: (
       <Layout>
         <Join />
+      </Layout>
+    ),
+  },
+  {
+    path: '/report',
+
+    element: (
+      <Layout GNBType="search">
+        <Report />
       </Layout>
     ),
   },

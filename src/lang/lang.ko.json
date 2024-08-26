@@ -67,5 +67,18 @@
     "report": "신고하기",
     "delete": "삭제하기",
     "modify": "수정하기"
+  },
+  "report": {
+    "title": "신고하는 이유를 선택해 주세요.",
+    "options": {
+      "Swearing": "욕설 및 비하",
+      "illegalInformation": "불법 정보",
+      "Promotional": "홍보 및 영리 목적",
+      "PersonalInformation": "개인 정보 노출",
+      "PornographyContent": "음란물 및 선정적인 콘텐츠",
+      "inappropriateNickname": "부적절한 닉네임",
+      "etc": "기타"
+    },
+    "message": "신고가 접수되었습니다."
   }
 }
