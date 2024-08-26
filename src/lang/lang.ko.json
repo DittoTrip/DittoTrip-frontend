@@ -34,9 +34,60 @@
       "comedian": "개그맨"
     }
   },
+  "search": {
+    "placeholder": "좋아하는 콘텐츠나 연예인을 검색해 보세요"
+  },
+  "category": {
+    "tap": {
+      "contents": "영상 콘텐츠",
+      "celebrity": "연예인"
+    },
+    "contents": {
+      "entertainment": "예능",
+      "drama": "드라마",
+      "movie": "영화  "
+    },
+    "celebrity": {
+      "actor": "배우",
+      "singer": "가수",
+      "comedian": "개그맨"
+    }
+  },
+  "review": {
+    "title": "리뷰",
+    "write comment": "댓글 달기",
+    "tap": {
+      "total": "전체",
+      "comment": "댓글 리뷰",
+      "photo": "포토 리뷰"
+    },
+    "reviewSortOptions": {
+      "newest": "최신순",
+      "oldest": "등록순",
+      "highest": "별점 높은 순",
+      "lowest": "별점 낮은 순"
+    }
+  },
+  "newReview": {
+    "review": "리뷰",
+    "photo": "포토",
+    "placeholder": "스팟에 대해 공유하고 싶은 내용을 작성해 주세요."
+  },
+  "comment": {
+    "comment": "댓글",
+    "placeholder": "댓글을 남겨보세요.",
+    "submit": "등록"
+  },
   "home": {
     "suggest": "다가오는 주말! 여긴 어때요?",
     "where": "드라마 속 그곳! 어디지?",
     "hot ditto": "이번 주 HOT 디토는?"
+  },
+  "bottomsheet": {
+    "sort": "정렬",
+    "viewDetail": "상세보기",
+    "report": "신고하기",
+    "delete": "삭제하기",
+    "modify": "수정하기"
   }
 }

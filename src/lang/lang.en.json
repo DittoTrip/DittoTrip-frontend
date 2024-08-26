@@ -13,10 +13,7 @@
     "kakaoLogin": "Kakao Login"
   },
   "search": {
-    "placeHolder": "search",
-    "recentSearches": "recent",
-    "suggestion" : "suggestion",
-    "rising" : "soar ditto"
+    "placeholder": "search"
   },
   "category": {
     "tap": {
@@ -34,10 +31,41 @@
       "comedian": "comedian"
     }
   },
-
+  "review": {
+    "title": "review",
+    "write comment": "write comment",
+    "tap": {
+      "total": "total",
+      "comment": "comment",
+      "photo": "photo"
+    },
+    "reviewSortOptions": {
+      "newest": "newest",
+      "oldest": "oldest",
+      "highest": "highest",
+      "lowest": "lowest"
+    }
+  },
+  "newReview": {
+    "review": "review",
+    "photo": "photo",
+    "placeholder": "Please write what you would like to share about the spot."
+  },
+  "comment": {
+    "comment": "comment",
+    "placeholder": "Write comment here",
+    "submit": "submit"
+  },
   "home": {
     "suggest": "Coming weekend! How is it here?",
     "where": "That place in the drama! Where is it?",
     "hot ditto": "What is this week’s HOT Ditto?"
+  },
+  "bottomsheet": {
+    "sort": "sort",
+    "viewDetail": "View Detail",
+    "report": "report",
+    "delete": "delete",
+    "modify": "modify"
   }
 }
