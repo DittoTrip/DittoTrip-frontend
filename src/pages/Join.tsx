@@ -200,7 +200,7 @@ const Join = () => {
           </Button>
         </form>
       </div>
-      {isOpen && <Modal message={message} setIsOpen={setIsOpen} />}
+      {isOpen && <Modal message={message} setIsOpen={setIsOpen} width={70} />}
     </JoinStyle>
   );
 };
