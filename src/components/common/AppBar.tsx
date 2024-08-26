@@ -19,7 +19,7 @@ const AppBar = ({ leading, title, action }: Props) => {
         </div>
       )}
       <div className="title">{title}</div>
-      <div className="action">{action}</div>
+      {action && <div className="action">{action}</div>}
     </AppBarStyle>
   );
 };

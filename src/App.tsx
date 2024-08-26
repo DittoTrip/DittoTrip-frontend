@@ -12,6 +12,7 @@ import Review from './pages/Review';
 import NewReview from './pages/NewReview';
 import ReviewDetail from './pages/ReviewDetail';
 import Search from './pages/Search';
+import Join from './pages/Join';
 
 const router = createBrowserRouter([
   {
@@ -74,8 +75,16 @@ const router = createBrowserRouter([
       <Layout GNBType="search">
         <Search />
       </Layout>
-    )
-  }
+    ),
+  },
+  {
+    path: '/join',
+    element: (
+      <Layout>
+        <Join />
+      </Layout>
+    ),
+  },
 ]);
 
 function App() {
