@@ -46,6 +46,10 @@ const fonts = {
     font-size: 12px;
     font-weight: 400;
   `,
+  body6: css`
+    font-size: 10px;
+    font-weight: 400;
+  `,
 };
 
 interface Theme {
@@ -99,7 +103,7 @@ export const light: Theme = {
     },
     small: {
       font: fonts.body5,
-      padding: '5px 10px',
+      padding: '3px 15px',
     },
   },
   buttonScheme: {

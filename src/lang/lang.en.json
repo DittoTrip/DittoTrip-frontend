@@ -80,5 +80,13 @@
       "etc": "etc."
     },
     "message": "Your report has been received."
+  },
+  "spot": {
+    "visit": "Visit",
+    "write": "Write",
+    "stillCut": "Still cut",
+    "review": "Review",
+    "more": "More",
+    "seeMore": "Other things to see around here"
   }
 }
