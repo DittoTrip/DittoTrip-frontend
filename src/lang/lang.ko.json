@@ -66,7 +66,8 @@
     "viewDetail": "상세보기",
     "report": "신고하기",
     "delete": "삭제하기",
-    "modify": "수정하기"
+    "modify": "수정하기",
+    "address": "주소 상세보기"
   },
   "report": {
     "title": "신고하는 이유를 선택해 주세요.",
@@ -87,6 +88,9 @@
     "stillCut": "스틸 컷",
     "review": "리뷰",
     "more": "더보기",
-    "seeMore": "이 주변에 또 다른 볼거리가 궁금하다면?"
+    "seeMore": "스팟 주변에 또 다른 볼거리가 궁금하다면?"
+  },
+  "around": {
+    "title": "주변 관광지 추천"
   }
 }

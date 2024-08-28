@@ -13,6 +13,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 const spotDetails = {
+  id: 1,
   contentTitle: '이상한 변호사 우영우',
   spotName: '소덕동 팽나무',
   address: '경상남도 창원시 의창구 대산면 대산북로 899번길 43-5',
@@ -107,10 +108,10 @@ const Spot = () => {
           ))}
         </div>
 
-        <div className="show-more">
+        <Link to={`/around/${spotDetails.id}`} className="show-more">
           {t('spot.seeMore')}
           <FontAwesomeIcon icon={faChevronRight} />
-        </div>
+        </Link>
       </div>
     </SpotStyle>
   );
@@ -186,13 +187,14 @@ const SpotStyle = styled.div`
     }
     .show-more {
       display: flex;
+      align-items: center;
       gap: 4px;
       margin-top: 28px;
 
-      align-items: center;
       ${({ theme }) => theme.font.body4};
       font-weight: bold;
       color: ${({ theme }) => theme.color.gray60};
+      text-decoration: none;
       path {
         color: ${({ theme }) => theme.color.gray60};
       }

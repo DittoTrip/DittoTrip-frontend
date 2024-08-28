@@ -7,7 +7,7 @@ const Dot = () => {
 const DotStyle = styled.div`
   width: 2px;
   height: 2px;
-  background-color: ${({ theme }) => theme.color.gray60};
+  background-color: ${({ theme }) => theme.color.gray80};
   border-radius: 50%;
 `;
 

@@ -23,6 +23,8 @@ const ReviewDetail = () => {
 };
 
 const ReviewDetailStyle = styled.div`
+  padding-bottom: 160px;
+
   .app-bar .title {
     display: flex;
     justify-content: start;
