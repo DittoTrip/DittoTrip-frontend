@@ -12,6 +12,7 @@ import Review from './pages/Review';
 import NewReview from './pages/NewReview';
 import ReviewDetail from './pages/ReviewDetail';
 import Search from './pages/Search';
+import SearchResult from './pages/SearchResult';
 
 const router = createBrowserRouter([
   {
@@ -73,6 +74,14 @@ const router = createBrowserRouter([
     element: (
       <Layout GNBType="search">
         <Search />
+      </Layout>
+    )
+  },
+  {
+    path: '/searchResult',
+    element: (
+      <Layout GNBType="search">
+        <SearchResult />
       </Layout>
     )
   }
