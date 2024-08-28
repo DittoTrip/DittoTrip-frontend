@@ -89,10 +89,10 @@ const Spot = () => {
 
         <div className="reviews">
           <div className="review-head">
-            <div className="review-movement">
+            <Link to={`/review/${spotDetails.id}`} className="review-movement">
               <div className="spot-subtitle"> {t('spot.review')}</div>
               <FontAwesomeIcon icon={faChevronRight} onClick={() => handleHeartClick()} className="arrow-btn" />
-            </div>
+            </Link>
             <div className="new-btn">
               <Link to="/review/new">
                 <Button size={'small'} scheme={'keyButton'} onClick={() => {}}>
@@ -123,7 +123,7 @@ const SpotStyle = styled.div`
     height: 300px;
   }
   .content-wrapper {
-    margin: 29px 28px 0 28px;
+    margin: 29px 28px 16px 28px;
 
     .content-name {
       font-size: 12px;
@@ -171,6 +171,9 @@ const SpotStyle = styled.div`
           display: flex;
           align-items: center;
           gap: 8px;
+
+          text-decoration: none;
+
           .arrow-btn {
             font-size: 12px;
           }

@@ -28,7 +28,9 @@ const MiniReviewItem = ({ userName, rating, text }: ReviewDummy) => {
         </div>
       </div>
 
-      <div className="text">{text}</div>
+      <div className="text-container">
+        <div className="text">{text}</div>
+      </div>
     </MiniReviewItemStyle>
   );
 };
@@ -66,17 +68,20 @@ const MiniReviewItemStyle = styled.div`
     }
   }
 
-  .text {
+  .text-container {
     padding: 5px 9px;
 
     background-color: ${({ theme }) => theme.color.background};
     border-radius: 6px;
     ${({ theme }) => theme.font.body6}
-
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
+    .text {
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      word-wrap: break-word;
+      text-overflow: ellipsis;
+    }
   }
 `;
 
