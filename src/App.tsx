@@ -16,6 +16,7 @@ import Join from './pages/Join';
 import Report from './pages/Report';
 import Spot from './pages/Spot';
 import Around from './pages/Around';
+import List from './pages/List';
 
 const router = createBrowserRouter([
   {
@@ -45,6 +46,14 @@ const router = createBrowserRouter([
     element: (
       <Layout GNBType="search">
         <Category />
+      </Layout>
+    ),
+  },
+  {
+    path: '/list/:id',
+    element: (
+      <Layout GNBType="search">
+        <List />
       </Layout>
     ),
   },

@@ -92,5 +92,12 @@
   },
   "around": {
     "title": "주변 관광지 추천"
+  },
+  "list": {
+    "sortOptions": {
+      "newest": "최신순",
+      "distance": "거리순",
+      "highest": "별점순"
+    }
   }
 }

@@ -92,5 +92,12 @@
   },
   "around": {
     "title": "Recommended nearby tourist attractions"
+  },
+  "list": {
+    "sortOptions": {
+      "newest": "newest",
+      "distance": "distance",
+      "highest": "highest"
+    }
   }
 }
