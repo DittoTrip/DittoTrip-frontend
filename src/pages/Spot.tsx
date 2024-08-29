@@ -12,7 +12,7 @@ import MiniReviewItem from '../components/review/MiniReviewItem';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
-const spotDetails = {
+export const spotDetails = {
   id: 1,
   contentTitle: '이상한 변호사 우영우',
   spotName: '소덕동 팽나무',

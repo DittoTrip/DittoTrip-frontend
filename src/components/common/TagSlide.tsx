@@ -28,7 +28,7 @@ const TagSlideStyled = styled.div`
     gap: 24px 8px;
 
     margin: 0;
-    padding: 10px 0;
+    padding: 0;
 
     white-space: nowrap;
     overflow-x: scroll;

@@ -12,9 +12,14 @@ import DropDown from '../components/common/DropDown';
 
 import { OptionItem } from './Review';
 import BottomSheet from '../components/bottomsheet/BottomSheet';
+import ToggleButtonComponent from '../components/common/ToggleView';
+import { DummyDataList } from './Around';
+import SpotItem from '../components/common/SpotItem';
 
 const List = () => {
   const { t } = useTranslation();
+
+  const [selectedAddress, setSelectedAddress] = useState('');
 
   const isLiked = true;
 
@@ -25,7 +30,7 @@ const List = () => {
       text: t('list.sortOptions.newest'),
       handleClick: () => {
         setSelectedSortId(0);
-        setIsOpen(false);
+        setIsAddressOpen(false);
       },
     },
     {
@@ -33,7 +38,7 @@ const List = () => {
       text: t('list.sortOptions.distance'),
       handleClick: () => {
         setSelectedSortId(1);
-        setIsOpen(false);
+        setIsAddressOpen(false);
       },
     },
     {
@@ -41,13 +46,14 @@ const List = () => {
       text: t('list.sortOptions.highest'),
       handleClick: () => {
         setSelectedSortId(2);
-        setIsOpen(false);
+        setIsAddressOpen(false);
       },
     },
   ];
 
   const [selectedSortId, setSelectedSortId] = useState(sortOptions[0].id);
-  const [isOpen, setIsOpen] = useState(false);
+  const [isAddressOpen, setIsAddressOpen] = useState(false);
+  const [isSortOpen, setIsSortOpen] = useState(false);
 
   const handleHeartClick = () => {};
 
@@ -68,22 +74,33 @@ const List = () => {
       <div className="content-wrapper">
         <TagSlide tagList={dummyTag} />
         <div className="dropdown">
-          <DropDown value={sortOptions[selectedSortId]} setIsOpen={setIsOpen} />
+          <DropDown value={sortOptions[selectedSortId]} setIsOpen={setIsSortOpen} />
         </div>
+
+        {DummyDataList.map(data => (
+          <SpotItem data={data} setIsOpen={setIsAddressOpen} setSelectedAddress={setSelectedAddress} />
+        ))}
       </div>
 
-      {isOpen && (
+      {isAddressOpen && (
+        <BottomSheet title={t('bottomsheet.address')} content={selectedAddress} setIsOpen={setIsAddressOpen} />
+      )}
+      {isSortOpen && (
         <BottomSheet
           title={t('bottomsheet.sort')}
           list={sortOptions}
-          setIsOpen={setIsOpen}
+          setIsOpen={setIsSortOpen}
           selectedSortId={selectedSortId}
         />
       )}
+
+      <ToggleButtonComponent />
     </ListStyle>
   );
 };
 const ListStyle = styled.div`
+  width: 100%;
+
   .app-bar {
     ${({ theme }) => theme.font.subTitle}
 
@@ -94,6 +111,7 @@ const ListStyle = styled.div`
       }
     }
   }
+
   .main-img {
     width: 100%;
     aspect-ratio: 1;
