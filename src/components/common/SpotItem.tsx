@@ -69,8 +69,6 @@ const SpotItemStyle = styled.div`
   gap: 16px;
 
   padding: 16px 0;
-
-  border-radius: 12px;
   border-bottom: 1px solid ${({ theme }) => theme.color.gray20};
   background-color: ${({ theme }) => theme.color.background};
 
@@ -80,13 +78,12 @@ const SpotItemStyle = styled.div`
     border-radius: 12px;
   }
 
-  .spot-info-tag {
-    width: 200px;
-  }
   .spot-info {
     display: flex;
     flex-direction: column;
     justify-content: center;
+
+    flex: 1;
 
     .spot-info-header {
       display: flex;
@@ -106,7 +103,6 @@ const SpotItemStyle = styled.div`
         }
       }
     }
-
     .spot-info-rating-wrapper {
       display: flex;
       gap: 8px;
@@ -140,6 +136,9 @@ const SpotItemStyle = styled.div`
       path {
         color: ${({ theme }) => theme.color.gray60};
       }
+    }
+    .spot-info-tag {
+      width: 230px;
     }
   }
 `;

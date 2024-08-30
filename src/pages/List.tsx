@@ -72,7 +72,9 @@ const List = () => {
       </div>
       <img src={'https://image.ajunews.com/content/image/2022/07/19/20220719165306929129.jpg'} className="main-img" />
       <div className="content-wrapper">
-        <TagSlide tagList={dummyTag} />
+        <div className="list-tag-slide">
+          <TagSlide tagList={dummyTag} />
+        </div>
         <div className="dropdown">
           <DropDown value={sortOptions[selectedSortId]} setIsOpen={setIsSortOpen} />
         </div>
@@ -127,6 +129,9 @@ const ListStyle = styled.div`
       justify-content: start;
 
       margin-top: 10px;
+    }
+    .list-tag-slide {
+      padding: 10px 0;
     }
   }
 `;
