@@ -17,6 +17,7 @@ import Report from './pages/Report';
 import Spot from './pages/Spot';
 import Around from './pages/Around';
 import List from './pages/List';
+import Login from './pages/Login';
 
 const router = createBrowserRouter([
   {
@@ -120,6 +121,15 @@ const router = createBrowserRouter([
     element: (
       <Layout GNBType="search">
         <Report />
+      </Layout>
+    ),
+  },
+  {
+    path: '/login',
+
+    element: (
+      <Layout>
+        <Login />
       </Layout>
     ),
   },

@@ -4,10 +4,12 @@ import { styled } from 'styled-components';
 import AppBar from '../components/common/AppBar';
 import Button from '../components/common/Button';
 import Modal from '../components/common/Modal';
+import { duplicationCheck, join, sendCode, varifyCode } from '../api/auth';
 
 type Inputs = {
   nickname: string;
   email: string;
+  code: string;
   checkEmail: string;
   password: string;
   checkPassword: string;
@@ -20,6 +22,7 @@ const Join = () => {
     watch,
     formState: { errors },
   } = useForm<Inputs>();
+
   const [nicknameChecked, setNicknameChecked] = useState<boolean | null>(null);
   const [emailSent, setEmailSent] = useState(false);
   const [emailVerified, setEmailVerified] = useState<boolean | null>(null);
@@ -28,69 +31,98 @@ const Join = () => {
 
   const checkNickname = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    setIsOpen(true);
-    setMessage('이미 사용중인 닉네임입니다.');
     const nickname = watch('nickname');
-    const response = await fetch('', {
-      method: 'POST',
-      body: JSON.stringify({ nickname }),
-    });
-    const result = await response.json();
+    const email = watch('email');
+    const data = { nickname, email }; // 임시
 
-    if (result.isAvailable) {
-      setNicknameChecked(true);
-    } else {
-      setNicknameChecked(false);
-    }
+    duplicationCheck(data).then(
+      res => {
+        console.log(res);
+
+        setMessage('사용할 수 있는 닉네임');
+        setNicknameChecked(true);
+        setEmailSent(true);
+      },
+      error => {
+        console.log(error);
+        setMessage('사용할 수 없는 닉네임입니다.');
+      }
+    );
+
+    setIsOpen(true);
   };
 
   const sendVerificationEmail = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    setIsOpen(true);
-    setMessage('이메일을 발송했습니다.');
 
     const email = watch('email');
-    // 서버로 인증 이메일 발송 요청
-    const response = await fetch('', {
-      method: 'POST',
-      body: JSON.stringify({ email }),
-    });
-    if (response.ok) {
-      setEmailSent(true);
-    }
+
+    const data = { email: email };
+
+    sendCode(data).then(
+      res => {
+        console.log(res);
+
+        setMessage('이메일을 발송했습니다.');
+        setEmailSent(true);
+      },
+      error => {
+        console.log(error);
+        setMessage('코드 전송에 실패했습니다.');
+      }
+    );
+
+    setIsOpen(true);
   };
 
   const verifyEmailCode = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    setIsOpen(true);
-    setMessage('인증 코드를 다시 확인해주세요');
 
     const email = watch('email');
     const code = watch('checkEmail');
-    const response = await fetch('', {
-      method: 'POST',
-      body: JSON.stringify({ email, code }),
-    });
-    const result = await response.json();
+    const data = { email, code };
 
-    if (result.isVerified) {
-      setEmailVerified(true);
-    } else {
-      setEmailVerified(false);
-    }
+    varifyCode(data).then(
+      res => {
+        console.log(res);
+
+        setMessage('인증에 성공했습니다.');
+        setEmailVerified(true);
+      },
+      error => {
+        console.log(error);
+
+        setMessage('인증 코드를 다시 확인해주세요');
+      }
+    );
+
+    setIsOpen(true);
   };
 
   const onSubmit: SubmitHandler<Inputs> = data => {
-    if (nicknameChecked && emailVerified) {
-      console.log(data);
+    const isChecked = nicknameChecked && emailVerified && watch('password') == watch('checkPassword');
+    console.log(isChecked);
+    const { nickname, email, password, code } = data;
+    const joinData = { nickname, email, password, code };
+
+    if (!isChecked) {
+      join(joinData).then(
+        res => {
+          console.log(res);
+
+          console.log('회원가입 성공');
+        },
+        error => {
+          console.log('회원가입 실패');
+          console.log(error);
+          setMessage('실패');
+          setIsOpen(true);
+        }
+      );
     } else {
       console.log('');
     }
   };
-
-  {
-    console.log(Object.values(errors));
-  }
 
   return (
     <JoinStyle>
