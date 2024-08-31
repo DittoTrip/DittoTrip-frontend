@@ -1,16 +1,17 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { styled } from 'styled-components';
 import AppBar from '../components/common/AppBar';
 import Button from '../components/common/Button';
 import Modal from '../components/common/Modal';
 import { duplicationCheck, join, sendCode, varifyCode } from '../api/auth';
+import { useTranslation } from 'react-i18next';
+import LangSelectButton from '../components/LangSelectButton';
 
 type Inputs = {
   nickname: string;
   email: string;
   code: string;
-  checkEmail: string;
   password: string;
   checkPassword: string;
 };
@@ -24,10 +25,23 @@ const Join = () => {
   } = useForm<Inputs>();
 
   const [nicknameChecked, setNicknameChecked] = useState<boolean | null>(null);
-  const [emailSent, setEmailSent] = useState(false);
   const [emailVerified, setEmailVerified] = useState<boolean | null>(null);
+
   const [isOpen, setIsOpen] = useState(false);
   const [message, setMessage] = useState('');
+
+  const { t } = useTranslation();
+
+  const nickname = watch('nickname');
+  const email = watch('email');
+
+  useEffect(() => {
+    setEmailVerified(false);
+  }, [email]);
+
+  useEffect(() => {
+    setNicknameChecked(false);
+  }, [nickname]);
 
   const checkNickname = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -39,115 +53,131 @@ const Join = () => {
       res => {
         console.log(res);
 
-        setMessage('사용할 수 있는 닉네임');
-        setNicknameChecked(true);
-        setEmailSent(true);
+        if (res) {
+          setMessage(t('join.nicknameAvailable'));
+          setNicknameChecked(true);
+          setIsOpen(true);
+        } else {
+          setMessage(t('join.nicknameUnavailable'));
+          setIsOpen(true);
+        }
       },
       error => {
         console.log(error);
-        setMessage('사용할 수 없는 닉네임입니다.');
+        setMessage(t('join.nicknameUnavailable'));
+        setIsOpen(true);
       }
     );
-
-    setIsOpen(true);
   };
 
   const sendVerificationEmail = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
     const email = watch('email');
-
-    const data = { email: email };
+    const data = { email };
 
     sendCode(data).then(
       res => {
         console.log(res);
-
-        setMessage('이메일을 발송했습니다.');
-        setEmailSent(true);
+        if (res) {
+          setMessage(t('join.emailSent'));
+          setIsOpen(true);
+        } else {
+          setMessage(t('join.emailSendFail'));
+          setIsOpen(true);
+        }
       },
+
       error => {
         console.log(error);
-        setMessage('코드 전송에 실패했습니다.');
+        setMessage(t('join.emailSendFail'));
+        setIsOpen(true);
       }
     );
-
-    setIsOpen(true);
   };
 
   const verifyEmailCode = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
     const email = watch('email');
-    const code = watch('checkEmail');
+    const code = watch('code');
     const data = { email, code };
 
     varifyCode(data).then(
       res => {
         console.log(res);
-
-        setMessage('인증에 성공했습니다.');
-        setEmailVerified(true);
+        if (res) {
+          setMessage(t('join.verified'));
+          setEmailVerified(true);
+          setIsOpen(true);
+        } else {
+          setMessage(t('join.codeInvalid'));
+          setIsOpen(true);
+        }
       },
       error => {
         console.log(error);
 
-        setMessage('인증 코드를 다시 확인해주세요');
+        setMessage(t('join.codeCheckAgain'));
+        setIsOpen(true);
       }
     );
-
-    setIsOpen(true);
   };
 
   const onSubmit: SubmitHandler<Inputs> = data => {
     const isChecked = nicknameChecked && emailVerified && watch('password') == watch('checkPassword');
     console.log(isChecked);
-    const { nickname, email, password, code } = data;
+    const { email, password, nickname, code } = data;
     const joinData = { nickname, email, password, code };
 
-    if (!isChecked) {
+    if (isChecked) {
       join(joinData).then(
         res => {
           console.log(res);
-
-          console.log('회원가입 성공');
+          console.log(t('join.success'));
         },
         error => {
-          console.log('회원가입 실패');
+          console.log(t('join.failure'));
           console.log(error);
-          setMessage('실패');
+          setMessage(t('join.failure'));
           setIsOpen(true);
         }
       );
     } else {
-      console.log('');
+      if (!nicknameChecked) {
+        setMessage(t('join.checkNickname'));
+      } else if (!emailVerified) {
+        setMessage(t('join.verifyEmail'));
+      } else {
+        setMessage(t('join.passwordMismatch'));
+      }
+      setIsOpen(true);
     }
   };
 
   return (
     <JoinStyle>
       <div className="app-bar">
-        <AppBar leading={false} title={<div className="title">회원가입</div>} />
+        <AppBar leading={false} title={<div className="title">{t('join.title')}</div>} />
       </div>
       <div className="content-wrapper">
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="section">
-            <div className="input-title">닉네임</div>
+            <div className="input-title">{t('join.nickname')}</div>
             <div className="user-varification">
               <input
                 {...register('nickname', {
-                  required: { value: true, message: '닉네임을 입력해주세요' },
+                  required: { value: true, message: t('join.nicknameRequired') },
                   pattern: {
                     value: /[가-힣a-zA-Z0-9]{2,16}$/,
-                    message: '영문 대문자와 소문자, 한글, 숫자를 이용하여 2~10자로 입력해 주세요.',
+                    message: t('join.nicknamePattern'),
                   },
-                  //  {validate: nicknameChecked === false || '이미 사용 중인 닉네임입니다.'}
                 })}
-                placeholder="닉네임"
+                placeholder={t('join.nickname')}
                 className="input-container"
               />
               <Button size={'medium'} scheme={'keyButton'} onClick={checkNickname}>
-                중복 확인
+                {t('join.checkDuplication')}
               </Button>
             </div>
             {errors.nickname ? (
@@ -157,49 +187,48 @@ const Join = () => {
             )}
           </div>
           <div className="section">
-            <div className="input-title">아이디</div>
+            <div className="input-title">{t('join.email')}</div>
             <div className="user-varification">
               <input
-                {...register('email', { required: { value: true, message: '이메일을 입력해주세요' } })}
+                {...register('email', { required: { value: true, message: t('join.emailRequired') } })}
                 placeholder="example@gmail.com"
                 type="email"
                 className="input-container"
               />
               <Button size={'medium'} scheme={'keyButton'} onClick={sendVerificationEmail}>
-                인증하기
+                {t('join.verify')}
               </Button>
             </div>
             {errors.email && <div className="guide-message">{errors.email.message}</div>}
-            {emailSent && <div className="guide-message">이메일로 인증번호가 발송되었습니다.</div>}
             <div className="user-varification">
               <input
-                {...register('checkEmail', { required: { value: true, message: '인증번호를 입력해주세요' } })}
-                placeholder="인증번호 입력"
+                {...register('code', { required: { value: true, message: t('join.codeRequired') } })}
+                placeholder={t('join.enterCode')}
                 className="input-container"
               />
               <Button size={'medium'} scheme={'keyButton'} onClick={verifyEmailCode}>
-                확인
+                {t('join.confirm')}
               </Button>
             </div>
-            {errors.checkEmail ? (
-              <div className="guide-message">{errors.checkEmail.message}</div>
+            {errors.code ? (
+              <div className="guide-message">{errors.code.message}</div>
             ) : (
               <div className="guide-message"></div>
             )}
           </div>
 
           <div className="section">
-            <div className="input-title">비밀번호</div>
+            <div className="input-title">{t('join.password')}</div>
             <div className="user-varification">
               <input
                 {...register('password', {
-                  required: { value: true, message: '비밀번호를 입력해주세요' },
+                  required: { value: true, message: t('join.passwordRequired') },
                   pattern: {
                     value: /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{10,16}$/i,
-                    message: ' 영문 대문자와 소문자, 숫자, 특수문자 중 2가지 이상을 조합하여 10~16자로 입력해 주세요.',
+                    message: t('join.passwordPattern'),
                   },
                 })}
-                placeholder="password"
+                placeholder={t('join.password')}
                 type="password"
                 className="input-container"
               />
@@ -209,12 +238,12 @@ const Join = () => {
             <div className="user-varification">
               <input
                 {...register('checkPassword', {
-                  required: { value: true, message: '비밀번호 확인을 입력해주세요' },
+                  required: { value: true, message: t('join.checkPasswordRequired') },
                   validate: {
-                    positive: value => value === watch('password') || '비밀번호와 일치하지 않습니다.',
+                    positive: value => value === watch('password') || t('join.passwordMismatch'),
                   },
                 })}
-                placeholder="check password"
+                placeholder={t('join.checkPassword')}
                 type="password"
                 className="input-container"
               />
@@ -228,7 +257,7 @@ const Join = () => {
           </div>
 
           <Button size={'large'} scheme={'keyButton'} type="submit" className="join-btn">
-            가입하기
+            {t('join.join')}
           </Button>
         </form>
       </div>
