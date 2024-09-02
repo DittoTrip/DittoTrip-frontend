@@ -29,7 +29,8 @@
       "actor": "배우",
       "singer": "가수",
       "comedian": "개그맨"
-    }
+    },
+    "favorite": "즐겨찾기"
   },
   "review": {
     "title": "리뷰",

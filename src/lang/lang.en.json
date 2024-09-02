@@ -29,7 +29,8 @@
       "actor": "actor",
       "singer": "singer",
       "comedian": "comedian"
-    }
+    },
+    "favorite": "favorite"
   },
   "review": {
     "title": "review",

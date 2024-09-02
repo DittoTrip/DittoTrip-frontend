@@ -1,13 +1,18 @@
+import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 interface ContentItemProps {
+  id: number;
   img: string;
   name: string;
 }
-const ContentItem = ({ img, name }: ContentItemProps) => {
+const ContentItem = ({ id, img, name }: ContentItemProps) => {
+  const navigate = useNavigate();
   return (
     <ContentItemStyled>
-      <img className="content-item-img" src={img} alt={name} />
-      <div className="content-item-name">{name}</div>
+      <div onClick={() => navigate(`/list/${id}`)}>
+        <img className="content-item-img" src={img} alt={name} />
+        <div className="content-item-name">{name}</div>
+      </div>
     </ContentItemStyled>
   );
 };

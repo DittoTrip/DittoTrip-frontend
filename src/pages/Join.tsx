@@ -6,7 +6,6 @@ import Button from '../components/common/Button';
 import Modal from '../components/common/Modal';
 import { duplicationCheck, join, sendCode, varifyCode } from '../api/auth';
 import { useTranslation } from 'react-i18next';
-import LangSelectButton from '../components/LangSelectButton';
 
 type Inputs = {
   nickname: string;
