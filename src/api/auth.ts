@@ -2,7 +2,6 @@ import {
   DuplicationProps,
   JoinProps,
   LoginProps,
-  LoginResponse,
   SendCodeProps,
   SendCodeResponse,
   VerifyCodeProps,
@@ -10,7 +9,7 @@ import {
 import { api } from './https';
 
 export const login = async (data: LoginProps) => {
-  const response = await api.post<LoginResponse>('/auth/login', { ...data });
+  const response = await api.post<string>('/auth/login', { ...data });
   return response.data;
 };
 export const sendCode = async (data: SendCodeProps) => {

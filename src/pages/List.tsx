@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { styled } from 'styled-components';
+import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { styled } from 'styled-components';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
@@ -9,19 +10,21 @@ import { faHeart as faEmptyHeart } from '@fortawesome/free-regular-svg-icons';
 import AppBar from '../components/common/AppBar';
 import TagSlide from '../components/common/TagSlide';
 import DropDown from '../components/common/DropDown';
-
-import { OptionItem } from './Review';
 import BottomSheet from '../components/bottomsheet/BottomSheet';
 import ToggleButtonComponent from '../components/common/ToggleView';
-import { DummyDataList } from './Around';
 import SpotItem from '../components/common/SpotItem';
+
+import { OptionItem } from './Review';
+import { DummyDataList } from './Around';
+import { addBookmark, removeBookmark } from '../api/category';
 
 const List = () => {
   const { t } = useTranslation();
+  const { id } = useParams();
 
   const [selectedAddress, setSelectedAddress] = useState('');
 
-  const isLiked = true;
+  const [isFavorite, setIsFavorite] = useState(false);
 
   const dummyTag = ['강동원', '변성은', '디토트립', '강원도', '변호사', '변성은', '디토리포', '여행'];
   const sortOptions: OptionItem[] = [
@@ -55,7 +58,33 @@ const List = () => {
   const [isAddressOpen, setIsAddressOpen] = useState(false);
   const [isSortOpen, setIsSortOpen] = useState(false);
 
-  const handleHeartClick = () => {};
+  const handleHeartClick = () => {
+    if (!isFavorite) {
+      removeBookmark(id!).then(
+        res => {
+          console.log(res);
+          setIsFavorite(!isFavorite);
+        },
+        error => {
+          console.log(error);
+          alert('즐겨찾기 실패');
+          setIsFavorite(!isFavorite);
+        }
+      );
+    } else {
+      addBookmark(id!).then(
+        res => {
+          console.log(res);
+          setIsFavorite(!isFavorite);
+        },
+        error => {
+          console.log(error);
+          alert('즐겨찾기 실패');
+          setIsFavorite(!isFavorite);
+        }
+      );
+    }
+  };
 
   return (
     <ListStyle>
@@ -65,7 +94,7 @@ const List = () => {
           title={<div className="title">{'이상한 변호사 우영우'}</div>}
           action={
             <div className="heart">
-              <FontAwesomeIcon icon={isLiked ? faHeart : faEmptyHeart} onClick={() => handleHeartClick()} />
+              <FontAwesomeIcon icon={isFavorite ? faHeart : faEmptyHeart} onClick={() => handleHeartClick()} />
             </div>
           }
         />
@@ -100,6 +129,7 @@ const List = () => {
     </ListStyle>
   );
 };
+
 const ListStyle = styled.div`
   width: 100%;
 

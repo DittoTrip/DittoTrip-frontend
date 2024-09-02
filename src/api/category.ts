@@ -7,3 +7,16 @@ export const fetchMoreData = async (data: CategoryListProps) => {
   });
   return response.data;
 };
+
+export const addBookmark = async (id: string) => {
+  const response = await api.post<CategoryResponse>(`category/${id}/bookmark`);
+  console.log(response.data);
+  return response.data;
+};
+
+export const removeBookmark = async (id: string) => {
+  const response = await api.delete<CategoryResponse>(`category/${id}/bookmark`);
+  console.log(response.data);
+
+  return response.data;
+};

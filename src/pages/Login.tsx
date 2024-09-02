@@ -24,8 +24,9 @@ const Login = () => {
   const onSubmit = (data: LoginProps) => {
     login(data).then(
       res => {
-        HeaderToken.set(res.token);
-        storeLogin(res.token);
+        HeaderToken.set(res);
+        storeLogin(res);
+        console.log(res);
         navigate('/');
       },
       error => {
