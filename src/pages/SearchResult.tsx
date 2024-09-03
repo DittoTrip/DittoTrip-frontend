@@ -6,12 +6,72 @@ import { useTranslation } from "react-i18next";
 import { useState } from "react";
 import Tap from "../components/common/Tab";
 import DropDown from "../components/common/DropDown";
+import SearchSpot from "../components/search/SearchSpot";
 
 export interface TapItem {
     id: number;
     title: string;
     content: JSX.Element;
 }
+
+export const DummyDataList = [
+    {
+      img: 'https://images.unsplash.com/photo-1560237731-890b122a9b6c?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8fA%3D%3D',
+      name: '소소주점',
+      distance: '200km',
+      reviewCount: 45,
+      rating: 4.5,
+      address: '강원 강릉시 율곡로3139번길 24 오죽헌',
+      tagList: ['강동원', '변성은', '디토트립', '강원도', '변호사', '변성은', '디토리포', '여행'],
+    },
+    {
+      img: 'https://images.unsplash.com/photo-1560237731-890b122a9b6c?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8fA%3D%3D',
+      name: '소소주점',
+      distance: '200km',
+      reviewCount: 45,
+      rating: 4.5,
+      address: '강원 강릉시 율곡로3139번길 24 오죽헌',
+      tagList: ['강동원', '변성은', '디토트립', '강원도', '변호사', '변성은', '디토리포', '여행'],
+    },
+    {
+      img: 'https://images.unsplash.com/photo-1501854140801-50d01698950b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8NXx8fGVufDB8fHx8fA%3D%3D',
+      name: '소소주점',
+      distance: '200km',
+      reviewCount: 45,
+  
+      rating: 4.5,
+      address: '강원 강릉시 율곡로3139번길 24 오죽헌',
+      tagList: ['강동원', '변성은', '디토트립', '강원도', '변호사', '변성은', '디토리포', '여행'],
+    },
+    {
+      img: 'https://images.unsplash.com/photo-1560237731-890b122a9b6c?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8fA%3D%3D',
+      name: '소소주점',
+      distance: '200km',
+      reviewCount: 45,
+  
+      rating: 4.5,
+      address: '강원 강릉시 율곡로3139번길 24 오죽헌',
+      tagList: ['강동원', '변성은', '디토트립', '강원도', '변호사', '변성은', '디토리포', '여행'],
+    },
+    {
+      img: 'https://img.freepik.com/free-photo/forest-landscape_71767-127.jpg',
+      name: '소소주점',
+      distance: '200km',
+      reviewCount: 45,
+      rating: 4.5,
+      address: '강원 강릉시 율곡로3139번길 24 오죽헌',
+      tagList: ['강동원', '변성은', '디토트립', '강원도', '변호사', '변성은', '디토리포', '여행'],
+    },
+    {
+      img: 'https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8fA%3D%3D',
+      name: '소소주점',
+      distance: '200km',
+      reviewCount: 45,
+      rating: 4.5,
+      address: '강원 강릉시 율곡로3139번길 24 오죽헌',
+      tagList: ['강동원', '변성은', '디토트립', '강원도', '변호사', '변성은', '디토리포', '여행'],
+    },
+  ];
 
 const SearchResult = () => {
     const { t } = useTranslation();
@@ -40,11 +100,18 @@ const SearchResult = () => {
                 />
             </div>
             <Tap tapData={tapData} selectedId={selectedId} setSelectedId={setSelectedId} />
-            <DropDown setValue={() => setSelectedId} />
+            <div className="content-wrapper">
+                <DropDown setValue={() => setSelectedId} />
+                {DummyDataList.map(data => (<SearchSpot data={data}/>))}
+            </div>
         </SearchResultStyled>
     )
 }
 
-const SearchResultStyled = styled.div``
-
+const SearchResultStyled = styled.div`
+.content-wrapper {
+    margin: 16px 28px;
+}
+`;
+    
 export default SearchResult;
