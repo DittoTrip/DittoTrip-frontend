@@ -59,7 +59,7 @@ const List = () => {
   const [isSortOpen, setIsSortOpen] = useState(false);
 
   const handleHeartClick = () => {
-    if (!isFavorite) {
+    if (isFavorite) {
       removeBookmark(id!).then(
         res => {
           console.log(res);

@@ -18,6 +18,8 @@ import Spot from './pages/Spot';
 import Around from './pages/Around';
 import List from './pages/List';
 import Login from './pages/Login';
+import { getToken } from './store/authStore';
+import HeaderToken from './api/https';
 
 const router = createBrowserRouter([
   {
@@ -136,6 +138,9 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+  const token = getToken();
+  HeaderToken.set(token);
+
   return (
     <>
       <DittoProvider>

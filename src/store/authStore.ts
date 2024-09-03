@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 
 interface StoreState {
   isLoggedIn: boolean;
@@ -20,14 +21,19 @@ export const removeToken = () => {
   localStorage.removeItem('token');
 };
 
-export const useAuthStore = create<StoreState>(set => ({
-  isLoggedIn: getToken() ? true : false,
-  storeLogin: (token: string) => {
-    set({ isLoggedIn: true });
-    setToken(token);
-  },
-  storeLogout: () => {
-    set({ isLoggedIn: false });
-    removeToken();
-  },
-}));
+export const useAuthStore = create<StoreState>()(
+  persist(
+    set => ({
+      isLoggedIn: getToken() ? true : false,
+      storeLogin: (token: string) => {
+        set({ isLoggedIn: true });
+        setToken(token);
+      },
+      storeLogout: () => {
+        set({ isLoggedIn: false });
+        removeToken();
+      },
+    }),
+    { name: 'ditto-storage' }
+  )
+);
