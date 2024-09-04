@@ -57,8 +57,10 @@ const CommentInputStyled = styled.div`
     border-radius: 20px;
 
     .comment-input {
+      flex: 1;
       background-color: transparent;
       border: none;
+      outline: none;
     }
 
     .comment-submit {

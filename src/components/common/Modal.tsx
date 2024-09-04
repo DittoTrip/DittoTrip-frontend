@@ -3,11 +3,12 @@ import { styled } from 'styled-components';
 interface Props {
   message: string;
   setIsOpen: (isOpen: boolean) => void;
+  width: number;
 }
 
-const Modal = ({ message, setIsOpen }: Props) => {
+const Modal = ({ message, setIsOpen, width }: Props) => {
   return (
-    <ModalStyle>
+    <ModalStyle width={width}>
       <div
         className="modal-overlay"
         onClick={() => {
@@ -29,7 +30,7 @@ const Modal = ({ message, setIsOpen }: Props) => {
   );
 };
 
-const ModalStyle = styled.div`
+const ModalStyle = styled.div<{ width: number }>`
   ${({ theme }) => theme.font.body4};
   font-weight: bold;
 
@@ -46,16 +47,16 @@ const ModalStyle = styled.div`
 
     background-color: rgba(0, 0, 0, 0.3); /* 배경 투명도 50% */
 
-    z-index: 10;
+    z-index: 35;
   }
 
   .modal-content {
     position: fixed;
-    bottom: 50%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 
-    width: 70%;
+    width: ${({ width }) => width}%;
 
     background: ${({ theme }) => theme.color.background};
 

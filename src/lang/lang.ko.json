@@ -51,7 +51,8 @@
       "actor": "배우",
       "singer": "가수",
       "comedian": "개그맨"
-    }
+    },
+    "favorite": "즐겨찾기"
   },
   "review": {
     "title": "리뷰",
@@ -88,6 +89,70 @@
     "viewDetail": "상세보기",
     "report": "신고하기",
     "delete": "삭제하기",
-    "modify": "수정하기"
+    "modify": "수정하기",
+    "address": "주소 상세보기"
+  },
+  "report": {
+    "title": "신고하는 이유를 선택해 주세요.",
+    "options": {
+      "Swearing": "욕설 및 비하",
+      "illegalInformation": "불법 정보",
+      "Promotional": "홍보 및 영리 목적",
+      "PersonalInformation": "개인 정보 노출",
+      "PornographyContent": "음란물 및 선정적인 콘텐츠",
+      "inappropriateNickname": "부적절한 닉네임",
+      "etc": "기타"
+    },
+    "message": "신고가 접수되었습니다."
+  },
+  "spot": {
+    "visit": "방문",
+    "write": "작성",
+    "stillCut": "스틸 컷",
+    "review": "리뷰",
+    "more": "더보기",
+    "seeMore": "스팟 주변에 또 다른 볼거리가 궁금하다면?"
+  },
+  "around": {
+    "title": "주변 관광지 추천"
+  },
+  "list": {
+    "sortOptions": {
+      "newest": "최신순",
+      "distance": "거리순",
+      "highest": "별점순"
+    }
+  },
+  "join": {
+    "title": "회원가입",
+    "nickname": "닉네임",
+    "email": "이메일",
+    "code": "코드",
+    "password": "비밀번호",
+    "checkPassword": "비밀번호 확인",
+    "join": "가입하기",
+    "nicknameRequired": "닉네임을 입력해주세요",
+    "nicknamePattern": "영문 대문자와 소문자, 한글, 숫자를 이용하여 2~10자로 입력해 주세요.",
+    "checkDuplication": "중복 확인",
+    "nicknameAvailable": "사용할 수 있는 닉네임입니다.",
+    "nicknameUnavailable": "사용할 수 없는 닉네임입니다.",
+    "emailRequired": "이메일을 입력해주세요",
+    "verify": "인증하기",
+    "emailSent": "이메일을 발송했습니다.",
+    "emailSendFail": "이메일 발송에 실패했습니다.",
+    "codeRequired": "인증번호를 입력해주세요",
+    "enterCode": "인증번호 입력",
+    "confirm": "확인",
+    "verified": "인증되었습니다.",
+    "codeInvalid": "인증번호를 확인해주세요.",
+    "codeCheckAgain": "인증 코드를 다시 확인해주세요",
+    "passwordRequired": "비밀번호를 입력해주세요",
+    "passwordPattern": " 영문 대문자와 소문자, 숫자, 특수문자 중 2가지 이상을 조합하여 10~16자로 입력해 주세요.",
+    "checkPasswordRequired": "비밀번호 확인을 입력해주세요",
+    "passwordMismatch": "비밀번호와 일치하지 않습니다.",
+    "checkNickname": "닉네임 중복체크를 해주세요.",
+    "verifyEmail": "이메일 인증을 해주세요",
+    "success": "회원가입 성공",
+    "failure": "회원가입 실패"
   }
 }

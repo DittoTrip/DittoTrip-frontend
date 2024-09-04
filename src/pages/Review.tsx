@@ -112,6 +112,7 @@ const Review = () => {
               <div className="count"> (102)</div>
             </div>
           }
+          action={<div></div>}
         />
       </div>
       <div className="star-rating">
@@ -150,7 +151,6 @@ const Review = () => {
 const ReviewStyle = styled.div`
   .app-bar .title {
     display: flex;
-    justify-content: center;
     ${({ theme }) => theme.font.subTitle};
 
     .count {

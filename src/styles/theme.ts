@@ -1,8 +1,8 @@
 import { RuleSet, css } from 'styled-components';
 
 // 버튼
-export type ButtonSize = 'large' | 'medium' | 'small';
-export type ButtonScheme = 'keyButton' | 'subButton' | 'kakao';
+export type ButtonSize = 'large' | 'medium' | 'small' | 'smallWithIcon';
+export type ButtonScheme = 'keyButton' | 'subButton' | 'kakao' | 'subButton2';
 
 export type ThemeName = 'light' | 'dark';
 export type ColorKey =
@@ -46,6 +46,10 @@ const fonts = {
     font-size: 12px;
     font-weight: 400;
   `,
+  body6: css`
+    font-size: 10px;
+    font-weight: 400;
+  `,
 };
 
 interface Theme {
@@ -56,6 +60,9 @@ interface Theme {
       font: RuleSet<object>;
       padding: string;
       width?: string;
+      display?: string;
+      alignItems?: string;
+      gap?: string;
     };
   };
   buttonScheme: {
@@ -99,7 +106,14 @@ export const light: Theme = {
     },
     small: {
       font: fonts.body5,
-      padding: '5px 10px',
+      padding: '3px 15px',
+    },
+    smallWithIcon: {
+      font: fonts.body4,
+      padding: '3px 15px',
+      display: 'flex',
+      alignItems: 'center',
+      gap: '4px',
     },
   },
   buttonScheme: {
@@ -114,6 +128,10 @@ export const light: Theme = {
     kakao: {
       color: colors.kakaoText,
       backgroundColor: colors.kakao,
+    },
+    subButton2: {
+      color: 'black',
+      backgroundColor: colors.gray20,
     },
   },
 

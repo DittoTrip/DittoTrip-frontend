@@ -1,29 +1,29 @@
-import styled from "styled-components";
-import { searchItem } from "../../pages/Search";
-import SearchItem from "../search/SearchItem";
+import styled from 'styled-components';
+import { searchItem } from '../../pages/Search';
+import SearchItem from '../search/SearchItem';
 
 interface Props {
-    carouselTextList: searchItem[];
+  carouselTextList: searchItem[];
 }
 
-const TextSlide = ({carouselTextList}: Props) => {
-    return (
-        <TextSlideStyled>
-            <ul className="slide">
-                {carouselTextList?.map(item => {
-                    return (
-                        <li>
-                            <SearchItem title={item.title}/>
-                        </li>
-                    )
-                })}
-            </ul>
-        </TextSlideStyled>
-    )
-}
+const TextSlide = ({ carouselTextList }: Props) => {
+  return (
+    <TextSlideStyled>
+      <ul className="slide">
+        {carouselTextList?.map(item => {
+          return (
+            <li>
+              <SearchItem title={item.title} />
+            </li>
+          );
+        })}
+      </ul>
+    </TextSlideStyled>
+  );
+};
 
 const TextSlideStyled = styled.div`
-    .slide {
+  .slide {
     display: grid;
     grid-auto-flow: column;
     box-sizing: border-box;
@@ -34,15 +34,15 @@ const TextSlideStyled = styled.div`
     margin: 0;
     padding: 10px 0;
     overflow-x: scroll;
-    white-space: nowrap; 
+    white-space: nowrap;
 
     -ms-overflow-style: none; /* 인터넷 익스플로러 */
     scrollbar-width: none; /* 파이어폭스 */
-    }
+  }
 
-    .slide::-webkit-scrollbar {
+  .slide::-webkit-scrollbar {
     display: none;
-    }
-`
+  }
+`;
 
 export default TextSlide;

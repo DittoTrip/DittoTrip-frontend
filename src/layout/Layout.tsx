@@ -20,6 +20,6 @@ const LayoutStyle = styled.main`
   max-width: 600px;
 
   margin: 0 auto;
-  padding-bottom: 160px;
+  padding-bottom: 87px;
 `;
 export default Layout;

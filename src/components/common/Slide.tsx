@@ -1,28 +1,54 @@
 import styled from 'styled-components';
-import { contentItem } from '../../pages/Category';
 import ContentItem from '../category/ContentItem';
+import { CategoryData } from '../../models/Category/categoryModel';
+import { useEffect, useState } from 'react';
+import { defaultImage } from '../../constants/constant';
 
 interface Props {
-  carouselList: contentItem[];
+  carouselList: CategoryData[];
+  isFavorite?: boolean;
+  onEndReached: () => void;
 }
 
-const Slide = ({ carouselList }: Props) => {
+const Slide = ({ carouselList, isFavorite, onEndReached }: Props) => {
+  const [isEnd, setIsEnd] = useState(false);
+
+  useEffect(() => {
+    if (isEnd) {
+      onEndReached();
+      setIsEnd(false); // 초기화
+    }
+  }, [isEnd, onEndReached]);
+
+  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    const target = e.target as HTMLDivElement;
+
+    if (target.scrollLeft + target.clientWidth >= target.scrollWidth - 1) {
+      setIsEnd(true);
+    }
+  };
+
+  const filteredList = isFavorite ? carouselList.filter(item => item.myBookmarkId !== null) : carouselList;
+
   return (
     <SlideStyled>
-      <ul className="slide">
-        {carouselList?.map(item => {
-          return (
-            <li>
-              <ContentItem img={item.img} name={item.name}></ContentItem>
-            </li>
-          );
-        })}
-      </ul>
+      {filteredList?.length === 0 && (
+        <div className="empty-container">{isFavorite ? '즐겨찾기를 추가해보세요!' : '데이터가 없습니다!'}</div>
+      )}
+      <div className="slide" onScroll={handleScroll}>
+        {filteredList?.map((item, idx) => (
+          <ContentItem key={idx} img={item.imageFilePath ?? defaultImage} name={item.name} id={item.categoryId} />
+        ))}
+      </div>
     </SlideStyled>
   );
 };
 
 const SlideStyled = styled.div`
+  min-height: 165px;
+  display: flex;
+  align-items: center;
+
   .slide {
     display: grid;
     grid-auto-flow: column;
@@ -41,6 +67,9 @@ const SlideStyled = styled.div`
 
   .slide::-webkit-scrollbar {
     display: none;
+  }
+  .empty-container {
+    color: ${({ theme }) => theme.color.gray60};
   }
 `;
 

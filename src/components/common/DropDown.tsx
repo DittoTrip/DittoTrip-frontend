@@ -32,7 +32,7 @@ export const DropDownStyle = styled.div`
   border-radius: 15px;
 
   .value {
-    color: ${({ theme }) => theme.color.gray60};
+    color: ${({ theme }) => theme.color.gray80};
     ${({ theme }) => theme.font.body4}
   }
 

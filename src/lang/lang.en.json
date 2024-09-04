@@ -29,7 +29,8 @@
       "actor": "actor",
       "singer": "singer",
       "comedian": "comedian"
-    }
+    },
+    "favorite": "favorite"
   },
   "review": {
     "title": "review",
@@ -66,6 +67,70 @@
     "viewDetail": "View Detail",
     "report": "report",
     "delete": "delete",
-    "modify": "modify"
+    "modify": "modify",
+    "address": "Address"
+  },
+  "report": {
+    "title": "Please select a reason for reporting.",
+    "options": {
+      "Swearing": "Swearing and belittling",
+      "illegalInformation": "illegal information",
+      "Promotional": "Promotional and commercial purposes",
+      "PersonalInformation": "Personal Information Exposure",
+      "PornographyContent": "Pornography and sexually suggestive content",
+      "inappropriateNickname": "inappropriate nickname",
+      "etc": "etc."
+    },
+    "message": "Your report has been received."
+  },
+  "spot": {
+    "visit": "Visit",
+    "write": "Write",
+    "stillCut": "Still cut",
+    "review": "Review",
+    "more": "More",
+    "seeMore": "Other things to see around here"
+  },
+  "around": {
+    "title": "Recommended nearby tourist attractions"
+  },
+  "list": {
+    "sortOptions": {
+      "newest": "newest",
+      "distance": "distance",
+      "highest": "highest"
+    }
+  },
+  "join": {
+    "title": "Join",
+    "nickname": "Nickname",
+    "email": "Email",
+    "code": "Code",
+    "password": "Password",
+    "checkPassword": "Confirm Password",
+    "join": "Join",
+    "nicknameRequired": "Please enter a nickname",
+    "nicknamePattern": "Please enter 2-10 characters using English uppercase and lowercase letters, Korean, or numbers.",
+    "checkDuplication": "Check",
+    "nicknameAvailable": "Nickname is available.",
+    "nicknameUnavailable": "Nickname is not available.",
+    "emailRequired": "Please enter an email",
+    "verify": "Verify",
+    "emailSent": "Email has been sent.",
+    "emailSendFail": "Failed to send email.",
+    "codeRequired": "Please enter the verification code",
+    "enterCode": "Enter code",
+    "confirm": "Confirm",
+    "verified": "Verified.",
+    "codeInvalid": "Please check the verification code.",
+    "codeCheckAgain": "Please check the verification code again.",
+    "passwordRequired": "Please enter a password",
+    "passwordPattern": "Please enter 10-16 characters combining at least two of the following: uppercase, lowercase, numbers, and special characters.",
+    "checkPasswordRequired": "Please confirm your password",
+    "passwordMismatch": "Passwords do not match.",
+    "checkNickname": "Please check the nickname duplication.",
+    "verifyEmail": "Please verify your email",
+    "success": "Registration successful",
+    "failure": "Registration failed"
   }
 }

@@ -6,11 +6,14 @@ import { OptionItem } from '../../pages/Review';
 
 interface Props {
   title: string;
-  list: Array<OptionItem>;
-  selectedSortId: number;
+
+  content?: string;
+
+  list?: Array<OptionItem>;
+  selectedSortId?: number;
   setIsOpen: (isOpen: boolean) => void;
 }
-const BottomSheet = ({ title, list, selectedSortId, setIsOpen }: Props) => {
+const BottomSheet = ({ title, content, list, selectedSortId, setIsOpen }: Props) => {
   return (
     <BottomSheetStyled>
       <div
@@ -22,7 +25,7 @@ const BottomSheet = ({ title, list, selectedSortId, setIsOpen }: Props) => {
           <div className="head">{title}</div>
           <div className="content-list">
             <ul>
-              {list.map((item, index) => (
+              {list?.map((item, index) => (
                 <li
                   key={index}
                   className={item.id === selectedSortId ? 'selected' : ''}
@@ -37,6 +40,7 @@ const BottomSheet = ({ title, list, selectedSortId, setIsOpen }: Props) => {
               ))}
             </ul>
           </div>
+          <div className="content">{content}</div>
         </div>
       </div>
     </BottomSheetStyled>
@@ -44,9 +48,6 @@ const BottomSheet = ({ title, list, selectedSortId, setIsOpen }: Props) => {
 };
 
 const BottomSheetStyled = styled.div`
-  ${({ theme }) => theme.font.body4};
-  font-weight: bold;
-
   .bottom-sheet-overlay {
     position: fixed;
     top: 0;
@@ -76,7 +77,10 @@ const BottomSheetStyled = styled.div`
 
   .head {
     text-align: center;
-    color: ${({ theme }) => theme.color.gray80};
+    ${({ theme }) => theme.font.body5};
+    font-weight: bold;
+
+    // color: ${({ theme }) => theme.color.gray80};
   }
 
   .content-list {
@@ -99,6 +103,9 @@ const BottomSheetStyled = styled.div`
     .option {
       display: flex;
       justify-content: space-between;
+
+      ${({ theme }) => theme.font.body4};
+      font-weight: bold;
       color: ${({ theme }) => theme.color.gray80};
     }
 
@@ -107,6 +114,11 @@ const BottomSheetStyled = styled.div`
         color: ${({ theme }) => theme.color.keyColor};
       }
     }
+  }
+
+  .content {
+    ${({ theme }) => theme.font.body5};
+    margin-top: 12px;
   }
 `;
 
