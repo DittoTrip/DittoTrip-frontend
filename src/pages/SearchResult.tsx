@@ -7,12 +7,36 @@ import { useState } from "react";
 import Tap from "../components/common/Tab";
 import DropDown from "../components/common/DropDown";
 import SearchSpot from "../components/search/SearchSpot";
+import SearchContent from "../components/search/SearchContent";
 
 export interface TapItem {
     id: number;
     title: string;
     content: JSX.Element;
 }
+
+export const DummyContent = [
+    {
+        img : "https://velog.velcdn.com/images/gogo6570/post/1b81bc70-0307-4a94-b300-acbfa86413e3/image.png",
+        title : "눈물의 여왕",
+        isLike : false
+    },
+    {
+        img : "https://velog.velcdn.com/images/gogo6570/post/1b81bc70-0307-4a94-b300-acbfa86413e3/image.png",
+        title : "눈물의 여왕",
+        isLike : false
+    },
+    {
+        img : "https://velog.velcdn.com/images/gogo6570/post/1b81bc70-0307-4a94-b300-acbfa86413e3/image.png",
+        title : "눈물의 여왕",
+        isLike : false
+    },
+    {
+        img : "https://velog.velcdn.com/images/gogo6570/post/1b81bc70-0307-4a94-b300-acbfa86413e3/image.png",
+        title : "눈물의 여왕",
+        isLike : false
+    },
+]
 
 export const DummyDataList = [
     {
@@ -101,8 +125,23 @@ const SearchResult = () => {
             </div>
             <Tap tapData={tapData} selectedId={selectedId} setSelectedId={setSelectedId} />
             <div className="content-wrapper">
-                <DropDown setValue={() => setSelectedId} />
-                {DummyDataList.map(data => (<SearchSpot data={data}/>))}
+            {selectedId === 1 && (
+                    <>
+                        <DropDown setValue={() => setSelectedId} />
+                        {DummyDataList.map(data => (<SearchSpot data={data} />))}
+                    </>
+                )}
+                {selectedId === 2 && (
+                    <>
+                    {DummyContent.map(data => (<SearchContent data={data} />))}
+                    </>
+                )}
+                {selectedId === 3 && (
+                    <div>여기서 '연예인' 탭의 내용을 렌더링하세요</div>
+                )}
+                {selectedId === 4 && (
+                    <div>여기서 '사용자' 탭의 내용을 렌더링하세요</div>
+                )}
             </div>
         </SearchResultStyled>
     )

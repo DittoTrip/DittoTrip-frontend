@@ -1,7 +1,10 @@
 import styled from "styled-components";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
+import { faHeart as faEmptyHeart } from '@fortawesome/free-regular-svg-icons';
 import Star from "../common/Star";
+import Dot from "../common/Dot";
+import TagSlide from "../common/TagSlide";
 
 
 interface SearchSpotDataType {
@@ -10,6 +13,8 @@ interface SearchSpotDataType {
     distance: string;
     rating: number;
     address: string;
+    reviewCount: number;
+    tagList : string[];
 }
 
   interface Props {
@@ -19,22 +24,29 @@ const SearchSpot = ({data} : Props) => {
 
     return (
         <SearchSpotStyle>
-      <img className="spot-image" src={data.img} />
-      <div className="spot-info">
-        <div className="spot-info-header">
-          <div className="spot-info-name">{data.name}</div>
+        <img className="spot-image" src={data.img} />
+        <div className="spot-info">
+          <div className="spot-info-header">
+            <div className="spot-info-name">{data.name}</div>
+            <div className="heart">
+              <FontAwesomeIcon icon={faEmptyHeart}/>
+            </div>
+          </div>
 
-          <div className="spot-info-distance">{data.distance}</div>
+          <div className="spot-info-rating-wrapper">
+            <div className="spot-info-rating">{data.rating}</div>
+            <Star rating={data.rating} size={12} gap={3} />
+            <div className="review-count">({data.reviewCount})</div>
+          </div>
+          
+          <div className="spot-info-address-wrapper">
+            <div className="spot-info-distance">{data.distance}</div>
+            <Dot />
+            <div className="spot-info-address">{data.address}</div>
+            <FontAwesomeIcon className="more-icon" icon={faChevronDown} />
+          </div>
+          <TagSlide tagList={data.tagList}/>
         </div>
-        <div className="spot-info-rating-wrapper">
-          <div className="spot-info-rating">{data.rating}</div>
-          <Star rating={data.rating} size={12} gap={3} />
-        </div>
-        <div className="spot-info-address-wrapper">
-          <div className="spot-info-address">{data.address}</div>
-          <FontAwesomeIcon className="more-icon" icon={faChevronDown} />
-        </div>
-      </div>
         </SearchSpotStyle>
     )
 }
@@ -42,6 +54,7 @@ const SearchSpot = ({data} : Props) => {
 const SearchSpotStyle = styled.div`
     display: flex;
     height: 116px;
+    width: 100%;
     margin-bottom:16px;
     
     border-bottom: solid 1px #B6B6B6;
@@ -54,13 +67,14 @@ const SearchSpotStyle = styled.div`
   .spot-info {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    padding: 16px;
+    
+    padding-left: 24px;
 
     .spot-info-header {
       display: flex;
       align-items: center;
-      gap: 8px;
+      justify-content: space-between;
+      margin-right: 28px;
 
       .spot-info-name {
         ${({ theme }) => theme.font.body2};
@@ -76,11 +90,15 @@ const SearchSpotStyle = styled.div`
       gap: 8px;
 
       ${({ theme }) => theme.font.body5}
+      .review-count {
+        color: ${({ theme }) => theme.color.gray60};
+      }
     }
 
     .spot-info-address-wrapper {
       display: flex;
       align-items: center;
+      gap: 3px;
 
       .spot-info-address {
         color: ${({ theme }) => theme.color.gray60};
@@ -99,6 +117,12 @@ const SearchSpotStyle = styled.div`
         color: ${({ theme }) => theme.color.gray60};
       }
     }
+    .heart {
+          font-size: 20px;
+          path {
+            color: ${({ theme }) => theme.color.keyColor};
+          }
+        }
   }
 `
 
