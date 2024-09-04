@@ -8,6 +8,8 @@ import Tap from "../components/common/Tab";
 import DropDown from "../components/common/DropDown";
 import SearchSpot from "../components/search/SearchSpot";
 import SearchContent from "../components/search/SearchContent";
+import SearchCeleb from "../components/search/SearchCeleb";
+import SearchUser from "../components/search/SearchUser";
 
 export interface TapItem {
     id: number;
@@ -36,6 +38,29 @@ export const DummyContent = [
         title : "눈물의 여왕",
         isLike : false
     },
+];
+export const DummyCeleb = [
+    {
+        img : "https://velog.velcdn.com/images/gogo6570/post/32a3092f-f595-438a-b56e-2c7bc52b142f/image.png",
+        name : "김수현",
+        isLike : false
+    },
+    {
+        img : "https://velog.velcdn.com/images/gogo6570/post/32a3092f-f595-438a-b56e-2c7bc52b142f/image.png",
+        name : "김수현",
+        isLike : false
+    },
+    
+]
+
+export const DummyUser = [
+    {
+        name : "김수현",
+    },
+    {
+        name : "김수현도둑",
+    },
+    
 ]
 
 export const DummyDataList = [
@@ -133,14 +158,18 @@ const SearchResult = () => {
                 )}
                 {selectedId === 2 && (
                     <>
-                    {DummyContent.map(data => (<SearchContent data={data} />))}
+                        {DummyContent.map(data => (<SearchContent data={data} />))}
                     </>
                 )}
                 {selectedId === 3 && (
-                    <div>여기서 '연예인' 탭의 내용을 렌더링하세요</div>
+                    <>
+                        {DummyCeleb.map(data => (<SearchCeleb data={data} />))}
+                    </>
                 )}
                 {selectedId === 4 && (
-                    <div>여기서 '사용자' 탭의 내용을 렌더링하세요</div>
+                    <>
+                        {DummyUser.map(data => (<SearchUser data={data} />))}
+                    </>
                 )}
             </div>
         </SearchResultStyled>
@@ -149,7 +178,7 @@ const SearchResult = () => {
 
 const SearchResultStyled = styled.div`
 .content-wrapper {
-    margin: 16px 28px;
+    margin: 16px 22px;
 }
 `;
     
