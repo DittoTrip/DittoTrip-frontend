@@ -21,6 +21,7 @@ import List from './pages/List';
 import Login from './pages/Login';
 import { getToken } from './store/authStore';
 import HeaderToken from './api/https';
+import Ditto from './pages/Ditto';
 
 
 const router = createBrowserRouter([
@@ -118,8 +119,6 @@ const router = createBrowserRouter([
         <SearchResult />
       </Layout>
     )
-  }
-    ),
   },
   {
     path: '/join',
@@ -144,6 +143,15 @@ const router = createBrowserRouter([
     element: (
       <Layout>
         <Login />
+      </Layout>
+    ),
+  },
+  {
+    path: '/ditto',
+
+    element: (
+      <Layout GNBType="search">
+        <Ditto />
       </Layout>
     ),
   },

@@ -152,7 +152,7 @@ const SearchResult = () => {
             <div className="content-wrapper">
             {selectedId === 1 && (
                     <>
-                        <DropDown setValue={() => setSelectedId} />
+                        {/* <DropDown setValue={() => setSelectedId} /> */}
                         {DummyDataList.map(data => (<SearchSpot data={data} />))}
                     </>
                 )}
