@@ -1,8 +1,8 @@
 import { RuleSet, css } from 'styled-components';
 
 // 버튼
-export type ButtonSize = 'large' | 'small';
-export type ButtonScheme = 'keyButton' | 'subButton' | 'kakao';
+export type ButtonSize = 'large' | 'medium' | 'small' | 'smallWithIcon';
+export type ButtonScheme = 'keyButton' | 'subButton' | 'kakao' | 'subButton2';
 
 export type ThemeName = 'light' | 'dark';
 export type ColorKey =
@@ -46,6 +46,10 @@ const fonts = {
     font-size: 12px;
     font-weight: 400;
   `,
+  body6: css`
+    font-size: 10px;
+    font-weight: 400;
+  `,
 };
 
 interface Theme {
@@ -56,6 +60,9 @@ interface Theme {
       font: RuleSet<object>;
       padding: string;
       width?: string;
+      display?: string;
+      alignItems?: string;
+      gap?: string;
     };
   };
   buttonScheme: {
@@ -81,6 +88,7 @@ const colors = {
   gray80: '#717171',
   kakao: '#FBE750',
   kakaoText: '#2F1F00',
+  red: '#E31D1C',
 };
 export const light: Theme = {
   name: 'light',
@@ -91,9 +99,21 @@ export const light: Theme = {
       padding: '15px 0',
       width: '100%',
     },
+    medium: {
+      font: fonts.body2,
+      padding: '15px 0',
+      width: '104px',
+    },
     small: {
       font: fonts.body5,
-      padding: '5px 10px',
+      padding: '3px 15px',
+    },
+    smallWithIcon: {
+      font: fonts.body4,
+      padding: '3px 15px',
+      display: 'flex',
+      alignItems: 'center',
+      gap: '4px',
     },
   },
   buttonScheme: {
@@ -108,6 +128,10 @@ export const light: Theme = {
     kakao: {
       color: colors.kakaoText,
       backgroundColor: colors.kakao,
+    },
+    subButton2: {
+      color: 'black',
+      backgroundColor: colors.gray20,
     },
   },
 

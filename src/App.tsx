@@ -13,6 +13,15 @@ import NewReview from './pages/NewReview';
 import ReviewDetail from './pages/ReviewDetail';
 import Search from './pages/Search';
 import SearchResult from './pages/SearchResult';
+import Join from './pages/Join';
+import Report from './pages/Report';
+import Spot from './pages/Spot';
+import Around from './pages/Around';
+import List from './pages/List';
+import Login from './pages/Login';
+import { getToken } from './store/authStore';
+import HeaderToken from './api/https';
+
 
 const router = createBrowserRouter([
   {
@@ -40,8 +49,33 @@ const router = createBrowserRouter([
   {
     path: '/category',
     element: (
-      <Layout>
+      <Layout GNBType="search">
         <Category />
+      </Layout>
+    ),
+  },
+  {
+    path: '/list/:id',
+    element: (
+      <Layout GNBType="search">
+        <List />
+      </Layout>
+    ),
+  },
+  {
+    path: '/spot/:id',
+    element: (
+      <Layout GNBType="search">
+        <Spot />
+      </Layout>
+    ),
+  },
+  {
+    path: '/around/:id',
+
+    element: (
+      <Layout GNBType="search">
+        <Around />
       </Layout>
     ),
   },
@@ -54,7 +88,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: '/review/new',
+    path: '/review/new/:id',
     element: (
       <Layout GNBType="search">
         <NewReview />
@@ -85,9 +119,40 @@ const router = createBrowserRouter([
       </Layout>
     )
   }
+    ),
+  },
+  {
+    path: '/join',
+    element: (
+      <Layout>
+        <Join />
+      </Layout>
+    ),
+  },
+  {
+    path: '/report',
+
+    element: (
+      <Layout GNBType="search">
+        <Report />
+      </Layout>
+    ),
+  },
+  {
+    path: '/login',
+
+    element: (
+      <Layout>
+        <Login />
+      </Layout>
+    ),
+  },
 ]);
 
 function App() {
+  const token = getToken();
+  HeaderToken.set(token);
+
   return (
     <>
       <DittoProvider>

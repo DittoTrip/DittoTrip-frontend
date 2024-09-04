@@ -12,7 +12,7 @@ const ReviewDetail = () => {
         <AppBar leading={true} title={<div className="title">촬영지 이름</div>} action={<LangSelectButton />} />
       </div>
       <div className="content">
-        <ReviewItem />
+        <ReviewItem setIsExpandedOption={() => {}} />
       </div>
       <div className="comment-list">
         <CommentList />
@@ -23,6 +23,8 @@ const ReviewDetail = () => {
 };
 
 const ReviewDetailStyle = styled.div`
+  padding-bottom: 160px;
+
   .app-bar .title {
     display: flex;
     justify-content: start;

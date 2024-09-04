@@ -11,7 +11,7 @@ interface GlobalNavigationBarProps {
 
 const GNBItemData: GNBItemDataType[] = [
   { name: 'home', route: '/', icon: faHouse },
-  { name: 'search', route: '/search', icon: faSearch },
+  { name: 'search', route: '/category', icon: faSearch },
   { name: 'ditto', route: '/ditto', icon: faLayerGroup },
   { name: 'my', route: '/my', icon: faUser },
 ];
@@ -53,6 +53,7 @@ export const GlobalNavigationBarStyled = styled.div`
   height: 87px;
 
   background: ${({ theme }) => theme.color.background};
+  z-index: 30;
 
   .gnb-item-wrapper {
     display: flex;

@@ -38,6 +38,13 @@ const LangSelectButtonStyled = styled.div`
   height: 30px;
   border-radius: 50%;
   background-color: ${({ theme }) => theme.color.subColor1};
+  .langSelectButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  }
 `;
 
 export default LangSelectButton;
