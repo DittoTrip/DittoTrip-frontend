@@ -2,16 +2,16 @@ import { styled } from 'styled-components';
 import Tag from './Tag';
 
 interface Props {
-  tagList: string[];
+  tagList?: string[];
 }
 
 const TagSlide = ({ tagList }: Props) => {
   return (
     <TagSlideStyled>
       <ul className="tag-slide">
-        {tagList.map(item => {
+        {tagList?.map((item, idx) => {
           return (
-            <li>
+            <li key={idx}>
               <Tag text={item} />
             </li>
           );

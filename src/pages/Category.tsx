@@ -11,7 +11,7 @@ import CategorySection from '../components/category/CategorySection';
 import FavoriteButton from '../components/category/FavoriteButton';
 
 import { fetchMoreData } from '../api/category';
-import { CategoryData, subType } from '../models/Category/categoryModel';
+import { CategoryData, SubType } from '../models/Category/categoryModel';
 import { defaultPageOptions } from '../constants/constant';
 
 export interface TapItem {
@@ -46,7 +46,7 @@ const Category = () => {
 
   // 데이터 load
   const loadMoreData = async (
-    subType: subType,
+    subType: SubType,
     page: number,
     setPage: React.Dispatch<React.SetStateAction<number>>
   ) => {

@@ -16,15 +16,15 @@ import SpotItem from '../components/common/SpotItem';
 
 import { OptionItem } from './Review';
 import { DummyDataList } from './Around';
-import { addBookmark, removeBookmark } from '../api/category';
+import useBookmarkedCategory from '../hooks/useCategory';
 
 const List = () => {
   const { t } = useTranslation();
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>(); // useParams의 제네릭 타입 명시
 
   const [selectedAddress, setSelectedAddress] = useState('');
 
-  const [isFavorite, setIsFavorite] = useState(false);
+  const { isBookmarked, toggleBookmark } = useBookmarkedCategory(id!);
 
   const dummyTag = ['강동원', '변성은', '디토트립', '강원도', '변호사', '변성은', '디토리포', '여행'];
   const sortOptions: OptionItem[] = [
@@ -59,31 +59,7 @@ const List = () => {
   const [isSortOpen, setIsSortOpen] = useState(false);
 
   const handleHeartClick = () => {
-    if (isFavorite) {
-      removeBookmark(id!).then(
-        res => {
-          console.log(res);
-          setIsFavorite(!isFavorite);
-        },
-        error => {
-          console.log(error);
-          alert('즐겨찾기 실패');
-          setIsFavorite(!isFavorite);
-        }
-      );
-    } else {
-      addBookmark(id!).then(
-        res => {
-          console.log(res);
-          setIsFavorite(!isFavorite);
-        },
-        error => {
-          console.log(error);
-          alert('즐겨찾기 실패');
-          setIsFavorite(!isFavorite);
-        }
-      );
-    }
+    toggleBookmark();
   };
 
   return (
@@ -94,7 +70,7 @@ const List = () => {
           title={<div className="title">{'이상한 변호사 우영우'}</div>}
           action={
             <div className="heart">
-              <FontAwesomeIcon icon={isFavorite ? faHeart : faEmptyHeart} onClick={() => handleHeartClick()} />
+              <FontAwesomeIcon icon={isBookmarked ? faHeart : faEmptyHeart} onClick={handleHeartClick} />
             </div>
           }
         />
@@ -108,8 +84,8 @@ const List = () => {
           <DropDown value={sortOptions[selectedSortId]} setIsOpen={setIsSortOpen} />
         </div>
 
-        {DummyDataList.map(data => (
-          <SpotItem data={data} setIsOpen={setIsAddressOpen} setSelectedAddress={setSelectedAddress} />
+        {DummyDataList.map((data, idx) => (
+          <SpotItem key={idx} data={data} setIsOpen={setIsAddressOpen} setSelectedAddress={setSelectedAddress} />
         ))}
       </div>
 

@@ -5,7 +5,6 @@ import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as faEmptyHeart } from '@fortawesome/free-regular-svg-icons';
 
-import { spotDetails } from '../../pages/Spot';
 import Dot from './Dot';
 import TagSlide from './TagSlide';
 import Star from './Star';
@@ -33,6 +32,7 @@ const SpotItem = ({ data, setSelectedAddress, setIsOpen }: Props) => {
   };
 
   const handleHeartClick = () => {};
+  const isLiked = true;
 
   return (
     <SpotItemStyle>
@@ -41,7 +41,7 @@ const SpotItem = ({ data, setSelectedAddress, setIsOpen }: Props) => {
         <div className="spot-info-header">
           <div className="spot-info-name">{data.name}</div>
           <div className="heart">
-            <FontAwesomeIcon icon={spotDetails.isLiked ? faHeart : faEmptyHeart} onClick={() => handleHeartClick()} />
+            <FontAwesomeIcon icon={isLiked ? faHeart : faEmptyHeart} onClick={() => handleHeartClick()} />
           </div>
         </div>
         <div className="spot-info-rating-wrapper">
