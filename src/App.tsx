@@ -12,6 +12,7 @@ import Review from './pages/Review';
 import NewReview from './pages/NewReview';
 import ReviewDetail from './pages/ReviewDetail';
 import Search from './pages/Search';
+import SearchResult from './pages/SearchResult';
 import Join from './pages/Join';
 import Report from './pages/Report';
 import Spot from './pages/Spot';
@@ -20,6 +21,7 @@ import List from './pages/List';
 import Login from './pages/Login';
 import { getToken } from './store/authStore';
 import HeaderToken from './api/https';
+
 
 const router = createBrowserRouter([
   {
@@ -107,6 +109,16 @@ const router = createBrowserRouter([
       <Layout GNBType="search">
         <Search />
       </Layout>
+    )
+  },
+  {
+    path: '/searchResult',
+    element: (
+      <Layout GNBType="search">
+        <SearchResult />
+      </Layout>
+    )
+  }
     ),
   },
   {
