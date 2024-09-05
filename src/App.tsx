@@ -118,9 +118,8 @@ const router = createBrowserRouter([
         <SearchResult />
       </Layout>
     )
-  }
-    ),
   },
+  
   {
     path: '/join',
     element: (
