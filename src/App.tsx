@@ -22,7 +22,6 @@ import Login from './pages/Login';
 import { getToken } from './store/authStore';
 import HeaderToken from './api/https';
 
-
 const router = createBrowserRouter([
   {
     path: '/',
@@ -33,7 +32,7 @@ const router = createBrowserRouter([
       </Layout>
     ),
     errorElement: (
-      <Layout>
+      <Layout GNBType="home">
         <ErrorPage />
       </Layout>
     ),
@@ -109,7 +108,7 @@ const router = createBrowserRouter([
       <Layout GNBType="search">
         <Search />
       </Layout>
-    )
+    ),
   },
   {
     path: '/searchResult',
@@ -117,9 +116,9 @@ const router = createBrowserRouter([
       <Layout GNBType="search">
         <SearchResult />
       </Layout>
-    )
+    ),
   },
-  
+
   {
     path: '/join',
     element: (
