@@ -14,6 +14,7 @@ import BottomSheet from '../components/bottomsheet/BottomSheet';
 export interface OptionItem {
   id: number;
   text: string;
+  sort?: string;
   handleClick: () => void;
 }
 
@@ -24,6 +25,7 @@ const Review = () => {
     {
       id: 0,
       text: t('review.reviewSortOptions.newest'),
+      sort: 'newest',
       handleClick: () => {
         setSelectedSortId(0);
         setIsOpen(false);
@@ -32,6 +34,7 @@ const Review = () => {
     {
       id: 1,
       text: t('review.reviewSortOptions.oldest'),
+      sort: 'oldest',
       handleClick: () => {
         setSelectedSortId(1);
         setIsOpen(false);
@@ -40,6 +43,7 @@ const Review = () => {
     {
       id: 2,
       text: t('review.reviewSortOptions.highest'),
+      sort: 'rating,asc',
       handleClick: () => {
         setSelectedSortId(2);
         setIsOpen(false);
@@ -48,6 +52,7 @@ const Review = () => {
     {
       id: 3,
       text: t('review.reviewSortOptions.lowest'),
+      sort: 'rating,desc',
       handleClick: () => {
         setSelectedSortId(3);
         setIsOpen(false);

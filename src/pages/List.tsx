@@ -15,22 +15,23 @@ import ToggleButtonComponent from '../components/common/ToggleView';
 import SpotItem from '../components/common/SpotItem';
 
 import { OptionItem } from './Review';
-import { DummyDataList } from './Around';
 import useBookmarkedCategory from '../hooks/useCategory';
+import useSpotList from '../hooks/spot/useSpotList';
+import ErrorPage from './Error';
 
 const List = () => {
   const { t } = useTranslation();
-  const { id } = useParams<{ id: string }>(); // useParams의 제네릭 타입 명시
+  const { id } = useParams();
 
   const [selectedAddress, setSelectedAddress] = useState('');
 
   const { isBookmarked, toggleBookmark } = useBookmarkedCategory(id!);
 
-  const dummyTag = ['강동원', '변성은', '디토트립', '강원도', '변호사', '변성은', '디토리포', '여행'];
   const sortOptions: OptionItem[] = [
     {
       id: 0,
       text: t('list.sortOptions.newest'),
+      sort: 'newest',
       handleClick: () => {
         setSelectedSortId(0);
         setIsAddressOpen(false);
@@ -39,6 +40,8 @@ const List = () => {
     {
       id: 1,
       text: t('list.sortOptions.distance'),
+      sort: 'distance',
+
       handleClick: () => {
         setSelectedSortId(1);
         setIsAddressOpen(false);
@@ -47,6 +50,7 @@ const List = () => {
     {
       id: 2,
       text: t('list.sortOptions.highest'),
+      sort: 'rating',
       handleClick: () => {
         setSelectedSortId(2);
         setIsAddressOpen(false);
@@ -61,6 +65,13 @@ const List = () => {
   const handleHeartClick = () => {
     toggleBookmark();
   };
+  // 해당 api 이용
+  // const { data, loading, error } = useSpotList(id!, sortOptions[selectedSortId].sort!);
+  const { data, loading, error } = useSpotList(id!, '');
+
+  if (loading) {
+    return <ErrorPage message={'Loading...'} />;
+  } else if (error) return <ErrorPage message={'spot id를 확인해주세요'} />;
 
   return (
     <ListStyle>
@@ -78,13 +89,13 @@ const List = () => {
       <img src={'https://image.ajunews.com/content/image/2022/07/19/20220719165306929129.jpg'} className="main-img" />
       <div className="content-wrapper">
         <div className="list-tag-slide">
-          <TagSlide tagList={dummyTag} />
+          <TagSlide tagList={data?.categoryData.hashtags} />
         </div>
         <div className="dropdown">
           <DropDown value={sortOptions[selectedSortId]} setIsOpen={setIsSortOpen} />
         </div>
 
-        {DummyDataList.map((data, idx) => (
+        {data?.spotDataList.map((data, idx) => (
           <SpotItem key={idx} data={data} setIsOpen={setIsAddressOpen} setSelectedAddress={setSelectedAddress} />
         ))}
       </div>

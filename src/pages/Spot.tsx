@@ -11,8 +11,8 @@ import PhotoSlide from '../components/common/PhotoSlide';
 import Button from '../components/common/Button';
 import MiniReviewItem from '../components/review/MiniReviewItem';
 
-import useSpotDetail from '../hooks/useSpot';
 import ErrorPage from './Error';
+import useSpotDetail from '../hooks/spot/useSpotDetail';
 
 const handleHeartClick = () => {};
 

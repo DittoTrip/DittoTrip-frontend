@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { spotDetail } from '../api/spot';
-import { SpotDetailResponse } from '../models/Spot/spotModel';
+import { spotDetail } from '../../api/spot';
+import { SpotDetailResponse } from '../../models/Spot/spotModel';
 
 const useSpotDetail = (spotId: string) => {
   const [spotDetailData, setSpotDetailData] = useState<SpotDetailResponse | null>(null);

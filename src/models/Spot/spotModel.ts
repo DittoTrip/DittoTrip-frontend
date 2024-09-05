@@ -1,3 +1,5 @@
+import { CategoryData } from '../Category/categoryModel';
+
 export interface SpotData {
   spotId: number;
   name: string;
@@ -26,4 +28,18 @@ export interface SpotDetailResponse {
   spotData: SpotData;
   spotImageDataList: SpotImageData[];
   reviewDataList: ReviewData[];
+}
+
+export interface SpotListResponse {
+  categoryData: CategoryData;
+  spotDataList: SpotData[];
+  totalPages: number;
+}
+
+export interface spotMapListReq {
+  categoryId: string;
+  startX: number;
+  startY: number;
+  endX: number;
+  endY: number;
 }
