@@ -8,7 +8,7 @@ import { faHeart as faEmptyHeart } from '@fortawesome/free-regular-svg-icons';
 import Dot from './Dot';
 import TagSlide from './TagSlide';
 import Star from './Star';
-import { SpotData } from '../../models/Spot/spotModel';
+import { SpotData } from '../../models/spot/spotModel';
 import { defaultImage } from '../../constants/constant';
 
 interface Props {

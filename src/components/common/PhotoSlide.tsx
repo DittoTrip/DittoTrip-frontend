@@ -1,5 +1,5 @@
 import { styled } from 'styled-components';
-import { SpotImageData } from '../../models/Spot/spotModel';
+import { SpotImageData } from '../../models/spot/spotModel';
 
 interface Props {
   photoList?: SpotImageData[];

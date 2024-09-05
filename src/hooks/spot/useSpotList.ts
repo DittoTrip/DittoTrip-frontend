@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { SpotListResponse } from '../../models/Spot/spotModel';
+import { SpotListResponse } from '../../models/spot/spotModel';
 import { spotList } from '../../api/spot';
 
 const useSpotList = (categoryId: string, sort: string) => {

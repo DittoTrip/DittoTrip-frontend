@@ -12,7 +12,7 @@ import { OptionItem } from './Review';
 import DropDown from '../components/common/DropDown';
 import BottomSheet from '../components/bottomsheet/BottomSheet';
 import SpotItem from '../components/common/SpotItem';
-import { SpotData } from '../models/Spot/spotModel';
+import { SpotData } from '../models/spot/spotModel';
 import { TapItem } from './Category';
 // import { OptionItem } from './Review';
 

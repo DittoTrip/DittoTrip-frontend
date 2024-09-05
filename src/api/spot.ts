@@ -1,5 +1,5 @@
 import { defaultPageOptions } from '../constants/constant';
-import { SpotDetailResponse, SpotListResponse, spotMapListReq } from '../models/Spot/spotModel';
+import { SpotDetailResponse, SpotListResponse, spotMapListReq } from '../models/spot/spotModel';
 import { api } from './https';
 
 // 스팟 북마크 추가
