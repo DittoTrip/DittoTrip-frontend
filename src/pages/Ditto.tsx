@@ -26,6 +26,21 @@ const DummyDitto = [
         title : "쁘띠 프랑스",
         name : "프레첼"
     },
+    {
+        img : "https://velog.velcdn.com/images/gogo6570/post/f02d5c0c-d612-4c68-9771-207a65d1a49c/image.png",
+        title : "쁘띠 프랑스",
+        name : "프레첼"
+    },
+    {
+        img : "https://velog.velcdn.com/images/gogo6570/post/f02d5c0c-d612-4c68-9771-207a65d1a49c/image.png",
+        title : "쁘띠 프랑스",
+        name : "프레첼"
+    },
+    {
+        img : "https://velog.velcdn.com/images/gogo6570/post/f02d5c0c-d612-4c68-9771-207a65d1a49c/image.png",
+        title : "쁘띠 프랑스",
+        name : "프레첼"
+    },
 ]
 
 const Ditto = () => {
@@ -46,8 +61,10 @@ const Ditto = () => {
                 action={<LangSelectButton/>}
                 />
             </div>
-            <div className="content-wrapper">
+            <div className="search-bar">
                 <SearchBar setSearchWord={setSearchWord} placeholder={t('search.placeholder')} />
+            </div>
+            <div className="content-wrapper">
                 {DummyDitto.map((item, i)=>{
                     return (
                         <div key={i} className="ditto-box">
@@ -66,34 +83,61 @@ const Ditto = () => {
 }
 
 const DittoStyle = styled.div`
-    .ditto-box {
-        display: inline-block;
-        
-    }
-
-    .content-img {
-        border-radius: 15px;
-        position: relative;
-    }
     .title {
         ${({theme}) => theme.font.title}
         color :  ${({theme}) => theme.color.keyColor}
     }
-    .content-wrapper {
-    margin: 8px 28px;
+    .search-bar {
+        margin: 8px 28px;
+        margin-bottom: 13px;
     }
+    .content-wrapper {
+        margin: 8px 28px;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 8px; 
+    }
+
+    .ditto-box {
+        position: relative;
+        width: 100%; 
+        display: block;
+    }
+
+    .content-img {
+        border-radius: 15px;
+        width: 100%; 
+        height: auto; 
+        display: block;
+    }
+
     .title-box {
         position: absolute;
-
+        bottom: 10px;
+        left: 10px;
+        
         .location {
             ${({theme}) => theme.font.body2}
-            color : white
+            color: white;
         }
         .name {
             ${({theme}) => theme.font.body5}
-            color : white
+            color: white;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .content-wrapper {
+            grid-template-columns: repeat(2, 1fr); 
+        }
+    }
+
+    @media (max-width: 300px) {
+        .content-wrapper {
+            grid-template-columns: repeat(1, 1fr); /* 아주 작은 화면에서는 1줄로 변경 */
         }
     }
 `;
+
 
 export default Ditto;
