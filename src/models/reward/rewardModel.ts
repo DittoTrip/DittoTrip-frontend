@@ -11,7 +11,7 @@ export interface UserBadgeData {
     acquiredDateTime: Date;
   }
   
-export interface RewardResponse { // user/{userId}/bedge/list api
+export interface UserBadgeResponse { // user/{userId}/bedge/list api
     userBadgeDataList: UserBadgeData[];
   }
 
