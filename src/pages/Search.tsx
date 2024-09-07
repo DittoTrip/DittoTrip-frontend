@@ -12,6 +12,7 @@ import DittoTap from '../components/search/DittoTap';
 import DittoSlide from '../components/search/DittoSlide';
 
 import { TapItem } from './Category';
+import { useNavigate } from 'react-router-dom';
 
 export interface searchItem {
   title: string;
@@ -65,7 +66,12 @@ const CAROUSEL_TEXTS = [
 const Search = () => {
   const { t } = useTranslation();
   const [searchWord, setSearchWord] = useState('');
+
+  const navigate = useNavigate();
   console.log(searchWord);
+  if (searchWord) {
+    navigate(`/searchResult/${searchWord}`);
+  }
 
   const tapData: TapItem[] = [
     { id: 1, title: `${t('category.tap.contents')}`, content: <div>영상 컨턴츠</div> },

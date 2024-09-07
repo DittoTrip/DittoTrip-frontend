@@ -10,6 +10,7 @@ import TagSlide from './TagSlide';
 import Star from './Star';
 import { SpotData } from '../../models/Spot/spotModel';
 import { defaultImage } from '../../constants/constant';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
   data: SpotData;
@@ -18,29 +19,33 @@ interface Props {
 }
 
 const SpotItem = ({ data, setSelectedAddress, setIsOpen }: Props) => {
-  const handleAddressClick = () => {
+  const navigate = useNavigate();
+  const handleAddressClick = (event: React.MouseEvent) => {
+    event.stopPropagation();
     setSelectedAddress(data.address);
     setIsOpen(true);
   };
 
-  const handleHeartClick = () => {};
+  const handleHeartClick = (event: React.MouseEvent) => {
+    event.stopPropagation();
+  };
   const isLiked = true;
 
   return (
-    <SpotItemStyle>
+    <SpotItemStyle onClick={() => navigate(`/spot/${data.spotId}`)}>
       <img className="spot-image" src={data.imagePath ?? defaultImage} />
       <div className="spot-info">
         <div className="spot-info-header">
           <div className="spot-info-name">{data.name}</div>
           <div className="heart">
-            <FontAwesomeIcon icon={isLiked ? faHeart : faEmptyHeart} onClick={() => handleHeartClick()} />
+            <FontAwesomeIcon icon={isLiked ? faHeart : faEmptyHeart} onClick={handleHeartClick} />
           </div>
         </div>
         <div className="spot-info-rating-wrapper">
           <div className="spot-info-rating">{data.rating}</div>
           <Star rating={data.rating} size={12} gap={3} />
         </div>
-        <div className="spot-info-address-wrapper" onClick={() => handleAddressClick()}>
+        <div className="spot-info-address-wrapper" onClick={handleAddressClick}>
           <div className="spot-info-distance">{'임시'}</div>
           <Dot color={'gray40'} />
 
@@ -129,6 +134,7 @@ const SpotItemStyle = styled.div`
       }
     }
     .spot-info-tag {
+      margin-top: 10px;
       width: 230px;
     }
   }

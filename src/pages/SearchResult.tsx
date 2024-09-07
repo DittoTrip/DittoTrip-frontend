@@ -2,19 +2,18 @@ import styled from 'styled-components';
 import AppBar from '../components/common/AppBar';
 import SearchBar from '../components/common/SearchBar';
 import { useTranslation } from 'react-i18next';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import Tap from '../components/common/Tab';
-// import DropDown from '../components/common/DropDown';
-import SearchContent from '../components/search/SearchContent';
-import SearchCeleb from '../components/search/SearchCeleb';
-import SearchUser from '../components/search/SearchUser';
-import { OptionItem } from './Review';
 import DropDown from '../components/common/DropDown';
 import BottomSheet from '../components/bottomsheet/BottomSheet';
 import SpotItem from '../components/common/SpotItem';
 import { SpotData } from '../models/Spot/spotModel';
 import { TapItem } from './Category';
-// import { OptionItem } from './Review';
+import { OptionItem } from './Review';
+import SearchUser from '../components/search/SearchUser';
+import SearchCeleb from '../components/search/SearchCeleb';
+import SearchContent from '../components/search/SearchContent';
 
 export const DummyContent = [
   {
@@ -89,6 +88,9 @@ export const DummyDataList: SpotData[] = [
 
 const SearchResult = () => {
   const { t } = useTranslation();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const searchWordFromURL = searchParams.get('search') || '';
+
   const tapData: TapItem[] = [
     { id: 1, title: '스팟', content: <div>드라마 / 영화</div> },
     { id: 2, title: '컨텐츠', content: <div>연예인들</div> },
@@ -96,8 +98,8 @@ const SearchResult = () => {
     { id: 4, title: '사용자', content: <div>연예인들</div> },
   ];
 
-  const [searchWord, setSearchWord] = useState('');
-  const [selectedId, setSelectedId] = useState<number>(tapData[0]?.id);
+  const [searchWord, setSearchWord] = useState(searchWordFromURL);
+  const [selectedTapId, setSelectedId] = useState<number>(tapData[0]?.id);
 
   const sortOptions: OptionItem[] = [
     {
@@ -113,7 +115,6 @@ const SearchResult = () => {
       id: 1,
       text: t('list.sortOptions.distance'),
       sort: 'distance',
-
       handleClick: () => {
         setSelectedSortId(1);
         setIsSortOpen(false);
@@ -131,11 +132,38 @@ const SearchResult = () => {
   ];
 
   const [selectedSortId, setSelectedSortId] = useState(sortOptions[0].id);
-  const [isAddressOpen, setIsAddressOpen] = useState(false);
   const [isSortOpen, setIsSortOpen] = useState(false);
-  const [selectedAddress, setSelectedAddress] = useState('');
 
-  console.log('searchWord:', searchWord);
+  const [selectedAddress, setSelectedAddress] = useState('');
+  const [isAddressOpen, setIsAddressOpen] = useState(false);
+
+  useEffect(() => {
+    if (searchWord) {
+      setSearchParams({ search: searchWord });
+    } else {
+      setSearchParams({});
+    }
+  }, [searchWord, setSearchParams]);
+
+  useEffect(() => {
+    if (selectedTapId == 1) {
+      // loadSpotData
+    }
+    if (selectedTapId == 2) {
+      // loadContentData
+    }
+    if (selectedTapId == 3) {
+      // loadCelebrityData
+    }
+    if (selectedTapId == 4) {
+      // loadUserData
+    }
+  }, [searchWordFromURL]);
+
+  // const [spotPage, setSpotPage] = useState(0);
+  // const [contentPage, setContentPage] = useState(0);
+  // const [celebrityPage, setCelebrityPage] = useState(0);
+  // const [userPage, setUserPage] = useState(0);
 
   return (
     <SearchResultStyled>
@@ -149,9 +177,9 @@ const SearchResult = () => {
           }
         />
       </div>
-      <Tap tapData={tapData} selectedId={selectedId} setSelectedId={setSelectedId} />
+      <Tap tapData={tapData} selectedId={selectedTapId} setSelectedId={setSelectedId} />
       <div className="content-wrapper">
-        {selectedId === 1 && (
+        {selectedTapId === 1 && (
           <>
             <div className="dropdown">
               <DropDown value={sortOptions[selectedSortId]} setIsOpen={setIsSortOpen} />
@@ -174,21 +202,21 @@ const SearchResult = () => {
             )}
           </>
         )}
-        {selectedId === 2 && (
+        {selectedTapId === 2 && (
           <>
             {DummyContent.map(data => (
               <SearchContent data={data} />
             ))}
           </>
         )}
-        {selectedId === 3 && (
+        {selectedTapId === 3 && (
           <>
             {DummyCeleb.map(data => (
               <SearchCeleb data={data} />
             ))}
           </>
         )}
-        {selectedId === 4 && (
+        {selectedTapId === 4 && (
           <>
             {DummyUser.map(data => (
               <SearchUser data={data} />

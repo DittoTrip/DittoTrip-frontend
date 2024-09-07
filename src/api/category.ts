@@ -4,6 +4,7 @@ import {
   CategoryListProps,
   CategoryModifyProps,
   CategoryResponse,
+  MajorType,
 } from '../models/Category/categoryModel';
 import { api } from './https';
 
@@ -30,9 +31,17 @@ export const fetchMoreData = async (data: CategoryListProps) => {
   });
   return response.data;
 };
-// 카테고리 검색 - 타입분류 x
-export const searchCategory = async (searchWord: string) => {
-  const response = await api.delete<CategoryData[]>(`category/list/search/typeless`, {
+// 카테고리 검색 (검색페이지)
+export const searchCategory = async (query: string, majorType: MajorType, page: number) => {
+  const response = await api.get<CategoryData[]>(`category/list/search`, {
+    params: { query, majorType, page },
+  });
+  console.log(response.data);
+  return response.data;
+};
+// 카테고리 검색 - 타입분류 x (스팟신청)
+export const searchCategoryWithoutType = async (searchWord: string) => {
+  const response = await api.get<CategoryData[]>(`category/list/search/typeless`, {
     params: { searchWord },
   });
   console.log(response.data);
