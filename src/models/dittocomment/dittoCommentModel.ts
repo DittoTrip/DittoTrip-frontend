@@ -3,7 +3,7 @@ export interface DittoCommentParameter { // 풋 ditto/{dittoId}/comment/{comment
     commentId : number;
 }
 
-export interface DittoCommentResponse { // 풋과 포스트 둘다 쓰는친구
+export interface DittoCommentRequest { // 풋과 포스트 둘다 쓰는친구
     body : string;
 }
 

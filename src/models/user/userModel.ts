@@ -1,4 +1,4 @@
-interface UserProfileRequset {
+export interface UserProfileRequset {
     itemSkinId: number;
     itemEyesId: number;
     itemMouseId: number;
