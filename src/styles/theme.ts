@@ -81,6 +81,7 @@ const colors = {
   keyColor: '#0044F1',
   subColor1: '#7FA1F8',
   subColor2: '#0924A9',
+  subColor3: '#E5ECFE',
   background: 'white',
   gray20: '#EEEEEE',
   gray40: '#D6D6D6',

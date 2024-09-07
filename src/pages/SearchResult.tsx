@@ -106,7 +106,7 @@ const SearchResult = () => {
       sort: 'newest',
       handleClick: () => {
         setSelectedSortId(0);
-        setIsAddressOpen(false);
+        setIsSortOpen(false);
       },
     },
     {
@@ -116,7 +116,7 @@ const SearchResult = () => {
 
       handleClick: () => {
         setSelectedSortId(1);
-        setIsAddressOpen(false);
+        setIsSortOpen(false);
       },
     },
     {
@@ -125,7 +125,7 @@ const SearchResult = () => {
       sort: 'rating',
       handleClick: () => {
         setSelectedSortId(2);
-        setIsAddressOpen(false);
+        setIsSortOpen(false);
       },
     },
   ];
@@ -135,7 +135,8 @@ const SearchResult = () => {
   const [isSortOpen, setIsSortOpen] = useState(false);
   const [selectedAddress, setSelectedAddress] = useState('');
 
-  console.log(searchWord);
+  console.log('searchWord:', searchWord);
+
   return (
     <SearchResultStyled>
       <div className="app-bar">

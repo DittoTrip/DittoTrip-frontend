@@ -29,6 +29,7 @@ const useVisitedSpot = (spotId: string) => {
       console.log('방문 성공');
     } catch (error) {
       console.error('방문 실패', error);
+      alert('위치를 다시 확인하세요.');
     }
   };
 

@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { styled } from 'styled-components';
@@ -18,7 +18,7 @@ import { OptionItem } from './Review';
 import useSpotList from '../hooks/spot/useSpotList';
 import ErrorPage from './Error';
 import { defaultPageOptions } from '../constants/constant';
-import useBookmarkedCategory from '../hooks/category/useCategory';
+import useBookmarkedCategory from '../hooks/category/useCategoryLike';
 
 const List = () => {
   const { t } = useTranslation();
@@ -38,6 +38,7 @@ const List = () => {
       handleClick: () => {
         setSelectedSortId(0);
         setIsSortOpen(false);
+        setCurrentPage(0); // Reset page
       },
     },
     {
@@ -47,24 +48,25 @@ const List = () => {
       handleClick: () => {
         setSelectedSortId(1);
         setIsSortOpen(false);
+        setCurrentPage(0); // Reset page
       },
     },
     {
       id: 2,
       text: t('list.sortOptions.highest'),
-      sort: 'rating',
+      sort: 'rating,desc',
       handleClick: () => {
         setSelectedSortId(2);
         setIsSortOpen(false);
+        setCurrentPage(0); // Reset page
       },
     },
   ];
 
   const [selectedSortId, setSelectedSortId] = useState(sortOptions[0].id);
   const [isAddressOpen, setIsAddressOpen] = useState(false);
-  const [loadingMore, setLoadingMore] = useState(false);
 
-  const { spotData, categoryData, loading, error } = useSpotList(
+  const { spotData, categoryData, loading, error, hasMore } = useSpotList(
     id!,
     sortOptions[selectedSortId].sort!,
     currentPage,
@@ -75,36 +77,23 @@ const List = () => {
     toggleBookmark();
   };
 
-  // 무한스크롤
+  // Infinite scroll logic
   const handleScroll = useCallback(() => {
-    const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
+    const scrollHeight = document.documentElement.scrollHeight;
+    const scrollTop = document.documentElement.scrollTop;
+    const clientHeight = document.documentElement.clientHeight;
 
-    if (scrollHeight - scrollTop === clientHeight && !loadingMore) {
-      setLoadingMore(true);
-      setCurrentPage(prevPage => prevPage + 1);
+    if (scrollTop + clientHeight >= scrollHeight - 10 && hasMore && !loading) {
+      setCurrentPage(prevPage => prevPage + 1); // Load next page
     }
-  }, [loadingMore]);
+  }, [hasMore, loading]);
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
+    return () => window.removeEventListener('scroll', handleScroll);
   }, [handleScroll]);
 
-  useEffect(() => {
-    if (currentPage === 0) return;
-    setLoadingMore(true);
-  }, [currentPage]);
-
-  useEffect(() => {
-    if (spotData.length > 0) {
-      setLoadingMore(false);
-    }
-  }, [spotData]);
-
-  if (loading) {
+  if (loading && currentPage === 0) {
     return <ErrorPage message={'Loading...'} />;
   } else if (error) {
     return <ErrorPage message={'spot id를 확인해주세요'} />;
@@ -135,8 +124,6 @@ const List = () => {
         {spotData.map((data, idx) => (
           <SpotItem key={idx} data={data} setIsOpen={setIsAddressOpen} setSelectedAddress={setSelectedAddress} />
         ))}
-
-        {loadingMore && <div>Loading more...</div>}
       </div>
 
       {isAddressOpen && (
