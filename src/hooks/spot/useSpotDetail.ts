@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { spotDetail } from '../../api/spot';
 import { SpotDetailResponse } from '../../models/Spot/spotModel';
 
-const useSpotDetail = (spotId: string) => {
+const useSpotDetail = (spotId: string, isBookmarked: boolean) => {
   const [spotDetailData, setSpotDetailData] = useState<SpotDetailResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
@@ -24,7 +24,7 @@ const useSpotDetail = (spotId: string) => {
     };
 
     fetchSpotDetail();
-  }, [spotId]);
+  }, [spotId, isBookmarked]);
 
   return { spotDetailData, error, loading };
 };

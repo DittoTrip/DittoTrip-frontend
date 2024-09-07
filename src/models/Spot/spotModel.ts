@@ -36,10 +36,17 @@ export interface SpotListResponse {
   totalPages: number;
 }
 
-export interface spotMapListReq {
+export interface spotMapListRequest {
   categoryId: string;
   startX: number;
   startY: number;
   endX: number;
   endY: number;
+}
+
+export interface SpotListRequest {
+  page: number;
+  sort?: string;
+  userX?: number | null;
+  userY?: number | null;
 }

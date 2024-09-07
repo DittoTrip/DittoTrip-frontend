@@ -8,6 +8,7 @@ const Tag = ({ text }: Props) => {
 };
 
 const TagStyled = styled.div`
+  width: fit-content;
   padding: 2px 12px;
 
   border-radius: 15px;

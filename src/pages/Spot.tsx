@@ -13,14 +13,31 @@ import MiniReviewItem from '../components/review/MiniReviewItem';
 
 import ErrorPage from './Error';
 import useSpotDetail from '../hooks/spot/useSpotDetail';
-
-const handleHeartClick = () => {};
+import { useEffect, useState } from 'react';
+import useBookmarkedSpot from '../hooks/spot/useSpotLike';
+import useVisitedSpot from '../hooks/spot/useSpotVisit';
 
 const Spot = () => {
   const { t } = useTranslation();
   const { id } = useParams();
 
-  const { spotDetailData, error, loading } = useSpotDetail(id!);
+  // 북마크 관련 훅, 상태
+  // bookmardId 저장: 북마크 삭제에 필요
+  const [bookmarkedId, setBookmarkedId] = useState<number | null>();
+  const { isBookmarked, toggleBookmark } = useBookmarkedSpot(id!, bookmarkedId!);
+  const handleHeartClick = () => {
+    toggleBookmark();
+  };
+
+  // spotDetailData 받아오기
+  // 새로운 북마크시 생성된 bookmarkId 저장해야함 (isBookmared 의존)
+  const { spotDetailData, error, loading } = useSpotDetail(id!, isBookmarked!);
+  useEffect(() => {
+    setBookmarkedId(spotDetailData?.spotData.myBookmarkId);
+  }, [spotDetailData]);
+
+  const { isVisited, markSpotAsVisited } = useVisitedSpot(id!);
+  console.log(isVisited);
 
   if (loading) return <ErrorPage message={'Loading'} />;
   else if (error) return <ErrorPage message={'spot id를 확인해주세요'} />;
@@ -35,12 +52,14 @@ const Spot = () => {
           <div className="spot-name">{spotDetailData?.spotData.name}</div>
           <div className="button-wrapper">
             <div className="heart">
-              <FontAwesomeIcon
-                icon={spotDetailData?.spotData.myBookmarkId ? faHeart : faEmptyHeart}
-                onClick={() => handleHeartClick()}
-              />
+              <FontAwesomeIcon icon={isBookmarked ? faHeart : faEmptyHeart} onClick={() => handleHeartClick()} />
             </div>
-            <Button size={'small'} scheme={'keyButton'}>
+            <Button
+              size={'small'}
+              scheme={'keyButton'}
+              onClick={() => {
+                markSpotAsVisited();
+              }}>
               {t('spot.visit')}
             </Button>
           </div>

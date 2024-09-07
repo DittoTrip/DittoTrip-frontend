@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { styled } from 'styled-components';
@@ -15,15 +15,18 @@ import ToggleButtonComponent from '../components/common/ToggleView';
 import SpotItem from '../components/common/SpotItem';
 
 import { OptionItem } from './Review';
-import useBookmarkedCategory from '../hooks/useCategory';
 import useSpotList from '../hooks/spot/useSpotList';
 import ErrorPage from './Error';
+import { defaultPageOptions } from '../constants/constant';
+import useBookmarkedCategory from '../hooks/category/useCategory';
 
 const List = () => {
   const { t } = useTranslation();
   const { id } = useParams();
 
+  const [currentPage, setCurrentPage] = useState(0);
   const [selectedAddress, setSelectedAddress] = useState('');
+  const [isSortOpen, setIsSortOpen] = useState(false);
 
   const { isBookmarked, toggleBookmark } = useBookmarkedCategory(id!);
 
@@ -31,20 +34,19 @@ const List = () => {
     {
       id: 0,
       text: t('list.sortOptions.newest'),
-      sort: 'newest',
+      sort: 'createdDateTime,desc',
       handleClick: () => {
         setSelectedSortId(0);
-        setIsAddressOpen(false);
+        setIsSortOpen(false);
       },
     },
     {
       id: 1,
       text: t('list.sortOptions.distance'),
       sort: 'distance',
-
       handleClick: () => {
         setSelectedSortId(1);
-        setIsAddressOpen(false);
+        setIsSortOpen(false);
       },
     },
     {
@@ -53,32 +55,67 @@ const List = () => {
       sort: 'rating',
       handleClick: () => {
         setSelectedSortId(2);
-        setIsAddressOpen(false);
+        setIsSortOpen(false);
       },
     },
   ];
 
   const [selectedSortId, setSelectedSortId] = useState(sortOptions[0].id);
   const [isAddressOpen, setIsAddressOpen] = useState(false);
-  const [isSortOpen, setIsSortOpen] = useState(false);
+  const [loadingMore, setLoadingMore] = useState(false);
+
+  const { spotData, categoryData, loading, error } = useSpotList(
+    id!,
+    sortOptions[selectedSortId].sort!,
+    currentPage,
+    defaultPageOptions
+  );
 
   const handleHeartClick = () => {
     toggleBookmark();
   };
-  // 해당 api 이용
-  // const { data, loading, error } = useSpotList(id!, sortOptions[selectedSortId].sort!);
-  const { data, loading, error } = useSpotList(id!, '');
+
+  // 무한스크롤
+  const handleScroll = useCallback(() => {
+    const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
+
+    if (scrollHeight - scrollTop === clientHeight && !loadingMore) {
+      setLoadingMore(true);
+      setCurrentPage(prevPage => prevPage + 1);
+    }
+  }, [loadingMore]);
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [handleScroll]);
+
+  useEffect(() => {
+    if (currentPage === 0) return;
+    setLoadingMore(true);
+  }, [currentPage]);
+
+  useEffect(() => {
+    if (spotData.length > 0) {
+      setLoadingMore(false);
+    }
+  }, [spotData]);
 
   if (loading) {
     return <ErrorPage message={'Loading...'} />;
-  } else if (error) return <ErrorPage message={'spot id를 확인해주세요'} />;
+  } else if (error) {
+    return <ErrorPage message={'spot id를 확인해주세요'} />;
+  }
 
   return (
     <ListStyle>
       <div className="app-bar">
         <AppBar
           leading={false}
-          title={<div className="title">{'이상한 변호사 우영우'}</div>}
+          title={<div className="title">{categoryData?.name}</div>}
           action={
             <div className="heart">
               <FontAwesomeIcon icon={isBookmarked ? faHeart : faEmptyHeart} onClick={handleHeartClick} />
@@ -89,15 +126,17 @@ const List = () => {
       <img src={'https://image.ajunews.com/content/image/2022/07/19/20220719165306929129.jpg'} className="main-img" />
       <div className="content-wrapper">
         <div className="list-tag-slide">
-          <TagSlide tagList={data?.categoryData.hashtags} />
+          <TagSlide tagList={categoryData?.hashtags} />
         </div>
         <div className="dropdown">
           <DropDown value={sortOptions[selectedSortId]} setIsOpen={setIsSortOpen} />
         </div>
 
-        {data?.spotDataList.map((data, idx) => (
+        {spotData.map((data, idx) => (
           <SpotItem key={idx} data={data} setIsOpen={setIsAddressOpen} setSelectedAddress={setSelectedAddress} />
         ))}
+
+        {loadingMore && <div>Loading more...</div>}
       </div>
 
       {isAddressOpen && (
@@ -149,6 +188,15 @@ const ListStyle = styled.div`
     }
     .list-tag-slide {
       padding: 10px 0;
+    }
+  }
+
+  .pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    button {
+      margin: 0 10px;
     }
   }
 `;

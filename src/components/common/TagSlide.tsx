@@ -8,15 +8,11 @@ interface Props {
 const TagSlide = ({ tagList }: Props) => {
   return (
     <TagSlideStyled>
-      <ul className="tag-slide">
+      <div className="tag-slide">
         {tagList?.map((item, idx) => {
-          return (
-            <li key={idx}>
-              <Tag text={item} />
-            </li>
-          );
+          return <Tag text={item} key={idx} />;
         })}
-      </ul>
+      </div>
     </TagSlideStyled>
   );
 };

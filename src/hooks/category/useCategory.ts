@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { addBookmark, bookmarkedCategory, removeBookmark } from '../api/category';
+import { addBookmark, bookmarkedCategory, removeBookmark } from '../../api/category';
 
 const useBookmarkedCategory = (id: string) => {
   const [isBookmarked, setIsBookmarked] = useState<boolean>(false);
