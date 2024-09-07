@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -8,9 +9,8 @@ import { faHeart as faEmptyHeart } from '@fortawesome/free-regular-svg-icons';
 import Dot from './Dot';
 import TagSlide from './TagSlide';
 import Star from './Star';
-import { SpotData } from '../../models/Spot/spotModel';
 import { defaultImage } from '../../constants/constant';
-import { useNavigate } from 'react-router-dom';
+import { SpotData } from '../../models/spot/spotModel';
 
 interface Props {
   data: SpotData;

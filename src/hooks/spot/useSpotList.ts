@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
-import { SpotData } from '../../models/Spot/spotModel';
+
 import { spotList } from '../../api/spot';
+
 import { CategoryData } from '../../models/Category/categoryModel';
+import { SpotData } from '../../models/spot/spotModel';
 
 const useSpotList = (categoryId: string, sort: string, page: number, size: number) => {
   const [spotData, setSpotData] = useState<SpotData[]>([]);

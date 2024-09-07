@@ -1,4 +1,4 @@
-import { SpotDetailResponse, SpotListRequest, SpotListResponse, spotMapListRequest } from '../models/Spot/spotModel';
+import { SpotDetailResponse, SpotListRequest, SpotListResponse, spotMapListRequest } from '../models/spot/spotModel';
 import { api } from './https';
 
 // 스팟 북마크 추가
