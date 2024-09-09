@@ -1,9 +1,12 @@
 import { useState, useEffect } from 'react';
 import { bookmarkedSpot } from '../../api/spot';
 import { addSpotBookmark, removeSpotBookmark } from '../../api/spot';
+import { useAuthStore } from '../../store/authStore';
 
 const useBookmarkedSpot = (spotId: string, bookmarkedId: number) => {
   const [isBookmarked, setIsBookmarked] = useState<boolean>(false);
+  const { isLoggedIn } = useAuthStore();
+
   useEffect(() => {
     const fetchBookmarkStatus = async () => {
       try {
@@ -13,8 +16,9 @@ const useBookmarkedSpot = (spotId: string, bookmarkedId: number) => {
         console.log('북마크 여부 받아오기 실패', error);
       }
     };
-
-    fetchBookmarkStatus();
+    if (isLoggedIn) {
+      fetchBookmarkStatus();
+    }
   }, [spotId]);
 
   const toggleBookmark = async () => {

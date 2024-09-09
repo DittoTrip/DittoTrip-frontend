@@ -38,7 +38,7 @@ const List = () => {
       handleClick: () => {
         setSelectedSortId(0);
         setIsSortOpen(false);
-        setCurrentPage(0); // Reset page
+        setCurrentPage(0); 
       },
     },
     {
@@ -48,7 +48,7 @@ const List = () => {
       handleClick: () => {
         setSelectedSortId(1);
         setIsSortOpen(false);
-        setCurrentPage(0); // Reset page
+        setCurrentPage(0); 
       },
     },
     {
@@ -58,7 +58,7 @@ const List = () => {
       handleClick: () => {
         setSelectedSortId(2);
         setIsSortOpen(false);
-        setCurrentPage(0); // Reset page
+        setCurrentPage(0); 
       },
     },
   ];

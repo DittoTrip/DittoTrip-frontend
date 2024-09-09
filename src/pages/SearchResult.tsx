@@ -8,47 +8,12 @@ import Tap from '../components/common/Tab';
 import DropDown from '../components/common/DropDown';
 import BottomSheet from '../components/bottomsheet/BottomSheet';
 import SpotItem from '../components/common/SpotItem';
-import { SpotData } from '../models/spot/spotModel';
 import { TapItem } from './Category';
 import { OptionItem } from './Review';
 import SearchUser from '../components/search/SearchUser';
 import SearchCeleb from '../components/search/SearchCeleb';
 import SearchContent from '../components/search/SearchContent';
-
-export const DummyContent = [
-  {
-    img: 'https://velog.velcdn.com/images/gogo6570/post/1b81bc70-0307-4a94-b300-acbfa86413e3/image.png',
-    title: '눈물의 여왕',
-    isLike: false,
-  },
-  {
-    img: 'https://velog.velcdn.com/images/gogo6570/post/1b81bc70-0307-4a94-b300-acbfa86413e3/image.png',
-    title: '눈물의 여왕',
-    isLike: false,
-  },
-  {
-    img: 'https://velog.velcdn.com/images/gogo6570/post/1b81bc70-0307-4a94-b300-acbfa86413e3/image.png',
-    title: '눈물의 여왕',
-    isLike: false,
-  },
-  {
-    img: 'https://velog.velcdn.com/images/gogo6570/post/1b81bc70-0307-4a94-b300-acbfa86413e3/image.png',
-    title: '눈물의 여왕',
-    isLike: false,
-  },
-];
-export const DummyCeleb = [
-  {
-    img: 'https://velog.velcdn.com/images/gogo6570/post/32a3092f-f595-438a-b56e-2c7bc52b142f/image.png',
-    name: '김수현',
-    isLike: false,
-  },
-  {
-    img: 'https://velog.velcdn.com/images/gogo6570/post/32a3092f-f595-438a-b56e-2c7bc52b142f/image.png',
-    name: '김수현',
-    isLike: false,
-  },
-];
+import useSearchData from '../hooks/search/useSearchData';
 
 export const DummyUser = [
   {
@@ -59,37 +24,11 @@ export const DummyUser = [
   },
 ];
 
-export const DummyDataList: SpotData[] = [
-  {
-    spotId: 1,
-    name: '소소주점',
-    address: '경기도 남양주시 와부읍 덕소로',
-    pointX: 37.751736,
-    pointY: 127.12987,
-    imagePath:
-      'https://images.unsplash.com/photo-1560237731-890b122a9b6c?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8fA%3D%3D',
-    rating: 4.5,
-    hashtags: ['강동원', '변성은', '디토트립', '강원도', '변호사', '변성은', '디토리포', '여행'],
-    myBookmarkId: 1,
-  },
-  {
-    spotId: 1,
-    name: '안 소소주점',
-    address: '경기도 남양주시 와부읍 덕소로',
-    pointX: 37.751736,
-    pointY: 127.12987,
-    imagePath:
-      'https://images.unsplash.com/photo-1560237731-890b122a9b6c?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8fA%3D%3D',
-    rating: 4.5,
-    hashtags: ['강동원', '변성은', '디토트립', '강원도', '변호사', '변성은', '디토리포', '여행'],
-    myBookmarkId: 1,
-  },
-];
-
 const SearchResult = () => {
   const { t } = useTranslation();
   const [searchParams, setSearchParams] = useSearchParams();
   const searchWordFromURL = searchParams.get('search') || '';
+  const sortFromURL = searchParams.get('sort') || 'createdDateTime,desc';
 
   const tapData: TapItem[] = [
     { id: 1, title: '스팟', content: <div>드라마 / 영화</div> },
@@ -105,10 +44,11 @@ const SearchResult = () => {
     {
       id: 0,
       text: t('list.sortOptions.newest'),
-      sort: 'newest',
+      sort: 'createdDateTime,desc',
       handleClick: () => {
         setSelectedSortId(0);
         setIsSortOpen(false);
+        setSearchParams({ sort: 'createdDateTime,desc' });
       },
     },
     {
@@ -118,15 +58,17 @@ const SearchResult = () => {
       handleClick: () => {
         setSelectedSortId(1);
         setIsSortOpen(false);
+        setSearchParams({ sort: 'distance,desc' });
       },
     },
     {
       id: 2,
       text: t('list.sortOptions.highest'),
-      sort: 'rating',
+      sort: 'rating,desc',
       handleClick: () => {
         setSelectedSortId(2);
         setIsSortOpen(false);
+        setSearchParams({ sort: 'rating,desc' });
       },
     },
   ];
@@ -137,33 +79,35 @@ const SearchResult = () => {
   const [selectedAddress, setSelectedAddress] = useState('');
   const [isAddressOpen, setIsAddressOpen] = useState(false);
 
-  useEffect(() => {
-    if (searchWord) {
-      setSearchParams({ search: searchWord });
-    } else {
-      setSearchParams({});
-    }
-  }, [searchWord, setSearchParams]);
+  const {
+    spotListData,
+    contentListData,
+    celebrityListData,
+    setSpotPage,
+    setContentPage,
+    setCelebrityPage,
+    setSpotListData,
+  } = useSearchData(selectedTapId);
 
   useEffect(() => {
-    if (selectedTapId == 1) {
-      // loadSpotData
-    }
-    if (selectedTapId == 2) {
-      // loadContentData
-    }
-    if (selectedTapId == 3) {
-      // loadCelebrityData
-    }
-    if (selectedTapId == 4) {
-      // loadUserData
-    }
-  }, [searchWordFromURL]);
+    const navigationEntries = performance.getEntriesByType('navigation');
+    const navEntry = navigationEntries[0] as PerformanceNavigationTiming;
 
-  // const [spotPage, setSpotPage] = useState(0);
-  // const [contentPage, setContentPage] = useState(0);
-  // const [celebrityPage, setCelebrityPage] = useState(0);
-  // const [userPage, setUserPage] = useState(0);
+    if (navEntry?.type === 'reload') {
+      // 새로고침 시 searchWord를 빈 문자열로 설정
+      setSearchWord('');
+      setSearchParams({ search: '', sort: sortFromURL });
+      setSpotPage(0);
+      setSpotListData([]);
+    }
+  }, []);
+
+  useEffect(() => {
+    setSearchParams({ search: searchWord, sort: sortOptions[selectedSortId].sort! });
+    setSpotPage(0);
+    setContentPage(0);
+    setCelebrityPage(0);
+  }, [searchWord, selectedSortId]);
 
   return (
     <SearchResultStyled>
@@ -185,7 +129,7 @@ const SearchResult = () => {
               <DropDown value={sortOptions[selectedSortId]} setIsOpen={setIsSortOpen} />
             </div>
 
-            {DummyDataList.map((data, idx) => (
+            {spotListData.map((data, idx) => (
               <SpotItem key={idx} data={data} setIsOpen={setIsAddressOpen} setSelectedAddress={setSelectedAddress} />
             ))}
 
@@ -203,16 +147,16 @@ const SearchResult = () => {
           </>
         )}
         {selectedTapId === 2 && (
-          <>
-            {DummyContent.map(data => (
-              <SearchContent data={data} />
+          <div className="content-search-list">
+            {contentListData.map((data, idx) => (
+              <SearchContent data={data} key={idx} />
             ))}
-          </>
+          </div>
         )}
         {selectedTapId === 3 && (
           <>
-            {DummyCeleb.map(data => (
-              <SearchCeleb data={data} />
+            {celebrityListData.map((data, idx) => (
+              <SearchCeleb data={data} key={idx} />
             ))}
           </>
         )}
@@ -236,6 +180,11 @@ const SearchResultStyled = styled.div`
   }
   .content-wrapper {
     margin: 16px 22px;
+  }
+  .content-search-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
   }
 
   .dropdown {

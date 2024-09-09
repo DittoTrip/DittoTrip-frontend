@@ -33,7 +33,7 @@ export const fetchMoreData = async (data: CategoryListProps) => {
 };
 // 카테고리 검색 (검색페이지)
 export const searchCategory = async (query: string, majorType: MajorType, page: number) => {
-  const response = await api.get<CategoryData[]>(`category/list/search`, {
+  const response = await api.get<CategoryResponse>(`category/list/search`, {
     params: { query, majorType, page },
   });
   console.log(response.data);

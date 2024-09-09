@@ -1,4 +1,10 @@
-import { SpotDetailResponse, SpotListRequest, SpotListResponse, spotMapListRequest } from '../models/spot/spotModel';
+import {
+  SpotDetailResponse,
+  SpotListRequest,
+  SpotListResponse,
+  spotMapListRequest,
+  SpotSearchListResponse,
+} from '../models/spot/spotModel';
 import { api } from './https';
 
 // 스팟 북마크 추가
@@ -48,4 +54,13 @@ export const postVisitedSpot = async (spotId: string, userX: number, userY: numb
     }
   );
   return response;
+};
+
+// 스팟 검색 (검색페이지)
+export const searchSpot = async (params: SpotListRequest) => {
+  const response = await api.get<SpotSearchListResponse>(`spot/list/search`, {
+    params: { ...params },
+  });
+  console.log(response.data);
+  return response.data;
 };

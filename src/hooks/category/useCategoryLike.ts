@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { addBookmark, bookmarkedCategory, removeBookmark } from '../../api/category';
 
 const useBookmarkedCategory = (id: string) => {
@@ -17,7 +17,7 @@ const useBookmarkedCategory = (id: string) => {
     fetchBookmarkStatus();
   }, [id]);
 
-  const toggleBookmark = useCallback(async () => {
+  const toggleBookmark = async () => {
     try {
       if (isBookmarked) {
         removeBookmark(id);
@@ -29,7 +29,7 @@ const useBookmarkedCategory = (id: string) => {
     } catch (error) {
       console.log('북마크 실패', error);
     }
-  }, [id, isBookmarked]);
+  };
 
   return { isBookmarked, toggleBookmark };
 };

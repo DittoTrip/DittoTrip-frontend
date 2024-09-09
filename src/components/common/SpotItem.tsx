@@ -11,6 +11,9 @@ import TagSlide from './TagSlide';
 import Star from './Star';
 import { defaultImage } from '../../constants/constant';
 import { SpotData } from '../../models/spot/spotModel';
+import useBookmarkedSpot from '../../hooks/spot/useSpotLike';
+import { useEffect, useState } from 'react';
+import { useAuthStore } from '../../store/authStore';
 
 interface Props {
   data: SpotData;
@@ -20,16 +23,33 @@ interface Props {
 
 const SpotItem = ({ data, setSelectedAddress, setIsOpen }: Props) => {
   const navigate = useNavigate();
+  const { isLoggedIn } = useAuthStore();
+
+  // 주소 클릭
   const handleAddressClick = (event: React.MouseEvent) => {
     event.stopPropagation();
     setSelectedAddress(data.address);
     setIsOpen(true);
   };
 
+  // 좋아요 기능
+  const [bookmarkedId, setBookmarkedId] = useState<number | null>();
+  const { isBookmarked, toggleBookmark } = useBookmarkedSpot(data.spotId.toString(), bookmarkedId!);
+
+  // 좋아요 id 저장 (삭제에 필요)
+  useEffect(() => {
+    setBookmarkedId(data.myBookmarkId);
+  }, [data]);
+
   const handleHeartClick = (event: React.MouseEvent) => {
+    console.log(isLoggedIn);
     event.stopPropagation();
+    if (!isLoggedIn) {
+      alert('로그인하세요');
+      return;
+    }
+    toggleBookmark();
   };
-  const isLiked = true;
 
   return (
     <SpotItemStyle onClick={() => navigate(`/spot/${data.spotId}`)}>
@@ -38,7 +58,7 @@ const SpotItem = ({ data, setSelectedAddress, setIsOpen }: Props) => {
         <div className="spot-info-header">
           <div className="spot-info-name">{data.name}</div>
           <div className="heart">
-            <FontAwesomeIcon icon={isLiked ? faHeart : faEmptyHeart} onClick={handleHeartClick} />
+            <FontAwesomeIcon icon={isBookmarked ? faHeart : faEmptyHeart} onClick={handleHeartClick} />
           </div>
         </div>
         <div className="spot-info-rating-wrapper">

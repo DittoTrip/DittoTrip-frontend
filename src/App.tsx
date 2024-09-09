@@ -79,7 +79,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: '/review',
+    path: '/reviews/:id',
     element: (
       <Layout GNBType="search">
         <Review />
