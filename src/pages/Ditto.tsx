@@ -12,7 +12,7 @@ export interface dittoInfi {
     name : string;
 }
 
-const DummyDitto = [
+export const DummyDitto = [
     {
         img : "https://velog.velcdn.com/images/gogo6570/post/f02d5c0c-d612-4c68-9771-207a65d1a49c/image.png",
         title : "쁘띠 프랑스",

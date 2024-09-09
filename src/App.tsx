@@ -22,6 +22,9 @@ import Login from './pages/Login';
 import { getToken } from './store/authStore';
 import HeaderToken from './api/https';
 import Ditto from './pages/Ditto';
+import DittoDetail from './pages/DittoDetail';
+import DittoWrite from './pages/DittoWrite';
+import SpotApply from './pages/SpotApply';
 
 
 const router = createBrowserRouter([
@@ -152,6 +155,33 @@ const router = createBrowserRouter([
     element: (
       <Layout GNBType="search">
         <Ditto />
+      </Layout>
+    ),
+  },
+  {
+    path: '/ditto/:id',
+
+    element: (
+      <Layout GNBType="search">
+        <DittoDetail />
+      </Layout>
+    ),
+  },
+  {
+    path: '/dittoWrite',
+
+    element: (
+      <Layout>
+        <DittoWrite />
+      </Layout>
+    ),
+  },
+  {
+    path: '/spotApply',
+
+    element: (
+      <Layout>
+        <SpotApply />
       </Layout>
     ),
   },
