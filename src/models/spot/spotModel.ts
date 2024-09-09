@@ -18,6 +18,7 @@ export interface SpotImageData {
 }
 
 export interface ReviewData {
+  // 미니 리뷰
   reviewId: number;
   username: string;
   rating: number;

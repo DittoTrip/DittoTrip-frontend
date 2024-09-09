@@ -1,6 +1,7 @@
-import { useState } from 'react';
-import { styled } from 'styled-components';
+import { useCallback, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { styled } from 'styled-components';
 
 import AppBar from '../components/common/AppBar';
 import Tap from '../components/common/Tab';
@@ -11,6 +12,10 @@ import ReviewItem from '../components/review/ReviewItem';
 import DropDown from '../components/common/DropDown';
 import BottomSheet from '../components/bottomsheet/BottomSheet';
 
+import useReviewList from '../hooks/review/useReviewList';
+import { defaultPageOptions } from '../constants/constant';
+import ErrorPage from './Error';
+
 export interface OptionItem {
   id: number;
   text: string;
@@ -20,12 +25,13 @@ export interface OptionItem {
 
 const Review = () => {
   const { t } = useTranslation();
+  const { id } = useParams();
 
   const reviewSortOptions: OptionItem[] = [
     {
       id: 0,
       text: t('review.reviewSortOptions.newest'),
-      sort: 'newest',
+      sort: 'createdDateTime,desc',
       handleClick: () => {
         setSelectedSortId(0);
         setIsOpen(false);
@@ -34,7 +40,7 @@ const Review = () => {
     {
       id: 1,
       text: t('review.reviewSortOptions.oldest'),
-      sort: 'oldest',
+      sort: 'createdDateTime,asc',
       handleClick: () => {
         setSelectedSortId(1);
         setIsOpen(false);
@@ -88,23 +94,80 @@ const Review = () => {
   const [selectedSortId, setSelectedSortId] = useState(reviewSortOptions[0].id);
   const [isExpandedOptions, setIsExpandedOptions] = useState(false);
 
+  const [currentPage, setCurrentPage] = useState(0);
+
+  const { reviewList, rating, reviewsCount, loading, error, hasMore } = useReviewList(
+    id!,
+    reviewSortOptions[selectedSortId].sort!,
+    currentPage,
+    defaultPageOptions
+  );
+
   const tapData: TapItem[] = [
     {
-      id: 1,
+      id: 0,
       title: t('review.tap.total'),
       content: (
         <div>
-          <ReviewItem setIsExpandedOption={setIsExpandedOptions} />
-          <ReviewItem setIsExpandedOption={setIsExpandedOptions} />
-          <ReviewItem setIsExpandedOption={setIsExpandedOptions} />
+          {/* Tab 1: Show all reviews */}
+          {reviewList.map(review => (
+            <ReviewItem review={review} setIsExpandedOption={setIsExpandedOptions} key={review.reviewId} />
+          ))}
         </div>
       ),
     },
-    { id: 2, title: t('review.tap.comment'), content: <ReviewItem setIsExpandedOption={setIsExpandedOptions} /> },
-    { id: 3, title: t('review.tap.photo'), content: <ReviewItem setIsExpandedOption={setIsExpandedOptions} /> },
+    {
+      id: 1,
+      title: t('review.tap.comment'),
+      content: (
+        <div>
+          {/* Tab 2: Show reviews where imagePath is null */}
+          {reviewList
+            .filter(review => review.imagePaths === null)
+            .map(review => (
+              <ReviewItem review={review} setIsExpandedOption={setIsExpandedOptions} key={review.reviewId} />
+            ))}
+        </div>
+      ),
+    },
+    {
+      id: 2,
+      title: t('review.tap.photo'),
+      content: (
+        <div>
+          {/* Tab 3: Show reviews where imagePath is not null */}
+          {reviewList
+            .filter(review => review.imagePaths !== null)
+            .map(review => (
+              <ReviewItem review={review} setIsExpandedOption={setIsExpandedOptions} key={review.reviewId} />
+            ))}
+        </div>
+      ),
+    },
   ];
-
   const [selectedTapId, setSelectedTapId] = useState<number>(tapData[0]?.id);
+
+  // Infinite scroll
+  const handleScroll = useCallback(() => {
+    const scrollHeight = document.documentElement.scrollHeight;
+    const scrollTop = document.documentElement.scrollTop;
+    const clientHeight = document.documentElement.clientHeight;
+
+    if (scrollTop + clientHeight >= scrollHeight - 100 && hasMore && !loading) {
+      setCurrentPage(prevPage => prevPage + 1);
+    }
+  }, [hasMore, loading]);
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [handleScroll]);
+
+  if (loading && currentPage === 0) {
+    return <ErrorPage message={'Loading...'} />;
+  } else if (error) {
+    return <ErrorPage message={'spot id를 확인해주세요'} />;
+  }
 
   return (
     <ReviewStyle>
@@ -114,14 +177,14 @@ const Review = () => {
           title={
             <div className="title">
               {t('review.title')}
-              <div className="count"> (102)</div>
+              <div className="count"> {reviewsCount}</div>
             </div>
           }
           action={<div></div>}
         />
       </div>
       <div className="star-rating">
-        <Star rating={4.5} showRatingValue={true} color={'keyColor'} gap={8} size={24} />
+        <Star rating={rating!} showRatingValue={true} color={'keyColor'} gap={8} size={24} />
       </div>
       <div className="tap">
         <Tap tapData={tapData} selectedId={selectedTapId} setSelectedId={setSelectedTapId} />
@@ -129,10 +192,7 @@ const Review = () => {
       <div className="dropdown">
         <DropDown setIsOpen={() => setIsOpen(true)} value={reviewSortOptions[selectedSortId]} />
       </div>
-      <div className="content">
-        {/* <DropDown setValue={() => alert('클릭')} /> */}
-        {tapData.find(item => item.id === selectedTapId)?.content}
-      </div>
+      <div className="content">{tapData[selectedTapId].content}</div>
       {isOpen && (
         <BottomSheet
           title={t('bottomsheet.sort')}
