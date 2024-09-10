@@ -21,6 +21,7 @@ import List from './pages/List';
 import Login from './pages/Login';
 import { getToken } from './store/authStore';
 import HeaderToken from './api/https';
+import Alarm from './pages/Alarm';
 
 const router = createBrowserRouter([
   {
@@ -142,6 +143,15 @@ const router = createBrowserRouter([
     element: (
       <Layout>
         <Login />
+      </Layout>
+    ),
+  },
+  {
+    path: '/alarm',
+
+    element: (
+      <Layout GNBType="search">
+        <Alarm />
       </Layout>
     ),
   },
