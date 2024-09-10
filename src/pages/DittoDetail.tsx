@@ -60,7 +60,7 @@ const DittoDetail = () => {
                 <CommenList/>
                 <CommentInput/>
 
-                <div>더 알아보기</div>
+                <div>더 찾아보기</div>
 
                 <DittoInfinity dittoList={DummyDitto}/>
 
@@ -87,6 +87,11 @@ const DittoDetailStyle = styled.div`
         .ditto-user-btn {
             display: flex;
             
+        }
+
+        .bookmark-comment-icon {
+            border-bottom: solid 0.1px;
+            color: gray;
         }
     }
 `;
