@@ -3,7 +3,7 @@ import { styled } from 'styled-components';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBug, faGears } from '@fortawesome/free-solid-svg-icons';
-type ErrorType = 'error' | `warning`;
+type ErrorType = 'error' | `loading`;
 
 const ErrorPage = ({ message, type }: { message?: string; type?: ErrorType }) => {
   const { t } = useTranslation();
@@ -11,9 +11,9 @@ const ErrorPage = ({ message, type }: { message?: string; type?: ErrorType }) =>
   return (
     <ErrorPageStyle>
       <div>
-        {type == 'error' ? (
+        {type == 'loading' ? (
           <FontAwesomeIcon icon={faGears} className="check-icon" />
-        ) : type == 'warning' ? (
+        ) : type == 'error' ? (
           <FontAwesomeIcon icon={faBug} className="check-icon" />
         ) : (
           <></>

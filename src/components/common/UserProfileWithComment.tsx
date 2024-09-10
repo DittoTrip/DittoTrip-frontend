@@ -8,8 +8,8 @@ import profileImg from '../../assets/profile.png';
 interface Props {
   name: string;
   date: string;
-  setIsExpandedOption: (expanded: boolean) => void;
   comment?: string;
+  setIsExpandedOption: (expanded: boolean) => void;
 }
 const UserProfileWithComment = ({ name, date, comment, setIsExpandedOption }: Props) => {
   return (
@@ -47,9 +47,13 @@ const UserProfileWithCommentStyle = styled.div`
   gap: 12px;
   padding: 12px 0;
 
+  .profile-left {
+    display: flex;
+  }
+
   .user-img {
-    width: 40px;
-    height: 40px;
+    width: 42px;
+    height: 42px;
   }
 
   .profile-right {

@@ -8,7 +8,7 @@ import Home from './pages/Home';
 import ErrorPage from './pages/Error';
 import LangPage from './pages/LangPage';
 import Category from './pages/Category';
-import Review from './pages/Review';
+import Review from './pages/ReviewList';
 import NewReview from './pages/NewReview';
 import ReviewDetail from './pages/ReviewDetail';
 import Search from './pages/Search';
@@ -128,7 +128,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: '/report',
+    path: '/report/:type/:id',
 
     element: (
       <Layout GNBType="search">

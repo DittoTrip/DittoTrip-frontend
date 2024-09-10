@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import useReviewList from '../hooks/review/useReviewList';
 import { styled } from 'styled-components';
 
 import AppBar from '../components/common/AppBar';
@@ -11,10 +12,10 @@ import Star from '../components/common/Star';
 import ReviewItem from '../components/review/ReviewItem';
 import DropDown from '../components/common/DropDown';
 import BottomSheet from '../components/bottomsheet/BottomSheet';
-
-import useReviewList from '../hooks/review/useReviewList';
-import { defaultPageOptions } from '../constants/constant';
 import ErrorPage from './Error';
+
+import { defaultPageOptions } from '../constants/constant';
+import { ReviewData } from '../models/reveiw/reviewModel';
 
 export interface OptionItem {
   id: number;
@@ -26,6 +27,7 @@ export interface OptionItem {
 const Review = () => {
   const { t } = useTranslation();
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const reviewSortOptions: OptionItem[] = [
     {
@@ -66,7 +68,23 @@ const Review = () => {
     },
   ];
 
-  const expandedOptionsContent = [
+  // 드롭다운
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedSortId, setSelectedSortId] = useState(reviewSortOptions[0].id);
+  // 수정, 삭제, 신고 옵션
+  const [isExpandedOptions, setIsExpandedOptions] = useState(false);
+  const [selectedReview, setSelectedReview] = useState<ReviewData>();
+
+  const [currentPage, setCurrentPage] = useState(0);
+
+  const { reviewList, rating, reviewsCount, loading, error, hasMore, handleDeleteReview } = useReviewList(
+    id!,
+    reviewSortOptions[selectedSortId].sort!,
+    currentPage,
+    defaultPageOptions
+  );
+
+  const expandedMyOptionsContent = [
     {
       id: 0,
       text: t('bottomsheet.modify'),
@@ -78,30 +96,21 @@ const Review = () => {
       id: 0,
       text: t('bottomsheet.delete'),
       handleClick: () => {
-        alert('delete');
-      },
-    },
-    {
-      id: 0,
-      text: t('bottomsheet.report'),
-      handleClick: () => {
-        alert('report');
+        handleDeleteReview(selectedReview!.reviewId.toString());
+        setIsOpen(false);
       },
     },
   ];
 
-  const [isOpen, setIsOpen] = useState(false);
-  const [selectedSortId, setSelectedSortId] = useState(reviewSortOptions[0].id);
-  const [isExpandedOptions, setIsExpandedOptions] = useState(false);
-
-  const [currentPage, setCurrentPage] = useState(0);
-
-  const { reviewList, rating, reviewsCount, loading, error, hasMore } = useReviewList(
-    id!,
-    reviewSortOptions[selectedSortId].sort!,
-    currentPage,
-    defaultPageOptions
-  );
+  const expandedOptionsContent = [
+    {
+      id: 0,
+      text: t('bottomsheet.report'),
+      handleClick: () => {
+        navigate(`/report/REVIEW/${selectedReview!.reviewId.toString()}`);
+      },
+    },
+  ];
 
   const tapData: TapItem[] = [
     {
@@ -109,9 +118,15 @@ const Review = () => {
       title: t('review.tap.total'),
       content: (
         <div>
-          {/* Tab 1: Show all reviews */}
-          {reviewList.map(review => (
-            <ReviewItem review={review} setIsExpandedOption={setIsExpandedOptions} key={review.reviewId} />
+          {reviewList!.map(review => (
+            <ReviewItem
+              review={review}
+              setIsExpandedOption={() => {
+                setSelectedReview(review);
+                setIsExpandedOptions(true);
+              }}
+              key={review.reviewId}
+            />
           ))}
         </div>
       ),
@@ -121,11 +136,17 @@ const Review = () => {
       title: t('review.tap.comment'),
       content: (
         <div>
-          {/* Tab 2: Show reviews where imagePath is null */}
-          {reviewList
+          {reviewList!
             .filter(review => review.imagePaths === null)
             .map(review => (
-              <ReviewItem review={review} setIsExpandedOption={setIsExpandedOptions} key={review.reviewId} />
+              <ReviewItem
+                review={review}
+                setIsExpandedOption={() => {
+                  setSelectedReview(review);
+                  setIsExpandedOptions(true);
+                }}
+                key={review.reviewId}
+              />
             ))}
         </div>
       ),
@@ -135,11 +156,17 @@ const Review = () => {
       title: t('review.tap.photo'),
       content: (
         <div>
-          {/* Tab 3: Show reviews where imagePath is not null */}
-          {reviewList
+          {reviewList!
             .filter(review => review.imagePaths !== null)
             .map(review => (
-              <ReviewItem review={review} setIsExpandedOption={setIsExpandedOptions} key={review.reviewId} />
+              <ReviewItem
+                review={review}
+                setIsExpandedOption={() => {
+                  setSelectedReview(review);
+                  setIsExpandedOptions(true);
+                }}
+                key={review.reviewId}
+              />
             ))}
         </div>
       ),
@@ -164,20 +191,20 @@ const Review = () => {
   }, [handleScroll]);
 
   if (loading && currentPage === 0) {
-    return <ErrorPage message={'Loading...'} />;
+    return <ErrorPage message={'Loading...'} type="loading" />;
   } else if (error) {
-    return <ErrorPage message={'spot id를 확인해주세요'} />;
+    return <ErrorPage message={'spot id를 확인해주세요'} type="error" />;
   }
 
   return (
-    <ReviewStyle>
+    <ReviewListStyle>
       <div className="app-bar">
         <AppBar
           leading={true}
           title={
             <div className="title">
               {t('review.title')}
-              <div className="count"> {reviewsCount}</div>
+              <div className="count">{`(${reviewsCount})`}</div>
             </div>
           }
           action={<div></div>}
@@ -201,21 +228,21 @@ const Review = () => {
           selectedSortId={selectedSortId}
         />
       )}
-      {isExpandedOptions && (
+      {isExpandedOptions && selectedReview && (
         <BottomSheet
           title={t('bottomsheet.viewDetail')}
-          list={expandedOptionsContent}
+          list={selectedReview.isMine ? expandedMyOptionsContent : expandedOptionsContent}
           setIsOpen={setIsExpandedOptions}
-          selectedSortId={-1}
         />
       )}
-    </ReviewStyle>
+    </ReviewListStyle>
   );
 };
 
-const ReviewStyle = styled.div`
+const ReviewListStyle = styled.div`
   .app-bar .title {
     display: flex;
+    gap: 4px;
     ${({ theme }) => theme.font.subTitle};
 
     .count {

@@ -1,21 +1,35 @@
+import { useParams } from 'react-router-dom';
+import useReviewDetail from '../hooks/review/useReviewDetail';
 import { styled } from 'styled-components';
+
 import AppBar from '../components/common/AppBar';
 import LangSelectButton from '../components/LangSelectButton';
 import ReviewItem from '../components/review/ReviewItem';
 import CommentList from '../components/comment/CommentList';
 import CommentInput from '../components/comment/CommentInput';
+import ErrorPage from './Error';
 
 const ReviewDetail = () => {
+  const { id } = useParams();
+  const { reviewDetailData, spotData, commentData, error, loading } = useReviewDetail(id!);
+  console.log(reviewDetailData, commentData);
+
+  if (loading) {
+    return <ErrorPage message={'Loading...'} type="loading" />;
+  } else if (error) {
+    return <ErrorPage message={'spot id를 확인해주세요'} type="error" />;
+  }
+
   return (
     <ReviewDetailStyle>
       <div className="app-bar">
-        <AppBar leading={true} title={<div className="title">촬영지 이름</div>} action={<LangSelectButton />} />
+        <AppBar leading={true} title={<div className="title">{spotData}</div>} action={<LangSelectButton />} />
       </div>
       <div className="content">
-        <ReviewItem setIsExpandedOption={() => {}} />
+        <ReviewItem setIsExpandedOption={() => {}} review={reviewDetailData!} />
       </div>
       <div className="comment-list">
-        <CommentList />
+        <CommentList comments={commentData} />
       </div>
       <CommentInput />
     </ReviewDetailStyle>

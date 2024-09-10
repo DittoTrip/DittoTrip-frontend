@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { getReviewList } from '../../api/review';
+import { deleteReview, getReviewList } from '../../api/review';
 import { ReviewData } from '../../models/reveiw/reviewModel';
 
 const useReviewList = (spotId: string, sort: string, page: number, size: number) => {
@@ -30,6 +30,26 @@ const useReviewList = (spotId: string, sort: string, page: number, size: number)
     }
   };
 
+  const handleDeleteReview = async (reviewId: string) => {
+    try {
+      setLoading(true);
+      setError(null);
+      const status = await deleteReview(reviewId);
+
+      if (status === 200) {
+        // 삭제 성공 시 해당 리뷰를 리스트에서 제거
+        setReviewList(prevList => prevList.filter(review => review.reviewId.toString() != reviewId));
+        alert('리뷰가 성공적으로 삭제되었습니다.');
+      } else {
+        setError('리뷰 삭제에 실패했습니다.');
+      }
+    } catch (error) {
+      setError('리뷰 삭제 중 오류가 발생했습니다.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     if (page == 0) {
       setReviewList([]);
@@ -38,7 +58,7 @@ const useReviewList = (spotId: string, sort: string, page: number, size: number)
     fetchSpotList();
   }, [spotId, page, sort]);
 
-  return { reviewList, rating, reviewsCount, loading, error, hasMore };
+  return { reviewList, rating, reviewsCount, loading, error, hasMore, handleDeleteReview };
 };
 
 export default useReviewList;

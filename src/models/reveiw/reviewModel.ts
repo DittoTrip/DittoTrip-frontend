@@ -25,6 +25,7 @@ export interface ReviewCommentData {
   createdDateTime: Date;
   userData: UserData;
   isMine: boolean;
+  childrenCommentsDataList: ReviewCommentData[];
 }
 
 export interface SpotReviewResponse {
