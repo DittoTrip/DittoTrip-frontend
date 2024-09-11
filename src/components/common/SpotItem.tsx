@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -5,59 +6,74 @@ import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as faEmptyHeart } from '@fortawesome/free-regular-svg-icons';
 
-import { spotDetails } from '../../pages/Spot';
 import Dot from './Dot';
 import TagSlide from './TagSlide';
 import Star from './Star';
-
-interface AroundDataType {
-  img: string;
-  name: string;
-  distance: string;
-  tagList: string[];
-  reviewCount: number;
-  rating: number;
-  address: string;
-}
+import { defaultImage } from '../../constants/constant';
+import { SpotData } from '../../models/spot/spotModel';
+import useBookmarkedSpot from '../../hooks/spot/useSpotLike';
+import { useEffect, useState } from 'react';
+import { useAuthStore } from '../../store/authStore';
 
 interface Props {
-  data: AroundDataType;
+  data: SpotData;
   setSelectedAddress: (selectedAddress: string) => void;
   setIsOpen: (isOpen: boolean) => void;
 }
 
 const SpotItem = ({ data, setSelectedAddress, setIsOpen }: Props) => {
-  const handleAddressClick = () => {
+  const navigate = useNavigate();
+  const { isLoggedIn } = useAuthStore();
+
+  // 주소 클릭
+  const handleAddressClick = (event: React.MouseEvent) => {
+    event.stopPropagation();
     setSelectedAddress(data.address);
     setIsOpen(true);
   };
 
-  const handleHeartClick = () => {};
+  // 좋아요 기능
+  const [bookmarkedId, setBookmarkedId] = useState<number | null>();
+  const { isBookmarked, toggleBookmark } = useBookmarkedSpot(data.spotId.toString(), bookmarkedId!);
+
+  // 좋아요 id 저장 (삭제에 필요)
+  useEffect(() => {
+    setBookmarkedId(data.myBookmarkId);
+  }, [data]);
+
+  const handleHeartClick = (event: React.MouseEvent) => {
+    console.log(isLoggedIn);
+    event.stopPropagation();
+    if (!isLoggedIn) {
+      alert('로그인하세요');
+      return;
+    }
+    toggleBookmark();
+  };
 
   return (
-    <SpotItemStyle>
-      <img className="spot-image" src={data.img} />
+    <SpotItemStyle onClick={() => navigate(`/spot/${data.spotId}`)}>
+      <img className="spot-image" src={data.imagePath ?? defaultImage} />
       <div className="spot-info">
         <div className="spot-info-header">
           <div className="spot-info-name">{data.name}</div>
           <div className="heart">
-            <FontAwesomeIcon icon={spotDetails.isLiked ? faHeart : faEmptyHeart} onClick={() => handleHeartClick()} />
+            <FontAwesomeIcon icon={isBookmarked ? faHeart : faEmptyHeart} onClick={handleHeartClick} />
           </div>
         </div>
         <div className="spot-info-rating-wrapper">
           <div className="spot-info-rating">{data.rating}</div>
           <Star rating={data.rating} size={12} gap={3} />
-          <div>({data.reviewCount})</div>
         </div>
-        <div className="spot-info-address-wrapper" onClick={() => handleAddressClick()}>
-          <div className="spot-info-distance">{data.distance}</div>
+        <div className="spot-info-address-wrapper" onClick={handleAddressClick}>
+          <div className="spot-info-distance">{'임시'}</div>
           <Dot color={'gray40'} />
 
           <div className="spot-info-address">{data.address}</div>
           <FontAwesomeIcon className="more-icon" icon={faChevronDown} />
         </div>
         <div className="spot-info-tag">
-          <TagSlide tagList={data.tagList} />
+          <TagSlide tagList={data.hashtags} />
         </div>
       </div>
     </SpotItemStyle>
@@ -138,6 +154,7 @@ const SpotItemStyle = styled.div`
       }
     }
     .spot-info-tag {
+      margin-top: 10px;
       width: 230px;
     }
   }

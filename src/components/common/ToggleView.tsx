@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationCrosshairs, faBars } from '@fortawesome/free-solid-svg-icons';
 
 const ToggleButtonComponent: React.FC = () => {
-  const [isMapView, setIsMapView] = useState(true);
+  const [isMapView, setIsMapView] = useState<boolean>(true);
 
   const toggleView = () => {
     setIsMapView(!isMapView);

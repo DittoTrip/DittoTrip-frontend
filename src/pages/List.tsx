@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { styled } from 'styled-components';
@@ -15,86 +15,99 @@ import ToggleButtonComponent from '../components/common/ToggleView';
 import SpotItem from '../components/common/SpotItem';
 
 import { OptionItem } from './Review';
-import { DummyDataList } from './Around';
-import { addBookmark, removeBookmark } from '../api/category';
+import useSpotList from '../hooks/spot/useSpotList';
+import ErrorPage from './Error';
+import { defaultPageOptions } from '../constants/constant';
+import useBookmarkedCategory from '../hooks/category/useCategoryLike';
 
 const List = () => {
   const { t } = useTranslation();
   const { id } = useParams();
 
+  const [currentPage, setCurrentPage] = useState(0);
   const [selectedAddress, setSelectedAddress] = useState('');
+  const [isSortOpen, setIsSortOpen] = useState(false);
 
-  const [isFavorite, setIsFavorite] = useState(false);
+  const { isBookmarked, toggleBookmark } = useBookmarkedCategory(id!);
 
-  const dummyTag = ['강동원', '변성은', '디토트립', '강원도', '변호사', '변성은', '디토리포', '여행'];
   const sortOptions: OptionItem[] = [
     {
       id: 0,
       text: t('list.sortOptions.newest'),
+      sort: 'createdDateTime,desc',
       handleClick: () => {
         setSelectedSortId(0);
-        setIsAddressOpen(false);
+        setIsSortOpen(false);
+        setCurrentPage(0); 
       },
     },
     {
       id: 1,
       text: t('list.sortOptions.distance'),
+      sort: 'distance',
       handleClick: () => {
         setSelectedSortId(1);
-        setIsAddressOpen(false);
+        setIsSortOpen(false);
+        setCurrentPage(0); 
       },
     },
     {
       id: 2,
       text: t('list.sortOptions.highest'),
+      sort: 'rating,desc',
       handleClick: () => {
         setSelectedSortId(2);
-        setIsAddressOpen(false);
+        setIsSortOpen(false);
+        setCurrentPage(0); 
       },
     },
   ];
 
   const [selectedSortId, setSelectedSortId] = useState(sortOptions[0].id);
   const [isAddressOpen, setIsAddressOpen] = useState(false);
-  const [isSortOpen, setIsSortOpen] = useState(false);
+
+  const { spotData, categoryData, loading, error, hasMore } = useSpotList(
+    id!,
+    sortOptions[selectedSortId].sort!,
+    currentPage,
+    defaultPageOptions
+  );
 
   const handleHeartClick = () => {
-    if (isFavorite) {
-      removeBookmark(id!).then(
-        res => {
-          console.log(res);
-          setIsFavorite(!isFavorite);
-        },
-        error => {
-          console.log(error);
-          alert('즐겨찾기 실패');
-          setIsFavorite(!isFavorite);
-        }
-      );
-    } else {
-      addBookmark(id!).then(
-        res => {
-          console.log(res);
-          setIsFavorite(!isFavorite);
-        },
-        error => {
-          console.log(error);
-          alert('즐겨찾기 실패');
-          setIsFavorite(!isFavorite);
-        }
-      );
-    }
+    toggleBookmark();
   };
+
+  // Infinite scroll logic
+  const handleScroll = useCallback(() => {
+    const scrollHeight = document.documentElement.scrollHeight;
+    const scrollTop = document.documentElement.scrollTop;
+    const clientHeight = document.documentElement.clientHeight;
+
+    if (scrollTop + clientHeight >= scrollHeight - 10 && hasMore && !loading) {
+      setCurrentPage(prevPage => prevPage + 1); // Load next page
+    }
+  }, [hasMore, loading]);
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [handleScroll]);
+
+  if (loading && currentPage === 0) {
+    return <ErrorPage message={'Loading...'} />;
+  } else if (error) {
+    return <ErrorPage message={'spot id를 확인해주세요'} />;
+  }
 
   return (
     <ListStyle>
       <div className="app-bar">
         <AppBar
           leading={false}
-          title={<div className="title">{'이상한 변호사 우영우'}</div>}
+          title={<div className="title">{categoryData?.name}</div>}
           action={
             <div className="heart">
-              <FontAwesomeIcon icon={isFavorite ? faHeart : faEmptyHeart} onClick={() => handleHeartClick()} />
+              <FontAwesomeIcon icon={isBookmarked ? faHeart : faEmptyHeart} onClick={handleHeartClick} />
             </div>
           }
         />
@@ -102,14 +115,14 @@ const List = () => {
       <img src={'https://image.ajunews.com/content/image/2022/07/19/20220719165306929129.jpg'} className="main-img" />
       <div className="content-wrapper">
         <div className="list-tag-slide">
-          <TagSlide tagList={dummyTag} />
+          <TagSlide tagList={categoryData?.hashtags} />
         </div>
         <div className="dropdown">
           <DropDown value={sortOptions[selectedSortId]} setIsOpen={setIsSortOpen} />
         </div>
 
-        {DummyDataList.map(data => (
-          <SpotItem data={data} setIsOpen={setIsAddressOpen} setSelectedAddress={setSelectedAddress} />
+        {spotData.map((data, idx) => (
+          <SpotItem key={idx} data={data} setIsOpen={setIsAddressOpen} setSelectedAddress={setSelectedAddress} />
         ))}
       </div>
 
@@ -162,6 +175,15 @@ const ListStyle = styled.div`
     }
     .list-tag-slide {
       padding: 10px 0;
+    }
+  }
+
+  .pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    button {
+      margin: 0 10px;
     }
   }
 `;

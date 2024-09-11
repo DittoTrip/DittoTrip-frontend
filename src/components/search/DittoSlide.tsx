@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { dittoItem } from '../../pages/Home';
 import DittoItem from './DittoItem';
+import { dittoItem } from '../../pages/Search';
 
 interface Props {
   carouselDittoList: dittoItem[];
