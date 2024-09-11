@@ -22,6 +22,7 @@ import Login from './pages/Login';
 import { getToken } from './store/authStore';
 import HeaderToken from './api/https';
 import Alarm from './pages/Alarm';
+import EditProfile from './pages/EditProfile';
 
 const router = createBrowserRouter([
   {
@@ -148,10 +149,17 @@ const router = createBrowserRouter([
   },
   {
     path: '/alarm',
-
     element: (
       <Layout GNBType="search">
         <Alarm />
+      </Layout>
+    ),
+  },
+  {
+    path: '/editprofile',
+    element: (
+      <Layout GNBType="search">
+        <EditProfile />
       </Layout>
     ),
   },
