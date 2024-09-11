@@ -25,6 +25,9 @@ import Ditto from './pages/Ditto';
 import DittoDetail from './pages/DittoDetail';
 import DittoWrite from './pages/DittoWrite';
 import SpotApply from './pages/SpotApply';
+import Alarm from './pages/Alarm';
+import EditProfile from './pages/EditProfile';
+
 
 const router = createBrowserRouter([
   {
@@ -185,6 +188,24 @@ const router = createBrowserRouter([
       </Layout>
     ),
   },
+  {
+    path: '/alarm',
+
+    element: (
+      <Layout GNBType="search">
+        <Alarm />
+      </Layout>
+    ),
+  },{
+    path: '/editprofile',
+
+    element: (
+      <Layout GNBType="search">
+        <EditProfile />
+      </Layout>
+    ),
+  },
+  
 ]);
 
 function App() {
