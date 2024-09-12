@@ -2,6 +2,7 @@ import {
   DuplicationProps,
   JoinProps,
   LoginProps,
+  LoginResponse,
   SendCodeProps,
   SendCodeResponse,
   VerifyCodeProps,
@@ -9,7 +10,16 @@ import {
 import { api } from './https';
 
 export const login = async (data: LoginProps) => {
-  const response = await api.post<string>('/auth/login', { ...data });
+  const response = await api.post<LoginResponse>('/auth/login', { ...data });
+  return response.data;
+};
+export const logout = async () => {
+  const response = await api.delete(`auth/logout`);
+  return response.status;
+};
+
+export const refreshToken = async () => {
+  const response = await api.post<LoginResponse>('/auth/refresh');
   return response.data;
 };
 export const sendCode = async (data: SendCodeProps) => {
@@ -21,7 +31,6 @@ export const varifyCode = async (data: VerifyCodeProps) => {
   return response.data;
 };
 export const join = async (data: JoinProps) => {
-  console.log(data);
   const response = await api.post(`auth/signup`, { ...data });
   return response.data;
 };

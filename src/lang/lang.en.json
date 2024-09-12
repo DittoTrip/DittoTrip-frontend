@@ -16,6 +16,8 @@
     "placeholder": "search"
   },
   "category": {
+    "title": "Search",
+
     "tap": {
       "contents": "contents",
       "celebrity": "celebrity"

@@ -8,8 +8,7 @@ import { useAuthStore } from '../store/authStore';
 import Button from '../components/common/Button';
 import InputText from '../components/Login/InputText';
 import kakaoImg from '../assets/kakao.png';
-import { LoginProps } from '../models/Login/loginModel';
-import HeaderToken from '../api/https';
+import { LoginProps } from '../models/login/loginModel';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -24,8 +23,7 @@ const Login = () => {
   const onSubmit = (data: LoginProps) => {
     login(data).then(
       res => {
-        HeaderToken.set(res);
-        storeLogin(res);
+        storeLogin(res.accessToken, res.refreshToken);
         console.log(res);
         navigate('/');
       },
@@ -74,10 +72,11 @@ const Login = () => {
         </div>
       </div>
       <div className="text">또는</div>
-
       <Button size="large" scheme="kakao">
-        <img src={kakaoImg} alt="" className="kakao-img" />
-        카카오톡 로그인
+        <a href="http://dittotrip.site/oauth2/authorization/kakao">
+          <img src={kakaoImg} alt="카카오" className="kakao-img" />
+          카카오톡 로그인
+        </a>
       </Button>
     </LoginStyle>
   );

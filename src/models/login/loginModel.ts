@@ -1,5 +1,6 @@
 export interface LoginResponse {
-  token: string;
+  accessToken: string;
+  refreshToken: string;
 }
 
 export interface SendCodeResponse {

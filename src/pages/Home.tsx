@@ -6,6 +6,7 @@ import LangSelectButton from '../components/LangSelectButton';
 import Weekend from '../components/home/Weekend';
 import Drama from '../components/home/Drama';
 import HotDitto from '../components/home/HotDitto';
+import KakaoLoginRedirect from '../hooks/login/kakaoLogin';
 
 export interface dramaItem {
   img: string;
@@ -78,6 +79,7 @@ const Home = () => {
   const { t } = useTranslation();
   return (
     <HomeStyled>
+      <KakaoLoginRedirect />
       <div className="app-bar">
         <AppBar leading={false} title={<div className="title">Home</div>} action={<LangSelectButton />} />
       </div>

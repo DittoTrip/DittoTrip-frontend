@@ -94,9 +94,9 @@ const List = () => {
   }, [handleScroll]);
 
   if (loading && currentPage === 0) {
-    return <ErrorPage message={'Loading...'} />;
+    return <ErrorPage message={'Loading...'} type="loading" />;
   } else if (error) {
-    return <ErrorPage message={'spot id를 확인해주세요'} />;
+    return <ErrorPage message={'spot id를 확인해주세요'} type="error" />;
   }
 
   return (

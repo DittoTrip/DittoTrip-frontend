@@ -19,8 +19,7 @@ import Spot from './pages/Spot';
 import Around from './pages/Around';
 import List from './pages/List';
 import Login from './pages/Login';
-import { getToken } from './store/authStore';
-import HeaderToken from './api/https';
+
 import Ditto from './pages/Ditto';
 import DittoDetail from './pages/DittoDetail';
 import DittoWrite from './pages/DittoWrite';
@@ -208,9 +207,6 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  const token = getToken();
-  HeaderToken.set(token);
-
   return (
     <>
       <DittoProvider>
