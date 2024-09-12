@@ -41,7 +41,7 @@ const AppBarStyle = styled.div`
   left: 0;
   right: 0;
   background-color: white;
-  z-index: 1000;
+  z-index: 10;
 
   .leading {
     display: flex;
