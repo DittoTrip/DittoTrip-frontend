@@ -28,7 +28,6 @@ import SpotApply from './pages/SpotApply';
 import Alarm from './pages/Alarm';
 import EditProfile from './pages/EditProfile';
 
-
 const router = createBrowserRouter([
   {
     path: '/',
@@ -196,7 +195,8 @@ const router = createBrowserRouter([
         <Alarm />
       </Layout>
     ),
-  },{
+  },
+  {
     path: '/editprofile',
 
     element: (
@@ -205,7 +205,6 @@ const router = createBrowserRouter([
       </Layout>
     ),
   },
-  
 ]);
 
 function App() {

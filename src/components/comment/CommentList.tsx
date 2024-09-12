@@ -9,7 +9,7 @@ const CommenList = ({ comments }: { comments: ReviewCommentData[] }) => {
     <CommentListStyled>
       <div className="comment-title">{t('comment.comment')}</div>
 
-      {comments.map(comment => (
+      {comments?.map(comment => (
         <div key={comment.commentId}>
           <UserProfileWithComment
             name={comment.userData.userName}

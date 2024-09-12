@@ -19,8 +19,7 @@ const TagSlide = ({ tagList }: Props) => {
 
 const TagSlideStyled = styled.div`
   .tag-slide {
-    display: grid;
-    grid-auto-flow: column;
+    display: flex;
     gap: 24px 8px;
 
     margin: 0;

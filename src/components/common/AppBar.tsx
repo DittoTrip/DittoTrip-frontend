@@ -31,6 +31,13 @@ const AppBarStyle = styled.div`
   height: 60px;
   padding: 0 28px;
 
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: white;
+  z-index: 1000;
+
   .leading {
     display: flex;
     align-items: center;
