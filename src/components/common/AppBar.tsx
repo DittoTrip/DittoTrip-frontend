@@ -9,18 +9,23 @@ interface Props {
   title: React.ReactNode;
   action?: React.ReactNode;
 }
+
 const AppBar = ({ leading, title, action }: Props) => {
   const navigate = useNavigate();
   return (
-    <AppBarStyle>
-      {leading && (
-        <div className="leading">
-          <FontAwesomeIcon icon={faChevronLeft} onClick={() => navigate(-1)} />
-        </div>
-      )}
-      <div>{title}</div>
-      {action && <div className="action">{action}</div>}
-    </AppBarStyle>
+    <>
+      <AppBarStyle>
+        {leading && (
+          <div className="leading">
+            <FontAwesomeIcon icon={faChevronLeft} onClick={() => navigate(-1)} />
+          </div>
+        )}
+        <div>{title}</div>
+        {action && <div className="action">{action}</div>}
+      </AppBarStyle>
+      {/* 앱바의 높이만큼 공간 차지 */}
+      <Spacer />
+    </>
   );
 };
 
@@ -44,6 +49,10 @@ const AppBarStyle = styled.div`
     font-size: 20px;
     margin-right: 20px;
   }
+`;
+
+const Spacer = styled.div`
+  height: 60px;
 `;
 
 export default AppBar;
