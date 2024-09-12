@@ -26,7 +26,6 @@ import DittoDetail from './pages/DittoDetail';
 import DittoWrite from './pages/DittoWrite';
 import SpotApply from './pages/SpotApply';
 
-
 const router = createBrowserRouter([
   {
     path: '/',
@@ -37,7 +36,7 @@ const router = createBrowserRouter([
       </Layout>
     ),
     errorElement: (
-      <Layout>
+      <Layout GNBType="home">
         <ErrorPage />
       </Layout>
     ),
@@ -84,7 +83,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: '/review',
+    path: '/reviews/:id',
     element: (
       <Layout GNBType="search">
         <Review />
@@ -113,7 +112,7 @@ const router = createBrowserRouter([
       <Layout GNBType="search">
         <Search />
       </Layout>
-    )
+    ),
   },
   {
     path: '/searchResult',
@@ -121,8 +120,9 @@ const router = createBrowserRouter([
       <Layout GNBType="search">
         <SearchResult />
       </Layout>
-    )
+    ),
   },
+
   {
     path: '/join',
     element: (

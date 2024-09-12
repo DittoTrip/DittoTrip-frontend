@@ -30,7 +30,7 @@ const SpotCard = ({ data, setSelectedAddress, setIsOpen }: Props) => {
       <div className="spot-info">
         <div className="spot-info-header">
           <div className="spot-info-name">{data.name}</div>
-          <Dot />
+          <Dot color={'gray40'} />
           <div className="spot-info-distance">{data.distance}</div>
         </div>
         <div className="spot-info-rating-wrapper">

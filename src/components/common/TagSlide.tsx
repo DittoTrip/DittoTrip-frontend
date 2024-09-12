@@ -2,21 +2,17 @@ import { styled } from 'styled-components';
 import Tag from './Tag';
 
 interface Props {
-  tagList: string[];
+  tagList?: string[];
 }
 
 const TagSlide = ({ tagList }: Props) => {
   return (
     <TagSlideStyled>
-      <ul className="tag-slide">
-        {tagList.map(item => {
-          return (
-            <li>
-              <Tag text={item} />
-            </li>
-          );
+      <div className="tag-slide">
+        {tagList?.map((item, idx) => {
+          return <Tag text={item} key={idx} />;
         })}
-      </ul>
+      </div>
     </TagSlideStyled>
   );
 };
