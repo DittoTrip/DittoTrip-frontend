@@ -18,7 +18,7 @@ const AppBar = ({ leading, title, action }: Props) => {
           <FontAwesomeIcon icon={faChevronLeft} onClick={() => navigate(-1)} />
         </div>
       )}
-      <div className="title">{title}</div>
+      <div>{title}</div>
       {action && <div className="action">{action}</div>}
     </AppBarStyle>
   );

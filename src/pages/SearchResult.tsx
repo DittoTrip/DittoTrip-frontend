@@ -9,7 +9,7 @@ import DropDown from '../components/common/DropDown';
 import BottomSheet from '../components/bottomsheet/BottomSheet';
 import SpotItem from '../components/common/SpotItem';
 import { TapItem } from './Category';
-import { OptionItem } from './Review';
+import { OptionItem } from './ReviewList';
 import SearchUser from '../components/search/SearchUser';
 import SearchCeleb from '../components/search/SearchCeleb';
 import SearchContent from '../components/search/SearchContent';

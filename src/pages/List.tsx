@@ -14,7 +14,7 @@ import BottomSheet from '../components/bottomsheet/BottomSheet';
 import ToggleButtonComponent from '../components/common/ToggleView';
 import SpotItem from '../components/common/SpotItem';
 
-import { OptionItem } from './Review';
+import { OptionItem } from './ReviewList';
 import useSpotList from '../hooks/spot/useSpotList';
 import ErrorPage from './Error';
 import { defaultPageOptions } from '../constants/constant';
@@ -38,7 +38,7 @@ const List = () => {
       handleClick: () => {
         setSelectedSortId(0);
         setIsSortOpen(false);
-        setCurrentPage(0); 
+        setCurrentPage(0);
       },
     },
     {
@@ -48,7 +48,7 @@ const List = () => {
       handleClick: () => {
         setSelectedSortId(1);
         setIsSortOpen(false);
-        setCurrentPage(0); 
+        setCurrentPage(0);
       },
     },
     {
@@ -58,7 +58,7 @@ const List = () => {
       handleClick: () => {
         setSelectedSortId(2);
         setIsSortOpen(false);
-        setCurrentPage(0); 
+        setCurrentPage(0);
       },
     },
   ];
