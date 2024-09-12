@@ -32,15 +32,15 @@ api.interceptors.response.use(
     const originalConfig = error.config; // 기존에 수행하려고 했던 작업
     const status = error.response.status; // 현재 발생한 에러 코드
 
-    const { storeLogout } = useAuthStore();
+    const { storeLogin, storeLogout } = useAuthStore();
     if (status === 401) {
       console.log('토큰 재발급 요청');
       refreshToken()
         .then(res => {
-          console.log('토큰 재발급res : ', res);
+          console.log('토큰 재발급 성공res : ', res);
           // 새 토큰 저장
-          localStorage.setItem('Authorization', res.accessToken);
-          localStorage.setItem('Refresh', res.refreshToken);
+
+          storeLogin(res.accessToken, res.refreshToken);
 
           // 새로 응답받은 데이터로 토큰 만료로 실패한 요청에 대한 인증 시도 (header에 토큰 담아 보낼 때 사용)
           originalConfig.headers['authorization'] = res.accessToken;
@@ -51,7 +51,7 @@ api.interceptors.response.use(
           return api(originalConfig);
         })
         .catch(() => {
-          console.error('An error occurred while refreshing the token:', error);
+          console.error('토큰 재발급 실패', error);
           logout().then(() => {
             console.log('로그아웃');
             storeLogout();

@@ -16,6 +16,7 @@ import ErrorPage from './Error';
 
 import { defaultPageOptions } from '../constants/constant';
 import { ReviewData } from '../models/reveiw/reviewModel';
+import ScrollToTopButton from '../components/common/ScrollToTopBtn';
 
 export interface OptionItem {
   id: number;
@@ -198,6 +199,7 @@ const Review = () => {
 
   return (
     <ReviewListStyle>
+      <ScrollToTopButton />
       <div className="app-bar">
         <AppBar
           leading={true}

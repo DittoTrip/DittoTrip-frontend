@@ -73,7 +73,7 @@ const Login = () => {
       </div>
       <div className="text">또는</div>
       <Button size="large" scheme="kakao">
-        <a href="http://dittotrip.site/oauth2/authorization/kakao">
+        <a href="http://dittotrip.site/oauth2/authorization/kakao" className="kakao-button">
           <img src={kakaoImg} alt="카카오" className="kakao-img" />
           카카오톡 로그인
         </a>
@@ -141,9 +141,17 @@ const LoginStyle = styled.div`
     height: 15px;
   }
 
-  .kakao-img {
-    width: 20px;
-    margin-right: 5px;
+  .kakao-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    text-decoration: none;
+
+    .kakao-img {
+      width: 20px;
+      height: 20px;
+    }
   }
 `;
 

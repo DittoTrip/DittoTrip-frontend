@@ -59,7 +59,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: '/list/:id',
+    path: '/category/:id',
     element: (
       <Layout GNBType="search">
         <List />
