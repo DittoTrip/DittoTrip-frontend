@@ -8,6 +8,8 @@ import CommentInput from "../components/comment/CommentInput";
 import DittoInfinity from "../components/ditto/DittoInfinity";
 import { DummyDitto } from "./Ditto";
 import CommenList from "../components/comment/CommentList";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBookmark, faComment } from "@fortawesome/free-solid-svg-icons";
 
 export const dittoDetails = {
     tagList: ['김태리', '배우','미스터션샤인',]
@@ -38,6 +40,9 @@ const DittoDetail = () => {
                     </div>
                     <img className="badge-img" src="https://velog.velcdn.com/images/gogo6570/post/2f0e493d-b0fe-407c-a8fc-0cc5d7b4db78/image.png"></img>
                     <Button size={'small'} scheme={'keyButton'}>Follow</Button>
+                    <div className="follow-btn">
+                        Follow
+                    </div>
                 </div>
 
                 <div>
@@ -51,6 +56,13 @@ const DittoDetail = () => {
                 </div>
 
                 <TagSlide tagList={dittoDetails.tagList} />
+
+                <div className="icon-box">
+                    <FontAwesomeIcon className="icon" icon={faBookmark}/>
+                    <div className="count">124</div>
+                    <FontAwesomeIcon className="icon" icon={faComment}/>
+                    <div className="count">5</div>
+                </div>
 
                 <div className="bookmark-comment-icon">
                     <div className="bookmark"></div>
@@ -84,6 +96,25 @@ const DittoDetailStyle = styled.div`
     .content-wrapper {
         margin: 29px 28px 16px 28px;
 
+        .icon-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            .count {
+                color : ${({theme})=>theme.color.gray80}
+            }
+
+            .icon {
+                path {
+                    color : ${({theme})=>theme.color.subColor1}
+                }
+            }
+
+            
+        }
+
+        
+
         .ditto-user-btn {
             display: flex;
             
@@ -92,6 +123,15 @@ const DittoDetailStyle = styled.div`
         .bookmark-comment-icon {
             border-bottom: solid 0.1px;
             color: gray;
+        }
+
+        .follow-btn {
+            color : ${({theme})=>theme.color.keyColor};
+            ${({theme})=>theme.font.body5};
+            border-radius: 15px;
+            border: solid 0.1px;
+            align-items: center;
+            padding: 0 15px;
         }
     }
 `;
