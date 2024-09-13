@@ -1,5 +1,10 @@
-import { useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+
+import { addReviewComment, deleteReviewComment } from '../api/reviewComment';
 import useReviewDetail from '../hooks/review/useReviewDetail';
+
 import { styled } from 'styled-components';
 
 import AppBar from '../components/common/AppBar';
@@ -8,11 +13,78 @@ import ReviewItem from '../components/review/ReviewItem';
 import CommentList from '../components/comment/CommentList';
 import CommentInput from '../components/comment/CommentInput';
 import ErrorPage from './Error';
+import BottomSheet from '../components/bottomsheet/BottomSheet';
+import { ReviewCommentData } from '../models/reveiw/reviewModel';
 
 const ReviewDetail = () => {
   const { id } = useParams();
+  const { t } = useTranslation();
+  const navigate = useNavigate();
   const { reviewDetailData, spotData, commentData, error, loading } = useReviewDetail(id!);
-  console.log(reviewDetailData, commentData);
+
+  // 리뷰 삭제 or 신고 펼치기
+  const [isExpandedOptions, setIsExpandedOptions] = useState(false);
+
+  // "삭제"를 위한 comment
+  const [selectedComment, setSelectedComment] = useState<ReviewCommentData>();
+
+  // 댓글 입력
+  const [comment, setComment] = useState('');
+
+  // "대댓글" 위한 parentComment => parentId가 null 이면 등록 , string이면 수정
+  const [parentComment, setParentComment] = useState<ReviewCommentData | null>(null);
+  console.log(parentComment);
+  // 댓글 컨트롤 (등록)
+  const handleSubmit = () => {
+    const body = { body: comment };
+
+    addReviewComment(id!, body, selectedComment?.commentId.toString()).then(
+      res => {
+        console.log(res);
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  };
+
+  // 댓글 컨트롤 (삭제)
+  const handleDelete = () => {
+    if (selectedComment) {
+      deleteReviewComment(id!, selectedComment?.commentId.toString()).then(
+        res => {
+          console.log(res);
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    }
+  };
+
+  // 내 댓글인 경우 옵션 - 삭제
+  const expandedMyOptionsContent = [
+    {
+      id: 0,
+      text: t('bottomsheet.delete'),
+      handleClick: () => {
+        alert('delete');
+        handleDelete();
+        setIsExpandedOptions(false);
+      },
+    },
+  ];
+
+  // 내 댓글 아닌 경우 - 신고
+  const expandedOptionsContent = [
+    {
+      id: 0,
+      text: t('bottomsheet.report'),
+      handleClick: () => {
+        navigate(`/report/COMMENT/${selectedComment!.commentId.toString()}`);
+      },
+    },
+  ];
 
   if (loading) {
     return <ErrorPage message={'Loading...'} type="loading" />;
@@ -29,9 +101,22 @@ const ReviewDetail = () => {
         <ReviewItem setIsExpandedOption={() => {}} review={reviewDetailData!} />
       </div>
       <div className="comment-list">
-        <CommentList comments={commentData} />
+        <CommentList
+          comments={commentData}
+          setSelectedComment={setSelectedComment}
+          setIsExpandedOption={setIsExpandedOptions}
+          setParentComment={setParentComment}
+        />
       </div>
-      <CommentInput />
+      <CommentInput handleSubmit={handleSubmit} setComment={setComment} />
+
+      {isExpandedOptions && selectedComment && (
+        <BottomSheet
+          title={t('bottomsheet.viewDetail')}
+          list={selectedComment.isMine ? expandedMyOptionsContent : expandedOptionsContent}
+          setIsOpen={setIsExpandedOptions}
+        />
+      )}
     </ReviewDetailStyle>
   );
 };

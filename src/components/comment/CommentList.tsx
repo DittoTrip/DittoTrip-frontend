@@ -3,7 +3,13 @@ import UserProfileWithComment from '../common/UserProfileWithComment';
 import { useTranslation } from 'react-i18next';
 import { ReviewCommentData } from '../../models/reveiw/reviewModel';
 
-const CommenList = ({ comments }: { comments: ReviewCommentData[] }) => {
+interface Props {
+  comments: ReviewCommentData[];
+  setIsExpandedOption: (expanded: boolean) => void;
+  setSelectedComment?: (comment: ReviewCommentData) => void;
+  setParentComment?: (comment: ReviewCommentData) => void;
+}
+const CommenList = ({ comments, setSelectedComment, setIsExpandedOption, setParentComment }: Props) => {
   const { t } = useTranslation();
   return (
     <CommentListStyled>
@@ -14,8 +20,14 @@ const CommenList = ({ comments }: { comments: ReviewCommentData[] }) => {
           <UserProfileWithComment
             name={comment.userData.userName}
             date={comment.createdDateTime.toString()}
-            comment={comment.body}
-            setIsExpandedOption={() => {}}
+            comment={comment}
+            setIsExpandedOption={() => {
+              setIsExpandedOption(true);
+              if (setSelectedComment) {
+                setSelectedComment(comment);
+              }
+            }}
+            setParentComment={setParentComment}
           />
           {comment.childrenCommentsDataList?.length > 0 && (
             <ChildrenCommentsStyled>
@@ -24,8 +36,13 @@ const CommenList = ({ comments }: { comments: ReviewCommentData[] }) => {
                   key={childComment.commentId}
                   name={childComment.userData.userName}
                   date={childComment.createdDateTime.toString()}
-                  comment={childComment.body}
-                  setIsExpandedOption={() => {}}
+                  comment={childComment}
+                  setIsExpandedOption={() => {
+                    setIsExpandedOption(true);
+                    if (setSelectedComment) {
+                      setSelectedComment(comment);
+                    }
+                  }}
                 />
               ))}
             </ChildrenCommentsStyled>

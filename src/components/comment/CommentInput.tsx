@@ -2,18 +2,25 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { styled } from 'styled-components';
 
-const CommentInput = () => {
+interface Props {
+  handleSubmit: () => void;
+  setComment: (value: string) => void;
+}
+
+const CommentInput = ({ setComment, handleSubmit }: Props) => {
   const [commentText, setCommentText] = useState('');
   const { t } = useTranslation();
 
-  const handleSubmit = () => {
-    // 전송
-  };
-
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      handleSubmit(); // 엔터 키가 눌리면 검색 실행
+      handleClick(); // 엔터 키가 눌리면 검색 실행
     }
+  };
+
+  const handleClick = () => {
+    setComment(commentText); // 전송 메세지 설정
+    setCommentText(''); // 입력창 초기화
+    handleSubmit(); // 서버 전송
   };
 
   return (
@@ -27,7 +34,9 @@ const CommentInput = () => {
           onChange={e => setCommentText(e.target.value)}
           onKeyDown={handleKeyDown} // 엔터 키 이벤트 핸들러
         />
-        <button className="comment-submit">{t('comment.submit')}</button>
+        <button className="comment-submit" onClick={handleClick}>
+          {t('comment.submit')}
+        </button>
       </div>
     </CommentInputStyled>
   );

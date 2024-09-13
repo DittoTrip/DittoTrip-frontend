@@ -21,6 +21,7 @@ const Login = () => {
   } = useForm<LoginProps>();
 
   const onSubmit = (data: LoginProps) => {
+    console.log(data);
     login(data).then(
       res => {
         storeLogin(res.accessToken, res.refreshToken);
