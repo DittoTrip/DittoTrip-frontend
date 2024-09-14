@@ -23,6 +23,7 @@ import { getToken } from './store/authStore';
 import HeaderToken from './api/https';
 import Alarm from './pages/Alarm';
 import EditProfile from './pages/EditProfile';
+import Character from './pages/Character';
 
 const router = createBrowserRouter([
   {
@@ -160,6 +161,14 @@ const router = createBrowserRouter([
     element: (
       <Layout GNBType="search">
         <EditProfile />
+      </Layout>
+    ),
+  },
+  {
+    path: '/character',
+    element: (
+      <Layout GNBType="search">
+        <Character />
       </Layout>
     ),
   },
