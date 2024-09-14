@@ -1,7 +1,7 @@
 export interface UserData {
   // ReviewData의 부하 1
   userId: number;
-  userName: string;
+  nickname: string;
 }
 
 export interface ReviewData {

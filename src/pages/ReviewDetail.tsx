@@ -25,22 +25,22 @@ const ReviewDetail = () => {
   // 리뷰 삭제 or 신고 펼치기
   const [isExpandedOptions, setIsExpandedOptions] = useState(false);
 
-  // "삭제"를 위한 comment
+  // "삭제","신고"를 위한 comment
   const [selectedComment, setSelectedComment] = useState<ReviewCommentData>();
-
-  // 댓글 입력
-  const [comment, setComment] = useState('');
 
   // "대댓글" 위한 parentComment => parentId가 null 이면 등록 , string이면 수정
   const [parentComment, setParentComment] = useState<ReviewCommentData | null>(null);
   console.log(parentComment);
   // 댓글 컨트롤 (등록)
-  const handleSubmit = () => {
+  const handleSubmit = (comment: string) => {
     const body = { body: comment };
+    console.log(body);
 
-    addReviewComment(id!, body, selectedComment?.commentId.toString()).then(
+    addReviewComment(id!, body, parentComment?.commentId.toString()).then(
       res => {
         console.log(res);
+        setParentComment(null);
+        window.location.reload();
       },
       error => {
         console.log(error);
@@ -106,9 +106,13 @@ const ReviewDetail = () => {
           setSelectedComment={setSelectedComment}
           setIsExpandedOption={setIsExpandedOptions}
           setParentComment={setParentComment}
+          parentComment={parentComment!}
         />
       </div>
-      <CommentInput handleSubmit={handleSubmit} setComment={setComment} />
+      <CommentInput
+        handleSubmit={handleSubmit}
+        placeholder={parentComment ? '대댓글을 남겨보세요' : t('comment.placeholder')}
+      />
 
       {isExpandedOptions && selectedComment && (
         <BottomSheet

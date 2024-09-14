@@ -15,7 +15,6 @@ const useReviewDetail = (reviewId: string) => {
       setLoading(true);
       try {
         const response = await getReview(reviewId);
-        console.log('response: ' + JSON.stringify(response));
         if (response) {
           setReviewDetailData(response.reviewData);
           setSpotData(response.spotName);

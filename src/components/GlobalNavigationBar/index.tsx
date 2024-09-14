@@ -4,21 +4,22 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHouse, faLayerGroup, faSearch, faUser } from '@fortawesome/free-solid-svg-icons';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { useNavigate } from 'react-router-dom';
+import { useAuthStore } from '../../store/authStore';
 
 interface GlobalNavigationBarProps {
   GNBType: GlobalNavigationBarType;
 }
 
-const GNBItemData: GNBItemDataType[] = [
-  { name: 'home', route: '/', icon: faHouse },
-  { name: 'search', route: '/category', icon: faSearch },
-  { name: 'ditto', route: '/ditto', icon: faLayerGroup },
-  { name: 'my', route: '/my', icon: faUser },
-];
-
 const GlobalNavigationBar = ({ GNBType }: GlobalNavigationBarProps) => {
   const navigate = useNavigate();
+  const { isLoggedIn } = useAuthStore();
 
+  const GNBItemData: GNBItemDataType[] = [
+    { name: 'home', route: '/', icon: faHouse },
+    { name: 'search', route: '/category', icon: faSearch },
+    { name: 'ditto', route: '/ditto', icon: faLayerGroup },
+    { name: 'my', route: isLoggedIn ? '/my' : '/login', icon: faUser },
+  ];
   if (GNBType === undefined) {
     return <></>;
   }

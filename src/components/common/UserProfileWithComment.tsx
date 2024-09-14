@@ -9,17 +9,23 @@ import { ReviewCommentData, ReviewData } from '../../models/reveiw/reviewModel';
 interface Props {
   name: string;
   date: string;
-  comment: ReviewCommentData;
+  comment?: ReviewCommentData;
   isParent?: boolean;
+  isParentComment?: boolean;
   setIsExpandedOption: (expanded: boolean) => void;
   setSelectedObj?: (obj: ReviewCommentData | ReviewData) => void;
   setParentComment?: (parentComment: ReviewCommentData) => void;
 }
-const UserProfileWithComment = ({ name, date, comment, setIsExpandedOption, setParentComment }: Props) => {
+const UserProfileWithComment = ({
+  name,
+  date,
+  comment,
+  setIsExpandedOption,
+  setParentComment,
+  isParentComment,
+}: Props) => {
   return (
-    <UserProfileWithCommentStyle>
-      {/* 마이페이지 이동 필요   */}
-      {/* 마이페이지 이동 필요   */}
+    <UserProfileWithCommentStyle isParentComment={isParentComment}>
       <div className="profile-left">
         <img className="user-img" src={profileImg} alt="프로필 이미지" />
       </div>
@@ -43,7 +49,7 @@ const UserProfileWithComment = ({ name, date, comment, setIsExpandedOption, setP
 
         {comment && <div className="comment">{comment.body}</div>}
         {setParentComment && (
-          <div className="parent" onClick={() => setParentComment(comment)}>
+          <div className="parent" onClick={() => setParentComment(comment!)}>
             댓글달기
           </div>
         )}
@@ -52,11 +58,13 @@ const UserProfileWithComment = ({ name, date, comment, setIsExpandedOption, setP
   );
 };
 
-const UserProfileWithCommentStyle = styled.div`
+const UserProfileWithCommentStyle = styled.div<{ isParentComment?: boolean }>`
   display: flex;
   gap: 12px;
-  padding: 12px 0;
+  padding: 12px 5px;
+  background-color: ${({ isParentComment }) => (isParentComment ? '#f0f8ff' : 'white')};
 
+  border-radius: 12px;
   .profile-left {
     display: flex;
   }
@@ -94,6 +102,7 @@ const UserProfileWithCommentStyle = styled.div`
 
     .parent {
       color: ${({ theme }) => theme.color.gray80};
+      margin-top: 4px;
     }
   }
 `;

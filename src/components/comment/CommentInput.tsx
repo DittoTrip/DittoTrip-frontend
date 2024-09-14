@@ -3,11 +3,11 @@ import { useTranslation } from 'react-i18next';
 import { styled } from 'styled-components';
 
 interface Props {
-  handleSubmit: () => void;
-  setComment: (value: string) => void;
+  placeholder?: string;
+  handleSubmit: (comment: string) => void;
 }
 
-const CommentInput = ({ setComment, handleSubmit }: Props) => {
+const CommentInput = ({ placeholder, handleSubmit }: Props) => {
   const [commentText, setCommentText] = useState('');
   const { t } = useTranslation();
 
@@ -18,9 +18,8 @@ const CommentInput = ({ setComment, handleSubmit }: Props) => {
   };
 
   const handleClick = () => {
-    setComment(commentText); // 전송 메세지 설정
+    handleSubmit(commentText); // 서버 전송
     setCommentText(''); // 입력창 초기화
-    handleSubmit(); // 서버 전송
   };
 
   return (
@@ -29,7 +28,7 @@ const CommentInput = ({ setComment, handleSubmit }: Props) => {
         <input
           className="comment-input"
           type="text"
-          placeholder={t('comment.placeholder')}
+          placeholder={placeholder ? placeholder : t('comment.placeholder')}
           value={commentText}
           onChange={e => setCommentText(e.target.value)}
           onKeyDown={handleKeyDown} // 엔터 키 이벤트 핸들러

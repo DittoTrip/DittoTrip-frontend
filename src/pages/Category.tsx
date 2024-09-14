@@ -127,11 +127,7 @@ const Category = () => {
 
   return (
     <CategoryStyled>
-      <AppBar
-        leading={false}
-        title={<div className="title">{t('category.title')}</div>}
-        action={<LangSelectButton />}
-      />
+      <AppBar leading={false} title={<div className="title">{'Search'}</div>} action={<LangSelectButton />} />
       <div className="searchBar" onClick={() => navigate('/search')}>
         <SearchBar setSearchWord={() => {}} placeholder={t('search.placeholder')} />
       </div>
@@ -150,7 +146,7 @@ const CategoryStyled = styled.div`
     color: ${({ theme }) => theme.color.keyColor};
     text-align: left;
     flex: 1;
-    ${({ theme }) => theme.font.subTitle};
+    ${({ theme }) => theme.font.title};
   }
   .searchBar {
     margin: 8px 28px 0 28px;

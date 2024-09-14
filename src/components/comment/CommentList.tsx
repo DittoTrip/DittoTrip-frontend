@@ -2,14 +2,16 @@ import { styled } from 'styled-components';
 import UserProfileWithComment from '../common/UserProfileWithComment';
 import { useTranslation } from 'react-i18next';
 import { ReviewCommentData } from '../../models/reveiw/reviewModel';
+import formatDate from '../../utils/formatDate';
 
 interface Props {
   comments: ReviewCommentData[];
   setIsExpandedOption: (expanded: boolean) => void;
+  parentComment?: ReviewCommentData;
   setSelectedComment?: (comment: ReviewCommentData) => void;
   setParentComment?: (comment: ReviewCommentData) => void;
 }
-const CommenList = ({ comments, setSelectedComment, setIsExpandedOption, setParentComment }: Props) => {
+const CommenList = ({ comments, parentComment, setSelectedComment, setIsExpandedOption, setParentComment }: Props) => {
   const { t } = useTranslation();
   return (
     <CommentListStyled>
@@ -18,8 +20,8 @@ const CommenList = ({ comments, setSelectedComment, setIsExpandedOption, setPare
       {comments?.map(comment => (
         <div key={comment.commentId}>
           <UserProfileWithComment
-            name={comment.userData.userName}
-            date={comment.createdDateTime.toString()}
+            name={comment.userData.nickname}
+            date={formatDate(comment.createdDateTime)}
             comment={comment}
             setIsExpandedOption={() => {
               setIsExpandedOption(true);
@@ -28,14 +30,15 @@ const CommenList = ({ comments, setSelectedComment, setIsExpandedOption, setPare
               }
             }}
             setParentComment={setParentComment}
+            isParentComment={parentComment?.commentId === comment.commentId}
           />
           {comment.childrenCommentsDataList?.length > 0 && (
             <ChildrenCommentsStyled>
               {comment.childrenCommentsDataList.map(childComment => (
                 <UserProfileWithComment
                   key={childComment.commentId}
-                  name={childComment.userData.userName}
-                  date={childComment.createdDateTime.toString()}
+                  name={childComment.userData.nickname}
+                  date={formatDate(comment.createdDateTime)}
                   comment={childComment}
                   setIsExpandedOption={() => {
                     setIsExpandedOption(true);

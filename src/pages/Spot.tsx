@@ -39,8 +39,8 @@ const Spot = () => {
   const { isVisited, markSpotAsVisited } = useVisitedSpot(id!);
   console.log(isVisited);
 
-  if (loading) return <ErrorPage message={'Loading'} />;
-  else if (error) return <ErrorPage message={'spot id를 확인해주세요'} />;
+  if (loading) return <ErrorPage message={'Loading'} type="loading" />;
+  else if (error) return <ErrorPage message={'spot id를 확인해주세요'} type="error" />;
 
   return (
     <SpotStyle>
@@ -67,7 +67,9 @@ const Spot = () => {
 
         <div className="spot-address">{spotDetailData?.spotData.address}</div>
 
-        <TagSlide tagList={spotDetailData?.spotData.hashtags} />
+        <div className="tag-wrapper">
+          <TagSlide tagList={spotDetailData?.spotData.hashtags} />
+        </div>
 
         <div className="stillcut-wrapper">
           <div className="spot-subtitle"> {t('spot.stillCut')}</div>
@@ -76,7 +78,7 @@ const Spot = () => {
 
         <div className="reviews">
           <div className="review-head">
-            <Link to={`/review/${spotDetailData?.spotData.spotId}`} className="review-movement">
+            <Link to={`/reviews/${spotDetailData?.spotData.spotId}`} className="review-movement">
               <div className="spot-subtitle"> {t('spot.review')}</div>
               <FontAwesomeIcon icon={faChevronRight} onClick={() => handleHeartClick()} className="arrow-btn" />
             </Link>
@@ -147,6 +149,9 @@ const SpotStyle = styled.div`
 
     .spot-address {
       ${({ theme }) => theme.font.body5};
+    }
+    .tag-wrapper {
+      margin: 10px 0;
     }
 
     .spot-subtitle {

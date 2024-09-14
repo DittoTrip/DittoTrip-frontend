@@ -29,7 +29,7 @@ const ReviewItem = ({ review, setIsExpandedOption }: Props) => {
   return (
     <ReviewItemStyle>
       <UserProfileWithComment
-        name={review.userData.userName}
+        name={review.userData.nickname}
         date={formatDate(review.createdDateTime)}
         setIsExpandedOption={setIsExpandedOption}
       />

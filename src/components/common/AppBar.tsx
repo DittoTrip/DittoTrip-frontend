@@ -20,7 +20,7 @@ const AppBar = ({ leading, title, action }: Props) => {
             <FontAwesomeIcon icon={faChevronLeft} onClick={() => navigate(-1)} />
           </div>
         )}
-        <div>{title}</div>
+        <div className="appbar-title">{title}</div>
         {action && <div className="action">{action}</div>}
       </AppBarStyle>
       {/* 앱바의 높이만큼 공간 차지 */}
@@ -48,6 +48,9 @@ const AppBarStyle = styled.div`
     align-items: center;
     font-size: 20px;
     margin-right: 20px;
+  }
+  .appbar-title {
+    flex: 1;
   }
 `;
 
