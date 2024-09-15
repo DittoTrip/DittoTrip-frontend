@@ -15,18 +15,18 @@ export interface DittoData {
   myBookmarkId: number;
 }
 
-export interface DittoCommentData {
-  dittoCommentId: number;
+export interface CommentData {
+  commentId: number;
   body: string;
   createdDateTime: Date;
   userData: UserData;
   isMine: boolean;
-  parentDittoCommentDataList: DittoCommentData[];
+  childCommentDataList: CommentData[];
 }
 
 export interface DittoDetailResponse {
   dittoData: DittoData;
-  parentDittoCommentDataList: DittoCommentData[];
+  commentDataList: CommentData[];
   commentCount: number;
 }
 

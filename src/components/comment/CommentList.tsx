@@ -1,19 +1,19 @@
+import { useTranslation } from 'react-i18next';
 import { styled } from 'styled-components';
 import UserProfileWithComment from '../common/UserProfileWithComment';
-import { useTranslation } from 'react-i18next';
-import { ReviewCommentData } from '../../models/reveiw/reviewModel';
 import formatDate from '../../utils/formatDate';
-import { DittoCommentData } from '../../models/ditto/dittoModel';
+import { CommentData } from '../../models/ditto/dittoModel';
 
 interface Props {
-  comments: ReviewCommentData[];
-  setIsExpandedOption: (expanded: boolean) => void;
-  parentComment?: ReviewCommentData;
-  setSelectedComment?: (comment: ReviewCommentData) => void;
-  setParentComment?: (comment: ReviewCommentData | DittoCommentData) => void;
+  comments: CommentData[];
+  setIsExpandedOption: React.Dispatch<React.SetStateAction<boolean>>;
+  parentComment?: CommentData;
+  setSelectedComment?: React.Dispatch<React.SetStateAction<CommentData | undefined>>;
+  setParentComment?: React.Dispatch<React.SetStateAction<CommentData | null>>;
 }
 const CommenList = ({ comments, parentComment, setSelectedComment, setIsExpandedOption, setParentComment }: Props) => {
   const { t } = useTranslation();
+
   return (
     <CommentListStyled>
       <div className="comment-title">{t('comment.comment')}</div>
@@ -33,9 +33,9 @@ const CommenList = ({ comments, parentComment, setSelectedComment, setIsExpanded
             setParentComment={setParentComment}
             isParentComment={parentComment?.commentId === comment.commentId}
           />
-          {comment.childrenCommentsDataList?.length > 0 && (
+          {comment.childCommentDataList?.length > 0 && (
             <ChildrenCommentsStyled>
-              {comment.childrenCommentsDataList.map(childComment => (
+              {comment.childCommentDataList.map(childComment => (
                 <UserProfileWithComment
                   key={childComment.commentId}
                   name={childComment.userData.nickname}

@@ -4,19 +4,18 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
 
 import profileImg from '../../assets/profile.png';
-import { ReviewCommentData } from '../../models/reveiw/reviewModel';
 import Button from './Button';
-import { DittoCommentData } from '../../models/ditto/dittoModel';
+import { CommentData } from '../../models/ditto/dittoModel';
 
 interface Props {
   name: string;
   date: string;
   following?: boolean;
-  comment?: ReviewCommentData | DittoCommentData;
+  comment?: CommentData;
   isParent?: boolean;
   isParentComment?: boolean;
-  setIsExpandedOption: (expanded: boolean) => void;
-  setParentComment?: (parentComment: ReviewCommentData | DittoCommentData) => void;
+  setIsExpandedOption: React.Dispatch<React.SetStateAction<boolean>>;
+  setParentComment?: React.Dispatch<React.SetStateAction<CommentData | null>>;
 }
 const UserProfileWithComment = ({
   name,
@@ -73,7 +72,7 @@ const UserProfileWithComment = ({
   );
 };
 
-const UserProfileWithCommentStyle = styled.div<{ isParentComment?: boolean; comment?: ReviewCommentData }>`
+const UserProfileWithCommentStyle = styled.div<{ isParentComment?: boolean; comment?: CommentData }>`
   display: flex;
   gap: 12px;
 
