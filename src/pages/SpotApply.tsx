@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import AppBar from '../components/common/AppBar';
 import ImageUploader from '../components/review/UploadImage';
 import TagSlide from '../components/common/TagSlide';
-import { dittoDetails } from './DittoDetail';
 import { useState } from 'react';
 import Button from '../components/common/Button';
 import AddressSearch from '../components/AddressFinder';
@@ -77,7 +76,7 @@ const SpotApply = () => {
                   <span className="spot-title">태그</span>
                   <span className="tag-length">(4/10)</span>
                 </div>
-                <TagSlide tagList={dittoDetails.tagList} />
+                <TagSlide tagList={['변성은', '권수연', '방명규', '원순재', '양나영', '허인주']} />
               </div>
 
               <div className="spot-box last-spot-box">

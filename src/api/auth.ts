@@ -37,6 +37,6 @@ export const join = async (data: JoinProps) => {
 
 export const duplicationCheck = async (data: DuplicationProps) => {
   // const response = await api.get(`auth/duplication-check?email=${data.email}&nickname=${data.nickname}`);
-  const response = await api.get(`auth/duplication-check?&nickname=${data.nickname}`);
+  const response = await api.get(`auth/duplication-check?nickname=${data.nickname}`);
   return response.data;
 };

@@ -1,25 +1,25 @@
 import { styled } from 'styled-components';
 import UserProfileWithComment from '../common/UserProfileWithComment';
 import { useTranslation } from 'react-i18next';
-import { ReviewCommentData } from '../../models/reveiw/reviewModel';
 import formatDate from '../../utils/formatDate';
 import { DittoCommentData } from '../../models/ditto/dittoModel';
+import { ReviewCommentData } from '../../models/reveiw/reviewModel';
 
 interface Props {
-  comments: ReviewCommentData[];
+  comments: DittoCommentData[];
   setIsExpandedOption: (expanded: boolean) => void;
-  parentComment?: ReviewCommentData;
-  setSelectedComment?: (comment: ReviewCommentData) => void;
-  setParentComment?: (comment: ReviewCommentData | DittoCommentData) => void;
+  parentComment?: DittoCommentData;
+  setSelectedComment?: (comment: DittoCommentData) => void;
+  setParentComment?: (comment: DittoCommentData | ReviewCommentData) => void;
 }
-const CommenList = ({ comments, parentComment, setSelectedComment, setIsExpandedOption, setParentComment }: Props) => {
+const CommentList = ({ comments, parentComment, setSelectedComment, setIsExpandedOption, setParentComment }: Props) => {
   const { t } = useTranslation();
   return (
     <CommentListStyled>
       <div className="comment-title">{t('comment.comment')}</div>
 
       {comments?.map(comment => (
-        <div key={comment.commentId}>
+        <div key={comment.dittoCommentId}>
           <UserProfileWithComment
             name={comment.userData.nickname}
             date={formatDate(comment.createdDateTime)}
@@ -31,13 +31,13 @@ const CommenList = ({ comments, parentComment, setSelectedComment, setIsExpanded
               }
             }}
             setParentComment={setParentComment}
-            isParentComment={parentComment?.commentId === comment.commentId}
+            isParentComment={parentComment?.dittoCommentId === comment.dittoCommentId}
           />
-          {comment.childrenCommentsDataList?.length > 0 && (
+          {comment.parentDittoCommentDataList?.length > 0 && (
             <ChildrenCommentsStyled>
-              {comment.childrenCommentsDataList.map(childComment => (
+              {comment.parentDittoCommentDataList.map(childComment => (
                 <UserProfileWithComment
-                  key={childComment.commentId}
+                  key={childComment.dittoCommentId}
                   name={childComment.userData.nickname}
                   date={formatDate(comment.createdDateTime)}
                   comment={childComment}
@@ -69,4 +69,4 @@ const ChildrenCommentsStyled = styled.div`
   margin-left: 43px;
 `;
 
-export default CommenList;
+export default CommentList;

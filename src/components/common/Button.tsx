@@ -24,7 +24,7 @@ export const ButtonStyle = styled.button<Omit<Props, 'children'>>`
   ${({ theme, size }) => theme.button[size].width && `width: ${theme.button[size].width};`}
   max-width: 600px;
 
-  border: 0;
+  border: ${({ theme, scheme }) => theme.buttonScheme[scheme].border ?? 'none'};
   border-radius: ${({ theme }) => theme.borderRadius.default};
 
   color: ${({ theme, scheme }) => theme.buttonScheme[scheme].color};

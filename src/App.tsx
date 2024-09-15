@@ -154,7 +154,7 @@ const router = createBrowserRouter([
     path: '/ditto',
 
     element: (
-      <Layout GNBType="search">
+      <Layout GNBType="ditto">
         <Ditto />
       </Layout>
     ),
@@ -163,7 +163,7 @@ const router = createBrowserRouter([
     path: '/ditto/:id',
 
     element: (
-      <Layout GNBType="search">
+      <Layout GNBType="ditto">
         <DittoDetail />
       </Layout>
     ),
@@ -190,7 +190,7 @@ const router = createBrowserRouter([
     path: '/alarm',
 
     element: (
-      <Layout GNBType="search">
+      <Layout GNBType="my">
         <Alarm />
       </Layout>
     ),
@@ -199,7 +199,7 @@ const router = createBrowserRouter([
     path: '/editprofile',
 
     element: (
-      <Layout GNBType="search">
+      <Layout GNBType="my">
         <EditProfile />
       </Layout>
     ),

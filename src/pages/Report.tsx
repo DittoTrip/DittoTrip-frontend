@@ -30,7 +30,7 @@ const Report = () => {
     try {
       const data = {
         reportReasonType: reasonType,
-        targetId: id!,
+        targetId: Number(id!),
         reportTargetType: targetType,
       };
 
