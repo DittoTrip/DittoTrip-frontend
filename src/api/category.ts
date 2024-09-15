@@ -5,7 +5,7 @@ import {
   CategoryModifyProps,
   CategoryResponse,
   MajorType,
-} from '../models/Category/categoryModel';
+} from '../models/category/categoryModel';
 import { api } from './https';
 
 // 카테고리 북마크 추가

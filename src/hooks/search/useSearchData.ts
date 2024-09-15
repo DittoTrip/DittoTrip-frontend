@@ -5,7 +5,7 @@ import { searchSpot } from '../../api/spot';
 import { searchCategory } from '../../api/category';
 
 import { SpotData } from '../../models/spot/spotModel';
-import { CategoryData } from '../../models/Category/categoryModel';
+import { CategoryData } from '../../models/category/categoryModel';
 
 const useSearchData = (tapId: number) => {
   // 데이터 관리

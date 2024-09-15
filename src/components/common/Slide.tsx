@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import ContentItem from '../category/ContentItem';
-import { CategoryData } from '../../models/Category/categoryModel';
+import { CategoryData } from '../../models/category/categoryModel';
 import { useEffect, useState } from 'react';
 import { defaultImage } from '../../constants/constant';
 

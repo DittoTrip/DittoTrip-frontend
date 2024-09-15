@@ -16,6 +16,7 @@ import useSpotDetail from '../hooks/spot/useSpotDetail';
 import { useEffect, useState } from 'react';
 import useBookmarkedSpot from '../hooks/spot/useSpotLike';
 import useVisitedSpot from '../hooks/spot/useSpotVisit';
+import Star from '../components/common/Star';
 
 const Spot = () => {
   const { t } = useTranslation();
@@ -46,7 +47,10 @@ const Spot = () => {
     <SpotStyle>
       <img className="main-img" src="https://img.seoul.co.kr/img/upload/2022/09/29/SSI_20220929234320_O2.jpg" />
       <div className="content-wrapper">
-        <div className="content-name">{spotDetailData?.spotData.name}</div>
+        <div className="spot-info-rating-wrapper">
+          <div className="spot-info-rating">{spotDetailData!.spotData.rating.toFixed(1)}</div>
+          <Star rating={spotDetailData!.spotData.rating} size={12} gap={3} />
+        </div>
 
         <div className="spot-name-button">
           <div className="spot-name">{spotDetailData?.spotData.name}</div>
@@ -118,6 +122,13 @@ const SpotStyle = styled.div`
   }
   .content-wrapper {
     margin: 29px 28px 16px 28px;
+
+    .spot-info-rating-wrapper {
+      display: flex;
+      gap: 8px;
+
+      ${({ theme }) => theme.font.body5}
+    }
 
     .content-name {
       font-size: 12px;
