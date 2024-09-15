@@ -6,7 +6,8 @@ export const api = axios.create({
   baseURL: 'http://dittotrip.site',
   timeout: 30000,
   headers: {
-    'Content-Type': 'application/json',
+    'Content-Type': 'multipart/form-data',
+    // 'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': '*',
   },
 });
@@ -35,6 +36,7 @@ api.interceptors.response.use(
     const { storeLogin, storeLogout } = useAuthStore();
     if (status === 401) {
       console.log('토큰 재발급 요청');
+      alert('토큰 재발급');
       refreshToken()
         .then(res => {
           console.log('토큰 재발급 성공res : ', res);

@@ -40,12 +40,11 @@ export const searchCategory = async (query: string, majorType: MajorType, page: 
   return response.data;
 };
 // 카테고리 검색 - 타입분류 x (스팟신청)
-export const searchCategoryWithoutType = async (searchWord: string) => {
-  const response = await api.get<CategoryData[]>(`category/list/search/typeless`, {
-    params: { searchWord },
+export const searchCategoryWithoutType = async (query: string) => {
+  const response = await api.get<CategoryResponse>(`category/list/search/typeless`, {
+    params: { query },
   });
-  console.log(response.data);
-  return response.data;
+  return response.data.categoryDataList;
 };
 // 찜기능 - 북마크한 카테고리 리스트 (major 타입별)
 export const bookmarkedCategoryList = async (data: CategoryListProps) => {

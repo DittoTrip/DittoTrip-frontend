@@ -35,6 +35,8 @@ const AppBarStyle = styled.div`
   align-items: center;
   height: 60px;
   padding: 0 28px;
+  max-width: 600px;
+  margin: 0 auto;
 
   position: fixed;
   top: 0;

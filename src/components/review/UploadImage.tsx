@@ -1,15 +1,19 @@
-import React, { useState, ChangeEvent, useRef } from 'react';
-
+import React, { ChangeEvent, useRef } from 'react';
 import { styled } from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
-function ImageUploader() {
-  const [selectedImages, setSelectedImages] = useState<File[]>([]);
-  const [previewUrls, setPreviewUrls] = useState<string[]>([]);
+interface ImageUploaderProps {
+  selectedImages: File[];
+  setSelectedImages: React.Dispatch<React.SetStateAction<File[]>>;
+  previewUrls: string[];
+  setPreviewUrls: React.Dispatch<React.SetStateAction<string[]>>;
+}
 
+function ImageUploader({ selectedImages, setSelectedImages, previewUrls, setPreviewUrls }: ImageUploaderProps) {
   const imageInput = useRef<HTMLInputElement>(null);
-  const onCickImageUpload = () => {
+
+  const onClickImageUpload = () => {
     if (imageInput.current !== null) {
       imageInput.current.click();
     }
@@ -60,8 +64,8 @@ function ImageUploader() {
         style={{ display: 'none' }}
       />
       <div className="image-list" style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
-        <button onClick={onCickImageUpload} className="btn-add-image">
-          <FontAwesomeIcon icon={faPlus} onClick={() => {}} />
+        <button onClick={onClickImageUpload} className="btn-add-image">
+          <FontAwesomeIcon icon={faPlus} />
         </button>
         {previewUrls.map((url, index) => (
           <img
@@ -81,33 +85,26 @@ function ImageUploader() {
 const ImageUploaderStyle = styled.div`
   .image-list {
     display: flex;
-    flexwrap: wrap;
+    flex-wrap: wrap;
     gap: 10px;
   }
   .image-preview {
     height: 77px;
     width: 77px;
-
     border: 1px solid ${({ theme }) => theme.color.gray40};
     border-radius: 12px;
-
-    objectfit: cover;
+    object-fit: cover;
   }
-
   .btn-add-image {
     height: 77px;
     width: 77px;
-
     border: 1px solid ${({ theme }) => theme.color.gray40};
     border-radius: 12px;
-
     background-color: transparent;
-
     path {
       color: ${({ theme }) => theme.color.gray40};
     }
   }
-
   .file-length {
     text-align: right;
     color: ${({ theme }) => theme.color.gray60};
