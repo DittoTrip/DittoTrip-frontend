@@ -14,7 +14,7 @@ import CommentList from '../components/comment/CommentList';
 import CommentInput from '../components/comment/CommentInput';
 import ErrorPage from './Error';
 import BottomSheet from '../components/bottomsheet/BottomSheet';
-import { ReviewCommentData } from '../models/reveiw/reviewModel';
+import { CommentData } from '../models/ditto/dittoModel';
 
 const ReviewDetail = () => {
   const { id } = useParams();
@@ -22,15 +22,14 @@ const ReviewDetail = () => {
   const navigate = useNavigate();
   const { reviewDetailData, spotData, commentData, error, loading } = useReviewDetail(id!);
 
-  // 리뷰 삭제 or 신고 펼치기
+  // 리뷰, 댓글 삭제 or 신고 펼치기
   const [isExpandedOptions, setIsExpandedOptions] = useState(false);
 
   // "삭제","신고"를 위한 comment
-  const [selectedComment, setSelectedComment] = useState<ReviewCommentData>();
+  const [selectedComment, setSelectedComment] = useState<CommentData>();
 
-  // "대댓글" 위한 parentComment => parentId가 null 이면 등록 , string이면 수정
-  const [parentComment, setParentComment] = useState<ReviewCommentData | null>(null);
-  console.log(parentComment);
+  // "대댓글" 위한 parentComment => parentId가 null 이면 등록 , string이면 대댓
+  const [parentComment, setParentComment] = useState<CommentData | null>(null);
   // 댓글 컨트롤 (등록)
   const handleSubmit = (comment: string) => {
     const body = { body: comment };

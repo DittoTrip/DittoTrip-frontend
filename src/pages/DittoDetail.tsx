@@ -1,139 +1,244 @@
-import styled from "styled-components"
-import AppBar from "../components/common/AppBar";
-import LangSelectButton from "../components/LangSelectButton";
-import Button from "../components/common/Button";
-import TagSlide from "../components/common/TagSlide";
+import { useCallback, useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
-import CommentInput from "../components/comment/CommentInput";
-import DittoInfinity from "../components/ditto/DittoInfinity";
-import { DummyDitto } from "./Ditto";
-import CommenList from "../components/comment/CommentList";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBookmark, faComment } from "@fortawesome/free-solid-svg-icons";
+import useDittoList from '../hooks/ditto/useDittoList';
+import { addDittoComment, deleteDittoComment } from '../api/dittoComment';
+import useDittoBookmark from '../hooks/ditto/useDittoLike';
 
-export const dittoDetails = {
-    tagList: ['김태리', '배우','미스터션샤인',]
-}
+import styled from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBookmark, faLocationDot } from '@fortawesome/free-solid-svg-icons';
+import { faBookmark as EmptyBookmark, faComment } from '@fortawesome/free-regular-svg-icons';
+
+import AppBar from '../components/common/AppBar';
+import TagSlide from '../components/common/TagSlide';
+import CommentInput from '../components/comment/CommentInput';
+import UserProfileWithComment from '../components/common/UserProfileWithComment';
+import useDittoDetail from '../hooks/ditto/useDittoDetail';
+import ErrorPage from './Error';
+
+import formatDate from '../utils/formatDate';
+import DittoInfinity from '../components/ditto/DittoInfinity';
+import { defaultPageOptions } from '../constants/constant';
+import { CommentData } from '../models/ditto/dittoModel';
+import BottomSheet from '../components/bottomsheet/BottomSheet';
+import CommentList from '../components/comment/CommentList';
 
 const DittoDetail = () => {
-    return ( 
-        <DittoDetailStyle>
-            <div className="app-bar">
-                <AppBar
-                    leading={false}
-                    title={
-                        <div className="title">
-                            Ditto
-                        </div>
-                }
-                action={<LangSelectButton/>}
-                />
-            </div>
-            <img className="main-img" src="https://velog.velcdn.com/images/gogo6570/post/13956471-8806-4af6-a68b-50037177105a/image.png"/>
-            <div className="content-wrapper">
-                <div className="ditto-user-btn">
-                    <div className="user-background">
-                        <img className="user-img" src="https://velog.velcdn.com/images/gogo6570/post/348417d6-a282-46f0-bbcd-a0583ac83850/image.png"></img>
-                    </div>
-                    <div className="user-name">압구르기 뒷구르기
-                        <div className="date"></div>
-                    </div>
-                    <img className="badge-img" src="https://velog.velcdn.com/images/gogo6570/post/2f0e493d-b0fe-407c-a8fc-0cc5d7b4db78/image.png"></img>
-                    <Button size={'small'} scheme={'keyButton'}>Follow</Button>
-                    <div className="follow-btn">
-                        Follow
-                    </div>
-                </div>
+  const { id } = useParams();
+  const { t } = useTranslation();
+  const navigate = useNavigate();
 
-                <div>
-                    <div></div>
-                    <div>만휴정</div>
-                </div>
+  const { dittoData, commentData, commentCount, error, loading } = useDittoDetail(id!);
+  const { isBookmarked, toggleBookmark, bookmarkCount } = useDittoBookmark(id!, 5);
+  // 더 알아보기
+  const [currentPage, setCurrentPage] = useState(0);
+  const { dittoList, hasMore } = useDittoList(currentPage, defaultPageOptions);
 
-                <div className="ditto-content">미스터 션샤인의 촬영지! "합시다. 러브"로 유명해진
-                    그곳에 다녀왔습니다. 엄청 푸르고 예뻤어요. 이 시기에는 관광객들이 많이 없어서
-                    조용하게 들길 수 있었습니다. 추천해요~
-                </div>
+  // 리뷰, 댓글 삭제 or 신고 펼치기
+  const [isExpandedOptions, setIsExpandedOptions] = useState(false);
 
-                <TagSlide tagList={dittoDetails.tagList} />
+  // "삭제","신고"를 위한 comment
+  const [selectedComment, setSelectedComment] = useState<CommentData>();
 
-                <div className="icon-box">
-                    <FontAwesomeIcon className="icon" icon={faBookmark}/>
-                    <div className="count">124</div>
-                    <FontAwesomeIcon className="icon" icon={faComment}/>
-                    <div className="count">5</div>
-                </div>
+  // "대댓글" 위한 parentComment => parentId가 null 이면 등록 , string이면 대댓글
+  const [parentComment, setParentComment] = useState<CommentData | null>(null);
+  // 댓글 컨트롤 (등록)
+  const handleSubmit = (comment: string) => {
+    const body = { body: comment };
+    console.log(body);
 
-                <div className="bookmark-comment-icon">
-                    <div className="bookmark"></div>
-                    <div className="comment"></div>
-                </div>
+    addDittoComment(id!, body, parentComment?.commentId.toString()).then(
+      res => {
+        console.log(res);
+        setParentComment(null);
+        window.location.reload();
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  };
 
-                <CommenList/>
-                <CommentInput/>
+  // 댓글 컨트롤 (삭제)
+  const handleDelete = () => {
+    if (selectedComment) {
+      deleteDittoComment(id!, selectedComment?.commentId.toString()).then(
+        res => {
+          console.log(res);
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    }
+  };
 
-                <div>더 찾아보기</div>
+  // 내 댓글인 경우 옵션 - 삭제
+  const expandedMyOptionsContent = [
+    {
+      id: 0,
+      text: t('bottomsheet.delete'),
+      handleClick: () => {
+        alert('delete');
+        handleDelete();
+        setIsExpandedOptions(false);
+      },
+    },
+  ];
 
-                <DittoInfinity dittoList={DummyDitto}/>
+  // 내 댓글 아닌 경우 - 신고
+  const expandedOptionsContent = [
+    {
+      id: 0,
+      text: t('bottomsheet.report'),
+      handleClick: () => {
+        navigate(`/report/COMMENT/${selectedComment!.commentId.toString()}`);
+      },
+    },
+  ];
 
-            </div>
-        </DittoDetailStyle>
-    )
-}
+  const handleScroll = useCallback(() => {
+    const scrollHeight = document.documentElement.scrollHeight;
+    const scrollTop = document.documentElement.scrollTop;
+    const clientHeight = document.documentElement.clientHeight;
+
+    if (scrollTop + clientHeight >= scrollHeight - 10 && hasMore && !loading) {
+      setCurrentPage(prevPage => prevPage + 1); // Load next page
+    }
+  }, [hasMore, loading]);
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [handleScroll]);
+
+  if (loading) {
+    return <ErrorPage message={'Loading...'} type="loading" />;
+  } else if (error) {
+    return <ErrorPage message={'spot id를 확인해주세요'} type="error" />;
+  }
+
+  return (
+    <DittoDetailStyle>
+      <div className="app-bar">
+        <AppBar leading={false} title={<div className="title">Ditto</div>} />
+      </div>
+      <img
+        className="main-img"
+        src="https://velog.velcdn.com/images/gogo6570/post/13956471-8806-4af6-a68b-50037177105a/image.png"
+      />
+      <div className="content-wrapper">
+        <UserProfileWithComment
+          name={dittoData!.userData.nickname}
+          date={formatDate(dittoData!.createdDateTime)}
+          following={true}
+          setIsExpandedOption={() => {}}
+        />
+
+        <div className="title-wrapper">
+          <FontAwesomeIcon className="icon" icon={faLocationDot} />
+          <div>만휴정</div>
+        </div>
+
+        <div className="ditto-content">{dittoData?.body}</div>
+
+        <div className="tag-wrapper">
+          <TagSlide tagList={dittoData?.hashtags} />
+        </div>
+
+        <div className="icon-box">
+          <FontAwesomeIcon
+            className="icon"
+            icon={isBookmarked ? faBookmark : EmptyBookmark}
+            onClick={() => toggleBookmark()}
+          />
+          <div className="count">{bookmarkCount}</div>
+          <FontAwesomeIcon className="icon" icon={faComment} />
+          <div className="count">{commentCount}</div>
+        </div>
+      </div>
+      <div className="content-wrapper">
+        <CommentList
+          comments={commentData!}
+          setSelectedComment={setSelectedComment}
+          setIsExpandedOption={setIsExpandedOptions}
+          setParentComment={setParentComment}
+          parentComment={parentComment!}
+        />
+      </div>
+      <CommentInput
+        handleSubmit={handleSubmit}
+        placeholder={parentComment ? '대댓글을 남겨보세요' : t('comment.placeholder')}
+        fixed={false}
+      />
+
+      <div className="content-wrapper">
+        <div>더 찾아보기</div>
+      </div>
+      <DittoInfinity dittoList={dittoList} />
+
+      {isExpandedOptions && selectedComment && (
+        <BottomSheet
+          title={t('bottomsheet.viewDetail')}
+          list={selectedComment.isMine ? expandedMyOptionsContent : expandedOptionsContent}
+          setIsOpen={setIsExpandedOptions}
+        />
+      )}
+    </DittoDetailStyle>
+  );
+};
 
 const DittoDetailStyle = styled.div`
-    .title {
-        ${({theme}) => theme.font.title}
-        color :  ${({theme}) => theme.color.keyColor}
-    }
-    .app-bar {
-        margin-bottom: 20px;
-    }
-    .main-img {
-        width: 100%;
-        height: 400px;
-    }
-    .content-wrapper {
-        margin: 29px 28px 16px 28px;
+  .title {
+    ${({ theme }) => theme.font.title}
+    color :  ${({ theme }) => theme.color.keyColor}
+  }
+  .app-bar {
+    margin-bottom: 20px;
+  }
+  .main-img {
+    width: 100%;
+    height: 400px;
+  }
+  .content-wrapper {
+    margin: 0 28px 16px 28px;
 
-        .icon-box {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            .count {
-                color : ${({theme})=>theme.color.gray80}
-            }
+    .icon-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
 
-            .icon {
-                path {
-                    color : ${({theme})=>theme.color.subColor1}
-                }
-            }
+      padding-bottom: 12px;
 
-            
+      border-bottom: solid 1px ${({ theme }) => theme.color.gray40};
+
+      .count {
+        color: ${({ theme }) => theme.color.gray80};
+      }
+
+      .icon {
+        path {
+          color: ${({ theme }) => theme.color.subColor1};
         }
-
-        
-
-        .ditto-user-btn {
-            display: flex;
-            
-        }
-
-        .bookmark-comment-icon {
-            border-bottom: solid 0.1px;
-            color: gray;
-        }
-
-        .follow-btn {
-            color : ${({theme})=>theme.color.keyColor};
-            ${({theme})=>theme.font.body5};
-            border-radius: 15px;
-            border: solid 0.1px;
-            align-items: center;
-            padding: 0 15px;
-        }
+      }
     }
+
+    .title-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+
+      font-weight: bold;
+
+      margin-bottom: 10px;
+    }
+
+    .tag-wrapper {
+      margin: 10px 0;
+    }
+  }
 `;
 
 export default DittoDetail;

@@ -1,6 +1,6 @@
-import { useTranslation } from 'react-i18next';
 import { styled } from 'styled-components';
 import UserProfileWithComment from '../common/UserProfileWithComment';
+import { useTranslation } from 'react-i18next';
 import formatDate from '../../utils/formatDate';
 import { CommentData } from '../../models/ditto/dittoModel';
 
@@ -8,10 +8,10 @@ interface Props {
   comments: CommentData[];
   setIsExpandedOption: React.Dispatch<React.SetStateAction<boolean>>;
   parentComment?: CommentData;
-  setSelectedComment?: React.Dispatch<React.SetStateAction<CommentData | undefined>>;
+  setSelectedComment?: React.Dispatch<React.SetStateAction<CommentData>>;
   setParentComment?: React.Dispatch<React.SetStateAction<CommentData | null>>;
 }
-const CommenList = ({ comments, parentComment, setSelectedComment, setIsExpandedOption, setParentComment }: Props) => {
+const CommentList = ({ comments, parentComment, setSelectedComment, setIsExpandedOption, setParentComment }: Props) => {
   const { t } = useTranslation();
 
   return (
@@ -69,4 +69,4 @@ const ChildrenCommentsStyled = styled.div`
   margin-left: 43px;
 `;
 
-export default CommenList;
+export default CommentList;

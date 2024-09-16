@@ -4,21 +4,23 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
 
 import profileImg from '../../assets/profile.png';
-import { ReviewCommentData, ReviewData } from '../../models/reveiw/reviewModel';
+import Button from './Button';
+import { CommentData } from '../../models/ditto/dittoModel';
 
 interface Props {
   name: string;
   date: string;
-  comment?: ReviewCommentData;
+  following?: boolean;
+  comment?: CommentData;
   isParent?: boolean;
   isParentComment?: boolean;
-  setIsExpandedOption: (expanded: boolean) => void;
-  setSelectedObj?: (obj: ReviewCommentData | ReviewData) => void;
-  setParentComment?: (parentComment: ReviewCommentData) => void;
+  setIsExpandedOption: React.Dispatch<React.SetStateAction<boolean>>;
+  setParentComment?: React.Dispatch<React.SetStateAction<CommentData | null>>;
 }
 const UserProfileWithComment = ({
   name,
   date,
+  following,
   comment,
   setIsExpandedOption,
   setParentComment,
@@ -32,7 +34,19 @@ const UserProfileWithComment = ({
       <div className="profile-right">
         <div className="profile-info">
           <div className="profile-details">
-            <div className="user-name">{name}</div>
+            <div className="nickname-wrapper">
+              <div className="user-name">{name}</div>
+              {following && (
+                <>
+                  <Button size={'small'} scheme={'keyButton'}>
+                    Follow
+                  </Button>
+                  <Button size={'small'} scheme={'emptyKeyButton'}>
+                    Follow
+                  </Button>
+                </>
+              )}
+            </div>
             <div className="date">{date}</div>
           </div>
 
@@ -58,10 +72,11 @@ const UserProfileWithComment = ({
   );
 };
 
-const UserProfileWithCommentStyle = styled.div<{ isParentComment?: boolean }>`
+const UserProfileWithCommentStyle = styled.div<{ isParentComment?: boolean; comment?: CommentData }>`
   display: flex;
   gap: 12px;
-  padding: 12px 5px;
+
+  padding: ${({ comment }) => (comment ? '12px 5px' : '12px 0')};
   background-color: ${({ isParentComment }) => (isParentComment ? '#f0f8ff' : 'white')};
 
   border-radius: 12px;
@@ -81,8 +96,13 @@ const UserProfileWithCommentStyle = styled.div<{ isParentComment?: boolean }>`
       display: flex;
       justify-content: space-between;
 
-      .user-name {
-        ${({ theme }) => theme.font.body2}
+      .nickname-wrapper {
+        display: flex;
+        gap: 8px;
+
+        .user-name {
+          ${({ theme }) => theme.font.body2}
+        }
       }
 
       .date {
