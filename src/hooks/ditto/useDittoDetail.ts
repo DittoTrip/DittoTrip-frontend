@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { getDitto } from '../../api/ditto';
-import { DittoData, DittoCommentData } from '../../models/ditto/dittoModel';
+import { CommentData, DittoData } from '../../models/ditto/dittoModel';
 
 const useDittoDetail = (dittoId: string) => {
   const [dittoData, setDittoData] = useState<DittoData | null>(null);
-  const [dittoComment, setdittoComment] = useState<DittoCommentData[] | null>(null);
+  const [commentData, setCommentData] = useState<CommentData[] | null>(null);
   const [commentCount, setCommentCount] = useState<number>(0);
 
   const [error, setError] = useState<string | null>(null);
@@ -17,7 +17,7 @@ const useDittoDetail = (dittoId: string) => {
         const response = await getDitto(dittoId);
         if (response) {
           setDittoData(response.dittoData);
-          setdittoComment(response.parentDittoCommentDataList);
+          setCommentData(response.commentDataList);
           setCommentCount(response.commentCount);
         }
       } catch (err) {
@@ -31,7 +31,7 @@ const useDittoDetail = (dittoId: string) => {
     fetchSpotDetail();
   }, [dittoId]);
 
-  return { dittoData, dittoComment, commentCount, error, loading };
+  return { dittoData, commentData, commentCount, error, loading };
 };
 
 export default useDittoDetail;

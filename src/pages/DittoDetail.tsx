@@ -1,25 +1,118 @@
-import styled from 'styled-components';
-import AppBar from '../components/common/AppBar';
-import TagSlide from '../components/common/TagSlide';
+import { useCallback, useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
-import CommentInput from '../components/comment/CommentInput';
-import CommentList from '../components/comment/DittoCommentList';
+import useDittoList from '../hooks/ditto/useDittoList';
+import { addDittoComment, deleteDittoComment } from '../api/dittoComment';
+import useDittoBookmark from '../hooks/ditto/useDittoLike';
+
+import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookmark, faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import { faBookmark as EmptyBookmark, faComment } from '@fortawesome/free-regular-svg-icons';
 
+import AppBar from '../components/common/AppBar';
+import TagSlide from '../components/common/TagSlide';
+import CommentInput from '../components/comment/CommentInput';
 import UserProfileWithComment from '../components/common/UserProfileWithComment';
 import useDittoDetail from '../hooks/ditto/useDittoDetail';
-import { useParams } from 'react-router-dom';
-import formatDate from '../utils/formatDate';
 import ErrorPage from './Error';
-import useDittoBookmark from '../hooks/ditto/useDittoLike';
+
+import formatDate from '../utils/formatDate';
+import DittoInfinity from '../components/ditto/DittoInfinity';
+import { defaultPageOptions } from '../constants/constant';
+import { CommentData } from '../models/ditto/dittoModel';
+import BottomSheet from '../components/bottomsheet/BottomSheet';
+import CommentList from '../components/comment/CommentList';
 
 const DittoDetail = () => {
   const { id } = useParams();
-  const { dittoData, dittoComment, commentCount, error, loading } = useDittoDetail(id!);
-  console.log(dittoComment);
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+
+  const { dittoData, commentData, commentCount, error, loading } = useDittoDetail(id!);
   const { isBookmarked, toggleBookmark, bookmarkCount } = useDittoBookmark(id!, 5);
+  // 더 알아보기
+  const [currentPage, setCurrentPage] = useState(0);
+  const { dittoList, hasMore } = useDittoList(currentPage, defaultPageOptions);
+
+  // 리뷰, 댓글 삭제 or 신고 펼치기
+  const [isExpandedOptions, setIsExpandedOptions] = useState(false);
+
+  // "삭제","신고"를 위한 comment
+  const [selectedComment, setSelectedComment] = useState<CommentData>();
+
+  // "대댓글" 위한 parentComment => parentId가 null 이면 등록 , string이면 대댓글
+  const [parentComment, setParentComment] = useState<CommentData | null>(null);
+  // 댓글 컨트롤 (등록)
+  const handleSubmit = (comment: string) => {
+    const body = { body: comment };
+    console.log(body);
+
+    addDittoComment(id!, body, parentComment?.commentId.toString()).then(
+      res => {
+        console.log(res);
+        setParentComment(null);
+        window.location.reload();
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  };
+
+  // 댓글 컨트롤 (삭제)
+  const handleDelete = () => {
+    if (selectedComment) {
+      deleteDittoComment(id!, selectedComment?.commentId.toString()).then(
+        res => {
+          console.log(res);
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    }
+  };
+
+  // 내 댓글인 경우 옵션 - 삭제
+  const expandedMyOptionsContent = [
+    {
+      id: 0,
+      text: t('bottomsheet.delete'),
+      handleClick: () => {
+        alert('delete');
+        handleDelete();
+        setIsExpandedOptions(false);
+      },
+    },
+  ];
+
+  // 내 댓글 아닌 경우 - 신고
+  const expandedOptionsContent = [
+    {
+      id: 0,
+      text: t('bottomsheet.report'),
+      handleClick: () => {
+        navigate(`/report/COMMENT/${selectedComment!.commentId.toString()}`);
+      },
+    },
+  ];
+
+  const handleScroll = useCallback(() => {
+    const scrollHeight = document.documentElement.scrollHeight;
+    const scrollTop = document.documentElement.scrollTop;
+    const clientHeight = document.documentElement.clientHeight;
+
+    if (scrollTop + clientHeight >= scrollHeight - 10 && hasMore && !loading) {
+      setCurrentPage(prevPage => prevPage + 1); // Load next page
+    }
+  }, [hasMore, loading]);
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [handleScroll]);
 
   if (loading) {
     return <ErrorPage message={'Loading...'} type="loading" />;
@@ -67,15 +160,32 @@ const DittoDetail = () => {
         </div>
       </div>
       <div className="content-wrapper">
-        <CommentList comments={dittoComment!} setIsExpandedOption={() => {}} />
+        <CommentList
+          comments={commentData!}
+          setSelectedComment={setSelectedComment}
+          setIsExpandedOption={setIsExpandedOptions}
+          setParentComment={setParentComment}
+          parentComment={parentComment!}
+        />
       </div>
-      <CommentInput handleSubmit={() => {}} fixed={false} />
+      <CommentInput
+        handleSubmit={handleSubmit}
+        placeholder={parentComment ? '대댓글을 남겨보세요' : t('comment.placeholder')}
+        fixed={false}
+      />
 
       <div className="content-wrapper">
         <div>더 찾아보기</div>
       </div>
+      <DittoInfinity dittoList={dittoList} />
 
-      {/* <DittoInfinity dittoList={DummyDitto} /> */}
+      {isExpandedOptions && selectedComment && (
+        <BottomSheet
+          title={t('bottomsheet.viewDetail')}
+          list={selectedComment.isMine ? expandedMyOptionsContent : expandedOptionsContent}
+          setIsOpen={setIsExpandedOptions}
+        />
+      )}
     </DittoDetailStyle>
   );
 };
