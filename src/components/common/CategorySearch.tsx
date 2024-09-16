@@ -4,6 +4,7 @@ import { searchCategoryWithoutType } from '../../api/category';
 import { CategoryData } from '../../models/Category/categoryModel';
 import { ISpotForm } from '../../pages/SpotApply';
 import { UseFormSetValue } from 'react-hook-form';
+import { defaultImage } from '../../constants/constant';
 
 interface Props {
   selectedCategory: CategoryData[];
@@ -76,6 +77,7 @@ const CategorySearch = ({ selectedCategory, setSelectedCategory, setValue }: Pro
         <div className="category-list">
           {categories.map(category => (
             <div key={category.categoryId} className="category-item" onClick={() => handleCategorySelect(category)}>
+              <img className="category-img" src={category.imageFilePath ?? defaultImage} />
               {category.name}
             </div>
           ))}
@@ -106,11 +108,11 @@ const CategorySearchContainer = styled.div`
     height: 42px;
 
     padding: 8px;
-    margin-top: 4px;
+    margin-top: 8px;
 
     border: 1px solid ${({ theme }) => theme.color.gray40};
     outline: none;
-    border-radius: 4px;
+    border-radius: 12px;
     background-color: ${({ theme }) => theme.color.gray20};
 
     ${({ theme }) => theme.font.body4};
@@ -119,12 +121,12 @@ const CategorySearchContainer = styled.div`
 
   .category-list {
     position: absolute;
-    top: 45px;
+    top: 47px;
     left: 0;
     right: 0;
+
     border: 1px solid ${({ theme }) => theme.color.gray40};
-    border-radius: 4px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
     z-index: 10;
     max-height: 200px;
     overflow-y: auto;
@@ -132,19 +134,31 @@ const CategorySearchContainer = styled.div`
   }
 
   .category-item {
+    display: flex;
+    gap: 20px;
+    padding: 12px 20px;
+    align-items: center;
+
     background-color: ${({ theme }) => theme.color.gray20};
-    padding: 8px;
     cursor: pointer;
-    ${({ theme }) => theme.font.body4};
+    ${({ theme }) => theme.font.body5};
+    font-weight: bold;
+
+    .category-img {
+      width: 60px;
+      height: 60px;
+      border-radius: 12px;
+    }
 
     &:hover {
-      background-color: ${({ theme }) => theme.color.gray30};
+      background-color: ${({ theme }) => theme.color.gray40};
     }
   }
 
   .selected-category-list {
     margin: 20px 0;
     border: 1px solid ${({ theme }) => theme.color.gray40};
+    border-radius: 12px;
     padding: 8px;
     ${({ theme }) => theme.font.body4};
   }
@@ -153,7 +167,7 @@ const CategorySearchContainer = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: ${({ theme }) => theme.color.subColor3};
+    background-color: white;
     padding: 8px;
     margin-bottom: 4px;
     border-radius: 4px;
@@ -166,7 +180,7 @@ const CategorySearchContainer = styled.div`
   .remove-button {
     background: none;
     border: none;
-    color: ${({ theme }) => theme.color.keyColor};
+    color: ${({ theme }) => theme.color.gray60};
     font-size: 16px;
     cursor: pointer;
   }

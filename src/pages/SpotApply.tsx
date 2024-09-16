@@ -67,7 +67,7 @@ const SpotApply = () => {
     });
 
     // 폼 객체 key 와 value 값을 순회.
-    let entries = formData.entries();
+    const entries = formData.entries();
     for (const pair of entries) {
       console.log(pair[0] + ', ' + pair[1]);
     }

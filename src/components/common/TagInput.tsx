@@ -56,7 +56,7 @@ const TagInput = ({ tags, setTags, setValue }: Props) => {
       <div className="tag-list">
         {tags.map((tag, index) => (
           <div key={index} className="tag">
-            #{tag}
+            # {tag}
             <button onClick={() => handleRemoveTag(tag)} className="tag-remove-button">
               &times;
             </button>

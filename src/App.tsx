@@ -116,7 +116,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: '/searchResult',
+    path: '/search-result',
     element: (
       <Layout GNBType="search">
         <SearchResult />
@@ -169,7 +169,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: '/dittoWrite',
+    path: '/ditto/new/:id',
 
     element: (
       <Layout>
@@ -178,7 +178,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: '/spotApply',
+    path: '/spot-apply',
 
     element: (
       <Layout>
