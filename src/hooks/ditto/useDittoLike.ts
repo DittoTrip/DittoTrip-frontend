@@ -6,6 +6,10 @@ const useDittoBookmark = (id: string, likes: number) => {
   const [bookmarkCount, setBookmarkCount] = useState(likes);
 
   useEffect(() => {
+    setBookmarkCount(likes);
+  }, [likes]);
+
+  useEffect(() => {
     const fetchBookmarkStatus = async () => {
       try {
         const result = await getDittoBookmark(id);
@@ -16,7 +20,7 @@ const useDittoBookmark = (id: string, likes: number) => {
     };
 
     fetchBookmarkStatus();
-  }, [id]);
+  }, [id, likes]);
 
   const toggleBookmark = async () => {
     try {

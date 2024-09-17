@@ -13,7 +13,7 @@ export interface ReportRequest {
   // 포스트 report api
   reportReasonType: ReportReasonType;
   reportTargetType: ReportTargetType;
-  targetId: number;
+  targetId: string;
 }
 
 export interface ReportAdminRequest {

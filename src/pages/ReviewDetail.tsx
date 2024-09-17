@@ -15,6 +15,7 @@ import CommentInput from '../components/comment/CommentInput';
 import ErrorPage from './Error';
 import BottomSheet from '../components/bottomsheet/BottomSheet';
 import { CommentData } from '../models/ditto/dittoModel';
+import { deleteReview } from '../api/review';
 
 const ReviewDetail = () => {
   const { id } = useParams();
@@ -22,8 +23,11 @@ const ReviewDetail = () => {
   const navigate = useNavigate();
   const { reviewDetailData, spotData, commentData, error, loading } = useReviewDetail(id!);
 
-  // 리뷰, 댓글 삭제 or 신고 펼치기
+  // 댓글 삭제 or 신고 펼치기
   const [isExpandedOptions, setIsExpandedOptions] = useState(false);
+
+  // 리뷰 삭제 or 신고 펼치기
+  const [isExpandedReviewOptions, setIsExpandedReviewOptions] = useState(false);
 
   // "삭제","신고"를 위한 comment
   const [selectedComment, setSelectedComment] = useState<CommentData>();
@@ -53,12 +57,27 @@ const ReviewDetail = () => {
       deleteReviewComment(id!, selectedComment?.commentId.toString()).then(
         res => {
           console.log(res);
+          window.location.reload();
         },
         error => {
           console.log(error);
         }
       );
     }
+  };
+
+  // 리뷰 컨트롤 (삭제)
+  const handleDeleteReview = () => {
+    deleteReview(id!).then(
+      res => {
+        alert('Delete');
+        console.log(res);
+        window.location.reload();
+      },
+      error => {
+        console.log(error);
+      }
+    );
   };
 
   // 내 댓글인 경우 옵션 - 삭제
@@ -80,7 +99,38 @@ const ReviewDetail = () => {
       id: 0,
       text: t('bottomsheet.report'),
       handleClick: () => {
-        navigate(`/report/COMMENT/${selectedComment!.commentId.toString()}`);
+        navigate(`/report/REVIEW_COMMENT/${selectedComment!.commentId.toString()}`);
+      },
+    },
+  ];
+
+  // 내 리뷰 아닌 경우 - 신고
+  const expandedReviewOptionsContent = [
+    {
+      id: 0,
+      text: t('bottomsheet.report'),
+      handleClick: () => {
+        navigate(`/report/DITTO/${id!}`);
+      },
+    },
+  ];
+
+  // 내 리뷰인 경우 옵션 - 삭제
+  const expandedMyReviewOptionsContent = [
+    {
+      id: 0,
+      text: t('bottomsheet.delete'),
+      handleClick: () => {
+        handleDeleteReview();
+        setIsExpandedReviewOptions(false);
+      },
+    },
+    {
+      id: 1,
+      text: t('bottomsheet.modify'),
+      handleClick: () => {
+        alert('modify');
+        setIsExpandedReviewOptions(false);
       },
     },
   ];
@@ -97,7 +147,7 @@ const ReviewDetail = () => {
         <AppBar leading={true} title={<div className="title">{spotData}</div>} action={<LangSelectButton />} />
       </div>
       <div className="content">
-        <ReviewItem setIsExpandedOption={() => {}} review={reviewDetailData!} />
+        <ReviewItem setIsExpandedOption={setIsExpandedReviewOptions} review={reviewDetailData!} />
       </div>
       <div className="comment-list">
         <CommentList
@@ -118,6 +168,14 @@ const ReviewDetail = () => {
           title={t('bottomsheet.viewDetail')}
           list={selectedComment.isMine ? expandedMyOptionsContent : expandedOptionsContent}
           setIsOpen={setIsExpandedOptions}
+        />
+      )}
+
+      {isExpandedReviewOptions && (
+        <BottomSheet
+          title={t('bottomsheet.viewDetail')}
+          list={reviewDetailData?.isMine ? expandedMyReviewOptionsContent : expandedReviewOptionsContent}
+          setIsOpen={setIsExpandedReviewOptions}
         />
       )}
     </ReviewDetailStyle>

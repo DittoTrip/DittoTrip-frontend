@@ -70,7 +70,7 @@ const Search = () => {
   const navigate = useNavigate();
   console.log(searchWord);
   if (searchWord) {
-    navigate(`/searchResult?search=${searchWord}`);
+    navigate(`/search-result?search=${searchWord}`);
   }
 
   const tapData: TapItem[] = [

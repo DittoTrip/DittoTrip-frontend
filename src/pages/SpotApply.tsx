@@ -13,7 +13,7 @@ import TagInput from '../components/common/TagInput';
 import CategorySearch from '../components/common/CategorySearch';
 import { CategoryData } from '../models/Category/categoryModel';
 
-export interface ISpotForm {
+export interface FormInputs {
   name: string;
   address: string;
   pointX: number;
@@ -45,9 +45,9 @@ const SpotApply = () => {
     handleSubmit,
     formState: { errors },
     setValue,
-  } = useForm<ISpotForm>();
+  } = useForm<FormInputs>();
 
-  const onValid = async (data: ISpotForm) => {
+  const onValid = async (data: FormInputs) => {
     const formData = new FormData();
 
     // 스팟 정보 추가
@@ -59,11 +59,12 @@ const SpotApply = () => {
       }) // application/json 형식으로 넣어 주기
     );
 
-    formData.append('image', selectedMainImage!); // 'images'라는 키로 파일을 추가
+    // 메인 이미지
+    formData.append('image', selectedMainImage!);
 
-    // 선택한 이미지 배열을 'images'라는 키로 추가
+    // 스틸컷
     selectedImages.forEach(file => {
-      formData.append('images', file); // 'images'라는 키로 파일을 추가
+      formData.append('images', file);
     });
 
     // 폼 객체 key 와 value 값을 순회.
@@ -73,11 +74,24 @@ const SpotApply = () => {
     }
 
     try {
-      await addSpotApply(formData); // API 호출
+      await addSpotApply(formData);
       alert('스팟 등록이 완료되었습니다!');
     } catch (error) {
       alert('스팟 등록에 실패했습니다. 다시 시도해주세요.');
     }
+  };
+
+  const handleAddTag = (newTag: string) => {
+    setTags([...tags, newTag]);
+    setValue('hashtagNames', [...tags, newTag]);
+  };
+
+  const handleDeleteTag = (tag: string) => {
+    setTags(tags.filter(t => t !== tag));
+    setValue(
+      'hashtagNames',
+      tags.filter(t => t !== tag)
+    );
   };
 
   return (
@@ -138,7 +152,7 @@ const SpotApply = () => {
                   <span className="spot-title">태그</span>
                   <span className="tag-length">({tags.length}/10)</span>
                 </div>
-                <TagInput tags={tags} setTags={setTags} setValue={setValue} />
+                <TagInput tags={tags} handleAddTag={handleAddTag} handleDeleteTag={handleDeleteTag} />
               </div>
 
               <div className="spot-box last-spot-box">
@@ -232,7 +246,7 @@ const SpotApplyStyle = styled.div`
   }
 
   .error-msg {
-    color: #0044f1;
+    color: ${({ theme }) => theme.font.keyColor};
     ${({ theme }) => theme.font.body6};
   }
 `;

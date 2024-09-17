@@ -15,7 +15,7 @@ import useReviewBookmark from '../../hooks/review/useReviewLike';
 
 interface Props {
   review: ReviewData;
-  setIsExpandedOption: (expanded: boolean) => void;
+  setIsExpandedOption: React.Dispatch<React.SetStateAction<boolean>>;
 }
 const ReviewItem = ({ review, setIsExpandedOption }: Props) => {
   const navigate = useNavigate();
@@ -42,15 +42,21 @@ const ReviewItem = ({ review, setIsExpandedOption }: Props) => {
           <Star rating={review.rating} showRatingValue={false} size={16} gap={4} color="keyColor" />
         </div>
         <div className="slide">
-          {review.imagePaths == null
-            ? dummyImgList?.map(item => {
+          {review.imagePaths.length != 0
+            ? review.imagePaths?.map(item => {
                 return (
                   <li className="review-img">
                     <img src={item} alt="" className="review-img" />
                   </li>
                 );
               })
-            : review.imagePaths}
+            : dummyImgList.map(item => {
+                return (
+                  <li className="review-img">
+                    <img src={item} alt="" className="review-img" />
+                  </li>
+                );
+              })}
         </div>
         <div className="review-text">{review.reviewBody}</div>
       </div>

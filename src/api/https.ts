@@ -6,8 +6,8 @@ export const api = axios.create({
   baseURL: 'http://dittotrip.site',
   timeout: 30000,
   headers: {
-    'Content-Type': 'multipart/form-data',
-    // 'Content-Type': 'application/json',
+    // 'Content-Type': 'multipart/form-data',
+    'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': '*',
   },
 });

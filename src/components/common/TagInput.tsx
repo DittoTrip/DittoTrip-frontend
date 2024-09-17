@@ -1,26 +1,23 @@
-import React, { useState, KeyboardEvent, ChangeEvent } from 'react';
+import { useState, KeyboardEvent, ChangeEvent } from 'react';
 import { styled } from 'styled-components';
-import { ISpotForm } from '../../pages/SpotApply';
-import { UseFormSetValue } from 'react-hook-form';
 
 interface Props {
   tags: string[];
-  setTags: React.Dispatch<React.SetStateAction<string[]>>;
-  setValue: UseFormSetValue<ISpotForm>;
+  handleAddTag: (newTag: string) => void;
+  handleDeleteTag: (tag: string) => void;
 }
 
-const TagInput = ({ tags, setTags, setValue }: Props) => {
+const TagInput = ({ tags, handleAddTag, handleDeleteTag }: Props) => {
   const [inputValue, setInputValue] = useState('');
 
   // 태그 추가
-  const handleAddTag = (event: KeyboardEvent<HTMLInputElement>) => {
+  const handleAddNewTag = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
       event.preventDefault();
       const newTag = inputValue.trim();
       //  중복 방지, 10개 이하
       if (!tags.includes(newTag) && tags.length < 10) {
-        setTags([...tags, newTag]);
-        setValue('hashtagNames', [...tags, newTag]);
+        handleAddTag(newTag);
       } else if (tags.length >= 10) {
         alert('10개까지만 등록이 가능합니다.');
       }
@@ -29,11 +26,7 @@ const TagInput = ({ tags, setTags, setValue }: Props) => {
   };
   // 태그 삭제
   const handleRemoveTag = (tag: string) => {
-    setTags(tags.filter(t => t !== tag));
-    setValue(
-      'hashtagNames',
-      tags.filter(t => t !== tag)
-    );
+    handleDeleteTag(tag);
   };
   // inputValue 관리
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -49,7 +42,7 @@ const TagInput = ({ tags, setTags, setValue }: Props) => {
           type="text"
           value={inputValue}
           onChange={handleInputChange}
-          onKeyDown={handleAddTag}
+          onKeyDown={handleAddNewTag}
           placeholder="태그를 입력하세요"
         />
       </div>

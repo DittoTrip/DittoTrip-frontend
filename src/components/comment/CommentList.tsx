@@ -25,10 +25,10 @@ const CommenList = ({ comments, parentComment, setSelectedComment, setIsExpanded
             date={formatDate(comment.createdDateTime)}
             comment={comment}
             setIsExpandedOption={() => {
-              setIsExpandedOption(true);
               if (setSelectedComment) {
                 setSelectedComment(comment);
               }
+              setIsExpandedOption(true);
             }}
             setParentComment={setParentComment}
             isParentComment={parentComment?.commentId === comment.commentId}
@@ -39,13 +39,13 @@ const CommenList = ({ comments, parentComment, setSelectedComment, setIsExpanded
                 <UserProfileWithComment
                   key={childComment.commentId}
                   name={childComment.userData.nickname}
-                  date={formatDate(comment.createdDateTime)}
+                  date={formatDate(childComment.createdDateTime)}
                   comment={childComment}
                   setIsExpandedOption={() => {
-                    setIsExpandedOption(true);
                     if (setSelectedComment) {
-                      setSelectedComment(comment);
+                      setSelectedComment(childComment);
                     }
+                    setIsExpandedOption(true);
                   }}
                 />
               ))}

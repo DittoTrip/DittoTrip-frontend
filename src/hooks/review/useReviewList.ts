@@ -41,10 +41,10 @@ const useReviewList = (spotId: string, sort: string, page: number, size: number)
         setReviewList(prevList => prevList.filter(review => review.reviewId.toString() != reviewId));
         alert('리뷰가 성공적으로 삭제되었습니다.');
       } else {
-        setError('리뷰 삭제에 실패했습니다.');
+        alert('리뷰 삭제에 실패했습니다.');
       }
     } catch (error) {
-      setError('리뷰 삭제 중 오류가 발생했습니다.');
+      alert('리뷰 삭제에 실패했습니다.');
     } finally {
       setLoading(false);
     }

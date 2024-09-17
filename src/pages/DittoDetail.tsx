@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import useDittoList from '../hooks/ditto/useDittoList';
 import { addDittoComment, deleteDittoComment } from '../api/dittoComment';
 import useDittoBookmark from '../hooks/ditto/useDittoLike';
+import useDittoDetail from '../hooks/ditto/useDittoDetail';
 
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -15,29 +16,45 @@ import AppBar from '../components/common/AppBar';
 import TagSlide from '../components/common/TagSlide';
 import CommentInput from '../components/comment/CommentInput';
 import UserProfileWithComment from '../components/common/UserProfileWithComment';
-import useDittoDetail from '../hooks/ditto/useDittoDetail';
 import ErrorPage from './Error';
-
-import formatDate from '../utils/formatDate';
 import DittoInfinity from '../components/ditto/DittoInfinity';
-import { defaultPageOptions } from '../constants/constant';
-import { CommentData } from '../models/ditto/dittoModel';
 import BottomSheet from '../components/bottomsheet/BottomSheet';
 import CommentList from '../components/comment/CommentList';
+
+import { CommentData } from '../models/ditto/dittoModel';
+import { defaultImage, defaultPageOptions } from '../constants/constant';
+import formatDate from '../utils/formatDate';
+import { deleteDitto } from '../api/ditto';
 
 const DittoDetail = () => {
   const { id } = useParams();
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const { dittoData, commentData, commentCount, error, loading } = useDittoDetail(id!);
-  const { isBookmarked, toggleBookmark, bookmarkCount } = useDittoBookmark(id!, 5);
+  const { dittoData, commentData, commentCount, initialBookmarkCount, isMyFollowing, error, loading } = useDittoDetail(
+    id!
+  );
+  const { isBookmarked, toggleBookmark, bookmarkCount } = useDittoBookmark(id!, initialBookmarkCount!);
+  console.log(
+    'initial:',
+    initialBookmarkCount,
+    'following',
+    isMyFollowing,
+    'count',
+    bookmarkCount,
+    'isBookmarked',
+    isBookmarked
+  );
+
   // 더 알아보기
   const [currentPage, setCurrentPage] = useState(0);
-  const { dittoList, hasMore } = useDittoList(currentPage, defaultPageOptions);
+  const { dittoList, hasMore } = useDittoList(currentPage, defaultPageOptions, '');
 
-  // 리뷰, 댓글 삭제 or 신고 펼치기
+  // 댓글 삭제 or 신고 펼치기
   const [isExpandedOptions, setIsExpandedOptions] = useState(false);
+
+  // 디토 삭제 or 신고 펼치기
+  const [isExpandedDittoOptions, setIsExpandedDittoOptions] = useState(false);
 
   // "삭제","신고"를 위한 comment
   const [selectedComment, setSelectedComment] = useState<CommentData>();
@@ -62,17 +79,32 @@ const DittoDetail = () => {
   };
 
   // 댓글 컨트롤 (삭제)
-  const handleDelete = () => {
+  const handleDeleteComment = () => {
     if (selectedComment) {
       deleteDittoComment(id!, selectedComment?.commentId.toString()).then(
         res => {
           console.log(res);
+          window.location.reload();
         },
         error => {
           console.log(error);
         }
       );
     }
+  };
+
+  // 디토 컨트롤 (삭제)
+  const handleDeleteDitto = () => {
+    deleteDitto(id!).then(
+      res => {
+        alert('삭제되었습니다.');
+        console.log(res);
+        navigate('/ditto');
+      },
+      error => {
+        console.log(error);
+      }
+    );
   };
 
   // 내 댓글인 경우 옵션 - 삭제
@@ -82,8 +114,31 @@ const DittoDetail = () => {
       text: t('bottomsheet.delete'),
       handleClick: () => {
         alert('delete');
-        handleDelete();
+        handleDeleteComment();
         setIsExpandedOptions(false);
+      },
+    },
+  ];
+
+  // 내 디토 아닌 경우 - 신고
+  const expandedDittoOptionsContent = [
+    {
+      id: 0,
+      text: t('bottomsheet.report'),
+      handleClick: () => {
+        navigate(`/report/DITTO/${id!}`);
+      },
+    },
+  ];
+
+  // 내 디토 경우 옵션 - 삭제
+  const expandedMyDittoOptionsContent = [
+    {
+      id: 0,
+      text: t('bottomsheet.delete'),
+      handleClick: () => {
+        handleDeleteDitto();
+        setIsExpandedDittoOptions(false);
       },
     },
   ];
@@ -94,7 +149,7 @@ const DittoDetail = () => {
       id: 0,
       text: t('bottomsheet.report'),
       handleClick: () => {
-        navigate(`/report/COMMENT/${selectedComment!.commentId.toString()}`);
+        navigate(`/report/DITTO_COMMENT/${selectedComment!.commentId.toString()}`);
       },
     },
   ];
@@ -120,26 +175,24 @@ const DittoDetail = () => {
     return <ErrorPage message={'spot id를 확인해주세요'} type="error" />;
   }
 
+  console.log('isMine', selectedComment, selectedComment?.isMine);
   return (
     <DittoDetailStyle>
       <div className="app-bar">
         <AppBar leading={false} title={<div className="title">Ditto</div>} />
       </div>
-      <img
-        className="main-img"
-        src="https://velog.velcdn.com/images/gogo6570/post/13956471-8806-4af6-a68b-50037177105a/image.png"
-      />
+      <img className="main-img" src={dittoData!.imagePath ?? defaultImage} />
       <div className="content-wrapper">
         <UserProfileWithComment
           name={dittoData!.userData.nickname}
           date={formatDate(dittoData!.createdDateTime)}
           following={true}
-          setIsExpandedOption={() => {}}
+          setIsExpandedOption={setIsExpandedDittoOptions}
         />
 
         <div className="title-wrapper">
           <FontAwesomeIcon className="icon" icon={faLocationDot} />
-          <div>만휴정</div>
+          <div>{dittoData!.title}</div>
         </div>
 
         <div className="ditto-content">{dittoData?.body}</div>
@@ -173,17 +226,23 @@ const DittoDetail = () => {
         placeholder={parentComment ? '대댓글을 남겨보세요' : t('comment.placeholder')}
         fixed={false}
       />
-
       <div className="content-wrapper">
-        <div>더 찾아보기</div>
+        <div className="more">더 찾아보기</div>
       </div>
       <DittoInfinity dittoList={dittoList} />
-
       {isExpandedOptions && selectedComment && (
         <BottomSheet
           title={t('bottomsheet.viewDetail')}
           list={selectedComment.isMine ? expandedMyOptionsContent : expandedOptionsContent}
           setIsOpen={setIsExpandedOptions}
+        />
+      )}
+
+      {isExpandedDittoOptions && (
+        <BottomSheet
+          title={t('bottomsheet.viewDetail')}
+          list={dittoData?.isMine ? expandedMyDittoOptionsContent : expandedDittoOptionsContent}
+          setIsOpen={setIsExpandedDittoOptions}
         />
       )}
     </DittoDetailStyle>
@@ -237,6 +296,11 @@ const DittoDetailStyle = styled.div`
 
     .tag-wrapper {
       margin: 10px 0;
+    }
+
+    .more {
+      margin-top: 12px;
+      ${({ theme }) => theme.font.body2}
     }
   }
 `;

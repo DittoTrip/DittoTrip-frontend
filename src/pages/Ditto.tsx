@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import DittoInfinity from '../components/ditto/DittoInfinity';
 import useDittoList from '../hooks/ditto/useDittoList';
 import ErrorPage from './Error';
-import { defaultPageOptions } from '../constants/constant';
+// import { defaultPageOptions } from '../constants/constant';
 
 export interface dittoInfi {
   img: string;
@@ -18,9 +18,13 @@ export interface dittoInfi {
 const Ditto = () => {
   const { t } = useTranslation();
   const [searchWord, setSearchWord] = useState('');
-  console.log(searchWord);
   const [currentPage, setCurrentPage] = useState(0);
-  const { dittoList, loading, error, hasMore } = useDittoList(currentPage, defaultPageOptions);
+  const { dittoList, loading, error, hasMore } = useDittoList(currentPage, 10, searchWord);
+  console.log('검색어:', searchWord);
+
+  useEffect(() => {
+    setCurrentPage(0);
+  }, [searchWord]);
 
   // Infinite scroll logic
   const handleScroll = useCallback(() => {

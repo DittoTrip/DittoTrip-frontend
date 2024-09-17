@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { styled } from 'styled-components';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBug, faGears } from '@fortawesome/free-solid-svg-icons';
+import { faBug, faSpinner } from '@fortawesome/free-solid-svg-icons';
 type ErrorType = 'error' | `loading`;
 
 const ErrorPage = ({ message, type }: { message?: string; type?: ErrorType }) => {
@@ -12,7 +12,7 @@ const ErrorPage = ({ message, type }: { message?: string; type?: ErrorType }) =>
     <ErrorPageStyle>
       <div>
         {type == 'loading' ? (
-          <FontAwesomeIcon icon={faGears} className="check-icon" />
+          <FontAwesomeIcon icon={faSpinner} className="check-icon" />
         ) : type == 'error' ? (
           <FontAwesomeIcon icon={faBug} className="check-icon" />
         ) : (

@@ -6,19 +6,22 @@ import { searchCategory } from '../../api/category';
 
 import { SpotData } from '../../models/spot/spotModel';
 import { CategoryData } from '../../models/Category/categoryModel';
+import { searchUser } from '../../api/user';
+import { defaultPageOptions } from '../../constants/constant';
+import { UserData } from '../../models/userpage/userPageModel';
 
 const useSearchData = (tapId: number) => {
   // 데이터 관리
   const [spotListData, setSpotListData] = useState<SpotData[]>([]);
   const [contentListData, setContentListData] = useState<CategoryData[]>([]);
   const [celebrityListData, setCelebrityListData] = useState<CategoryData[]>([]);
-  //   const [userListData, setUserListData] = useState([]);
+  const [userListData, setUserListData] = useState<UserData[]>([]);
 
   // 페이지 관리
   const [spotPage, setSpotPage] = useState(0);
   const [contentPage, setContentPage] = useState(0);
   const [celebrityPage, setCelebrityPage] = useState(0);
-  //   const [userPage, setUserPage] = useState(0);
+  const [userPage, setUserPage] = useState(0);
 
   // 유저 경도 위도
   const [userX, setUserX] = useState<number | null>(null);
@@ -76,15 +79,30 @@ const useSearchData = (tapId: number) => {
     setCelebrityListData(prev => [...prev, ...newData]);
     setCelebrityPage(prevPage => prevPage + 1);
   };
+  const loadMoreUserData = async () => {
+    if (search === null) {
+      return;
+    }
+    const data = { page: userPage, size: defaultPageOptions, query: search };
+
+    const newData = (await searchUser(data)).userDataList;
+
+    console.log(newData);
+
+    setUserListData(prev => [...prev, ...newData]);
+    setUserPage(prevPage => prevPage + 1);
+  };
 
   useEffect(() => {
     setSpotPage(0);
     setContentPage(0);
     setCelebrityPage(0);
+    setUserPage(0);
 
     setSpotListData([]);
     setContentListData([]);
     setCelebrityListData([]);
+    setUserListData([]);
 
     if (tapId == 1) {
       loadMoreSpotData();
@@ -96,7 +114,7 @@ const useSearchData = (tapId: number) => {
       loadMoreCelebrityData();
     }
     if (tapId == 4) {
-      //   loadMoreUserData();
+      loadMoreUserData();
     }
   }, [search, sort, tapId]);
 
@@ -104,13 +122,15 @@ const useSearchData = (tapId: number) => {
     spotListData,
     contentListData,
     celebrityListData,
-    // userList,
+    userListData,
     loadMoreSpotData,
     loadMoreContentData,
     loadMoreCelebrityData,
+    loadMoreUserData,
     setSpotPage,
     setContentPage,
     setCelebrityPage,
+    setUserPage,
     setSpotListData,
   };
 };

@@ -26,6 +26,8 @@ import DittoWrite from './pages/DittoWrite';
 import SpotApply from './pages/SpotApply';
 import Alarm from './pages/Alarm';
 import EditProfile from './pages/EditProfile';
+import { getAccessToken } from './store/authStore';
+import HeaderToken from './api/https';
 
 const router = createBrowserRouter([
   {
@@ -169,7 +171,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: '/ditto/new/:id',
+    path: '/ditto/new',
 
     element: (
       <Layout>
@@ -207,6 +209,9 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+  const token = getAccessToken();
+  HeaderToken.set(token);
+
   return (
     <>
       <DittoProvider>

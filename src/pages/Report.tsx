@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { styled } from 'styled-components';
 import { useTranslation } from 'react-i18next';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import AppBar from '../components/common/AppBar';
 import Modal from '../components/common/Modal';
@@ -12,6 +12,7 @@ const Report = () => {
   const { t } = useTranslation();
   const { type, id } = useParams();
   const targetType = type as ReportTargetType;
+  const navigate = useNavigate();
 
   const [isOpen, setIsOpen] = useState(false);
   const [message, setMessage] = useState('');
@@ -30,7 +31,7 @@ const Report = () => {
     try {
       const data = {
         reportReasonType: reasonType,
-        targetId: Number(id!),
+        targetId: id!,
         reportTargetType: targetType,
       };
 
@@ -38,6 +39,7 @@ const Report = () => {
 
       if (status === 200) {
         setMessage(t('report.successMessage'));
+
         setIsOpen(true);
       } else {
         setMessage(t('report.errorMessage'));
@@ -68,7 +70,7 @@ const Report = () => {
           ))}
         </div>
       </div>
-      {isOpen && <Modal message={message} setIsOpen={setIsOpen} width={60} />}
+      {isOpen && <Modal message={message} setIsOpen={setIsOpen} width={60} handleConfirm={() => navigate(-1)} />}
     </ReportStyle>
   );
 };

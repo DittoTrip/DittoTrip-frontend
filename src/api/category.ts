@@ -1,6 +1,5 @@
 import {
   CategoryAddProps,
-  CategoryData,
   CategoryListProps,
   CategoryModifyProps,
   CategoryResponse,

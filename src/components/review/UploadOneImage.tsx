@@ -55,7 +55,7 @@ function MainImageUploader({ setSelectedImage, previewUrl, setPreviewUrl }: Imag
         accept="image/*"
         onChange={handleImageChange}
         ref={imageInput}
-        style={{ display: 'none' }} // 파일 입력창 숨김
+        style={{ display: 'none' }}
       />
       <div className="image-container">
         {previewUrl ? (
@@ -88,16 +88,16 @@ const ImageUploaderStyle = styled.div`
   }
 
   .image-preview {
-    height: 100px;
-    width: 100px;
+    height: 120x;
+    width: 120px;
     border: 1px solid ${({ theme }) => theme.color.gray40};
     border-radius: 12px;
     object-fit: cover;
   }
 
   .btn-add-image {
-    height: 100px;
-    width: 100px;
+    height: 120px;
+    width: 120px;
     border: 1px solid ${({ theme }) => theme.color.gray40};
     border-radius: 12px;
     background-color: transparent;

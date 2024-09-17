@@ -1,7 +1,6 @@
 import {
   DittoDetailResponse,
   DittoModifyRequest,
-  DittoSaveRequest,
   DittoPageRequest,
   DittoListResponse,
 } from '../models/ditto/dittoModel';
@@ -26,8 +25,8 @@ export const deleteDitto = async (dittoId: string) => {
 };
 
 //디토 등록
-export const addDitto = async (data: DittoSaveRequest) => {
-  const response = await api.post('/ditto', { data });
+export const addDitto = async (data: FormData) => {
+  const response = await api.post('/ditto', data);
   return response.status;
 };
 
@@ -49,9 +48,16 @@ export const deleteDittoBookmark = async (dittoId: string) => {
   return response.status;
 };
 
-//디토 리스트 조회
+//디토 리스트 조회 - 사용 x
 export const getDittoList = async (data: DittoPageRequest) => {
   const response = await api.get<DittoListResponse>('/ditto/list', { data });
+  return response.data;
+};
+//디토 리스트 조회 - 검색
+export const searchDittoList = async (query: string, data: DittoPageRequest) => {
+  const response = await api.get<DittoListResponse>('/ditto/list/search', {
+    params: { query, ...data },
+  });
   return response.data;
 };
 

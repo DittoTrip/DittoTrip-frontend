@@ -9,7 +9,7 @@ export interface DittoData {
   body: string;
   createdDateTime: Date;
   userData: UserData;
-  imagePaths: string[];
+  imagePath: string;
   hashtags: string[];
   isMine: boolean;
   myBookmarkId: number;
@@ -28,6 +28,8 @@ export interface DittoDetailResponse {
   dittoData: DittoData;
   commentDataList: CommentData[];
   commentCount: number;
+  bookmarkCount: number;
+  isMyFollowing: boolean;
 }
 
 export interface ModifyReq {

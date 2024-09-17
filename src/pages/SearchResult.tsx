@@ -83,9 +83,11 @@ const SearchResult = () => {
     spotListData,
     contentListData,
     celebrityListData,
+    userListData,
     setSpotPage,
     setContentPage,
     setCelebrityPage,
+    setUserPage,
     setSpotListData,
   } = useSearchData(selectedTapId);
 
@@ -107,6 +109,7 @@ const SearchResult = () => {
     setSpotPage(0);
     setContentPage(0);
     setCelebrityPage(0);
+    setUserPage(0);
   }, [searchWord, selectedSortId]);
 
   return (
@@ -162,7 +165,7 @@ const SearchResult = () => {
         )}
         {selectedTapId === 4 && (
           <>
-            {DummyUser.map(data => (
+            {userListData.map(data => (
               <SearchUser data={data} />
             ))}
           </>

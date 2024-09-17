@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import { getDittoList } from '../../api/ditto';
+import { searchDittoList } from '../../api/ditto';
 import { DittoMiniData } from '../../models/ditto/dittoModel';
 
-const useDittoList = (page: number, size: number) => {
+const useDittoList = (page: number, size: number, searchWord: string) => {
   const [dittoList, setdittoList] = useState<DittoMiniData[]>([]);
 
   const [loading, setLoading] = useState(true);
@@ -10,14 +10,19 @@ const useDittoList = (page: number, size: number) => {
   const [hasMore, setHasMore] = useState(true);
 
   const fetchSpotList = async () => {
-    const req = { page, size };
     try {
-      const response = await getDittoList(req);
+      const req = { page, size };
+      const response = await searchDittoList(searchWord, req);
+
       if (response.dittoMiniDataList.length < size) {
         setHasMore(false);
       }
 
-      setdittoList(prev => [...prev, ...response.dittoMiniDataList]);
+      if (page == 0) {
+        setdittoList(response.dittoMiniDataList);
+      } else {
+        setdittoList(prev => [...prev, ...response.dittoMiniDataList]);
+      }
     } catch (err) {
       setError('데이터를 불러오는 중 오류가 발생했습니다.');
     } finally {
@@ -31,7 +36,7 @@ const useDittoList = (page: number, size: number) => {
       setHasMore(true);
     }
     fetchSpotList();
-  }, [page]);
+  }, [page, searchWord]);
 
   return { dittoList, loading, error, hasMore };
 };

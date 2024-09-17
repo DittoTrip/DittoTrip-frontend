@@ -1,7 +1,6 @@
 import {
   SpotReviewResponse,
   ReviewModifyRequset,
-  ReviewSaveRequest,
   ReviewPageRequest,
   ReviewListResponse,
 } from '../models/reveiw/reviewModel';
@@ -26,8 +25,8 @@ export const deleteReview = async (reviewId: string) => {
 };
 
 // 리뷰 등록
-export const addReview = async (data: ReviewSaveRequest) => {
-  const response = await api.post('/review', { data });
+export const addReview = async (data: FormData) => {
+  const response = await api.post('/review', data);
   return response.status;
 };
 
