@@ -28,6 +28,7 @@ import SpotApply from './pages/SpotApply';
 import Alarm from './pages/Alarm';
 import EditProfile from './pages/EditProfile';
 import Character from './pages/Character';
+import Badge from './pages/Badge';
 
 const router = createBrowserRouter([
   {
@@ -210,6 +211,14 @@ const router = createBrowserRouter([
     element: (
       <Layout GNBType="search">
         <Character />
+      </Layout>
+    ),
+  },
+  {
+    path: '/badge',
+    element: (
+      <Layout GNBType="search">
+        <Badge />
       </Layout>
     ),
   },
