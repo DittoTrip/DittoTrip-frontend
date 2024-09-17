@@ -119,7 +119,7 @@ const CharacterStyle = styled.div`
     .box {
         width: 100px;
         height: 100px;
-        background-color: #f0f0f0;
+        background-color:#F9F9F9;
         display: flex;
         align-items: center;
         justify-content: center;
