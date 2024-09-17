@@ -46,7 +46,7 @@ const Character = () => {
 
     const [selectedId, setSelectedId] = useState<number>(tapData[0]?.id);
 
-    // 더미 데이터 추가
+    
     const boxData = Array.from({ length: 9 }, (_, i) => i);
 
     return (
