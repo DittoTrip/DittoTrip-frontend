@@ -1,16 +1,16 @@
 import React from 'react';
 import Slide from '../common/Slide';
 import styled from 'styled-components';
-import { CategoryData, categoryType } from '../../models/Category/categoryModel';
+import { CategoryData, SubType } from '../../models/Category/categoryModel';
 
 interface Props {
   title: string;
   list: CategoryData[];
-  subType: categoryType;
+  subType: SubType;
   page: number;
-  setPage: React.Dispatch<React.SetStateAction<number>>;
-  loadMoreData: (subType: categoryType, page: number, setPage: React.Dispatch<React.SetStateAction<number>>) => void;
   isFavorite: boolean;
+  setPage: React.Dispatch<React.SetStateAction<number>>;
+  loadMoreData: (subType: SubType, page: number, setPage: React.Dispatch<React.SetStateAction<number>>) => void;
 }
 
 const CategorySection = ({ title, list, subType, page, setPage, loadMoreData, isFavorite }: Props) => {

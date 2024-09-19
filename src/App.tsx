@@ -8,17 +8,25 @@ import Home from './pages/Home';
 import ErrorPage from './pages/Error';
 import LangPage from './pages/LangPage';
 import Category from './pages/Category';
-import Review from './pages/Review';
+import Review from './pages/ReviewList';
 import NewReview from './pages/NewReview';
 import ReviewDetail from './pages/ReviewDetail';
 import Search from './pages/Search';
+import SearchResult from './pages/SearchResult';
 import Join from './pages/Join';
 import Report from './pages/Report';
 import Spot from './pages/Spot';
 import Around from './pages/Around';
 import List from './pages/List';
 import Login from './pages/Login';
-import { getToken } from './store/authStore';
+
+import Ditto from './pages/Ditto';
+import DittoDetail from './pages/DittoDetail';
+import DittoWrite from './pages/DittoWrite';
+import SpotApply from './pages/SpotApply';
+import Alarm from './pages/Alarm';
+import EditProfile from './pages/EditProfile';
+import { getAccessToken } from './store/authStore';
 import HeaderToken from './api/https';
 
 const router = createBrowserRouter([
@@ -31,7 +39,7 @@ const router = createBrowserRouter([
       </Layout>
     ),
     errorElement: (
-      <Layout>
+      <Layout GNBType="home">
         <ErrorPage />
       </Layout>
     ),
@@ -53,7 +61,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: '/list/:id',
+    path: '/category/:id',
     element: (
       <Layout GNBType="search">
         <List />
@@ -78,7 +86,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: '/review',
+    path: '/reviews/:id',
     element: (
       <Layout GNBType="search">
         <Review />
@@ -110,6 +118,15 @@ const router = createBrowserRouter([
     ),
   },
   {
+    path: '/search-result',
+    element: (
+      <Layout GNBType="search">
+        <SearchResult />
+      </Layout>
+    ),
+  },
+
+  {
     path: '/join',
     element: (
       <Layout>
@@ -118,7 +135,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: '/report',
+    path: '/report/:type/:id',
 
     element: (
       <Layout GNBType="search">
@@ -135,10 +152,64 @@ const router = createBrowserRouter([
       </Layout>
     ),
   },
+  {
+    path: '/ditto',
+
+    element: (
+      <Layout GNBType="ditto">
+        <Ditto />
+      </Layout>
+    ),
+  },
+  {
+    path: '/ditto/:id',
+
+    element: (
+      <Layout GNBType="ditto">
+        <DittoDetail />
+      </Layout>
+    ),
+  },
+  {
+    path: '/ditto/new',
+
+    element: (
+      <Layout>
+        <DittoWrite />
+      </Layout>
+    ),
+  },
+  {
+    path: '/spot-apply',
+
+    element: (
+      <Layout>
+        <SpotApply />
+      </Layout>
+    ),
+  },
+  {
+    path: '/alarm',
+
+    element: (
+      <Layout GNBType="my">
+        <Alarm />
+      </Layout>
+    ),
+  },
+  {
+    path: '/editprofile',
+
+    element: (
+      <Layout GNBType="my">
+        <EditProfile />
+      </Layout>
+    ),
+  },
 ]);
 
 function App() {
-  const token = getToken();
+  const token = getAccessToken();
   HeaderToken.set(token);
 
   return (

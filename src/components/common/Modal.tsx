@@ -2,11 +2,12 @@ import { styled } from 'styled-components';
 
 interface Props {
   message: string;
+  handleConfirm?: () => void;
   setIsOpen: (isOpen: boolean) => void;
   width: number;
 }
 
-const Modal = ({ message, setIsOpen, width }: Props) => {
+const Modal = ({ message, handleConfirm, setIsOpen, width }: Props) => {
   return (
     <ModalStyle width={width}>
       <div
@@ -20,6 +21,7 @@ const Modal = ({ message, setIsOpen, width }: Props) => {
           <div
             className="confirm"
             onClick={() => {
+              handleConfirm!();
               setIsOpen(false);
             }}>
             확인

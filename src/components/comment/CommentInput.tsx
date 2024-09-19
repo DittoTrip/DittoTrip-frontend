@@ -2,44 +2,53 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { styled } from 'styled-components';
 
-const CommentInput = () => {
+interface Props {
+  placeholder?: string;
+  handleSubmit: (comment: string) => void;
+  fixed?: boolean;
+}
+
+const CommentInput = ({ placeholder, handleSubmit, fixed = true }: Props) => {
   const [commentText, setCommentText] = useState('');
   const { t } = useTranslation();
 
-  const handleSubmit = () => {
-    // 전송
-  };
-
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      handleSubmit(); // 엔터 키가 눌리면 검색 실행
+      handleClick();
     }
   };
 
+  const handleClick = () => {
+    handleSubmit(commentText); // Submit the comment
+    setCommentText(''); // Reset the input field
+  };
+
   return (
-    <CommentInputStyled>
+    <CommentInputStyled fixed={fixed}>
       <div className="comment-input-wrapper">
         <input
           className="comment-input"
           type="text"
-          placeholder={t('comment.placeholder')}
+          placeholder={placeholder ? placeholder : t('comment.placeholder')}
           value={commentText}
           onChange={e => setCommentText(e.target.value)}
-          onKeyDown={handleKeyDown} // 엔터 키 이벤트 핸들러
+          onKeyDown={handleKeyDown} // Enter key event handler
         />
-        <button className="comment-submit">{t('comment.submit')}</button>
+        <button className="comment-submit" onClick={handleClick}>
+          {t('comment.submit')}
+        </button>
       </div>
     </CommentInputStyled>
   );
 };
 
-const CommentInputStyled = styled.div`
+const CommentInputStyled = styled.div<{ fixed: boolean }>`
   display: flex;
   align-items: center;
 
-  position: fixed;
-  bottom: 87px;
-  left: 0;
+  position: ${({ fixed }) => (fixed ? 'fixed' : 'static')};
+  bottom: ${({ fixed }) => (fixed ? '87px' : 'auto')};
+  left: ${({ fixed }) => (fixed ? '0' : 'auto')};
 
   height: 60px;
   width: 100%;

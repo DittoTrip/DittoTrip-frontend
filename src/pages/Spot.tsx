@@ -1,3 +1,5 @@
+import { Link, useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { styled } from 'styled-components';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -9,106 +11,98 @@ import PhotoSlide from '../components/common/PhotoSlide';
 import Button from '../components/common/Button';
 import MiniReviewItem from '../components/review/MiniReviewItem';
 
-import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
-
-export const spotDetails = {
-  id: 1,
-  contentTitle: '이상한 변호사 우영우',
-  spotName: '소덕동 팽나무',
-  address: '경상남도 창원시 의창구 대산면 대산북로 899번길 43-5',
-  tagList: ['강동원', '변성은', '디토트립', '강원도', '변호사', '변성은', '디토리포', '여행'],
-  photoList: [
-    'https://img.seoul.co.kr/img/upload/2022/09/29/SSI_20220929234320_O2.jpg',
-    'https://img.seoul.co.kr/img/upload/2022/09/29/SSI_20220929234320_O2.jpg',
-    'https://img.seoul.co.kr/img/upload/2022/09/29/SSI_20220929234320_O2.jpg',
-    'https://img.seoul.co.kr/img/upload/2022/09/29/SSI_20220929234320_O2.jpg',
-    'https://img.seoul.co.kr/img/upload/2022/09/29/SSI_20220929234320_O2.jpg',
-    'https://img.seoul.co.kr/img/upload/2022/09/29/SSI_20220929234320_O2.jpg',
-    'https://img.seoul.co.kr/img/upload/2022/09/29/SSI_20220929234320_O2.jpg',
-  ],
-  isLiked: true,
-  reviewList: [
-    {
-      id: 1,
-      userName: 'user1',
-      rating: 4.5,
-      text: '부모님과 다녀왔다. 또 오고싶다. 나무가 너무 멋있다.',
-    },
-    {
-      id: 2,
-      userName: 'user2',
-      rating: 2.5,
-      text: '친구들과 다녀왔다. 또 오고싶다. 나무가 너무 멋있다.',
-    },
-    {
-      id: 3,
-      userName: 'user3',
-      rating: 4.0,
-      text: '부모님과 다녀왔다. 또 오고싶다. 나무가 너무 멋있다.',
-    },
-    {
-      id: 4,
-      userName: 'user4',
-      rating: 5.0,
-      text: '살면서 봤던 나무중에 가장 멋있다. 드라마에서 본 곳을 와서 기분이 좋다.살면서 봤던 나무중에 가장 멋있다. 드라마에서 본 곳을 와서 기분이 좋다. 살면서 봤던 나무중에 가장 멋있다. ',
-    },
-  ],
-};
-const handleHeartClick = () => {};
+import ErrorPage from './Error';
+import useSpotDetail from '../hooks/spot/useSpotDetail';
+import { useEffect, useState } from 'react';
+import useBookmarkedSpot from '../hooks/spot/useSpotLike';
+import useVisitedSpot from '../hooks/spot/useSpotVisit';
 
 const Spot = () => {
   const { t } = useTranslation();
+  const { id } = useParams();
+
+  // 북마크 관련 훅, 상태
+  // bookmardId 저장: 북마크 삭제에 필요
+  const [bookmarkedId, setBookmarkedId] = useState<number | null>();
+  const { isBookmarked, toggleBookmark } = useBookmarkedSpot(id!, bookmarkedId!);
+  const handleHeartClick = () => {
+    toggleBookmark();
+  };
+
+  // spotDetailData 받아오기
+  // 새로운 북마크시 생성된 bookmarkId 저장해야함 (isBookmared 의존)
+  const { spotDetailData, error, loading } = useSpotDetail(id!, isBookmarked!);
+  useEffect(() => {
+    setBookmarkedId(spotDetailData?.spotData.myBookmarkId);
+  }, [spotDetailData]);
+
+  const { isVisited, markSpotAsVisited } = useVisitedSpot(id!);
+  console.log(isVisited);
+
+  if (loading) return <ErrorPage message={'Loading'} type="loading" />;
+  else if (error) return <ErrorPage message={'spot id를 확인해주세요'} type="error" />;
 
   return (
     <SpotStyle>
       <img className="main-img" src="https://img.seoul.co.kr/img/upload/2022/09/29/SSI_20220929234320_O2.jpg" />
       <div className="content-wrapper">
-        <div className="content-name">{spotDetails.contentTitle}</div>
+        <div className="content-name">{spotDetailData?.spotData.name}</div>
 
         <div className="spot-name-button">
-          <div className="spot-name">{spotDetails.spotName}</div>
+          <div className="spot-name">{spotDetailData?.spotData.name}</div>
           <div className="button-wrapper">
             <div className="heart">
-              <FontAwesomeIcon icon={spotDetails.isLiked ? faHeart : faEmptyHeart} onClick={() => handleHeartClick()} />
+              <FontAwesomeIcon icon={isBookmarked ? faHeart : faEmptyHeart} onClick={() => handleHeartClick()} />
             </div>
-            <Button size={'small'} scheme={'keyButton'}>
+            <Button
+              size={'small'}
+              scheme={'keyButton'}
+              onClick={() => {
+                markSpotAsVisited();
+              }}>
               {t('spot.visit')}
             </Button>
           </div>
         </div>
 
-        <div className="spot-address">{spotDetails.address}</div>
+        <div className="spot-address">{spotDetailData?.spotData.address}</div>
 
-        <TagSlide tagList={spotDetails.tagList} />
+        <div className="tag-wrapper">
+          <TagSlide tagList={spotDetailData?.spotData.hashtags} />
+        </div>
 
         <div className="stillcut-wrapper">
           <div className="spot-subtitle"> {t('spot.stillCut')}</div>
-          <PhotoSlide photoList={spotDetails.photoList} width={112} height={76} gap={16} />
+          <PhotoSlide photoList={spotDetailData?.spotImageDataList} width={112} height={76} gap={16} />
         </div>
 
         <div className="reviews">
           <div className="review-head">
-            <Link to={`/review/${spotDetails.id}`} className="review-movement">
+            <Link to={`/reviews/${spotDetailData?.spotData.spotId}`} className="review-movement">
               <div className="spot-subtitle"> {t('spot.review')}</div>
               <FontAwesomeIcon icon={faChevronRight} onClick={() => handleHeartClick()} className="arrow-btn" />
             </Link>
             <div className="new-btn">
-              <Link to="/review/new">
+              <Link to={`/review/new/${spotDetailData?.spotData.spotId}`}>
                 <Button size={'small'} scheme={'keyButton'} onClick={() => {}}>
                   {t('spot.write')}
                 </Button>
               </Link>
             </div>
           </div>
-          {spotDetails.reviewList.map(review => (
-            <Link to={`/review/${review.id}`} key={review.id} className="review-item">
-              <MiniReviewItem userName={review.userName} rating={review.rating} text={review.text} id={review.id} />
+          {spotDetailData?.reviewDataList.map(review => (
+            <Link to={`/review/${review.reviewId}`} key={review.reviewId} className="review-item">
+              <MiniReviewItem
+                userName={review.username}
+                rating={review.rating}
+                text={review.reviewBody}
+                id={review.reviewId}
+              />
             </Link>
           ))}
         </div>
 
-        <Link to={`/around/${spotDetails.id}`} className="show-more">
+        <Link to={`/around/${spotDetailData?.spotData.spotId}`} className="show-more">
           {t('spot.seeMore')}
           <FontAwesomeIcon icon={faChevronRight} />
         </Link>
@@ -155,6 +149,9 @@ const SpotStyle = styled.div`
 
     .spot-address {
       ${({ theme }) => theme.font.body5};
+    }
+    .tag-wrapper {
+      margin: 10px 0;
     }
 
     .spot-subtitle {

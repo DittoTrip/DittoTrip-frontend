@@ -15,8 +15,8 @@
   "search": {
     "placeHolder": "좋아하는 콘텐츠나 연예인을 검색해 보세요",
     "recentSearches": "최근 검색",
-    "suggestion" : "추천 검색어",
-    "rising" : "급상승 디토"
+    "suggestion": "추천 검색어",
+    "rising": "급상승 디토"
   },
   "category": {
     "tap": {
@@ -95,15 +95,16 @@
   "report": {
     "title": "신고하는 이유를 선택해 주세요.",
     "options": {
-      "Swearing": "욕설 및 비하",
-      "illegalInformation": "불법 정보",
-      "Promotional": "홍보 및 영리 목적",
-      "PersonalInformation": "개인 정보 노출",
-      "PornographyContent": "음란물 및 선정적인 콘텐츠",
-      "inappropriateNickname": "부적절한 닉네임",
-      "etc": "기타"
+      "BLAME": "욕설 및 비하",
+      "ILLEGAL_INFORMATION": "불법 정보",
+      "BUSINESS": "홍보 및 영리 목적",
+      "PERSONAL_INFORMATION_EXPOSURE": "개인 정보 노출",
+      "SENSATIONAL_CONTENTS": "음란물 및 선정적인 콘텐츠",
+      "ILLEGAL_NICKNAME": "부적절한 닉네임",
+      "ETC": "기타"
     },
-    "message": "신고가 접수되었습니다."
+    "successMessage": "신고가 접수되었습니다.",
+    "errorMessage": "신고중 문제가 발생했습니다."
   },
   "spot": {
     "visit": "방문",

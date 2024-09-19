@@ -8,11 +8,12 @@ const Tag = ({ text }: Props) => {
 };
 
 const TagStyled = styled.div`
+  width: fit-content;
   padding: 2px 12px;
 
   border-radius: 15px;
 
-  background-color: rgba(127, 161, 248, 0.2);
+  background-color: ${({ theme }) => theme.color.subColor3};
   color: black;
   ${({ theme }) => theme.font.body4};
 `;
