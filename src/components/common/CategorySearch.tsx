@@ -2,14 +2,14 @@ import React, { useState, ChangeEvent, useEffect } from 'react';
 import { styled } from 'styled-components';
 import { searchCategoryWithoutType } from '../../api/category';
 import { CategoryData } from '../../models/Category/categoryModel';
-import { ISpotForm } from '../../pages/SpotApply';
 import { UseFormSetValue } from 'react-hook-form';
 import { defaultImage } from '../../constants/constant';
+import { FormInputs } from '../../pages/SpotApply';
 
 interface Props {
   selectedCategory: CategoryData[];
   setSelectedCategory: React.Dispatch<React.SetStateAction<CategoryData[]>>;
-  setValue: UseFormSetValue<ISpotForm>;
+  setValue: UseFormSetValue<FormInputs>;
 }
 const CategorySearch = ({ selectedCategory, setSelectedCategory, setValue }: Props) => {
   const [searchWord, setSearchWord] = useState('');

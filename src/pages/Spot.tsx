@@ -16,6 +16,7 @@ import useSpotDetail from '../hooks/spot/useSpotDetail';
 import { useEffect, useState } from 'react';
 import useBookmarkedSpot from '../hooks/spot/useSpotLike';
 import useVisitedSpot from '../hooks/spot/useSpotVisit';
+import { ReviewData } from '../models/spot/spotModel';
 
 const Spot = () => {
   const { t } = useTranslation();
@@ -90,7 +91,7 @@ const Spot = () => {
               </Link>
             </div>
           </div>
-          {spotDetailData?.reviewDataList.map(review => (
+          {spotDetailData?.reviewDataList.map((review: ReviewData) => (
             <Link to={`/review/${review.reviewId}`} key={review.reviewId} className="review-item">
               <MiniReviewItem
                 userName={review.username}
