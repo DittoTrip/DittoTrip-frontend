@@ -30,6 +30,7 @@ import Character from './pages/Character';
 import Badge from './pages/Badge';
 import { getAccessToken } from './store/authStore';
 import HeaderToken from './api/https';
+import Favorite from './pages/Favorite';
 
 const router = createBrowserRouter([
   {
@@ -199,6 +200,7 @@ const router = createBrowserRouter([
       </Layout>
     ),
   },
+
   {
     path: '/editprofile',
 
@@ -221,6 +223,15 @@ const router = createBrowserRouter([
     element: (
       <Layout GNBType="search">
         <Badge />
+      </Layout>
+    ),
+  },
+  {
+    path: '/favorite',
+
+    element: (
+      <Layout GNBType="my">
+        <Favorite />
       </Layout>
     ),
   },

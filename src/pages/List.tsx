@@ -103,7 +103,7 @@ const List = () => {
     <ListStyle>
       <div className="app-bar">
         <AppBar
-          leading={false}
+          leading={true}
           title={<div className="title">{categoryData?.name}</div>}
           action={
             <div className="heart">
