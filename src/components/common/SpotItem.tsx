@@ -13,7 +13,7 @@ import { defaultImage } from '../../constants/constant';
 import useBookmarkedSpot from '../../hooks/spot/useSpotLike';
 import { useEffect, useState } from 'react';
 import { useAuthStore } from '../../store/authStore';
-import { SpotData } from '../../models/spot/spotModel';
+import { SpotData } from '../../models/Spot/spotModel';
 
 interface Props {
   data: SpotData;

@@ -25,21 +25,24 @@ import { CommentData } from '../models/ditto/dittoModel';
 import { defaultImage, defaultPageOptions } from '../constants/constant';
 import formatDate from '../utils/formatDate';
 import { deleteDitto } from '../api/ditto';
+import useFollowList from '../hooks/follow/useFollowList';
+import { addFollow, deleteFollow } from '../api/follow';
 
 const DittoDetail = () => {
   const { id } = useParams();
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const { dittoData, commentData, commentCount, initialBookmarkCount, isMyFollowing, error, loading } = useDittoDetail(
+  const { dittoData, commentData, commentCount, initialBookmarkCount, myFollowingId, error, loading } = useDittoDetail(
     id!
   );
   const { isBookmarked, toggleBookmark, bookmarkCount } = useDittoBookmark(id!, initialBookmarkCount!);
+
   console.log(
     'initial:',
     initialBookmarkCount,
     'following',
-    isMyFollowing,
+    myFollowingId,
     'count',
     bookmarkCount,
     'isBookmarked',
@@ -61,6 +64,7 @@ const DittoDetail = () => {
 
   // "대댓글" 위한 parentComment => parentId가 null 이면 등록 , string이면 대댓글
   const [parentComment, setParentComment] = useState<CommentData | null>(null);
+
   // 댓글 컨트롤 (등록)
   const handleSubmit = (comment: string) => {
     const body = { body: comment };
@@ -154,6 +158,25 @@ const DittoDetail = () => {
     },
   ];
 
+  const toggleFollow = async () => {
+    if (!myFollowingId) {
+      const res = await addFollow(dittoData!.userData.userId.toString());
+      if (res == 200) {
+        alert('팔로우 성공');
+      } else {
+        alert('팔로우 실패');
+      }
+    } else {
+      const res = await deleteFollow(myFollowingId.toString());
+      if (res == 200) {
+        alert('언팔로우되었습니다.');
+      } else {
+        alert('언팔로우 실패');
+      }
+    }
+    window.location.reload();
+  };
+
   const handleScroll = useCallback(() => {
     const scrollHeight = document.documentElement.scrollHeight;
     const scrollTop = document.documentElement.scrollTop;
@@ -172,10 +195,9 @@ const DittoDetail = () => {
   if (loading) {
     return <ErrorPage message={'Loading...'} type="loading" />;
   } else if (error) {
-    return <ErrorPage message={'spot id를 확인해주세요'} type="error" />;
+    return <ErrorPage message={'Ditto id를 확인해주세요'} type="error" />;
   }
 
-  console.log('isMine', selectedComment, selectedComment?.isMine);
   return (
     <DittoDetailStyle>
       <div className="app-bar">
@@ -186,7 +208,9 @@ const DittoDetail = () => {
         <UserProfileWithComment
           name={dittoData!.userData.nickname}
           date={formatDate(dittoData!.createdDateTime)}
-          following={true}
+          following={myFollowingId}
+          isMine={dittoData?.isMine}
+          toggleFollow={toggleFollow}
           setIsExpandedOption={setIsExpandedDittoOptions}
         />
 

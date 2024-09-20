@@ -10,7 +10,9 @@ import { CommentData } from '../../models/ditto/dittoModel';
 interface Props {
   name: string;
   date: string;
-  following?: boolean;
+  following?: number | null;
+  isMine?: boolean;
+  toggleFollow?: () => void;
   comment?: CommentData;
   isParent?: boolean;
   isParentComment?: boolean;
@@ -21,6 +23,8 @@ const UserProfileWithComment = ({
   name,
   date,
   following,
+  isMine,
+  toggleFollow,
   comment,
   setIsExpandedOption,
   setParentComment,
@@ -36,12 +40,18 @@ const UserProfileWithComment = ({
           <div className="profile-details">
             <div className="nickname-wrapper">
               <div className="user-name">{name}</div>
-              {following && (
+              {/* 내 글이 아니고 팔로우 x - 디토에서만 보임*/}
+              {isMine == false && following && (
                 <>
-                  <Button size={'small'} scheme={'keyButton'}>
-                    Follow
+                  <Button size={'small'} scheme={'keyButton'} onClick={toggleFollow}>
+                    Following
                   </Button>
-                  <Button size={'small'} scheme={'emptyKeyButton'}>
+                </>
+              )}
+              {/* 내 글이 아니고 팔로우 o - 디토에서만 보임 */}
+              {isMine == false && following == null && (
+                <>
+                  <Button size={'small'} scheme={'emptyKeyButton'} onClick={toggleFollow}>
                     Follow
                   </Button>
                 </>

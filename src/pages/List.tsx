@@ -17,7 +17,7 @@ import SpotItem from '../components/common/SpotItem';
 import { OptionItem } from './ReviewList';
 import useSpotList from '../hooks/spot/useSpotList';
 import ErrorPage from './Error';
-import { defaultPageOptions } from '../constants/constant';
+import { defaultImage, defaultPageOptions } from '../constants/constant';
 import useBookmarkedCategory from '../hooks/category/useCategoryLike';
 
 const List = () => {
@@ -112,7 +112,7 @@ const List = () => {
           }
         />
       </div>
-      <img src={'https://image.ajunews.com/content/image/2022/07/19/20220719165306929129.jpg'} className="main-img" />
+      <img src={categoryData?.imageFilePath ?? defaultImage} className="main-img" />
       <div className="content-wrapper">
         <div className="list-tag-slide">
           <TagSlide tagList={categoryData?.hashtags} />

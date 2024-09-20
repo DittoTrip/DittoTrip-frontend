@@ -30,7 +30,7 @@ const Favorite = () => {
   return (
     <FavoriteStyle>
       <div className="app-bar">
-        <AppBar leading={true} title={'찜'} />
+        <AppBar leading={true} title={<div className="title">찜</div>} />
       </div>
       <Tap tapData={tapData} selectedId={selectedTapId} setSelectedId={setSelectedId} />
       <div className="content-wrapper">
@@ -65,6 +65,11 @@ const Favorite = () => {
 };
 
 const FavoriteStyle = styled.div`
+  .title {
+    flex: 1;
+    text-align: left;
+    ${({ theme }) => theme.font.subTitle}
+  }
   .content-wrapper {
     margin: 16px 22px;
   }
