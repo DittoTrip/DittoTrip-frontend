@@ -3,7 +3,8 @@ import { logout, refreshToken } from './auth';
 import { getAccessToken, useAuthStore } from '../store/authStore';
 
 export const api = axios.create({
-  baseURL: 'http://dittotrip.site',
+  // baseURL: 'http://dittotrip.site',
+  baseURL: `${import.meta.env.VITE_BASE_URL}`,
   timeout: 30000,
   headers: {
     // 'Content-Type': 'multipart/form-data',
