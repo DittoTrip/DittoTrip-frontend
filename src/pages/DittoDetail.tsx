@@ -206,6 +206,7 @@ const DittoDetail = () => {
       <img className="main-img" src={dittoData!.imagePath ?? defaultImage} />
       <div className="content-wrapper">
         <UserProfileWithComment
+          userId={dittoData!.userData.userId}
           name={dittoData!.userData.nickname}
           date={formatDate(dittoData!.createdDateTime)}
           following={myFollowingId}
