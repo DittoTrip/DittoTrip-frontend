@@ -10,10 +10,10 @@ import Dot from './Dot';
 import TagSlide from './TagSlide';
 import Star from './Star';
 import { defaultImage } from '../../constants/constant';
-import { SpotData } from '../../models/spot/spotModel';
 import useBookmarkedSpot from '../../hooks/spot/useSpotLike';
 import { useEffect, useState } from 'react';
 import { useAuthStore } from '../../store/authStore';
+import { SpotData } from '../../models/spot/spotModel';
 
 interface Props {
   data: SpotData;

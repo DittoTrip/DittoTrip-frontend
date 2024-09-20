@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
@@ -9,16 +9,24 @@ interface SearchBarProps {
 }
 
 const SearchBar = ({ setSearchWord, placeholder }: SearchBarProps) => {
-  const [searchTerm, setSearchTerm] = useState('');
+  const queryParams = new URLSearchParams(window.location.search);
+  const initialSearchTerm = queryParams.get('search') || ''; // Default to empty string if no 'search' param
+
+  const [searchTerm, setSearchTerm] = useState(initialSearchTerm);
+
   const handleSearch = () => {
     setSearchWord(searchTerm);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      handleSearch(); // 엔터 키가 눌리면 검색 실행
+      handleSearch();
     }
   };
+
+  useEffect(() => {
+    setSearchTerm(initialSearchTerm);
+  }, [initialSearchTerm]);
 
   return (
     <SearchContainer>
@@ -31,13 +39,12 @@ const SearchBar = ({ setSearchWord, placeholder }: SearchBarProps) => {
         placeholder={placeholder}
         value={searchTerm}
         onChange={e => setSearchTerm(e.target.value)}
-        onKeyDown={handleKeyDown} // 엔터 키 이벤트 핸들러
+        onKeyDown={handleKeyDown} // Handle Enter key
       />
     </SearchContainer>
   );
 };
 
-// 스타일드 컴포넌트 정의
 const SearchContainer = styled.div`
   display: flex;
   justify-content: center;

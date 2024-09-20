@@ -70,7 +70,7 @@ const Search = () => {
   const navigate = useNavigate();
   console.log(searchWord);
   if (searchWord) {
-    navigate(`/searchResult/${searchWord}`);
+    navigate(`/search-result?search=${searchWord}`);
   }
 
   const tapData: TapItem[] = [
@@ -82,11 +82,11 @@ const Search = () => {
   return (
     <SearchStyled>
       <div className="app-bar">
-        <AppBar leading={true} title={<div className="title">무엇을 찾으시나요?</div>} />
+        <AppBar leading={true} title={<div className="title">무엇을 찾으시나요?</div>} action={<></>} />
       </div>
 
       <div className="container">
-        <SearchBar setSearchWord={setSearchWord} placeholder={t('search.placeHolder')} />
+        <SearchBar setSearchWord={setSearchWord} placeholder={t('search.placeholder')} />
 
         <div className="search-title">최근 검색</div>
 
@@ -118,8 +118,8 @@ const RiseDittoStyled = styled.div`
 
 const SearchStyled = styled.div`
   .app-bar .title {
-    display: flex;
-    justify-content: center;
+    flex: 1;
+    text-align: left;
     ${({ theme }) => theme.font.body1};
     color: ${({ theme }) => theme.color.keyColor};
   }
@@ -140,7 +140,7 @@ const SearchStyled = styled.div`
   }
 
   .container {
-    margin: 0 27px;
+    margin: 10px 28px;
   }
   .recent-list {
     display: block;

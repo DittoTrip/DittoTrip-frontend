@@ -9,7 +9,7 @@ import DropDown from '../components/common/DropDown';
 import BottomSheet from '../components/bottomsheet/BottomSheet';
 import SpotItem from '../components/common/SpotItem';
 import { TapItem } from './Category';
-import { OptionItem } from './Review';
+import { OptionItem } from './ReviewList';
 import SearchUser from '../components/search/SearchUser';
 import SearchCeleb from '../components/search/SearchCeleb';
 import SearchContent from '../components/search/SearchContent';
@@ -83,9 +83,11 @@ const SearchResult = () => {
     spotListData,
     contentListData,
     celebrityListData,
+    userListData,
     setSpotPage,
     setContentPage,
     setCelebrityPage,
+    setUserPage,
     setSpotListData,
   } = useSearchData(selectedTapId);
 
@@ -107,6 +109,7 @@ const SearchResult = () => {
     setSpotPage(0);
     setContentPage(0);
     setCelebrityPage(0);
+    setUserPage(0);
   }, [searchWord, selectedSortId]);
 
   return (
@@ -162,7 +165,7 @@ const SearchResult = () => {
         )}
         {selectedTapId === 4 && (
           <>
-            {DummyUser.map(data => (
+            {userListData.map(data => (
               <SearchUser data={data} />
             ))}
           </>

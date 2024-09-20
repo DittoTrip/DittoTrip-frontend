@@ -3,31 +3,36 @@ import { persist } from 'zustand/middleware';
 
 interface StoreState {
   isLoggedIn: boolean;
-  storeLogin: (token: string) => void;
+  storeLogin: (accessToken: string, refreshToken: string) => void;
   storeLogout: () => void;
 }
 
-export const getToken = () => {
-  const token = localStorage.getItem('token');
-  console.log(token);
-  return token;
+export const getAccessToken = () => {
+  const accessToken = localStorage.getItem('accessToken');
+  return accessToken;
+};
+export const getRefreshToken = () => {
+  const accessToken = localStorage.getItem('accessToken');
+  return accessToken;
 };
 
-export const setToken = (token: string) => {
-  localStorage.setItem('token', token);
+export const setToken = (accessToken: string, refreshToken: string) => {
+  localStorage.setItem('accessToken', accessToken);
+  localStorage.setItem('refreshToken', refreshToken);
 };
 
 export const removeToken = () => {
-  localStorage.removeItem('token');
+  localStorage.removeItem('accessToken');
+  localStorage.removeItem('refreshToken');
 };
 
 export const useAuthStore = create<StoreState>()(
   persist(
     set => ({
-      isLoggedIn: getToken() ? true : false,
-      storeLogin: (token: string) => {
+      isLoggedIn: getAccessToken() ? true : false,
+      storeLogin: (accessToken: string, refreshToken: string) => {
         set({ isLoggedIn: true });
-        setToken(token);
+        setToken(accessToken, refreshToken);
       },
       storeLogout: () => {
         set({ isLoggedIn: false });

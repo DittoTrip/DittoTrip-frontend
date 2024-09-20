@@ -1,30 +1,58 @@
+import { useTranslation } from 'react-i18next';
 import { styled } from 'styled-components';
 import UserProfileWithComment from '../common/UserProfileWithComment';
-import { useTranslation } from 'react-i18next';
+import formatDate from '../../utils/formatDate';
+import { CommentData } from '../../models/ditto/dittoModel';
 
-const CommenList = () => {
+interface Props {
+  comments: CommentData[];
+  setIsExpandedOption: React.Dispatch<React.SetStateAction<boolean>>;
+  parentComment?: CommentData;
+  setSelectedComment?: React.Dispatch<React.SetStateAction<CommentData | undefined>>;
+  setParentComment?: React.Dispatch<React.SetStateAction<CommentData | null>>;
+}
+const CommenList = ({ comments, parentComment, setSelectedComment, setIsExpandedOption, setParentComment }: Props) => {
   const { t } = useTranslation();
+
   return (
     <CommentListStyled>
       <div className="comment-title">{t('comment.comment')}</div>
-      <UserProfileWithComment
-        name={'변성은'}
-        date={'24.01.05'}
-        comment="얼마나 멋있나요?"
-        setIsExpandedOption={() => {}}
-      />
-      <UserProfileWithComment
-        name={'권수연'}
-        date={'24.01.05'}
-        comment="본인이 찍었나요? 도용 아닌가요?"
-        setIsExpandedOption={() => {}}
-      />
-      <UserProfileWithComment
-        name={'호빵맨에게 물린 호빵'}
-        date={'24.01.05'}
-        comment="가족들과 가보려고 합니다. 가족들과 가기에도 괜찮나요"
-        setIsExpandedOption={() => {}}
-      />
+
+      {comments?.map(comment => (
+        <div key={comment.commentId}>
+          <UserProfileWithComment
+            name={comment.userData.nickname}
+            date={formatDate(comment.createdDateTime)}
+            comment={comment}
+            setIsExpandedOption={() => {
+              if (setSelectedComment) {
+                setSelectedComment(comment);
+              }
+              setIsExpandedOption(true);
+            }}
+            setParentComment={setParentComment}
+            isParentComment={parentComment?.commentId === comment.commentId}
+          />
+          {comment.childCommentDataList?.length > 0 && (
+            <ChildrenCommentsStyled>
+              {comment.childCommentDataList.map(childComment => (
+                <UserProfileWithComment
+                  key={childComment.commentId}
+                  name={childComment.userData.nickname}
+                  date={formatDate(childComment.createdDateTime)}
+                  comment={childComment}
+                  setIsExpandedOption={() => {
+                    if (setSelectedComment) {
+                      setSelectedComment(childComment);
+                    }
+                    setIsExpandedOption(true);
+                  }}
+                />
+              ))}
+            </ChildrenCommentsStyled>
+          )}
+        </div>
+      ))}
     </CommentListStyled>
   );
 };
@@ -35,6 +63,10 @@ const CommentListStyled = styled.div`
     padding-bottom: 8px;
     ${({ theme }) => theme.font.body2}
   }
+`;
+
+const ChildrenCommentsStyled = styled.div`
+  margin-left: 43px;
 `;
 
 export default CommenList;

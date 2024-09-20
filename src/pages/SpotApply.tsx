@@ -1,107 +1,254 @@
-import styled from "styled-components";
-import AppBar from "../components/common/AppBar";
-import ImageUploader from "../components/review/UploadImage";
-import TagSlide from "../components/common/TagSlide";
-import { dittoDetails } from "./DittoDetail";
-import { useState } from "react";
-import Button from "../components/common/Button";
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import styled from 'styled-components';
+
+import { addSpotApply } from '../api/spotApply';
+
+import AppBar from '../components/common/AppBar';
+import Button from '../components/common/Button';
+import AddressSearch from '../components/AddressFinder';
+import ImageUploader from '../components/review/UploadImage';
+import MainImageUploader from '../components/review/UploadOneImage';
+import TagInput from '../components/common/TagInput';
+import CategorySearch from '../components/common/CategorySearch';
+import { CategoryData } from '../models/Category/categoryModel';
+
+export interface FormInputs {
+  name: string;
+  address: string;
+  pointX: number;
+  pointY: number;
+  categoryIds: number[];
+  hashtagNames: string[];
+}
 
 const SpotApply = () => {
+  // 주소 검색
+  const [addressModalOpen, setAddressModalOpen] = useState(false);
 
-    const [dittoText, setDittoText] = useState('');
-    const [stillCut, setStillCut] = useState('');
+  // 스틸컷
+  const [selectedImages, setSelectedImages] = useState<File[]>([]);
+  const [previewUrls, setPreviewUrls] = useState<string[]>([]);
 
-    return(
-        <SpotApplyStyle>
-            <div className="app-bar">
-                <AppBar
-                    leading={true}
-                    title={
-                        <div className="title">
-                            스팟 신청하기
-                        </div>
-                }
-                />
-            </div>
-            <div className="main-img">
-                <ImageUploader />
-            </div>
-            
+  // 대표 이미지
+  const [selectedMainImage, setSelectedMainImage] = useState<File | null>(null);
+  const [mainpreviewUrl, setMainPreviewUrl] = useState<string | null>(null);
+
+  // 카테고리
+  const [selectedCategory, setSelectedCategory] = useState<CategoryData[]>([]);
+
+  // 태그
+  const [tags, setTags] = useState<string[]>([]);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+  } = useForm<FormInputs>();
+
+  const onValid = async (data: FormInputs) => {
+    const formData = new FormData();
+
+    // 스팟 정보 추가
+
+    formData.append(
+      'saveReq',
+      new Blob([JSON.stringify(data)], {
+        type: 'application/json',
+      }) // application/json 형식으로 넣어 주기
+    );
+
+    // 메인 이미지
+    formData.append('image', selectedMainImage!);
+
+    // 스틸컷
+    selectedImages.forEach(file => {
+      formData.append('images', file);
+    });
+
+    // 폼 객체 key 와 value 값을 순회.
+    const entries = formData.entries();
+    for (const pair of entries) {
+      console.log(pair[0] + ', ' + pair[1]);
+    }
+
+    try {
+      await addSpotApply(formData);
+      alert('스팟 등록이 완료되었습니다!');
+    } catch (error) {
+      alert('스팟 등록에 실패했습니다. 다시 시도해주세요.');
+    }
+  };
+
+  const handleAddTag = (newTag: string) => {
+    setTags([...tags, newTag]);
+    setValue('hashtagNames', [...tags, newTag]);
+  };
+
+  const handleDeleteTag = (tag: string) => {
+    setTags(tags.filter(t => t !== tag));
+    setValue(
+      'hashtagNames',
+      tags.filter(t => t !== tag)
+    );
+  };
+
+  return (
+    <>
+      <SpotApplyStyle>
+        <div className="app-bar">
+          <AppBar leading={true} title={<div className="title">스팟 신청하기</div>} action={<></>} />
+        </div>
+
+        <div className="spot-apply-container">
+          <div className="main-img">
+            <MainImageUploader
+              setSelectedImage={setSelectedMainImage}
+              previewUrl={mainpreviewUrl}
+              setPreviewUrl={setMainPreviewUrl}
+            />
+          </div>
+
+          <form onSubmit={handleSubmit(onValid)}>
             <div className="content-wrapper">
-                <div className="spot-box">
-                    <div className="spot-title">이름</div>
-                    <input className="spot-input" placeholder="스팟의 이름을 알려 주세요!" size={60}></input>
+              <div className="spot-box">
+                <div className="spot-title">
+                  이름 <span className="error-msg">{errors?.name?.message}</span>
                 </div>
-                <div className="spot-box">
-                    <div className="spot-title">주소</div>
-                    <input className="spot-input" placeholder="스팟의 주소는 어떻게 되나요?" size={60}></input>
+                <input
+                  {...register('name', {
+                    required: '* 필수 작성 사항입니다',
+                  })}
+                  className="spot-input"
+                  placeholder="스팟의 이름을 알려 주세요!"
+                />
+              </div>
+              <div className="spot-box">
+                <div className="spot-title">
+                  주소 <span className="error-msg">{errors?.address?.message}</span>
                 </div>
-                <div className="spot-box">
-                    <div className="spot-title">카테고리</div>
-                </div>
+                <input
+                  {...register('address', {
+                    required: '* 필수 작성 사항입니다',
+                  })}
+                  className="spot-input"
+                  placeholder="스팟의 주소는 어떻게 되나요?"
+                  readOnly
+                  onClick={() => setAddressModalOpen(true)}
+                />
+              </div>
+              <div className="spot-box">
+                <div className="spot-title">카테고리</div>
+                <CategorySearch
+                  selectedCategory={selectedCategory}
+                  setSelectedCategory={setSelectedCategory}
+                  setValue={setValue}
+                />
+              </div>
 
-                <div className="spot-box">
-                    <div className="tag-wrapper">
-                        <div className="spot-title">태그</div>
-                        <div className="tag-length">({dittoText.length}/10)</div>
-                    </div>
-                    <TagSlide tagList={dittoDetails.tagList}/>
+              <div className="spot-box">
+                <div className="tag-wrapper">
+                  <span className="spot-title">태그</span>
+                  <span className="tag-length">({tags.length}/10)</span>
                 </div>
+                <TagInput tags={tags} handleAddTag={handleAddTag} handleDeleteTag={handleDeleteTag} />
+              </div>
 
-                <div className="spot-box">
-                    <div className="spot-title">스틸컷</div>
-                    <div className="still-length">({stillCut.length}/10)</div>
-                    <div className="img-box">
-                        <img className="still-cut" src="https://velog.velcdn.com/images/gogo6570/post/e421aaed-013c-4667-8384-fb9b849b67bc/image.png"></img>
-                        <img className="still-cut" src="https://velog.velcdn.com/images/gogo6570/post/e421aaed-013c-4667-8384-fb9b849b67bc/image.png"></img>
-                        <img className="still-cut" src="https://velog.velcdn.com/images/gogo6570/post/e421aaed-013c-4667-8384-fb9b849b67bc/image.png"></img>
-                    </div>
-
+              <div className="spot-box last-spot-box">
+                <div className="tag-wrapper">
+                  <div className="spot-title">스틸컷</div>
                 </div>
-                
-                <div className="review-submit">
-                    <Button size="large" scheme="subButton" className="spot-submit-button">
-                    스팟 등록
-                    </Button>
-                </div>
-                
+                <ImageUploader
+                  selectedImages={selectedImages}
+                  setSelectedImages={setSelectedImages}
+                  previewUrls={previewUrls}
+                  setPreviewUrls={setPreviewUrls}
+                />
+              </div>
+              <div className="submit-wrapper">
+                <Button size="large" scheme="subButton" className="spot-submit-button">
+                  스팟 등록
+                </Button>
+              </div>
             </div>
-            
-
-        </SpotApplyStyle>
-    )
+          </form>
+        </div>
+      </SpotApplyStyle>
+      <AddressSearch setValue={setValue} isOpen={addressModalOpen} setIsOpen={setAddressModalOpen} />
+    </>
+  );
 };
 
 const SpotApplyStyle = styled.div`
-    .app-bar {
-        .title {
-        ${({theme})=>theme.font.subTitle}
-        }
+  .app-bar {
+    .title {
+      ${({ theme }) => theme.font.subTitle}
     }
+  }
 
-    .main-img{
-        height: 200px;
-        border-bottom: solid 0.1px;
-        color : ${({theme})=>theme.color.gray80};
+  .spot-apply-container {
+    display: flex;
+    flex-direction: column;
+
+    .main-img {
+      height: 200px;
+      border-bottom: solid 1px;
+      color: ${({ theme }) => theme.color.gray40};
     }
-
     .content-wrapper {
-        margin: 0 28px 16px 28px;
+      .spot-box {
+        margin: 0 28px;
+        padding: 21px 0;
+        border-bottom: solid 1px;
+        color: ${({ theme }) => theme.color.gray40};
 
-        .spot-box {
-            padding : 18px;
-            border-bottom: solid 0.1px;
-            color : ${({theme})=>theme.color.gray80};
+        &.last-spot-box {
+          border: none;
         }
+      }
 
-        .spot-title {
-            ${({theme})=>theme.font.body2}
-        }
+      .tag-wrapper {
+        display: flex;
+        align-items: center;
+        margin-bottom: 16px;
+      }
 
-        .spot-input:focus{
-            outline: none;
-        }
+      .spot-title {
+        ${({ theme }) => theme.font.body2}
+        margin-right : 4px;
+      }
+
+      .tag-length,
+      .still-length {
+        color: ${({ theme }) => theme.color.gray60};
+        ${({ theme }) => theme.font.body4}
+      }
+
+      .spot-input {
+        outline: none;
+        border: none;
+        width: 100%;
+        cursor: pointer;
+        ${({ theme }) => theme.font.body3}
+      }
+
+      .review-submit {
+        padding: 0 8%;
+        display: flex;
+        justify-content: center;
+      }
+
+      .submit-wrapper {
+        margin: 0 28px;
+      }
     }
+  }
+
+  .error-msg {
+    color: ${({ theme }) => theme.font.keyColor};
+    ${({ theme }) => theme.font.body6};
+  }
 `;
 
 export default SpotApply;

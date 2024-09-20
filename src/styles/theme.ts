@@ -2,7 +2,7 @@ import { RuleSet, css } from 'styled-components';
 
 // 버튼
 export type ButtonSize = 'large' | 'medium' | 'small' | 'smallWithIcon';
-export type ButtonScheme = 'keyButton' | 'subButton' | 'kakao' | 'subButton2';
+export type ButtonScheme = 'keyButton' | 'emptyKeyButton' | 'subButton' | 'kakao' | 'subButton2';
 
 export type ThemeName = 'light' | 'dark';
 export type ColorKey =
@@ -69,6 +69,7 @@ interface Theme {
     [key in ButtonScheme]: {
       color: string;
       backgroundColor: string;
+      border?: string;
     };
   };
   borderRadius: {
@@ -122,6 +123,12 @@ export const light: Theme = {
       color: 'white',
       backgroundColor: colors.keyColor,
     },
+    emptyKeyButton: {
+      color: colors.keyColor,
+      backgroundColor: 'white',
+      border: `1px solid ${colors.keyColor}`,
+    },
+
     subButton: {
       color: 'white',
       backgroundColor: colors.subColor1,
