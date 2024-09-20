@@ -4,7 +4,7 @@ import {
   CategoryModifyProps,
   CategoryResponse,
   MajorType,
-} from '../models/Category/categoryModel';
+} from '../models/category/categoryModel';
 import { api } from './https';
 
 // 카테고리 북마크 추가
@@ -46,9 +46,9 @@ export const searchCategoryWithoutType = async (query: string) => {
   return response.data.categoryDataList;
 };
 // 찜기능 - 북마크한 카테고리 리스트 (major 타입별)
-export const bookmarkedCategoryList = async (data: CategoryListProps) => {
-  const response = await api.delete<CategoryResponse>(`category/list/bookmark`, {
-    params: { data },
+export const bookmarkedCategoryList = async (majorType: MajorType) => {
+  const response = await api.get<CategoryResponse>(`category/list/bookmark`, {
+    params: { majorType },
   });
   console.log(response.data);
   return response.data;

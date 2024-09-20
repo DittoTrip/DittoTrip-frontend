@@ -4,7 +4,7 @@ import {
   SpotListResponse,
   spotMapListRequest,
   SpotSearchListResponse,
-} from '../models/spot/spotModel';
+} from '../models/Spot/spotModel';
 import { api } from './https';
 
 // 스팟 북마크 추가
@@ -44,7 +44,7 @@ export const spotMapList = async (categoryId: string, params: spotMapListRequest
   return response.data;
 };
 // 방문 처리
-export const postVisitedSpot = async (spotId: string, userX: number, userY: number) => {
+export const postVisitedSpot = async (spotId: string, userX?: number, userY?: number) => {
   console.log(userX, userY);
   const response = await api.post<number>(
     `spot/${spotId}`,
@@ -62,5 +62,14 @@ export const searchSpot = async (params: SpotListRequest) => {
     params: { ...params },
   });
   console.log(response.data);
+  return response.data;
+};
+
+// 북마크한 스팟 리스트
+export const favoriteSpotList = async (userX?: number, userY?: number) => {
+  console.log('위치', userX, userY);
+  const response = await api.get<SpotListResponse>(`/spot/list/bookmark`, {
+    params: { userX, userY },
+  });
   return response.data;
 };

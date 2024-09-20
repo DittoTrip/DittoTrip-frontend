@@ -28,6 +28,7 @@ import Alarm from './pages/Alarm';
 import EditProfile from './pages/EditProfile';
 import { getAccessToken } from './store/authStore';
 import HeaderToken from './api/https';
+import Favorite from './pages/Favorite';
 
 const router = createBrowserRouter([
   {
@@ -197,12 +198,22 @@ const router = createBrowserRouter([
       </Layout>
     ),
   },
+
   {
     path: '/editprofile',
 
     element: (
       <Layout GNBType="my">
         <EditProfile />
+      </Layout>
+    ),
+  },
+  {
+    path: '/favorite',
+
+    element: (
+      <Layout GNBType="my">
+        <Favorite />
       </Layout>
     ),
   },

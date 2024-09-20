@@ -1,7 +1,7 @@
 import React from 'react';
 import Slide from '../common/Slide';
 import styled from 'styled-components';
-import { CategoryData, SubType } from '../../models/Category/categoryModel';
+import { CategoryData, SubType } from '../../models/category/categoryModel';
 
 interface Props {
   title: string;
