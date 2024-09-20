@@ -7,7 +7,7 @@ const useDittoDetail = (dittoId: string) => {
   const [commentData, setCommentData] = useState<CommentData[] | null>(null);
   const [commentCount, setCommentCount] = useState<number>(0);
   const [initialBookmarkCount, setInitialBookmarkCount] = useState<number | null>(null);
-  const [isMyFollowing, setIsMyFollowing] = useState(false);
+  const [myFollowingId, setMyFollowingId] = useState<number | null>(null);
 
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -22,7 +22,7 @@ const useDittoDetail = (dittoId: string) => {
           setCommentData(response.commentDataList);
           setCommentCount(response.commentCount);
           setInitialBookmarkCount(response.bookmarkCount);
-          setIsMyFollowing(response.isMyFollowing);
+          setMyFollowingId(response.myFollowingId);
         }
       } catch (err) {
         setError('스팟 상세정보 불러오기 실패');
@@ -35,7 +35,7 @@ const useDittoDetail = (dittoId: string) => {
     fetchSpotDetail();
   }, [dittoId]);
 
-  return { dittoData, commentData, commentCount, initialBookmarkCount, isMyFollowing, error, loading };
+  return { dittoData, commentData, commentCount, initialBookmarkCount, myFollowingId, error, loading };
 };
 
 export default useDittoDetail;

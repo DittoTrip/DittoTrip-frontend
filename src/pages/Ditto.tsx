@@ -45,7 +45,7 @@ const Ditto = () => {
   if (loading && currentPage === 0) {
     return <ErrorPage message={'Loading...'} type="loading" />;
   } else if (error) {
-    return <ErrorPage message={'spot id를 확인해주세요'} type="error" />;
+    return <ErrorPage message={'문제가 발생했습니다.'} type="error" />;
   }
   return (
     <DittoStyle>

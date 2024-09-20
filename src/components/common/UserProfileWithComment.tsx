@@ -6,11 +6,15 @@ import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import profileImg from '../../assets/profile.png';
 import Button from './Button';
 import { CommentData } from '../../models/ditto/dittoModel';
+import { useNavigate } from 'react-router';
 
 interface Props {
+  userId: number;
   name: string;
   date: string;
-  following?: boolean;
+  following?: number | null;
+  isMine?: boolean;
+  toggleFollow?: () => void;
   comment?: CommentData;
   isParent?: boolean;
   isParentComment?: boolean;
@@ -18,30 +22,42 @@ interface Props {
   setParentComment?: React.Dispatch<React.SetStateAction<CommentData | null>>;
 }
 const UserProfileWithComment = ({
+  userId,
   name,
   date,
   following,
+  isMine,
+  toggleFollow,
   comment,
   setIsExpandedOption,
   setParentComment,
   isParentComment,
 }: Props) => {
+  const navigate = useNavigate();
   return (
     <UserProfileWithCommentStyle isParentComment={isParentComment}>
       <div className="profile-left">
-        <img className="user-img" src={profileImg} alt="프로필 이미지" />
+        <img className="user-img" src={profileImg} alt="프로필 이미지" onClick={() => navigate(`/mypage/${userId}`)} />
       </div>
       <div className="profile-right">
         <div className="profile-info">
           <div className="profile-details">
             <div className="nickname-wrapper">
-              <div className="user-name">{name}</div>
-              {following && (
+              <div className="user-name" onClick={() => navigate(`/mypage/${userId}`)}>
+                {name}
+              </div>
+              {/* 내 글이 아니고 팔로우 x - 디토에서만 보임*/}
+              {isMine == false && following && (
                 <>
-                  <Button size={'small'} scheme={'keyButton'}>
-                    Follow
+                  <Button size={'small'} scheme={'keyButton'} onClick={toggleFollow}>
+                    Following
                   </Button>
-                  <Button size={'small'} scheme={'emptyKeyButton'}>
+                </>
+              )}
+              {/* 내 글이 아니고 팔로우 o - 디토에서만 보임 */}
+              {isMine == false && following == null && (
+                <>
+                  <Button size={'small'} scheme={'emptyKeyButton'} onClick={toggleFollow}>
                     Follow
                   </Button>
                 </>

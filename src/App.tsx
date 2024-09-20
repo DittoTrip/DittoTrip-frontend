@@ -31,6 +31,7 @@ import Badge from './pages/Badge';
 import { getAccessToken } from './store/authStore';
 import HeaderToken from './api/https';
 import Favorite from './pages/Favorite';
+import Follow from './pages/Follow';
 
 const router = createBrowserRouter([
   {
@@ -232,6 +233,15 @@ const router = createBrowserRouter([
     element: (
       <Layout GNBType="my">
         <Favorite />
+      </Layout>
+    ),
+  },
+  {
+    path: '/follow/:id',
+
+    element: (
+      <Layout GNBType="my">
+        <Follow />
       </Layout>
     ),
   },

@@ -1,7 +1,4 @@
-export interface UserData {
-  userId: number;
-  nickname: string;
-}
+import { UserData } from '../user/userModel';
 
 export interface DittoData {
   dittoId: number;
@@ -29,7 +26,7 @@ export interface DittoDetailResponse {
   commentDataList: CommentData[];
   commentCount: number;
   bookmarkCount: number;
-  isMyFollowing: boolean;
+  myFollowingId: number | null;
 }
 
 export interface ModifyReq {
