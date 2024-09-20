@@ -26,6 +26,8 @@ import DittoWrite from './pages/DittoWrite';
 import SpotApply from './pages/SpotApply';
 import Alarm from './pages/Alarm';
 import EditProfile from './pages/EditProfile';
+import Character from './pages/Character';
+import Badge from './pages/Badge';
 import { getAccessToken } from './store/authStore';
 import HeaderToken from './api/https';
 
@@ -203,6 +205,22 @@ const router = createBrowserRouter([
     element: (
       <Layout GNBType="my">
         <EditProfile />
+      </Layout>
+    ),
+  },
+  {
+    path: '/character',
+    element: (
+      <Layout GNBType="search">
+        <Character />
+      </Layout>
+    ),
+  },
+  {
+    path: '/badge',
+    element: (
+      <Layout GNBType="search">
+        <Badge />
       </Layout>
     ),
   },
