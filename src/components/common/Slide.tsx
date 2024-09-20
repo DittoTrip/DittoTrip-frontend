@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import ContentItem from '../category/ContentItem';
-import { CategoryData } from '../../models/Category/categoryModel';
+import { CategoryData } from '../../models/category/categoryModel';
 import { useEffect, useState } from 'react';
 import { defaultImage } from '../../constants/constant';
 
@@ -50,11 +50,8 @@ const SlideStyled = styled.div`
   align-items: center;
 
   .slide {
-    display: grid;
-    grid-auto-flow: column;
+    display: flex;
     box-sizing: border-box;
-    grid-template-rows: repeat(1, auto);
-    grid-auto-columns: calc(33.3333% - 3.33333px);
     list-style: none;
     gap: 24px 5px;
     margin: 0;

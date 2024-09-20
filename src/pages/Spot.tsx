@@ -16,7 +16,7 @@ import useSpotDetail from '../hooks/spot/useSpotDetail';
 import { useEffect, useState } from 'react';
 import useBookmarkedSpot from '../hooks/spot/useSpotLike';
 import useVisitedSpot from '../hooks/spot/useSpotVisit';
-import { ReviewData } from '../models/spot/spotModel';
+import { ReviewData } from '../models/Spot/spotModel';
 
 const Spot = () => {
   const { t } = useTranslation();

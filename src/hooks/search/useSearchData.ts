@@ -4,8 +4,8 @@ import { useLocation } from 'react-router-dom';
 import { searchSpot } from '../../api/spot';
 import { searchCategory } from '../../api/category';
 
-import { SpotData } from '../../models/spot/spotModel';
-import { CategoryData } from '../../models/Category/categoryModel';
+import { SpotData } from '../../models/Spot/spotModel';
+import { CategoryData } from '../../models/category/categoryModel';
 import { searchUser } from '../../api/user';
 import { defaultPageOptions } from '../../constants/constant';
 import { UserData } from '../../models/userpage/userPageModel';
