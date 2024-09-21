@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { getDittoBookmarkList, getUserDittoList } from '../../api/ditto';
+import { getDittoBookmarkList } from '../../api/ditto';
 import { DittoMiniData } from '../../models/ditto/dittoModel';
 
 const useUserFavoriteDittoList = () => {

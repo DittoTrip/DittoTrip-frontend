@@ -25,7 +25,6 @@ import { CommentData } from '../models/ditto/dittoModel';
 import { defaultImage, defaultPageOptions } from '../constants/constant';
 import formatDate from '../utils/formatDate';
 import { deleteDitto } from '../api/ditto';
-import useFollowList from '../hooks/follow/useFollowList';
 import { addFollow, deleteFollow } from '../api/follow';
 
 const DittoDetail = () => {

@@ -5,7 +5,7 @@ export interface DittoData {
   title: string;
   body: string;
   createdDateTime: Date;
-  userData: UserProfileData;
+  userData: UserData;
   imagePath: string;
   hashtags: string[];
   isMine: boolean;

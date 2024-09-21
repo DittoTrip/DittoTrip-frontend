@@ -7,8 +7,6 @@ import { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import ErrorPage from './Error';
 import useUserDittoList from '../hooks/ditto/useUserDittoList';
-import { defaultImage } from '../constants/constant';
-import { useNavigate } from 'react-router-dom';
 import DittoInfinity from '../components/ditto/DittoInfinity';
 import useUserFavoriteDittoList from '../hooks/ditto/useFavoriteDittoList';
 
