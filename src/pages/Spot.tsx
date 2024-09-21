@@ -17,6 +17,7 @@ import { useEffect, useState } from 'react';
 import useBookmarkedSpot from '../hooks/spot/useSpotLike';
 import useVisitedSpot from '../hooks/spot/useSpotVisit';
 import { ReviewData } from '../models/Spot/spotModel';
+import { defaultImage } from '../constants/constant';
 
 const Spot = () => {
   const { t } = useTranslation();
@@ -45,7 +46,7 @@ const Spot = () => {
 
   return (
     <SpotStyle>
-      <img className="main-img" src="https://img.seoul.co.kr/img/upload/2022/09/29/SSI_20220929234320_O2.jpg" />
+      <img className="main-img" src={spotDetailData?.spotData.imagePath ?? defaultImage} />
       <div className="content-wrapper">
         <div className="content-name">{spotDetailData?.spotData.name}</div>
 
@@ -103,7 +104,9 @@ const Spot = () => {
           ))}
         </div>
 
-        <Link to={`/around/${spotDetailData?.spotData.spotId}`} className="show-more">
+        <Link
+          to={`/around?mapX=${spotDetailData?.spotData.pointX}&mapY=${spotDetailData?.spotData.pointY}`}
+          className="show-more">
           {t('spot.seeMore')}
           <FontAwesomeIcon icon={faChevronRight} />
         </Link>

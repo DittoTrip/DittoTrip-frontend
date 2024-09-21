@@ -8,7 +8,7 @@ import { useAuthStore } from '../store/authStore';
 import Button from '../components/common/Button';
 import InputText from '../components/Login/InputText';
 import kakaoImg from '../assets/kakao.png';
-import { LoginProps } from '../models/login/loginModel';
+import { LoginProps } from '../models/Login/loginModel';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -60,15 +60,11 @@ const Login = () => {
       </form>
 
       <div className="container">
-        <div>
-          <a href="/find-id">아이디 찾기</a>
-        </div>
-        <div className="divider"></div>
-        <div>
+        <div className="find-pw">
           <a href="/find-password">비밀번호 찾기</a>
         </div>
         <div className="divider"></div>
-        <div>
+        <div className="join">
           <a href="/join">회원가입</a>
         </div>
       </div>
@@ -94,11 +90,13 @@ const LoginStyle = styled.div`
   margin: 0 28px;
 
   .title {
-    color: ${({ theme }) => theme.color.keyColor};
-    ${({ theme }) => theme.font.subTitle}
+    width: 100%;
     margin-bottom: 30px;
     text-align: left;
-    width: 100%;
+
+    ${({ theme }) => theme.font.subTitle}
+    color: ${({ theme }) => theme.color.keyColor};
+    font-weight: bold;
   }
   form {
     width: 100%;
@@ -126,6 +124,10 @@ const LoginStyle = styled.div`
 
   .container a,
   .text {
+    display: block;
+    text-align: center;
+    width: 100px;
+
     ${({ theme }) => theme.font.body4}
     color: ${({ theme }) => theme.color.gray80};
 

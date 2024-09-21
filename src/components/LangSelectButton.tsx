@@ -6,7 +6,7 @@ import korea from '../assets/korea.png';
 import UK from '../assets/UK.jpg';
 
 const LangSelectButton = () => {
-  const [lang, setLang] = useState('ko');
+  const [lang, setLang] = useState(i18n.language);
 
   const changeLanguage = () => {
     setLang(lang === 'ko' ? 'en' : 'ko');

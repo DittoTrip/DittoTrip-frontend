@@ -32,6 +32,9 @@ import { getAccessToken } from './store/authStore';
 import HeaderToken from './api/https';
 import Favorite from './pages/Favorite';
 import Follow from './pages/Follow';
+import FindPassword from './pages/FindPassword';
+import EditNickname from './pages/EditNickname';
+import EditPassword from './pages/EditPassword';
 
 const router = createBrowserRouter([
   {
@@ -81,7 +84,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: '/around/:id',
+    path: '/around',
 
     element: (
       <Layout GNBType="search">
@@ -242,6 +245,42 @@ const router = createBrowserRouter([
     element: (
       <Layout GNBType="my">
         <Follow />
+      </Layout>
+    ),
+  },
+  {
+    path: '/follow/:id',
+
+    element: (
+      <Layout GNBType="my">
+        <Follow />
+      </Layout>
+    ),
+  },
+  {
+    path: '/find-password',
+
+    element: (
+      <Layout GNBType="my">
+        <FindPassword />
+      </Layout>
+    ),
+  },
+  {
+    path: '/edit-nickname',
+
+    element: (
+      <Layout GNBType="my">
+        <EditNickname />
+      </Layout>
+    ),
+  },
+  {
+    path: '/edit-password',
+
+    element: (
+      <Layout GNBType="my">
+        <EditPassword />
       </Layout>
     ),
   },
