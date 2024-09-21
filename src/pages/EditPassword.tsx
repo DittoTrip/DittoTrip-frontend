@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { styled } from 'styled-components';
 import AppBar from '../components/common/AppBar';

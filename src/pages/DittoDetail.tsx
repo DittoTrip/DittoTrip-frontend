@@ -38,17 +38,6 @@ const DittoDetail = () => {
   );
   const { isBookmarked, toggleBookmark, bookmarkCount } = useDittoBookmark(id!, initialBookmarkCount!);
 
-  console.log(
-    'initial:',
-    initialBookmarkCount,
-    'following',
-    myFollowingId,
-    'count',
-    bookmarkCount,
-    'isBookmarked',
-    isBookmarked
-  );
-
   // 더 알아보기
   const [currentPage, setCurrentPage] = useState(0);
   const { dittoList, hasMore } = useDittoList(currentPage, defaultPageOptions, '');
@@ -68,7 +57,6 @@ const DittoDetail = () => {
   // 댓글 컨트롤 (등록)
   const handleSubmit = (comment: string) => {
     const body = { body: comment };
-    console.log(body);
 
     addDittoComment(id!, body, parentComment?.commentId.toString()).then(
       res => {
@@ -206,6 +194,7 @@ const DittoDetail = () => {
       <img className="main-img" src={dittoData!.imagePath ?? defaultImage} />
       <div className="content-wrapper">
         <UserProfileWithComment
+          userProfileData={dittoData!.userData.userProfileData}
           userId={dittoData!.userData.userId}
           name={dittoData!.userData.nickname}
           date={formatDate(dittoData!.createdDateTime)}
