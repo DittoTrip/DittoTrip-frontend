@@ -4,7 +4,7 @@ import {
   DittoPageRequest,
   DittoListResponse,
 } from '../models/ditto/dittoModel';
-import { api } from './https';
+import { api, apiMultipart } from './https';
 
 //디토 상세조회
 export const getDitto = async (dittoId: string) => {
@@ -26,7 +26,7 @@ export const deleteDitto = async (dittoId: string) => {
 
 //디토 등록
 export const addDitto = async (data: FormData) => {
-  const response = await api.post('/ditto', data);
+  const response = await apiMultipart.post('/ditto', data);
   return response.status;
 };
 

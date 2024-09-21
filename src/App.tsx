@@ -187,7 +187,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: '/spot-apply',
+    path: '/spot/new',
 
     element: (
       <Layout>
@@ -248,15 +248,7 @@ const router = createBrowserRouter([
       </Layout>
     ),
   },
-  {
-    path: '/follow/:id',
 
-    element: (
-      <Layout GNBType="my">
-        <Follow />
-      </Layout>
-    ),
-  },
   {
     path: '/find-password',
 

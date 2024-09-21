@@ -34,7 +34,6 @@ export interface FollowData {
 }
 
 export interface FollowListResponse {
-  // 겟 following-list/{userId} 와 followed-list/{userId}에서 둘다 사용가능
   followCount: number;
   followDataList: FollowData[];
 }

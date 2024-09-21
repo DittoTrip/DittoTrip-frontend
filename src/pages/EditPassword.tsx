@@ -96,7 +96,7 @@ const EditPassword = () => {
             )}
           </div>
           <div className="password-submit">
-            <Button size={'large'} scheme={'subButton'} type="submit" className="join-btn">
+            <Button size={'large'} scheme={'keyButton'} type="submit" className="join-btn">
               {'변경하기'}
             </Button>
           </div>

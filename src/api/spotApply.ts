@@ -1,8 +1,8 @@
-import { api } from './https';
+import { api, apiMultipart } from './https';
 
 //스팟 신청 등록
 export const addSpotApply = async (data: FormData) => {
-  const response = await api.post('/spot/apply', data);
+  const response = await apiMultipart.post('/spot/apply', data);
   return response.data;
 };
 
