@@ -3,12 +3,14 @@ import { styled } from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
 
-import profileImg from '../../assets/profile.png';
 import Button from './Button';
 import { CommentData } from '../../models/ditto/dittoModel';
 import { useNavigate } from 'react-router';
+import { UserProfileData } from '../../models/user/userModel';
+import ProfileImg from './ProfileImg';
 
 interface Props {
+  userProfileData: UserProfileData;
   userId: number;
   name: string;
   date: string;
@@ -22,6 +24,7 @@ interface Props {
   setParentComment?: React.Dispatch<React.SetStateAction<CommentData | null>>;
 }
 const UserProfileWithComment = ({
+  userProfileData,
   userId,
   name,
   date,
@@ -37,7 +40,8 @@ const UserProfileWithComment = ({
   return (
     <UserProfileWithCommentStyle isParentComment={isParentComment}>
       <div className="profile-left">
-        <img className="user-img" src={profileImg} alt="프로필 이미지" onClick={() => navigate(`/mypage/${userId}`)} />
+        {/* <img className="user-img" src={profileImg} alt="프로필 이미지" onClick={() => navigate(`/mypage/${userId}`)} /> */}
+        <ProfileImg userProfileData={userProfileData} />
       </div>
       <div className="profile-right">
         <div className="profile-info">

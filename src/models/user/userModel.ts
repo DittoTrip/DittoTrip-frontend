@@ -1,3 +1,5 @@
+export type ItemType = 'SKIN' | 'EYES' | 'MOUSE' | 'HAIR' | 'ACCESSORY';
+
 export interface UserProfileRequset {
   itemSkinId: number;
   itemEyesId: number;
@@ -17,7 +19,7 @@ export interface UserProfileItem {
   userRewardId: number;
   name: string;
   imagePath: string;
-  itemType: 'SKIN';
+  itemType: ItemType;
   createdDateTime: string;
 }
 

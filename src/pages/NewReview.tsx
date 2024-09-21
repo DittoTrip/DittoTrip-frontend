@@ -32,10 +32,6 @@ const NewReview = () => {
     watch,
   } = useForm<FormInputs>();
 
-  // 별점
-
-  // const rating = watch('rating');
-
   // 내용
   const body = watch('body');
 

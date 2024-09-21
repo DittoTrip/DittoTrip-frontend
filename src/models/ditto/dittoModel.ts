@@ -1,4 +1,4 @@
-import { UserData } from '../user/userModel';
+import { UserData, UserProfileData } from '../user/userModel';
 
 export interface DittoData {
   dittoId: number;
@@ -16,7 +16,7 @@ export interface CommentData {
   commentId: number;
   body: string;
   createdDateTime: Date;
-  userData: UserData;
+  userData: UserProfileData;
   isMine: boolean;
   childCommentDataList: CommentData[];
 }

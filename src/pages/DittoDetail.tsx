@@ -25,7 +25,6 @@ import { CommentData } from '../models/ditto/dittoModel';
 import { defaultImage, defaultPageOptions } from '../constants/constant';
 import formatDate from '../utils/formatDate';
 import { deleteDitto } from '../api/ditto';
-import useFollowList from '../hooks/follow/useFollowList';
 import { addFollow, deleteFollow } from '../api/follow';
 
 const DittoDetail = () => {
@@ -37,17 +36,6 @@ const DittoDetail = () => {
     id!
   );
   const { isBookmarked, toggleBookmark, bookmarkCount } = useDittoBookmark(id!, initialBookmarkCount!);
-
-  console.log(
-    'initial:',
-    initialBookmarkCount,
-    'following',
-    myFollowingId,
-    'count',
-    bookmarkCount,
-    'isBookmarked',
-    isBookmarked
-  );
 
   // 더 알아보기
   const [currentPage, setCurrentPage] = useState(0);
@@ -68,7 +56,6 @@ const DittoDetail = () => {
   // 댓글 컨트롤 (등록)
   const handleSubmit = (comment: string) => {
     const body = { body: comment };
-    console.log(body);
 
     addDittoComment(id!, body, parentComment?.commentId.toString()).then(
       res => {
@@ -206,6 +193,7 @@ const DittoDetail = () => {
       <img className="main-img" src={dittoData!.imagePath ?? defaultImage} />
       <div className="content-wrapper">
         <UserProfileWithComment
+          userProfileData={dittoData!.userData.userProfileData}
           userId={dittoData!.userData.userId}
           name={dittoData!.userData.nickname}
           date={formatDate(dittoData!.createdDateTime)}
@@ -254,7 +242,7 @@ const DittoDetail = () => {
       <div className="content-wrapper">
         <div className="more">더 찾아보기</div>
       </div>
-      <DittoInfinity dittoList={dittoList} />
+      <DittoInfinity dittoList={dittoList} itemsPerRow={2} />
       {isExpandedOptions && selectedComment && (
         <BottomSheet
           title={t('bottomsheet.viewDetail')}

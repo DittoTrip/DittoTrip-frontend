@@ -1,3 +1,4 @@
+import axios from 'axios';
 import {
   SpotDetailResponse,
   SpotListRequest,
@@ -6,6 +7,8 @@ import {
   SpotSearchListResponse,
 } from '../models/Spot/spotModel';
 import { api } from './https';
+import { AroundSpotProps, LocationBasedListResponse } from '../models/Spot/publicSpotModel';
+import i18n from '../lang/i18n';
 
 // 스팟 북마크 추가
 export const addSpotBookmark = async (id: string) => {
@@ -73,3 +76,14 @@ export const favoriteSpotList = async (userX?: number, userY?: number) => {
   });
   return response.data;
 };
+// 공공데이터 주변 스팟 리스트
+export const aroundSpotList = async (params: AroundSpotProps) => {
+  const response = axios.get<LocationBasedListResponse>(
+    i18n.language == 'ko'
+      ? 'https://apis.data.go.kr/B551011/KorService1/locationBasedList1'
+      : 'https://apis.data.go.kr/B551011/EngService1/locationBasedList1',
+    { params: { ...params } }
+  );
+  return response;
+};
+// 공공데이터 주변 스팟 리스트

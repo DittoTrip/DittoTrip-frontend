@@ -18,12 +18,7 @@ const Modal = ({ message, handleConfirm, setIsOpen, width }: Props) => {
         <div className="modal-content" onClick={e => e.stopPropagation()}>
           <div className="message">{message}</div>
           <hr />
-          <div
-            className="confirm"
-            onClick={() => {
-              handleConfirm!();
-              setIsOpen(false);
-            }}>
+          <div className="confirm" onClick={handleConfirm ? handleConfirm : () => setIsOpen(false)}>
             확인
           </div>
         </div>

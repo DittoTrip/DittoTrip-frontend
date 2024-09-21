@@ -4,7 +4,7 @@ import {
   DittoPageRequest,
   DittoListResponse,
 } from '../models/ditto/dittoModel';
-import { api } from './https';
+import { api, apiMultipart } from './https';
 
 //디토 상세조회
 export const getDitto = async (dittoId: string) => {
@@ -26,7 +26,7 @@ export const deleteDitto = async (dittoId: string) => {
 
 //디토 등록
 export const addDitto = async (data: FormData) => {
-  const response = await api.post('/ditto', data);
+  const response = await apiMultipart.post('/ditto', data);
   return response.status;
 };
 
@@ -62,7 +62,12 @@ export const searchDittoList = async (query: string, data: DittoPageRequest) => 
 };
 
 //내 북마크 디토리스트 조회
-export const findDittoBookmarkList = async () => {
+export const getDittoBookmarkList = async () => {
   const response = await api.get<DittoListResponse>('/ditto/list/bookmark');
+  return response.data;
+};
+//유저의 디토리스트 조회
+export const getUserDittoList = async (userId: string, data: DittoPageRequest) => {
+  const response = await api.get<DittoListResponse>(`/ditto/list/user/${userId}`, { params: data });
   return response.data;
 };

@@ -3,82 +3,105 @@ import { useTranslation } from 'react-i18next';
 
 import AppBar from '../components/common/AppBar';
 import SpotCard from '../components/common/SpotCard';
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import BottomSheet from '../components/bottomsheet/BottomSheet';
-
-export const DummyDataList = [
-  {
-    img: 'https://images.unsplash.com/photo-1560237731-890b122a9b6c?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8fA%3D%3D',
-    name: '소소주점',
-    distance: '200km',
-    reviewCount: 45,
-    rating: 4.5,
-    address: '강원 강릉시 율곡로3139번길 24 오죽헌',
-    tagList: ['강동원', '변성은', '디토트립', '강원도', '변호사', '변성은', '디토리포', '여행'],
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1560237731-890b122a9b6c?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8fA%3D%3D',
-    name: '소소주점',
-    distance: '200km',
-    reviewCount: 45,
-    rating: 4.5,
-    address: '강원 강릉시 율곡로3139번길 24 오죽헌',
-    tagList: ['강동원', '변성은', '디토트립', '강원도', '변호사', '변성은', '디토리포', '여행'],
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1501854140801-50d01698950b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8NXx8fGVufDB8fHx8fA%3D%3D',
-    name: '소소주점',
-    distance: '200km',
-    reviewCount: 45,
-
-    rating: 4.5,
-    address: '강원 강릉시 율곡로3139번길 24 오죽헌',
-    tagList: ['강동원', '변성은', '디토트립', '강원도', '변호사', '변성은', '디토리포', '여행'],
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1560237731-890b122a9b6c?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8fA%3D%3D',
-    name: '소소주점',
-    distance: '200km',
-    reviewCount: 45,
-
-    rating: 4.5,
-    address: '강원 강릉시 율곡로3139번길 24 오죽헌',
-    tagList: ['강동원', '변성은', '디토트립', '강원도', '변호사', '변성은', '디토리포', '여행'],
-  },
-  {
-    img: 'https://img.freepik.com/free-photo/forest-landscape_71767-127.jpg',
-    name: '소소주점',
-    distance: '200km',
-    reviewCount: 45,
-    rating: 4.5,
-    address: '강원 강릉시 율곡로3139번길 24 오죽헌',
-    tagList: ['강동원', '변성은', '디토트립', '강원도', '변호사', '변성은', '디토리포', '여행'],
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8fA%3D%3D',
-    name: '소소주점',
-    distance: '200km',
-    reviewCount: 45,
-    rating: 4.5,
-    address: '강원 강릉시 율곡로3139번길 24 오죽헌',
-    tagList: ['강동원', '변성은', '디토트립', '강원도', '변호사', '변성은', '디토리포', '여행'],
-  },
-];
+import { useSearchParams } from 'react-router-dom';
+import { defaultPageOptions } from '../constants/constant';
+import { aroundSpotList } from '../api/spot';
+import { Item } from '../models/Spot/publicSpotModel';
+import ErrorPage from './Error';
+import LangSelectButton from '../components/LangSelectButton';
+import i18n from '../lang/i18n';
 
 const Around = () => {
   const { t } = useTranslation();
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const mapX = searchParams.get('mapX');
+  const mapY = searchParams.get('mapY');
+
   const [isOpen, setIsOpen] = useState(false);
   const [selectedAddress, setSelectedAddress] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPage, setTotalPages] = useState(1);
+
+  const [aroundList, setAroundList] = useState<Item[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  const fetchAroundSpotList = async () => {
+    if (mapX && mapY) {
+      const req = {
+        numOfRows: 10,
+        pageNo: currentPage,
+        MobileOS: 'WIN',
+        MobileApp: 'Ditto',
+        _type: 'json',
+        mapX,
+        mapY,
+        radius: 20000,
+        contentTypeId: i18n.language == 'ko' ? 12 : 76,
+        serviceKey: import.meta.env.VITE_PUBLIC_DATA_KEY,
+      };
+
+      setLoading(true);
+
+      try {
+        const res = await aroundSpotList(req);
+        const totalCount = res.data.response.body.totalCount || 0;
+
+        if (res.data.response.body.items.item) {
+          setAroundList(prev => [...prev, ...res.data.response.body.items.item]);
+        }
+
+        setTotalPages(Math.ceil(totalCount / defaultPageOptions));
+      } catch (error) {
+        console.log('error 발생', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+  };
+
+  useEffect(() => {
+    fetchAroundSpotList();
+  }, [mapX, mapY, currentPage]);
+
+  useEffect(() => {
+    setAroundList([]);
+    setCurrentPage(1);
+    fetchAroundSpotList();
+  }, [i18n.language]);
+
+  const handleScroll = useCallback(() => {
+    const scrollHeight = document.documentElement.scrollHeight;
+    const scrollTop = document.documentElement.scrollTop;
+    const clientHeight = document.documentElement.clientHeight;
+
+    if (scrollTop + clientHeight >= scrollHeight - 50 && !loading && currentPage < totalPage) {
+      setCurrentPage(prevPage => prevPage + 1);
+    }
+  }, [loading]);
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    console.log('scroll');
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [handleScroll]);
+
+  if (loading && currentPage == 1) {
+    return <ErrorPage message={'Loading...'} type="loading" />;
+  }
 
   return (
     <AroundStyle>
       <div className="app-bar">
-        <AppBar leading={false} title={<div className="title">{t('around.title')}</div>} />
+        <AppBar leading={true} title={<div className="title">{t('around.title')}</div>} action={<LangSelectButton />} />
       </div>
       <div className="content-wrapper">
-        {DummyDataList.map(data => (
+        {aroundList.map(data => (
           <SpotCard data={data} setIsOpen={setIsOpen} setSelectedAddress={setSelectedAddress} />
         ))}
+        {!loading && aroundList.length == 0 && <div className="empty-data">주변 관광지 데이터가 없습니다. </div>}
       </div>
 
       {isOpen && <BottomSheet title={t('bottomsheet.address')} content={selectedAddress} setIsOpen={setIsOpen} />}
@@ -98,6 +121,15 @@ const AroundStyle = styled.div`
 
   .content-wrapper {
     margin: 16px 28px;
+
+    .empty-data {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      height: 70vh;
+    }
   }
 `;
 

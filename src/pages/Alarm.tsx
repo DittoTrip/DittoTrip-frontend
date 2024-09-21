@@ -5,6 +5,7 @@ import formatDateWithTime from '../utils/formDateWithTime';
 import { AlarmData } from '../models/alarm/alarmModel';
 import { getAlarmList } from '../api/alarm';
 import ErrorPage from './Error';
+import { defaultPageOptions } from '../constants/constant';
 
 const dummy = [
   {
@@ -24,15 +25,16 @@ const dummy = [
     createdDateTime: new Date('2024-09-20T16:23:41.243Z'),
   },
 ];
-const Alarm = (page: number, size: number) => {
+const Alarm = () => {
   const [alarmDataList, setAlarmDataList] = useState<AlarmData[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(0);
   const [totalPage, setTotalPage] = useState<number>(0);
+  const [loading, setLoading] = useState(true);
 
   const fetchAlarms = async () => {
     setLoading(true);
     try {
-      const req = { page, size };
+      const req = { page: currentPage, size: defaultPageOptions };
 
       const response = await getAlarmList(req);
 
@@ -48,8 +50,6 @@ const Alarm = (page: number, size: number) => {
   useEffect(() => {
     fetchAlarms();
   }, []);
-
-  const [currentPage, setCurrentPage] = useState(0);
 
   const handleScroll = useCallback(() => {
     const scrollHeight = document.documentElement.scrollHeight;

@@ -1,4 +1,4 @@
-import { CategoryData } from '../Category/categoryModel';
+import { CategoryData } from '../category/categoryModel';
 
 export interface SpotData {
   spotId: number;

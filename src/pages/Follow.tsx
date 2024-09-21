@@ -4,11 +4,6 @@ import Tap from '../components/common/Tab';
 import { TapItem } from './Category';
 import AppBar from '../components/common/AppBar';
 import { useState } from 'react';
-import SearchContent from '../components/search/SearchContent';
-import SearchCeleb from '../components/search/SearchCeleb';
-import SpotItem from '../components/common/SpotItem';
-import BottomSheet from '../components/bottomsheet/BottomSheet';
-import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
 import useFollowList from '../hooks/follow/useFollowList';
 import SearchUser from '../components/search/SearchUser';
@@ -20,7 +15,6 @@ const tapData: TapItem[] = [
 ];
 
 const Follow = () => {
-  const { t } = useTranslation();
   const { id } = useParams();
 
   const [selectedTapId, setSelectedId] = useState<number>(tapData[0]?.id);
