@@ -35,6 +35,7 @@ import Follow from './pages/Follow';
 import FindPassword from './pages/FindPassword';
 import EditNickname from './pages/EditNickname';
 import EditPassword from './pages/EditPassword';
+import MyDitto from './pages/MyDitto';
 
 const router = createBrowserRouter([
   {
@@ -273,6 +274,15 @@ const router = createBrowserRouter([
     element: (
       <Layout GNBType="my">
         <EditPassword />
+      </Layout>
+    ),
+  },
+  {
+    path: '/user-ditto/:id',
+
+    element: (
+      <Layout GNBType="my">
+        <MyDitto />
       </Layout>
     ),
   },

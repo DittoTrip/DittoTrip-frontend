@@ -3,7 +3,6 @@ import { styled } from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
 
-import profileImg from '../../assets/profile.png';
 import Button from './Button';
 import { CommentData } from '../../models/ditto/dittoModel';
 import { useNavigate } from 'react-router';

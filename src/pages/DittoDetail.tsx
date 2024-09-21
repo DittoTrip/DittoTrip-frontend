@@ -243,7 +243,7 @@ const DittoDetail = () => {
       <div className="content-wrapper">
         <div className="more">더 찾아보기</div>
       </div>
-      <DittoInfinity dittoList={dittoList} />
+      <DittoInfinity dittoList={dittoList} itemsPerRow={2} />
       {isExpandedOptions && selectedComment && (
         <BottomSheet
           title={t('bottomsheet.viewDetail')}

@@ -91,7 +91,7 @@ const Ditto = () => {
       <div className="search-bar">
         <SearchBar setSearchWord={setSearchWord} placeholder={t('search.placeholder')} />
       </div>
-      <DittoInfinity dittoList={dittoList} />
+      <DittoInfinity dittoList={dittoList} itemsPerRow={2} />
 
       {isExpandedOptions && (
         <BottomSheet
