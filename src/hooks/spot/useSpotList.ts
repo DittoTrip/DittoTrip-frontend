@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import { spotList } from '../../api/spot';
 
-import { CategoryData } from '../../models/Category/categoryModel';
+import { CategoryData } from '../../models/category/categoryModel';
 import { SpotData } from '../../models/spot/spotModel';
 
 const useSpotList = (categoryId: string, sort: string, page: number, size: number) => {

@@ -1,10 +1,12 @@
 import {
   DuplicationProps,
+  EditPasswordProps,
   JoinProps,
   LoginProps,
   LoginResponse,
   SendCodeProps,
   SendCodeResponse,
+  SendPasswordProps,
   VerifyCodeProps,
 } from '../models/login/loginModel';
 import { api } from './https';
@@ -34,9 +36,26 @@ export const join = async (data: JoinProps) => {
   const response = await api.post(`auth/signup`, { ...data });
   return response.data;
 };
-
+// 닉네임 체크
 export const duplicationCheck = async (data: DuplicationProps) => {
-  // const response = await api.get(`auth/duplication-check?email=${data.email}&nickname=${data.nickname}`);
   const response = await api.get(`auth/duplication-check?nickname=${data.nickname}`);
-  return response.data;
+  return response.status;
+};
+// 이메일 체크
+export const duplicationCheckEmail = async (data: DuplicationProps) => {
+  const response = await api.get(`auth/duplication-check?email=${data.email}`);
+  return response;
+};
+export const sendPassword = async (data: SendPasswordProps) => {
+  const response = await api.post(`/auth/reset-password`, { ...data });
+  return response.status;
+};
+
+export const editNickname = async (data: DuplicationProps) => {
+  const response = await api.put(`/profile/nickname`, { ...data });
+  return response.status;
+};
+export const editPassword = async (data: EditPasswordProps) => {
+  const response = await api.patch(`/profile/password`, { ...data });
+  return response.status;
 };

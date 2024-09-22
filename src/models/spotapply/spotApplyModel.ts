@@ -1,28 +1,64 @@
-export interface Time { // SaveReq의 부하 1
-    hour: number;
-    minute: number;
-    second: number;
-    nano: number;
-  }
+export type SpotApplyStatus = 'PENDING' | 'APPROVED' | 'REJECTED';
 
-export interface SaveReq { //포스트 spot/apply/spot/apply api 이친구의 부하 1
-    name: string;
-    intro: string;
-    address: string;
-    startTime: Time;
-    endTime: Time;
-    phoneNumber: string;
-    homeUri: string;
-    pointX: number;
-    pointY: number;
-    categoryIds: number[];
-    hashtagNames: string[];
-  }
+export interface Time {
+  hour: number;
+  minute: number;
+  second: number;
+  nano: number;
+}
 
-export interface SpotSaveRequest { // 포스트 spot/apply/spot/apply api 이거 왜 매핑이 신기하네
-    saveReq: SaveReq;
-    image: string;
-    images: string[];
-  }
+export interface SaveReq {
+  name: string;
+  intro: string;
+  address: string;
+  startTime: Time;
+  endTime: Time;
+  phoneNumber: string;
+  homeUri: string;
+  pointX: number;
+  pointY: number;
+  categoryIds: number[];
+  hashtagNames: string[];
+}
 
-  // 여기는 아직 디자인이랑 관리자 기능 등의 api가 안나온것으로 추정중
+export interface SpotSaveRequest {
+  saveReq: SaveReq;
+  image: string;
+  images: string[];
+}
+
+export interface SpotApplyMiniData {
+  id: number;
+  name: string;
+  imagePath: string;
+  spotApplyStatus: SpotApplyStatus;
+  createdDateTime: Date;
+}
+
+export interface SpotApplyMiniDataResponse {
+  spotApplyMiniDataList: SpotApplyMiniData[];
+  totalPages: number;
+}
+
+export interface SpotApplyData {
+  spotApplyId: number;
+  name: string;
+  address: string;
+  pointX: number;
+  pointY: number;
+  imagePath: string;
+  spotApplyStatus: SpotApplyStatus;
+  createdDateTime: Date;
+  categoryDataList: CategoryData[];
+  hashtags: string[];
+  imagePaths: string[];
+}
+
+export interface CategoryData {
+  categoryId: number;
+  name: string;
+}
+
+export interface SpotApplyDetailResponse {
+  spotApplyData: SpotApplyData;
+}

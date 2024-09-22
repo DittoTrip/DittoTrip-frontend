@@ -17,6 +17,7 @@ import { useEffect, useState } from 'react';
 import useBookmarkedSpot from '../hooks/spot/useSpotLike';
 import useVisitedSpot from '../hooks/spot/useSpotVisit';
 import { ReviewData } from '../models/spot/spotModel';
+import { defaultImage } from '../constants/constant';
 
 const Spot = () => {
   const { t } = useTranslation();
@@ -45,10 +46,8 @@ const Spot = () => {
 
   return (
     <SpotStyle>
-      <img className="main-img" src="https://img.seoul.co.kr/img/upload/2022/09/29/SSI_20220929234320_O2.jpg" />
+      <img className="main-img" src={spotDetailData?.spotData.imagePath ?? defaultImage} />
       <div className="content-wrapper">
-        <div className="content-name">{spotDetailData?.spotData.name}</div>
-
         <div className="spot-name-button">
           <div className="spot-name">{spotDetailData?.spotData.name}</div>
           <div className="button-wrapper">
@@ -74,7 +73,12 @@ const Spot = () => {
 
         <div className="stillcut-wrapper">
           <div className="spot-subtitle"> {t('spot.stillCut')}</div>
-          <PhotoSlide photoList={spotDetailData?.spotImageDataList} width={112} height={76} gap={16} />
+          <PhotoSlide
+            photoList={spotDetailData?.spotImageDataList.map(item => item.imagePath)}
+            width={112}
+            height={76}
+            gap={16}
+          />
         </div>
 
         <div className="reviews">
@@ -103,7 +107,9 @@ const Spot = () => {
           ))}
         </div>
 
-        <Link to={`/around/${spotDetailData?.spotData.spotId}`} className="show-more">
+        <Link
+          to={`/around?mapX=${spotDetailData?.spotData.pointX}&mapY=${spotDetailData?.spotData.pointY}`}
+          className="show-more">
           {t('spot.seeMore')}
           <FontAwesomeIcon icon={faChevronRight} />
         </Link>
@@ -115,7 +121,7 @@ const Spot = () => {
 const SpotStyle = styled.div`
   .main-img {
     width: 100%;
-    height: 300px;
+    aspect-ratio: 1;
   }
   .content-wrapper {
     margin: 29px 28px 16px 28px;

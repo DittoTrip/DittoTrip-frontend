@@ -20,7 +20,9 @@ export interface LoginProps {
 export interface SendCodeProps {
   email: string;
 }
-
+export interface SendPasswordProps {
+  email: string;
+}
 export interface VerifyCodeProps {
   email: string;
   code: string;
@@ -34,6 +36,10 @@ export interface JoinProps {
 }
 
 export interface DuplicationProps {
-  email: string;
-  nickname: string;
+  email?: string;
+  nickname?: string;
+}
+export interface EditPasswordProps {
+  originPassword: string;
+  newPassword: string;
 }

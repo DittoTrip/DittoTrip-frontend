@@ -1,6 +1,7 @@
 // import styled from 'styled-components';
 import { DittoProvider } from './context/themeContext';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import '../src/fonts/Font.css';
 
 import './App.css';
 import Layout from './layout/Layout';
@@ -31,6 +32,15 @@ import Badge from './pages/Badge';
 import { getAccessToken } from './store/authStore';
 import HeaderToken from './api/https';
 import MyPage from './pages/MyPage';
+import Favorite from './pages/Favorite';
+import Follow from './pages/Follow';
+import FindPassword from './pages/FindPassword';
+import EditNickname from './pages/EditNickname';
+import EditPassword from './pages/EditPassword';
+import MyDitto from './pages/MyDitto';
+import MySpotApplyList from './pages/MySpotApplyList';
+import MySpotApplyDetail from './pages/MySpotApplyDetail';
+
 
 const router = createBrowserRouter([
   {
@@ -80,7 +90,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: '/around/:id',
+    path: '/around',
 
     element: (
       <Layout GNBType="search">
@@ -183,7 +193,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: '/spot-apply',
+    path: '/spot/new',
 
     element: (
       <Layout>
@@ -200,8 +210,9 @@ const router = createBrowserRouter([
       </Layout>
     ),
   },
+
   {
-    path: '/editprofile',
+    path: '/editprofile/:id',
 
     element: (
       <Layout GNBType="my">
@@ -230,6 +241,84 @@ const router = createBrowserRouter([
     element: (
       <Layout GNBType="search">
         <MyPage />
+    path: '/favorite',
+
+    element: (
+      <Layout GNBType="my">
+        <Favorite />
+      </Layout>
+    ),
+  },
+  {
+    path: '/follow/:id',
+
+    element: (
+      <Layout GNBType="my">
+        <Follow />
+      </Layout>
+    ),
+  },
+
+  {
+    path: '/find-password',
+
+    element: (
+      <Layout GNBType="my">
+        <FindPassword />
+      </Layout>
+    ),
+  },
+  {
+    path: '/edit-nickname',
+
+    element: (
+      <Layout GNBType="my">
+        <EditNickname />
+      </Layout>
+    ),
+  },
+  {
+    path: '/edit-password',
+
+    element: (
+      <Layout GNBType="my">
+        <EditPassword />
+      </Layout>
+    ),
+  },
+  {
+    path: '/user-ditto/:id',
+
+    element: (
+      <Layout GNBType="my">
+        <MyDitto isMine={false} />
+      </Layout>
+    ),
+  },
+  {
+    path: '/user-ditto',
+
+    element: (
+      <Layout GNBType="my">
+        <MyDitto isMine={true} />
+      </Layout>
+    ),
+  },
+  {
+    path: '/my-spotapply',
+
+    element: (
+      <Layout GNBType="my">
+        <MySpotApplyList />
+      </Layout>
+    ),
+  },
+  {
+    path: '/my-spotapply/:id',
+
+    element: (
+      <Layout GNBType="my">
+        <MySpotApplyDetail />
       </Layout>
     ),
   },
