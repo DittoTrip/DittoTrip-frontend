@@ -6,6 +6,8 @@ import { faStarHalfStroke } from '@fortawesome/free-solid-svg-icons';
 import { faStar as faStarEmpty } from '@fortawesome/free-regular-svg-icons';
 import { ColorKey } from '../../styles/theme';
 import { useEffect, useState } from 'react';
+import { UseFormSetValue } from 'react-hook-form';
+import { FormInputs } from '../../pages/NewReview';
 
 interface Props {
   rating: number;
@@ -14,11 +16,12 @@ interface Props {
   color?: ColorKey;
   isEditable?: boolean;
   showRatingValue?: boolean;
+  setRating?: UseFormSetValue<FormInputs>;
 }
 
 // 디폴트는 검정색, color 있으면 blue
 
-const Star = ({ rating, size, gap, color, isEditable, showRatingValue }: Props) => {
+const Star = ({ rating, size, gap, color, isEditable, showRatingValue, setRating }: Props) => {
   const [curRating, setCurRating] = useState<number>(rating);
   const [starIcons, setStarIcons] = useState<IconDefinition[]>([
     faStarEmpty,
@@ -42,6 +45,7 @@ const Star = ({ rating, size, gap, color, isEditable, showRatingValue }: Props) 
     if (!isEditable) return;
 
     setCurRating(idx + 1);
+    if (setRating) setRating('rating', idx + 1);
   };
 
   return (

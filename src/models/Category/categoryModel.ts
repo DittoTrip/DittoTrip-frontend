@@ -7,6 +7,7 @@ export type SubType =
   | 'CONTENT_ENTERTAINMENT';
 
 export type MajorType = 'CONTENT' | 'PERSON';
+
 export interface CategoryData {
   categoryId: number;
   name: string;

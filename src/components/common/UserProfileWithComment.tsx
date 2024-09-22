@@ -4,24 +4,49 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
 
 import profileImg from '../../assets/profile.png';
+import Button from './Button';
+import { CommentData } from '../../models/ditto/dittoModel';
 
 interface Props {
   name: string;
   date: string;
-  setIsExpandedOption: (expanded: boolean) => void;
-  comment?: string;
+  following?: boolean;
+  comment?: CommentData;
+  isParent?: boolean;
+  isParentComment?: boolean;
+  setIsExpandedOption: React.Dispatch<React.SetStateAction<boolean>>;
+  setParentComment?: React.Dispatch<React.SetStateAction<CommentData | null>>;
 }
-const UserProfileWithComment = ({ name, date, comment, setIsExpandedOption }: Props) => {
+const UserProfileWithComment = ({
+  name,
+  date,
+  following,
+  comment,
+  setIsExpandedOption,
+  setParentComment,
+  isParentComment,
+}: Props) => {
   return (
-    <UserProfileWithCommentStyle>
-      {/* 마이페이지 이동 필요   */}
+    <UserProfileWithCommentStyle isParentComment={isParentComment}>
       <div className="profile-left">
         <img className="user-img" src={profileImg} alt="프로필 이미지" />
       </div>
       <div className="profile-right">
         <div className="profile-info">
           <div className="profile-details">
-            <div className="user-name">{name}</div>
+            <div className="nickname-wrapper">
+              <div className="user-name">{name}</div>
+              {following && (
+                <>
+                  <Button size={'small'} scheme={'keyButton'}>
+                    Follow
+                  </Button>
+                  <Button size={'small'} scheme={'emptyKeyButton'}>
+                    Follow
+                  </Button>
+                </>
+              )}
+            </div>
             <div className="date">{date}</div>
           </div>
 
@@ -36,20 +61,32 @@ const UserProfileWithComment = ({ name, date, comment, setIsExpandedOption }: Pr
           </div>
         </div>
 
-        {comment && <div className="comment">{comment}</div>}
+        {comment && <div className="comment">{comment.body}</div>}
+        {setParentComment && (
+          <div className="parent" onClick={() => setParentComment(comment!)}>
+            댓글달기
+          </div>
+        )}
       </div>
     </UserProfileWithCommentStyle>
   );
 };
 
-const UserProfileWithCommentStyle = styled.div`
+const UserProfileWithCommentStyle = styled.div<{ isParentComment?: boolean; comment?: CommentData }>`
   display: flex;
   gap: 12px;
-  padding: 12px 0;
+
+  padding: ${({ comment }) => (comment ? '12px 5px' : '12px 0')};
+  background-color: ${({ isParentComment }) => (isParentComment ? '#f0f8ff' : 'white')};
+
+  border-radius: 12px;
+  .profile-left {
+    display: flex;
+  }
 
   .user-img {
-    width: 40px;
-    height: 40px;
+    width: 42px;
+    height: 42px;
   }
 
   .profile-right {
@@ -59,8 +96,13 @@ const UserProfileWithCommentStyle = styled.div`
       display: flex;
       justify-content: space-between;
 
-      .user-name {
-        ${({ theme }) => theme.font.body2}
+      .nickname-wrapper {
+        display: flex;
+        gap: 8px;
+
+        .user-name {
+          ${({ theme }) => theme.font.body2}
+        }
       }
 
       .date {
@@ -76,6 +118,11 @@ const UserProfileWithCommentStyle = styled.div`
 
     .comment {
       margin-top: 8px;
+    }
+
+    .parent {
+      color: ${({ theme }) => theme.color.gray80};
+      margin-top: 4px;
     }
   }
 `;

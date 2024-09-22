@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
@@ -10,6 +10,7 @@ import CategorySection from '../components/category/CategorySection';
 import FavoriteButton from '../components/category/FavoriteButton';
 
 import useCategoryData from '../hooks/category/useCategoryData';
+import LangSelectButton from '../components/LangSelectButton';
 
 export interface TapItem {
   id: number;
@@ -126,7 +127,7 @@ const Category = () => {
 
   return (
     <CategoryStyled>
-      <AppBar leading={false} title={<div className="title">카테고리</div>} />
+      <AppBar leading={false} title={<div className="title">{'Search'}</div>} action={<LangSelectButton />} />
       <div className="searchBar" onClick={() => navigate('/search')}>
         <SearchBar setSearchWord={() => {}} placeholder={t('search.placeholder')} />
       </div>
@@ -145,7 +146,7 @@ const CategoryStyled = styled.div`
     color: ${({ theme }) => theme.color.keyColor};
     text-align: left;
     flex: 1;
-    ${({ theme }) => theme.font.subTitle};
+    ${({ theme }) => theme.font.title};
   }
   .searchBar {
     margin: 8px 28px 0 28px;

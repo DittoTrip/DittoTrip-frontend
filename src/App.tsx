@@ -8,7 +8,7 @@ import Home from './pages/Home';
 import ErrorPage from './pages/Error';
 import LangPage from './pages/LangPage';
 import Category from './pages/Category';
-import Review from './pages/Review';
+import Review from './pages/ReviewList';
 import NewReview from './pages/NewReview';
 import ReviewDetail from './pages/ReviewDetail';
 import Search from './pages/Search';
@@ -19,8 +19,7 @@ import Spot from './pages/Spot';
 import Around from './pages/Around';
 import List from './pages/List';
 import Login from './pages/Login';
-import { getToken } from './store/authStore';
-import HeaderToken from './api/https';
+
 import Ditto from './pages/Ditto';
 import DittoDetail from './pages/DittoDetail';
 import DittoWrite from './pages/DittoWrite';
@@ -29,6 +28,8 @@ import Alarm from './pages/Alarm';
 import EditProfile from './pages/EditProfile';
 import Character from './pages/Character';
 import Badge from './pages/Badge';
+import { getAccessToken } from './store/authStore';
+import HeaderToken from './api/https';
 import MyPage from './pages/MyPage';
 
 const router = createBrowserRouter([
@@ -63,7 +64,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: '/list/:id',
+    path: '/category/:id',
     element: (
       <Layout GNBType="search">
         <List />
@@ -120,7 +121,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: '/searchResult',
+    path: '/search-result',
     element: (
       <Layout GNBType="search">
         <SearchResult />
@@ -137,7 +138,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: '/report',
+    path: '/report/:type/:id',
 
     element: (
       <Layout GNBType="search">
@@ -158,7 +159,7 @@ const router = createBrowserRouter([
     path: '/ditto',
 
     element: (
-      <Layout GNBType="search">
+      <Layout GNBType="ditto">
         <Ditto />
       </Layout>
     ),
@@ -167,13 +168,13 @@ const router = createBrowserRouter([
     path: '/ditto/:id',
 
     element: (
-      <Layout GNBType="search">
+      <Layout GNBType="ditto">
         <DittoDetail />
       </Layout>
     ),
   },
   {
-    path: '/dittoWrite',
+    path: '/ditto/new',
 
     element: (
       <Layout>
@@ -182,7 +183,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: '/spotApply',
+    path: '/spot-apply',
 
     element: (
       <Layout>
@@ -194,15 +195,16 @@ const router = createBrowserRouter([
     path: '/alarm',
 
     element: (
-      <Layout GNBType="search">
+      <Layout GNBType="my">
         <Alarm />
       </Layout>
     ),
-  },{
+  },
+  {
     path: '/editprofile',
 
     element: (
-      <Layout GNBType="search">
+      <Layout GNBType="my">
         <EditProfile />
       </Layout>
     ),
@@ -234,7 +236,7 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  const token = getToken();
+  const token = getAccessToken();
   HeaderToken.set(token);
 
   return (

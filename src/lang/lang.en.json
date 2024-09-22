@@ -16,6 +16,8 @@
     "placeholder": "search"
   },
   "category": {
+    "title": "Search",
+
     "tap": {
       "contents": "contents",
       "celebrity": "celebrity"
@@ -73,15 +75,16 @@
   "report": {
     "title": "Please select a reason for reporting.",
     "options": {
-      "Swearing": "Swearing and belittling",
-      "illegalInformation": "illegal information",
-      "Promotional": "Promotional and commercial purposes",
-      "PersonalInformation": "Personal Information Exposure",
-      "PornographyContent": "Pornography and sexually suggestive content",
-      "inappropriateNickname": "inappropriate nickname",
-      "etc": "etc."
+      "BLAME": "Swearing and belittling",
+      "ILLEGAL_INFORMATION": "illegal information",
+      "BUSINESS": "Promotional and commercial purposes",
+      "PERSONAL_INFORMATION_EXPOSURE": "Personal Information Exposure",
+      "SENSATIONAL_CONTENTS": "Pornography and sexually suggestive content",
+      "ILLEGAL_NICKNAME": "inappropriate nickname",
+      "ETC": "etc."
     },
-    "message": "Your report has been received."
+    "successMessage": "Your report has been received.",
+    "errorMessage": "error"
   },
   "spot": {
     "visit": "Visit",
@@ -92,7 +95,7 @@
     "seeMore": "Other things to see around here"
   },
   "around": {
-    "title": "Recommended nearby tourist attractions"
+    "title": "nearby tourist attractions"
   },
   "list": {
     "sortOptions": {

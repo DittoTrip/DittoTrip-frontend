@@ -1,63 +1,61 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as faEmptyHeart } from '@fortawesome/free-regular-svg-icons';
-import Star from "../common/Star";
-import Dot from "../common/Dot";
-import TagSlide from "../common/TagSlide";
-
+import Star from '../common/Star';
+import Dot from '../common/Dot';
+import TagSlide from '../common/TagSlide';
 
 interface SearchSpotDataType {
-    img: string;
-    name: string;
-    distance: string;
-    rating: number;
-    address: string;
-    reviewCount: number;
-    tagList : string[];
+  img: string;
+  name: string;
+  distance: string;
+  rating: number;
+  address: string;
+  reviewCount: number;
+  tagList: string[];
 }
 
-  interface Props {
-    data : SearchSpotDataType;
+interface Props {
+  data: SearchSpotDataType;
 }
-const SearchSpot = ({data} : Props) => {
-
-    return (
-        <SearchSpotStyle>
-        <img className="spot-image" src={data.img} />
-        <div className="spot-info">
-          <div className="spot-info-header">
-            <div className="spot-info-name">{data.name}</div>
-            <div className="heart">
-              <FontAwesomeIcon icon={faEmptyHeart}/>
-            </div>
+const SearchSpot = ({ data }: Props) => {
+  return (
+    <SearchSpotStyle>
+      <img className="spot-image" src={data.img} />
+      <div className="spot-info">
+        <div className="spot-info-header">
+          <div className="spot-info-name">{data.name}</div>
+          <div className="heart">
+            <FontAwesomeIcon icon={faEmptyHeart} />
           </div>
-
-          <div className="spot-info-rating-wrapper">
-            <div className="spot-info-rating">{data.rating}</div>
-            <Star rating={data.rating} size={12} gap={3} />
-            <div className="review-count">({data.reviewCount})</div>
-          </div>
-          
-          <div className="spot-info-address-wrapper">
-            <div className="spot-info-distance">{data.distance}</div>
-            <Dot />
-            <div className="spot-info-address">{data.address}</div>
-            <FontAwesomeIcon className="more-icon" icon={faChevronDown} />
-          </div>
-          <TagSlide tagList={data.tagList}/>
         </div>
-        </SearchSpotStyle>
-    )
-}
+
+        <div className="spot-info-rating-wrapper">
+          <div className="spot-info-rating">{data.rating}</div>
+          <Star rating={data.rating} size={12} gap={3} />
+          <div className="review-count">({data.reviewCount})</div>
+        </div>
+
+        <div className="spot-info-address-wrapper">
+          <div className="spot-info-distance">{data.distance}</div>
+          <Dot color={'gray40'} />
+          <div className="spot-info-address">{data.address}</div>
+          <FontAwesomeIcon className="more-icon" icon={faChevronDown} />
+        </div>
+        <TagSlide tagList={data.tagList} />
+      </div>
+    </SearchSpotStyle>
+  );
+};
 
 const SearchSpotStyle = styled.div`
-    display: flex;
-    height: 116px;
-    width: 100%;
-    margin-bottom:16px;
-    
-    border-bottom: solid 1px #B6B6B6;
+  display: flex;
+  height: 116px;
+  width: 100%;
+  margin-bottom: 16px;
+
+  border-bottom: solid 1px #b6b6b6;
 
   .spot-image {
     width: 120px;
@@ -67,7 +65,7 @@ const SearchSpotStyle = styled.div`
   .spot-info {
     display: flex;
     flex-direction: column;
-    
+
     padding-left: 24px;
 
     .spot-info-header {
@@ -118,12 +116,12 @@ const SearchSpotStyle = styled.div`
       }
     }
     .heart {
-          font-size: 20px;
-          path {
-            color: ${({ theme }) => theme.color.keyColor};
-          }
-        }
+      font-size: 20px;
+      path {
+        color: ${({ theme }) => theme.color.keyColor};
+      }
+    }
   }
-`
+`;
 
 export default SearchSpot;
