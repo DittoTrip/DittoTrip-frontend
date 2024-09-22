@@ -210,7 +210,7 @@ const router = createBrowserRouter([
   },
 
   {
-    path: '/editprofile',
+    path: '/editprofile/:id',
 
     element: (
       <Layout GNBType="my">

@@ -2,15 +2,19 @@ import { styled } from 'styled-components';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen } from '@fortawesome/free-solid-svg-icons';
+import { ColorKey } from '../../styles/theme';
 
 interface Props {
   handleClick: () => void;
+  backgroundColor?: ColorKey;
+  color?: ColorKey;
+  border?: boolean;
 }
 
-const WriteButton = ({ handleClick }: Props) => {
+const WriteButton = ({ handleClick, backgroundColor, color, border }: Props) => {
   return (
     <div>
-      <WriteButtonStyled>
+      <WriteButtonStyled backgroundColor={backgroundColor!} color={color!} border={border!}>
         <div className="write-button" onClick={() => handleClick()}>
           <FontAwesomeIcon icon={faPen} />
         </div>
@@ -19,7 +23,7 @@ const WriteButton = ({ handleClick }: Props) => {
   );
 };
 
-const WriteButtonStyled = styled.div`
+const WriteButtonStyled = styled.div<{ backgroundColor: ColorKey; color: ColorKey; border: boolean }>`
   -ms-user-select: none;
   -moz-user-select: -moz-none;
   -khtml-user-select: none;
@@ -32,7 +36,9 @@ const WriteButtonStyled = styled.div`
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  background-color: ${({ theme }) => theme.color.subColor1};
+  background-color: ${({ theme, backgroundColor }) =>
+    backgroundColor ? theme.color[backgroundColor] : theme.color.subColor1};
+  ${({ border }) => border && `border: 2px solid white;`}
 
   .write-button {
     display: flex;
@@ -42,7 +48,7 @@ const WriteButtonStyled = styled.div`
     height: 100%;
 
     path {
-      color: white;
+      color: ${({ theme, color }) => (color ? theme.color[color] : 'white')};
     }
   }
 `;

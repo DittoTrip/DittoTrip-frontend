@@ -273,9 +273,11 @@ const Join = () => {
             )}
           </div>
 
-          <Button size={'large'} scheme={'keyButton'} type="submit" className="join-btn">
-            {t('join.join')}
-          </Button>
+          <div className="btn-wrapper">
+            <Button size={'large'} scheme={'keyButton'} type="submit" className="join-btn">
+              {t('join.join')}
+            </Button>
+          </div>
         </form>
       </div>
       {isOpen && <Modal message={message} setIsOpen={setIsOpen} width={70} />}
@@ -342,6 +344,15 @@ const JoinStyle = styled.div`
     border: none;
     border-radius: 12px;
     background: ${({ theme }) => theme.color.gray20};
+  }
+
+  .btn-wrapper {
+    position: fixed;
+    bottom: 60px;
+    left: 0;
+
+    width: 100%;
+    padding: 0 28px;
   }
 
   .join-btn {

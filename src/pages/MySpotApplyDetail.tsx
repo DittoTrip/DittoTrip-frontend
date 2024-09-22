@@ -8,15 +8,16 @@ import TagSlide from '../components/common/TagSlide';
 import PhotoSlide from '../components/common/PhotoSlide';
 import { useTranslation } from 'react-i18next';
 import SpotApplyStatusItem from '../components/spot/SpotApplyStatusItem';
+import ErrorPage from './Error';
 
 const MySpotApplyDetail = () => {
   const { id } = useParams();
   const { t } = useTranslation();
 
   const { spotApplyDetailData, error, loading } = useSpotApplyDetail(id!);
-
-  if (loading) return <div>Loading...</div>;
-  else if (error) return <div>Error</div>;
+  if (loading) {
+    return <ErrorPage message={'Loading...'} type="loading" />;
+  } else if (error) return <ErrorPage message={'error'} type="error" />;
 
   return (
     <MySpotApplyDetailStyle>
