@@ -1,34 +1,31 @@
-export type ItemType = 
-"SKIN"
-| "EYES"
-| "MOUSE"
-| "HAIR"
-| "ACCESSORY" ;
+export type ItemType = 'SKIN' | 'EYES' | 'MOUSE' | 'HAIR' | 'ACCESSORY';
 
 export interface UserBadgeData {
-    badgeId: number;
-    imagePath: string;
-    acquiredDateTime: Date;
-  }
-  
-export interface UserBadgeResponse { // user/{userId}/bedge/list api
-    userBadgeDataList: UserBadgeData[];
-  }
-
-export interface Item {
-    id: number;
-    imagePath: string;
-    createdDateTime: Date;
-    itemType: ItemType;
-  }
-
-export interface UserItemDataMap{
-    additionalProp1 : Item[];
-    additionalProp2 : Item[];
-    additionalProp3 : Item[];
-
+  badgeId: number;
+  imagePath: string;
+  acquiredDateTime: Date;
 }
 
-export interface UserItemListResponse{ // item/list api
-    userItemDataMap: UserItemDataMap;
+export interface UserBadgeResponse {
+  // user/{userId}/bedge/list api
+  userBadgeDataList: UserBadgeData[];
+}
+
+export interface Item {
+  id: number;
+  imagePath: string;
+  createdDateTime: Date;
+  itemType: ItemType;
+}
+
+export interface UserItemDataMap {
+  SKIN: Item[];
+  EYES: Item[];
+  MOUSE: Item[];
+  HAIR: Item[];
+  ACCESSORY: Item[];
+}
+
+export interface UserItemListResponse {
+  userItemDataMap: UserItemDataMap;
 }
