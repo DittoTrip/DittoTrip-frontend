@@ -30,7 +30,7 @@ export interface SpotSaveRequest {
 export interface SpotApplyMiniData {
   id: number;
   name: string;
-  imagePage: string;
+  imagePath: string;
   spotApplyStatus: SpotApplyStatus;
   createdDateTime: Date;
 }
@@ -38,4 +38,27 @@ export interface SpotApplyMiniData {
 export interface SpotApplyMiniDataResponse {
   spotApplyMiniDataList: SpotApplyMiniData[];
   totalPages: number;
+}
+
+export interface SpotApplyData {
+  spotApplyId: number;
+  name: string;
+  address: string;
+  pointX: number;
+  pointY: number;
+  imagePath: string;
+  spotApplyStatus: SpotApplyStatus;
+  createdDateTime: Date;
+  categoryDataList: CategoryData[];
+  hashtags: string[];
+  imagePaths: string[];
+}
+
+export interface CategoryData {
+  categoryId: number;
+  name: string;
+}
+
+export interface SpotApplyDetailResponse {
+  spotApplyData: SpotApplyData;
 }

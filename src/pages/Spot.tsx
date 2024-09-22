@@ -75,7 +75,12 @@ const Spot = () => {
 
         <div className="stillcut-wrapper">
           <div className="spot-subtitle"> {t('spot.stillCut')}</div>
-          <PhotoSlide photoList={spotDetailData?.spotImageDataList} width={112} height={76} gap={16} />
+          <PhotoSlide
+            photoList={spotDetailData?.spotImageDataList.map(item => item.imagePath)}
+            width={112}
+            height={76}
+            gap={16}
+          />
         </div>
 
         <div className="reviews">
