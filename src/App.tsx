@@ -1,6 +1,7 @@
 // import styled from 'styled-components';
 import { DittoProvider } from './context/themeContext';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import '../src/fonts/Font.css';
 
 import './App.css';
 import Layout from './layout/Layout';

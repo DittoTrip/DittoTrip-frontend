@@ -48,8 +48,6 @@ const Spot = () => {
     <SpotStyle>
       <img className="main-img" src={spotDetailData?.spotData.imagePath ?? defaultImage} />
       <div className="content-wrapper">
-        <div className="content-name">{spotDetailData?.spotData.name}</div>
-
         <div className="spot-name-button">
           <div className="spot-name">{spotDetailData?.spotData.name}</div>
           <div className="button-wrapper">
