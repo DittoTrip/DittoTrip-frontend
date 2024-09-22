@@ -5,9 +5,9 @@ import {
   SpotListResponse,
   spotMapListRequest,
   SpotSearchListResponse,
-} from '../models/Spot/spotModel';
+} from '../models/spot/spotModel';
 import { api } from './https';
-import { AroundSpotProps, LocationBasedListResponse } from '../models/Spot/publicSpotModel';
+import { AroundSpotProps, LocationBasedListResponse } from '../models/spot/publicSpotModel';
 import i18n from '../lang/i18n';
 
 // 스팟 북마크 추가

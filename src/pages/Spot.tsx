@@ -16,7 +16,7 @@ import useSpotDetail from '../hooks/spot/useSpotDetail';
 import { useEffect, useState } from 'react';
 import useBookmarkedSpot from '../hooks/spot/useSpotLike';
 import useVisitedSpot from '../hooks/spot/useSpotVisit';
-import { ReviewData } from '../models/Spot/spotModel';
+import { ReviewData } from '../models/spot/spotModel';
 import { defaultImage } from '../constants/constant';
 
 const Spot = () => {
@@ -118,7 +118,7 @@ const Spot = () => {
 const SpotStyle = styled.div`
   .main-img {
     width: 100%;
-    height: 300px;
+    aspect-ratio: 1;
   }
   .content-wrapper {
     margin: 29px 28px 16px 28px;

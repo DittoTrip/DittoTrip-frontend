@@ -4,7 +4,7 @@ import Star from './Star';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
-import { Item } from '../../models/Spot/publicSpotModel';
+import { Item } from '../../models/spot/publicSpotModel';
 import { formatDistance } from '../../utils/formatDistance';
 import { defaultImage } from '../../constants/constant';
 

@@ -36,6 +36,7 @@ import FindPassword from './pages/FindPassword';
 import EditNickname from './pages/EditNickname';
 import EditPassword from './pages/EditPassword';
 import MyDitto from './pages/MyDitto';
+import MySpotApplyList from './pages/MySpotApplyList';
 
 const router = createBrowserRouter([
   {
@@ -282,7 +283,25 @@ const router = createBrowserRouter([
 
     element: (
       <Layout GNBType="my">
-        <MyDitto />
+        <MyDitto isMine={false} />
+      </Layout>
+    ),
+  },
+  {
+    path: '/user-ditto',
+
+    element: (
+      <Layout GNBType="my">
+        <MyDitto isMine={true} />
+      </Layout>
+    ),
+  },
+  {
+    path: '/my-spotapply',
+
+    element: (
+      <Layout GNBType="my">
+        <MySpotApplyList />
       </Layout>
     ),
   },

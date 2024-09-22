@@ -8,7 +8,7 @@ import {
   SendCodeResponse,
   SendPasswordProps,
   VerifyCodeProps,
-} from '../models/Login/loginModel';
+} from '../models/login/loginModel';
 import { api } from './https';
 
 export const login = async (data: LoginProps) => {

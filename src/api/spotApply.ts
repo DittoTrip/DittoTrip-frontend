@@ -1,3 +1,4 @@
+import { SpotApplyMiniDataResponse } from '../models/spotapply/spotApplyModel';
 import { api, apiMultipart } from './https';
 
 //스팟 신청 등록
@@ -14,6 +15,8 @@ export const deleteSpotApply = async (spotApplyId: string) => {
   return response.status;
 };
 
-// 스팟신청리스트조회 아직 안나옴
-
-// 내 스팟신청리스트조회 아직 안나옴
+// 내 스팟신청리스트 조회
+export const getSpotApplyList = async () => {
+  const response = await apiMultipart.get<SpotApplyMiniDataResponse>('/spot/apply/list/my');
+  return response.data;
+};

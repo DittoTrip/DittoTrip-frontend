@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { favoriteSpotList } from '../../api/spot';
-import { SpotData } from '../../models/Spot/spotModel';
+import { SpotData } from '../../models/spot/spotModel';
 import { CategoryData } from '../../models/category/categoryModel';
 import { bookmarkedCategoryList } from '../../api/category';
 

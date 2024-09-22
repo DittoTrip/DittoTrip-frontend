@@ -8,7 +8,7 @@ import { useAuthStore } from '../store/authStore';
 import Button from '../components/common/Button';
 import InputText from '../components/Login/InputText';
 import kakaoImg from '../assets/kakao.png';
-import { LoginProps } from '../models/Login/loginModel';
+import { LoginProps } from '../models/login/loginModel';
 
 const Login = () => {
   const navigate = useNavigate();

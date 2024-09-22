@@ -8,7 +8,7 @@ import BottomSheet from '../components/bottomsheet/BottomSheet';
 import { useSearchParams } from 'react-router-dom';
 import { defaultPageOptions } from '../constants/constant';
 import { aroundSpotList } from '../api/spot';
-import { Item } from '../models/Spot/publicSpotModel';
+import { Item } from '../models/spot/publicSpotModel';
 import ErrorPage from './Error';
 import LangSelectButton from '../components/LangSelectButton';
 import i18n from '../lang/i18n';
