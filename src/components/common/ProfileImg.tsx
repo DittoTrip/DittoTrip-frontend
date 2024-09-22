@@ -38,7 +38,7 @@ const profileImg = ({ userProfileData, width, background, showEditIcon }: Props)
 const ProfileImgStyle = styled.div<{ width?: string; background?: boolean }>`
   position: relative;
   width: ${({ width }) => (width ? width : '42px')};
-  aspect-ratio: 1;
+  height: ${({ width }) => (width ? width : '42px')};
 
   background: ${({ background, theme }) => (background ? 'transparent' : theme.color.gray20)};
 

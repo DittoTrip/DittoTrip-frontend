@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 import { useTranslation } from 'react-i18next';
 
@@ -8,9 +8,10 @@ import Star from '../components/common/Star';
 import Button from '../components/common/Button';
 import ImageUploader from '../components/review/UploadImage';
 import useReviewDetail from '../hooks/review/useReviewDetail';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { addReview } from '../api/review';
+import { addReview, getReview, modifyReview } from '../api/review';
+import { convertURLtoFile } from '../utils/convertURLtoFile';
 
 export interface FormInputs {
   rating: number;
@@ -18,11 +19,29 @@ export interface FormInputs {
 }
 
 const NewReview = () => {
-  const { id } = useParams();
+  const { type } = useParams(); // Check for review id
+
+  const { search } = useLocation();
+  const queryParams = new URLSearchParams(search);
+
+  // 새 리뷰용
+  const spotVisitId = queryParams.get('spotVisit'); // 서버로 보낼 때
+  // 수정용
+  const reviewId = queryParams.get('review'); // 서버로 보낼 때
+  // 공통
+  const spotId = queryParams.get('spot'); // 기존 정보 불러오기 및 촬영지 데이터 조회용
+
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const { spotData } = useReviewDetail(id!);
+  const isEditing = type == 'edit';
+
+  // 촬영지 조회용
+  const { spotData } = useReviewDetail(spotId!);
+  // 이미지 파일
+  const [selectedImages, setSelectedImages] = useState<File[]>([]);
+  // 이미지 url
+  const [previewUrls, setPreviewUrls] = useState<string[]>([]);
 
   const {
     register,
@@ -32,12 +51,37 @@ const NewReview = () => {
     watch,
   } = useForm<FormInputs>();
 
-  // 내용
   const body = watch('body');
 
-  // 포토
-  const [selectedImages, setSelectedImages] = useState<File[]>([]);
-  const [previewUrls, setPreviewUrls] = useState<string[]>([]);
+  useEffect(() => {
+    // 수정할 때 id : review id
+    // 새로운 리뷰 작성할 때 id: spotVisitId
+    if (isEditing) {
+      const fetchReviewDetail = async () => {
+        const existingReview = await getReview(reviewId!);
+        if (existingReview) {
+          // 본인이 작성한 글이 아닐 때
+          if (!existingReview.reviewData.isMine) {
+            alert('권한이 없습니다. ');
+            navigate(-1);
+            return;
+          }
+          setValue('body', existingReview.reviewData.reviewBody);
+          setValue('rating', existingReview.reviewData.rating);
+          setPreviewUrls(existingReview.reviewData.imagePaths);
+
+          if (existingReview.reviewData.imagePaths && existingReview.reviewData.imagePaths.length > 0) {
+            //  Promise.all => 비동기 작업을 병렬로 처리
+            const convertedFiles = await Promise.all(
+              existingReview.reviewData.imagePaths.map(imagePath => convertURLtoFile(imagePath))
+            );
+            setSelectedImages(convertedFiles);
+          }
+        }
+      };
+      fetchReviewDetail();
+    }
+  }, [spotVisitId, reviewId, spotId, isEditing, setValue]);
 
   const onSubmit = async (data: FormInputs) => {
     if (!data.rating) {
@@ -49,39 +93,36 @@ const NewReview = () => {
         'saveReq',
         new Blob([JSON.stringify(data)], {
           type: 'application/json',
-        }) // application/json 형식으로 넣어 주기
+        })
       );
 
-      // 이미지 배열 추가
       selectedImages.forEach(file => {
         formData.append('images', file);
       });
 
-      const entries = formData.entries();
-      for (const pair of entries) {
-        console.log(pair[0] + ', ' + pair[1]);
+      if (isEditing) {
+        await modifyReview(reviewId!, formData);
+      } else {
+        await addReview(spotVisitId!, formData);
       }
 
-      const status = await addReview(formData);
-      if (status === 200) {
-        navigate(`/reviews/${id!}`);
-      }
+      navigate(`/reviews/${spotId!}`);
     } catch (error) {
-      console.error('리뷰 등록 실패', error);
+      console.error('리뷰 등록/수정 실패', error);
     }
   };
 
   return (
     <NewReviewStyle>
       <div className="app-bar">
-        <AppBar leading={true} title={<div className="title">리뷰 쓰기</div>} action={<LangSelectButton />} />
+        <AppBar leading={true} title={<div className="title">{isEditing ? '리뷰 수정' : '리뷰 쓰기'}</div>} />
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="location-rating-card">
           <div className="spot-name">{spotData}</div>
           <Star
-            rating={4}
+            rating={watch('rating') || 4}
             showRatingValue={false}
             color="keyColor"
             gap={12}
@@ -112,10 +153,9 @@ const NewReview = () => {
         </div>
         <div className="review-submit">
           <Button size="large" scheme="subButton" className="review-submit-button">
-            작성 완료
+            {isEditing ? '수정 완료' : '작성 완료'}
           </Button>
         </div>
-        /
       </form>
     </NewReviewStyle>
   );

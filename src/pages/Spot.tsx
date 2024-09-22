@@ -39,7 +39,7 @@ const Spot = () => {
   }, [spotDetailData]);
 
   const { isVisited, markSpotAsVisited } = useVisitedSpot(id!);
-  console.log(isVisited);
+  console.log('리뷰 작성 가능한 spotVisitId', spotDetailData?.mySpotVisitId);
 
   if (loading) return <ErrorPage message={'Loading'} type="loading" />;
   else if (error) return <ErrorPage message={'spot id를 확인해주세요'} type="error" />;
@@ -87,13 +87,16 @@ const Spot = () => {
               <div className="spot-subtitle"> {t('spot.review')}</div>
               <FontAwesomeIcon icon={faChevronRight} onClick={() => handleHeartClick()} className="arrow-btn" />
             </Link>
-            <div className="new-btn">
-              <Link to={`/review/new/${spotDetailData?.spotData.spotId}`}>
-                <Button size={'small'} scheme={'keyButton'} onClick={() => {}}>
-                  {t('spot.write')}
-                </Button>
-              </Link>
-            </div>
+            {spotDetailData?.mySpotVisitId && (
+              <div className="new-btn">
+                <Link
+                  to={`/review/new?spotVisit=${spotDetailData?.mySpotVisitId}&spot=${spotDetailData.spotData.spotId}`}>
+                  <Button size={'small'} scheme={'keyButton'} onClick={() => {}}>
+                    {t('spot.write')}
+                  </Button>
+                </Link>
+              </div>
+            )}
           </div>
           {spotDetailData?.reviewDataList.map((review: ReviewData) => (
             <Link to={`/review/${review.reviewId}`} key={review.reviewId} className="review-item">

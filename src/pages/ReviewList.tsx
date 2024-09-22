@@ -52,7 +52,7 @@ const Review = () => {
     {
       id: 2,
       text: t('review.reviewSortOptions.highest'),
-      sort: 'rating,asc',
+      sort: 'rating,desc',
       handleClick: () => {
         setSelectedSortId(2);
         setIsOpen(false);
@@ -61,7 +61,7 @@ const Review = () => {
     {
       id: 3,
       text: t('review.reviewSortOptions.lowest'),
-      sort: 'rating,desc',
+      sort: 'rating,asc',
       handleClick: () => {
         setSelectedSortId(3);
         setIsOpen(false);
@@ -90,7 +90,7 @@ const Review = () => {
       id: 0,
       text: t('bottomsheet.modify'),
       handleClick: () => {
-        alert('modify');
+        navigate(`/review/edit?review=${selectedReview!.reviewId.toString()}`);
       },
     },
     {

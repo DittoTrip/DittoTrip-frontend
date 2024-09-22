@@ -13,7 +13,9 @@ function MainImageUploader({ setSelectedImage, previewUrl, setPreviewUrl }: Imag
   const imageInput = useRef<HTMLInputElement>(null);
 
   // 이미지 업로드 버튼 클릭 시 파일 선택창 열기
-  const onClickImageUpload = () => {
+  const onClickImageUpload = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+
     if (imageInput.current !== null) {
       imageInput.current.click();
     }
@@ -88,7 +90,7 @@ const ImageUploaderStyle = styled.div`
   }
 
   .image-preview {
-    height: 120x;
+    height: 120px;
     width: 120px;
     border: 1px solid ${({ theme }) => theme.color.gray40};
     border-radius: 12px;

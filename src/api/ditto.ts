@@ -1,9 +1,4 @@
-import {
-  DittoDetailResponse,
-  DittoModifyRequest,
-  DittoPageRequest,
-  DittoListResponse,
-} from '../models/ditto/dittoModel';
+import { DittoDetailResponse, DittoPageRequest, DittoListResponse } from '../models/ditto/dittoModel';
 import { api, apiMultipart } from './https';
 
 //디토 상세조회
@@ -13,8 +8,8 @@ export const getDitto = async (dittoId: string) => {
 };
 
 //디토 수정
-export const putDitto = async (dittoId: string, data: DittoModifyRequest) => {
-  const response = await api.put(`/ditto/${dittoId}`, { data });
+export const modifyDitto = async (dittoId: string, data: FormData) => {
+  const response = await apiMultipart.put(`/ditto/${dittoId}`, data);
   return response.status;
 };
 

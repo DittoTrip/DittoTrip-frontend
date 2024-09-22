@@ -13,7 +13,8 @@ interface ImageUploaderProps {
 function ImageUploader({ selectedImages, setSelectedImages, previewUrls, setPreviewUrls }: ImageUploaderProps) {
   const imageInput = useRef<HTMLInputElement>(null);
 
-  const onClickImageUpload = () => {
+  const onClickImageUpload = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
     if (imageInput.current !== null) {
       imageInput.current.click();
     }

@@ -29,6 +29,7 @@ export interface SpotDetailResponse {
   spotData: SpotData;
   spotImageDataList: SpotImageData[];
   reviewDataList: ReviewData[];
+  mySpotVisitId: number | null;
 }
 
 export interface SpotListResponse {

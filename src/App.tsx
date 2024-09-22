@@ -10,7 +10,7 @@ import ErrorPage from './pages/Error';
 import LangPage from './pages/LangPage';
 import Category from './pages/Category';
 import Review from './pages/ReviewList';
-import NewReview from './pages/NewReview';
+import NewReview from './pages/ReviewWrite';
 import ReviewDetail from './pages/ReviewDetail';
 import Search from './pages/Search';
 import SearchResult from './pages/SearchResult';
@@ -105,7 +105,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: '/review/new/:id',
+    path: '/review/:type',
     element: (
       <Layout GNBType="search">
         <NewReview />
@@ -178,6 +178,15 @@ const router = createBrowserRouter([
     element: (
       <Layout GNBType="ditto">
         <DittoDetail />
+      </Layout>
+    ),
+  },
+  {
+    path: '/ditto/edit',
+
+    element: (
+      <Layout>
+        <DittoWrite />
       </Layout>
     ),
   },
