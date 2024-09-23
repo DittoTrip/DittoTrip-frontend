@@ -44,7 +44,6 @@ export interface SpotSearchListResponse {
 }
 
 export interface spotMapListRequest {
-  categoryId: string;
   startX: number;
   startY: number;
   endX: number;

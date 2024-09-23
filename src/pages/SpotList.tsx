@@ -138,7 +138,7 @@ const List = () => {
         />
       )}
 
-      <ToggleButtonComponent />
+      <ToggleButtonComponent isMap={false} />
     </ListStyle>
   );
 };
