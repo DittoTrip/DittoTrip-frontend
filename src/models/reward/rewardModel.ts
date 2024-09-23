@@ -1,14 +1,19 @@
 export type ItemType = 'SKIN' | 'EYES' | 'MOUSE' | 'HAIR' | 'ACCESSORY';
 
 export interface UserBadgeData {
-  badgeId: number;
+  rewardId: number;
+  name: string;
+  body: string;
+  conditionBody: string;
   imagePath: string;
-  acquiredDateTime: Date;
+  createdDateTime: Date;
+  userBadgeId: number;
 }
 
 export interface UserBadgeResponse {
   // user/{userId}/bedge/list api
-  userBadgeDataList: UserBadgeData[];
+  badgeDataList: UserBadgeData[];
+  isMine: boolean;
 }
 
 export interface Item {

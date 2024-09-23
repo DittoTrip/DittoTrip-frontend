@@ -98,7 +98,7 @@ const Review = () => {
       text: t('bottomsheet.delete'),
       handleClick: () => {
         handleDeleteReview(selectedReview!.reviewId.toString());
-        setIsOpen(false);
+        setIsExpandedOptions(false);
       },
     },
   ];

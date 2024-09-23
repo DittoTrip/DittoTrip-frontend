@@ -4,10 +4,10 @@ import Button from '../components/common/Button';
 import { useEffect, useState } from 'react';
 import { TapItem } from './Category';
 import Tap from '../components/common/Tab';
-import { findItemList } from '../api/reward';
 import { UserItemDataMap } from '../models/reward/rewardModel';
 import ErrorPage from './Error';
 import { defaultImage } from '../constants/constant';
+import { getItemList } from '../api/reward';
 
 const tapData: TapItem[] = [
   {
@@ -38,17 +38,26 @@ const tapData: TapItem[] = [
 ];
 
 const Character = () => {
+  // 탭 id
   const [selectedId, setSelectedId] = useState<number>(tapData[0]?.id);
+  // 선택된 아이템 리스트
+  const [selectedItemList, setSelectedItemList] = useState<string[]>([]);
+  // 유저가 가진 아이템 리스트
   const [itemList, setItemList] = useState<UserItemDataMap>();
   const [loading, setLoading] = useState<boolean>(true);
-  //   헐 유저 정보를 받아와야하네
-  //   어디서? - 프로필 수정 페이지랑 같은 api 사용 => 초기화
-  const [selectedItemList, setSelectedItemList] = useState<string[]>([]);
 
+  //유저 정보 => 현재 아이템 정보 => 초기화
+
+  // 선택된 아이템 리스트에 추가
+  const handleClick = (index: number, newItem: string) => {
+    setSelectedItemList(prevItems => prevItems.map((item, i) => (i === index ? newItem : item)));
+  };
+
+  // 유저의 아이템 리스트 정보
   const fetchItems = async () => {
     setLoading(true);
     try {
-      const response = await findItemList();
+      const response = await getItemList();
 
       setItemList(response.userItemDataMap);
     } catch (err) {
@@ -61,10 +70,6 @@ const Character = () => {
   useEffect(() => {
     fetchItems();
   }, []);
-
-  const handleClick = (index: number, newItem: string) => {
-    setSelectedItemList(prevItems => prevItems.map((item, i) => (i === index ? newItem : item)));
-  };
 
   if (loading) {
     return <ErrorPage message={'Loading...'} type="loading" />;

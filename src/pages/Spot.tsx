@@ -39,7 +39,6 @@ const Spot = () => {
   }, [spotDetailData]);
 
   const { isVisited, markSpotAsVisited } = useVisitedSpot(id!);
-  console.log('리뷰 작성 가능한 spotVisitId', spotDetailData?.mySpotVisitId);
 
   if (loading) return <ErrorPage message={'Loading'} type="loading" />;
   else if (error) return <ErrorPage message={'spot id를 확인해주세요'} type="error" />;
