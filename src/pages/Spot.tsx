@@ -84,7 +84,7 @@ const Spot = () => {
           <div className="review-head">
             <Link to={`/reviews/${spotDetailData?.spotData.spotId}`} className="review-movement">
               <div className="spot-subtitle"> {t('spot.review')}</div>
-              <FontAwesomeIcon icon={faChevronRight} onClick={() => handleHeartClick()} className="arrow-btn" />
+              <FontAwesomeIcon icon={faChevronRight} className="arrow-btn" />
             </Link>
             {spotDetailData?.mySpotVisitId && (
               <div className="new-btn">

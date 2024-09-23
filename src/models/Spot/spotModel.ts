@@ -58,3 +58,21 @@ export interface SpotListRequest {
   userX?: number | null;
   userY?: number | null;
 }
+
+export interface SpotVisit {
+  spotVisitId: number;
+  imagePath: string;
+  hashtags: string[];
+  spotId: number;
+  spotName: string;
+  address: string;
+  createdDateTime: Date;
+  bookmarkId: number;
+  reviewMiniData: ReviewData;
+}
+
+export interface SpotVisitResponse {
+  spotVisitDataList: SpotVisit[];
+  count: number;
+  totalPages: number;
+}

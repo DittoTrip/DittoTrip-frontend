@@ -18,7 +18,7 @@ import Join from './pages/Join';
 import Report from './pages/Report';
 import Spot from './pages/Spot';
 import Around from './pages/Around';
-import List from './pages/List';
+import List from './pages/SpotList';
 import Login from './pages/Login';
 
 import Ditto from './pages/Ditto';
@@ -39,6 +39,8 @@ import EditPassword from './pages/EditPassword';
 import MyDitto from './pages/MyDitto';
 import MySpotApplyList from './pages/MySpotApplyList';
 import MySpotApplyDetail from './pages/MySpotApplyDetail';
+import VisitedSpotCard from './components/spot/VisitedSpotCard';
+import VisitedSpotList from './pages/VisitedSpotList';
 
 const router = createBrowserRouter([
   {
@@ -330,6 +332,15 @@ const router = createBrowserRouter([
     element: (
       <Layout GNBType="my">
         <MySpotApplyDetail />
+      </Layout>
+    ),
+  },
+  {
+    path: '/visited-spot/:id',
+
+    element: (
+      <Layout GNBType="my">
+        <VisitedSpotList />
       </Layout>
     ),
   },

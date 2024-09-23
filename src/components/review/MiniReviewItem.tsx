@@ -1,18 +1,25 @@
 import { styled } from 'styled-components';
 import profileImg from '../../assets/profile.png';
 import Star from '../common/Star';
+import { useNavigate } from 'react-router-dom';
 
-interface ReviewDummy {
+interface Prop {
   id: number;
   userName: string;
   rating: number;
   text: string;
 }
 
-const MiniReviewItem = ({ userName, rating, text }: ReviewDummy) => {
+const MiniReviewItem = ({ id, userName, rating, text }: Prop) => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(`/review/${id}`);
+  };
+
   return (
     <MiniReviewItemStyle>
-      <div className="review-info-wrapper">
+      <div className="review-info-wrapper" onClick={handleClick}>
         <div className="user-info">
           <div className="user-img">
             <img src={profileImg} />
