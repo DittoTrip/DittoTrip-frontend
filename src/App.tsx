@@ -41,7 +41,6 @@ import MyDitto from './pages/MyDitto';
 import MySpotApplyList from './pages/MySpotApplyList';
 import MySpotApplyDetail from './pages/MySpotApplyDetail';
 
-
 const router = createBrowserRouter([
   {
     path: '/',
@@ -241,6 +240,10 @@ const router = createBrowserRouter([
     element: (
       <Layout GNBType="search">
         <MyPage />
+      </Layout>
+    ),
+  },
+  {
     path: '/favorite',
 
     element: (
