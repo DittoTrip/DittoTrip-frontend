@@ -31,6 +31,7 @@ import Character from './pages/Character';
 import Badge from './pages/Badge';
 import { getAccessToken } from './store/authStore';
 import HeaderToken from './api/https';
+import MyPage from './pages/MyPage';
 import Favorite from './pages/Favorite';
 import Follow from './pages/Follow';
 import FindPassword from './pages/FindPassword';
@@ -250,6 +251,14 @@ const router = createBrowserRouter([
     element: (
       <Layout GNBType="search">
         <Badge />
+      </Layout>
+    ),
+  },
+  {
+    path: '/myPage',
+    element: (
+      <Layout GNBType="search">
+        <MyPage />
       </Layout>
     ),
   },
