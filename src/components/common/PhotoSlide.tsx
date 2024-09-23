@@ -2,7 +2,7 @@ import { styled } from 'styled-components';
 import { SpotImageData } from '../../models/spot/spotModel';
 
 interface Props {
-  photoList?: SpotImageData[];
+  photoList?: string[];
   width: number;
   height: number;
   gap: number;
@@ -15,7 +15,7 @@ const PhotoSlide = ({ photoList, width, height, gap }: Props) => {
         {photoList?.map(item => {
           return (
             <li>
-              <img src={item.imagePath} className="still-cut" />
+              <img src={item} className="still-cut" />
             </li>
           );
         })}

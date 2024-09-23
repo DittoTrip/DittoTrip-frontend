@@ -1,3 +1,4 @@
+import axios from 'axios';
 import {
   SpotDetailResponse,
   SpotListRequest,
@@ -6,6 +7,8 @@ import {
   SpotSearchListResponse,
 } from '../models/spot/spotModel';
 import { api } from './https';
+import { AroundSpotProps, LocationBasedListResponse } from '../models/spot/publicSpotModel';
+import i18n from '../lang/i18n';
 
 // 스팟 북마크 추가
 export const addSpotBookmark = async (id: string) => {
@@ -44,7 +47,7 @@ export const spotMapList = async (categoryId: string, params: spotMapListRequest
   return response.data;
 };
 // 방문 처리
-export const postVisitedSpot = async (spotId: string, userX: number, userY: number) => {
+export const postVisitedSpot = async (spotId: string, userX?: number, userY?: number) => {
   console.log(userX, userY);
   const response = await api.post<number>(
     `spot/${spotId}`,
@@ -64,3 +67,23 @@ export const searchSpot = async (params: SpotListRequest) => {
   console.log(response.data);
   return response.data;
 };
+
+// 북마크한 스팟 리스트
+export const favoriteSpotList = async (userX?: number, userY?: number) => {
+  console.log('위치', userX, userY);
+  const response = await api.get<SpotListResponse>(`/spot/list/bookmark`, {
+    params: { userX, userY },
+  });
+  return response.data;
+};
+// 공공데이터 주변 스팟 리스트
+export const aroundSpotList = async (params: AroundSpotProps) => {
+  const response = axios.get<LocationBasedListResponse>(
+    i18n.language == 'ko'
+      ? 'https://apis.data.go.kr/B551011/KorService1/locationBasedList1'
+      : 'https://apis.data.go.kr/B551011/EngService1/locationBasedList1',
+    { params: { ...params } }
+  );
+  return response;
+};
+// 공공데이터 주변 스팟 리스트

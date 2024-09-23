@@ -21,6 +21,8 @@ const CommenList = ({ comments, parentComment, setSelectedComment, setIsExpanded
       {comments?.map(comment => (
         <div key={comment.commentId}>
           <UserProfileWithComment
+            userProfileData={comment.userData.userProfileData}
+            userId={comment.userData.userId}
             name={comment.userData.nickname}
             date={formatDate(comment.createdDateTime)}
             comment={comment}
@@ -38,6 +40,8 @@ const CommenList = ({ comments, parentComment, setSelectedComment, setIsExpanded
               {comment.childCommentDataList.map(childComment => (
                 <UserProfileWithComment
                   key={childComment.commentId}
+                  userProfileData={comment.userData.userProfileData}
+                  userId={childComment.userData.userId}
                   name={childComment.userData.nickname}
                   date={formatDate(childComment.createdDateTime)}
                   comment={childComment}

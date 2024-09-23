@@ -4,41 +4,30 @@ import Star from './Star';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
-
-interface AroundDataType {
-  img: string;
-  name: string;
-  distance: string;
-  rating: number;
-  address: string;
-}
+import { Item } from '../../models/spot/publicSpotModel';
+import { formatDistance } from '../../utils/formatDistance';
+import { defaultImage } from '../../constants/constant';
 
 interface Props {
-  data: AroundDataType;
+  data: Item;
   setSelectedAddress: (selectedAddress: string) => void;
   setIsOpen: (isOpen: boolean) => void;
 }
 
 const SpotCard = ({ data, setSelectedAddress, setIsOpen }: Props) => {
   const handleAddressClick = () => {
-    setSelectedAddress(data.address);
+    setSelectedAddress(data.addr1);
     setIsOpen(true);
   };
   return (
     <SpotCardStyled>
-      <img className="spot-image" src={data.img} />
+      <img className="spot-image" src={data.firstimage || defaultImage} />
       <div className="spot-info">
-        <div className="spot-info-header">
-          <div className="spot-info-name">{data.name}</div>
-          <Dot color={'gray40'} />
-          <div className="spot-info-distance">{data.distance}</div>
-        </div>
-        <div className="spot-info-rating-wrapper">
-          <div className="spot-info-rating">{data.rating}</div>
-          <Star rating={data.rating} size={12} gap={3} />
-        </div>
+        <div className="spot-info-name">{data.title}</div>
+        <div className="spot-info-distance">{formatDistance(data.dist)}</div>
+        <div className="spot-info-rating">{data.tel}</div>
         <div className="spot-info-address-wrapper" onClick={() => handleAddressClick()}>
-          <div className="spot-info-address">{data.address}</div>
+          <div className="spot-info-address">{data.addr1}</div>
           <FontAwesomeIcon className="more-icon" icon={faChevronDown} />
         </div>
       </div>
@@ -48,7 +37,6 @@ const SpotCard = ({ data, setSelectedAddress, setIsOpen }: Props) => {
 
 const SpotCardStyled = styled.div`
   display: flex;
-  height: 100px;
 
   margin-bottom: 16px;
 
@@ -59,6 +47,7 @@ const SpotCardStyled = styled.div`
   .spot-image {
     width: 128px;
     border-radius: 12px;
+    object-fit: cover;
   }
   .spot-info {
     display: flex;
@@ -66,18 +55,12 @@ const SpotCardStyled = styled.div`
     justify-content: center;
     padding: 16px;
 
-    .spot-info-header {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-
-      .spot-info-name {
-        ${({ theme }) => theme.font.body2};
-      }
-      .spot-info-distance {
-        ${({ theme }) => theme.font.body4};
-        color: ${({ theme }) => theme.color.gray80};
-      }
+    .spot-info-name {
+      ${({ theme }) => theme.font.body2};
+    }
+    .spot-info-distance {
+      ${({ theme }) => theme.font.body4};
+      color: ${({ theme }) => theme.color.gray80};
     }
 
     .spot-info-rating-wrapper {
@@ -90,11 +73,12 @@ const SpotCardStyled = styled.div`
     .spot-info-address-wrapper {
       display: flex;
       align-items: center;
+      gap: 4px;
 
       .spot-info-address {
         color: ${({ theme }) => theme.color.gray60};
         ${({ theme }) => theme.font.body4};
-        width: 135px;
+        width: 160px;
 
         white-space: nowrap;
         overflow: hidden;

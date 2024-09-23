@@ -4,7 +4,7 @@ import {
   ReviewPageRequest,
   ReviewListResponse,
 } from '../models/reveiw/reviewModel';
-import { api } from './https';
+import { api, apiMultipart } from './https';
 
 // 리뷰 조회
 export const getReview = async (reviewId: string) => {
@@ -26,7 +26,7 @@ export const deleteReview = async (reviewId: string) => {
 
 // 리뷰 등록
 export const addReview = async (data: FormData) => {
-  const response = await api.post('/review', data);
+  const response = await apiMultipart.post('/review', data);
   return response.status;
 };
 
