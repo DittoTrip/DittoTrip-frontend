@@ -1,4 +1,4 @@
-import { faChevronRight, faMap, faPen } from "@fortawesome/free-solid-svg-icons";
+import { faChevronRight, faFlag, faHeart, faMap, faMapPin, faPen } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 
@@ -49,11 +49,115 @@ const MyPage = () => {
                     </div>
                 </div>
             </div>
+
+            <div className="ditto-wrapper">
+                <div className="ditto-box">
+                    <div className="ditto">
+                        디토<FontAwesomeIcon icon={faChevronRight}/>
+                    </div>
+                    <div className="ditto-img">
+                        <div className="img-box"></div>
+                        <div className="img-box"></div>
+                        <div className="img-box"></div>
+                        <div className="img-box"></div>
+                        <div className="img-box"></div>
+                        <div className="img-box"></div>
+                        <div className="img-box"></div>
+                        <div className="img-box"></div>
+                        <div className="img-box"></div>
+                    </div>
+                </div>        
+
+                <div className="btn-wrapper">
+                    <div className="btn">
+                        <FontAwesomeIcon icon={faHeart} />
+                        찜
+                        <FontAwesomeIcon icon={faChevronRight} className="right-icon" />
+                    </div>
+                    <div className="btn">
+                        <FontAwesomeIcon icon={faFlag} />
+                        퀘스트
+                        <FontAwesomeIcon icon={faChevronRight} className="right-icon" /> 
+                    </div>
+                    <div className="btn">
+                        <FontAwesomeIcon icon={faMapPin} />
+                        스팟 신청
+                        <FontAwesomeIcon icon={faChevronRight} className="right-icon" />
+                    </div>
+                    
+                </div>
+            </div>
+
+            
         </MyPageStyle>
     );
 }
 
 const MyPageStyle = styled.div`
+
+    .btn-wrapper {
+        margin-top :185px;
+        width: 95%;
+        .btn {
+        background-color: white;
+        padding: 20px;
+        border-radius: 15px;
+        display: flex;
+        justify-content: flex-start; 
+        align-items: center; 
+        margin-bottom: 16px;
+        ${({theme})=>theme.font.body1};
+        font-weight: bold;
+
+        svg {
+            margin-right: 10px; 
+        }
+
+        .right-icon {
+            margin-left: auto;
+        }
+    }
+    }
+    
+
+    .ditto-wrapper {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        height: 600px;
+        background-color: #F9F9F9;
+        .ditto-box {
+            position: absolute;
+            background-color: white;
+            height: 420px;
+            width: 95%;
+            top: -250px;
+            margin-left: auto;
+            margin-right: auto;
+            border-radius: 15px;
+            padding: 20px;
+            .ditto {
+                display: flex;
+                justify-content: space-between;
+                ${({theme})=>theme.font.body1}
+                font-weight: bold;
+            }
+            .ditto-img {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                grid-gap: 10px; 
+                margin-top: 20px;
+
+                .img-box {
+                    background-color: lightgray;
+                    width: 100%;
+                    padding-bottom: 100%; 
+                    border-radius: 5px;
+                }
+            }
+        }
+    }
+
     .user-detail {
         width: 95%;
         margin-left: auto;
@@ -86,6 +190,7 @@ const MyPageStyle = styled.div`
             .list{
                 color: white;
                 ${({ theme }) => theme.font.body5};
+                font-weight: bold;
             }
         }
     }
