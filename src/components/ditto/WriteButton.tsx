@@ -30,7 +30,6 @@ const WriteButtonStyled = styled.div<{ backgroundColor: ColorKey; color: ColorKe
   -webkit-user-select: none;
   user-select: none;
 
-  margin-top: 9px;
   display: inline-block;
   text-align: center;
   width: 30px;

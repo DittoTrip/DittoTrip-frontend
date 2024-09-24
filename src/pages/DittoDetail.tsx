@@ -125,17 +125,17 @@ const DittoDetail = () => {
   const expandedMyDittoOptionsContent = [
     {
       id: 0,
-      text: t('bottomsheet.delete'),
+      text: t('bottomsheet.modify'),
       handleClick: () => {
-        handleDeleteDitto();
-        setIsExpandedDittoOptions(false);
+        navigate(`/ditto/edit?ditto=${id!}`);
       },
     },
     {
       id: 1,
-      text: t('bottomsheet.modify'),
+      text: t('bottomsheet.delete'),
       handleClick: () => {
-        navigate(`/ditto/edit?ditto=${id!}`);
+        handleDeleteDitto();
+        setIsExpandedDittoOptions(false);
       },
     },
   ];

@@ -6,8 +6,11 @@ import { AlarmData } from '../models/alarm/alarmModel';
 import { getAlarmList } from '../api/alarm';
 import ErrorPage from './Error';
 import { defaultPageOptions } from '../constants/constant';
+import { useNavigate } from 'react-router-dom';
 
 const Alarm = () => {
+  const navigate = useNavigate();
+
   const [alarmDataList, setAlarmDataList] = useState<AlarmData[]>([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPage, setTotalPage] = useState<number>(0);
@@ -59,7 +62,12 @@ const Alarm = () => {
       </div>
       <div className="content-wrapper">
         {alarmDataList.map(alarm => (
-          <div className={`alarm-box ${alarm.isChecked ? 'checked' : ''}`} key={alarm.alarmId}>
+          <div
+            className={`alarm-box ${alarm.isChecked ? 'checked' : ''}`}
+            key={alarm.alarmId}
+            onClick={() => {
+              navigate(`${alarm.path}`);
+            }}>
             <div className={`alarm-title ${alarm.isChecked ? 'checked' : ''}`}>{alarm.title}</div>
             <div className={`alarm-content ${alarm.isChecked ? 'checked' : ''}`}>{alarm.body}</div>
             <div className={`alarm-date ${alarm.isChecked ? 'checked' : ''}`}>

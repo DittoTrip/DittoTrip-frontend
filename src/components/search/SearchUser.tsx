@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { UserData } from '../../models/userpage/userPageModel';
-import { defaultImage } from '../../constants/constant';
+import { UserData } from '../../models/user/userModel';
+import ProfileImg from '../common/ProfileImg';
 
 interface Props {
   data: UserData;
@@ -10,7 +10,9 @@ const SearchUser = ({ data }: Props) => {
   return (
     <SearchUserStyle>
       <div className="user-box">
-        <img className="user-img" src={defaultImage} />
+        <div className="user-img">
+          <ProfileImg userProfileData={data.userProfileData} />
+        </div>
         <div className="user-name">{data.nickname}</div>
       </div>
     </SearchUserStyle>
