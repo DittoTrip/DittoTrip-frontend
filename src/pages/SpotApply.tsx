@@ -233,12 +233,6 @@ const SpotApplyStyle = styled.div`
         ${({ theme }) => theme.font.body3}
       }
 
-      .review-submit {
-        padding: 0 8%;
-        display: flex;
-        justify-content: center;
-      }
-
       .submit-wrapper {
         margin: 0 28px;
       }

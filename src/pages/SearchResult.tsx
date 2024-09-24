@@ -15,15 +15,6 @@ import SearchCeleb from '../components/search/SearchCeleb';
 import SearchContent from '../components/search/SearchContent';
 import useSearchData from '../hooks/search/useSearchData';
 
-export const DummyUser = [
-  {
-    name: '김수현',
-  },
-  {
-    name: '김수현도둑',
-  },
-];
-
 const SearchResult = () => {
   const { t } = useTranslation();
   const [searchParams, setSearchParams] = useSearchParams();

@@ -138,7 +138,7 @@ const ReviewDetail = () => {
   if (loading) {
     return <ErrorPage message={'Loading...'} type="loading" />;
   } else if (error) {
-    return <ErrorPage message={'spot id를 확인해주세요'} type="error" />;
+    return <ErrorPage message={'리뷰 id를 확인해주세요'} type="error" />;
   }
 
   return (

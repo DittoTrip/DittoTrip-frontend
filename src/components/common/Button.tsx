@@ -1,15 +1,26 @@
 import { styled } from 'styled-components';
-import { ButtonScheme, ButtonSize } from '../../styles/theme';
+import { ButtonScheme, ButtonSize, ColorKey } from '../../styles/theme';
 
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
   size: ButtonSize;
   scheme: ButtonScheme;
   disabled?: boolean;
+  backgroundColor?: ColorKey; // ColorKey 타입으로 변경
+  color?: ColorKey; // ColorKey 타입으로 변경
+  borderColor?: ColorKey;
 }
-const Button = ({ children, size, scheme, disabled, onClick }: Props) => {
+
+const Button = ({ children, size, scheme, disabled, backgroundColor, color, borderColor, onClick }: Props) => {
   return (
-    <ButtonStyle size={size} scheme={scheme} disabled={disabled} onClick={onClick}>
+    <ButtonStyle
+      size={size}
+      scheme={scheme}
+      disabled={disabled}
+      backgroundColor={backgroundColor}
+      color={color}
+      borderColor={borderColor}
+      onClick={onClick}>
       {children}
     </ButtonStyle>
   );
@@ -24,11 +35,14 @@ export const ButtonStyle = styled.button<Omit<Props, 'children'>>`
   ${({ theme, size }) => theme.button[size].width && `width: ${theme.button[size].width};`}
   max-width: 600px;
 
-  border: ${({ theme, scheme }) => theme.buttonScheme[scheme].border ?? 'none'};
+  border: ${({ borderColor, theme, scheme }) =>
+    (borderColor ? `1px solid ${theme.color[borderColor]}` : theme.buttonScheme[scheme].border) ?? 'none'};
   border-radius: ${({ theme }) => theme.borderRadius.default};
 
-  color: ${({ theme, scheme }) => theme.buttonScheme[scheme].color};
-  background-color: ${({ theme, scheme }) => theme.buttonScheme[scheme].backgroundColor};
+  color: ${({ color, theme, scheme }) => (color ? theme.color[color] : theme.buttonScheme[scheme].color)};
+
+  background-color: ${({ backgroundColor, theme, scheme }) =>
+    backgroundColor ? theme.color[backgroundColor] : theme.buttonScheme[scheme].backgroundColor};
 
   ${({ theme, size }) => theme.button[size].font};
   opacity: ${({ disabled }) => (disabled ? 0.5 : 1)};

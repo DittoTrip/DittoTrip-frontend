@@ -1,10 +1,5 @@
 import { CommentData } from '../ditto/dittoModel';
-
-export interface UserData {
-  // ReviewData의 부하 1
-  userId: number;
-  nickname: string;
-}
+import { UserData } from '../user/userModel';
 
 export interface ReviewData {
   // SpotReviewResponse의 부하 1 , sport/{spotId}/review/list api의 부하 1이기도함
@@ -21,7 +16,6 @@ export interface ReviewData {
 }
 
 export interface SpotReviewResponse {
-  // 겟 review/{reviewid} api
   spotName: string;
   reviewData: ReviewData;
   commentDataList: CommentData[];

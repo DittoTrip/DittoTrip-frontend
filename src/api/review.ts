@@ -1,10 +1,5 @@
-import {
-  SpotReviewResponse,
-  ReviewModifyRequset,
-  ReviewPageRequest,
-  ReviewListResponse,
-} from '../models/reveiw/reviewModel';
-import { api } from './https';
+import { SpotReviewResponse, ReviewPageRequest, ReviewListResponse } from '../models/reveiw/reviewModel';
+import { api, apiMultipart } from './https';
 
 // 리뷰 조회
 export const getReview = async (reviewId: string) => {
@@ -13,8 +8,9 @@ export const getReview = async (reviewId: string) => {
 };
 
 // 리뷰 수정
-export const modifyReview = async (reviewId: string, data: ReviewModifyRequset) => {
-  const response = await api.put(`/review/${reviewId}`, { data });
+export const modifyReview = async (reviewId: string, data: FormData) => {
+  const response = await apiMultipart.put(`/review/${reviewId}`, data);
+  console.log('response', response);
   return response.status;
 };
 
@@ -25,8 +21,8 @@ export const deleteReview = async (reviewId: string) => {
 };
 
 // 리뷰 등록
-export const addReview = async (data: FormData) => {
-  const response = await api.post('/review', data);
+export const addReview = async (spotVisitId: string, data: FormData) => {
+  const response = await apiMultipart.post(`/review`, data, { params: { spotVisitId } });
   return response.status;
 };
 

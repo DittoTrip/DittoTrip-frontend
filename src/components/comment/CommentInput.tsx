@@ -54,13 +54,15 @@ const CommentInputStyled = styled.div<{ fixed: boolean }>`
   width: 100%;
 
   background-color: white;
+  padding: 10px 28px;
 
   .comment-input-wrapper {
+    max-width: 600px;
     display: flex;
     flex: 1;
     justify-content: space-between;
     padding: 5px 20px;
-    margin: 10px 28px;
+    margin: 0 auto;
 
     border: 1px solid ${({ theme }) => theme.color.keyColor};
     border-radius: 20px;

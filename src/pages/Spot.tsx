@@ -16,6 +16,8 @@ import useSpotDetail from '../hooks/spot/useSpotDetail';
 import { useEffect, useState } from 'react';
 import useBookmarkedSpot from '../hooks/spot/useSpotLike';
 import useVisitedSpot from '../hooks/spot/useSpotVisit';
+import { ReviewData } from '../models/spot/spotModel';
+import { defaultImage } from '../constants/constant';
 
 const Spot = () => {
   const { t } = useTranslation();
@@ -37,17 +39,14 @@ const Spot = () => {
   }, [spotDetailData]);
 
   const { isVisited, markSpotAsVisited } = useVisitedSpot(id!);
-  console.log(isVisited);
 
   if (loading) return <ErrorPage message={'Loading'} type="loading" />;
   else if (error) return <ErrorPage message={'spot id를 확인해주세요'} type="error" />;
 
   return (
     <SpotStyle>
-      <img className="main-img" src="https://img.seoul.co.kr/img/upload/2022/09/29/SSI_20220929234320_O2.jpg" />
+      <img className="main-img" src={spotDetailData?.spotData.imagePath ?? defaultImage} />
       <div className="content-wrapper">
-        <div className="content-name">{spotDetailData?.spotData.name}</div>
-
         <div className="spot-name-button">
           <div className="spot-name">{spotDetailData?.spotData.name}</div>
           <div className="button-wrapper">
@@ -73,24 +72,32 @@ const Spot = () => {
 
         <div className="stillcut-wrapper">
           <div className="spot-subtitle"> {t('spot.stillCut')}</div>
-          <PhotoSlide photoList={spotDetailData?.spotImageDataList} width={112} height={76} gap={16} />
+          <PhotoSlide
+            photoList={spotDetailData?.spotImageDataList.map(item => item.imagePath)}
+            width={112}
+            height={76}
+            gap={16}
+          />
         </div>
 
         <div className="reviews">
           <div className="review-head">
             <Link to={`/reviews/${spotDetailData?.spotData.spotId}`} className="review-movement">
               <div className="spot-subtitle"> {t('spot.review')}</div>
-              <FontAwesomeIcon icon={faChevronRight} onClick={() => handleHeartClick()} className="arrow-btn" />
+              <FontAwesomeIcon icon={faChevronRight} className="arrow-btn" />
             </Link>
-            <div className="new-btn">
-              <Link to={`/review/new/${spotDetailData?.spotData.spotId}`}>
-                <Button size={'small'} scheme={'keyButton'} onClick={() => {}}>
-                  {t('spot.write')}
-                </Button>
-              </Link>
-            </div>
+            {spotDetailData?.mySpotVisitId && (
+              <div className="new-btn">
+                <Link
+                  to={`/review/new?spotVisit=${spotDetailData?.mySpotVisitId}&spot=${spotDetailData.spotData.spotId}`}>
+                  <Button size={'small'} scheme={'keyButton'} onClick={() => {}}>
+                    {t('spot.write')}
+                  </Button>
+                </Link>
+              </div>
+            )}
           </div>
-          {spotDetailData?.reviewDataList.map(review => (
+          {spotDetailData?.reviewDataList.map((review: ReviewData) => (
             <Link to={`/review/${review.reviewId}`} key={review.reviewId} className="review-item">
               <MiniReviewItem
                 userName={review.username}
@@ -102,7 +109,9 @@ const Spot = () => {
           ))}
         </div>
 
-        <Link to={`/around/${spotDetailData?.spotData.spotId}`} className="show-more">
+        <Link
+          to={`/around?mapX=${spotDetailData?.spotData.pointX}&mapY=${spotDetailData?.spotData.pointY}`}
+          className="show-more">
           {t('spot.seeMore')}
           <FontAwesomeIcon icon={faChevronRight} />
         </Link>
@@ -114,7 +123,7 @@ const Spot = () => {
 const SpotStyle = styled.div`
   .main-img {
     width: 100%;
-    height: 300px;
+    aspect-ratio: 1;
   }
   .content-wrapper {
     margin: 29px 28px 16px 28px;

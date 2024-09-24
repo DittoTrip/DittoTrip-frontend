@@ -4,12 +4,12 @@ import styled from 'styled-components';
 import { IoCloseSharp } from 'react-icons/io5';
 import axios from 'axios';
 import { UseFormSetValue } from 'react-hook-form';
-import { ISpotForm } from '../pages/SpotApply';
+import { FormInputs } from '../pages/SpotApply';
 
 interface IAddressFinder {
   isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
-  setValue: UseFormSetValue<ISpotForm>;
+  setValue: UseFormSetValue<FormInputs>;
 }
 
 const AddressFinder = ({ setValue, isOpen, setIsOpen }: IAddressFinder) => {

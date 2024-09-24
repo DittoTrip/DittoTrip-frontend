@@ -4,7 +4,7 @@ import { styled } from 'styled-components';
 import AppBar from '../components/common/AppBar';
 import Button from '../components/common/Button';
 import Modal from '../components/common/Modal';
-import { duplicationCheck, join, sendCode, varifyCode } from '../api/auth';
+import { duplicationCheck, duplicationCheckEmail, join, sendCode, varifyCode } from '../api/auth';
 import { useTranslation } from 'react-i18next';
 
 type Inputs = {
@@ -25,6 +25,7 @@ const Join = () => {
 
   const [nicknameChecked, setNicknameChecked] = useState<boolean | null>(null);
   const [emailVerified, setEmailVerified] = useState<boolean | null>(null);
+  const [sendingEmail, setSendingEmail] = useState<boolean>(false);
 
   const [isOpen, setIsOpen] = useState(false);
   const [message, setMessage] = useState('');
@@ -42,6 +43,7 @@ const Join = () => {
     setNicknameChecked(false);
   }, [nickname]);
 
+  // 닉네임 중복 확인
   const checkNickname = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     const nickname = watch('nickname');
@@ -69,28 +71,48 @@ const Join = () => {
     );
   };
 
+  // 인증 메일 보내기
   const sendVerificationEmail = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
     const email = watch('email');
     const data = { email };
-
-    sendCode(data).then(
+    // 이메일 중복 체크
+    setSendingEmail(true);
+    duplicationCheckEmail(data).then(
       res => {
-        console.log(res);
         if (res) {
-          setMessage(t('join.emailSent'));
-          setIsOpen(true);
+          sendCode(data)
+            .then(
+              res => {
+                console.log(res);
+                if (res) {
+                  setMessage(t('join.emailSent'));
+                  setIsOpen(true);
+                } else {
+                  setMessage(t('join.emailSendFail'));
+                  setIsOpen(true);
+                }
+              },
+
+              error => {
+                console.log('이메일 인증코드 전송 실패', error);
+                setMessage(t('join.emailSendFail'));
+                setIsOpen(true);
+              }
+            )
+            .finally(() => {
+              setSendingEmail(false);
+            });
         } else {
-          setMessage(t('join.emailSendFail'));
-          setIsOpen(true);
+          alert('이미 가입된 이메일입니다.');
+          setSendingEmail(false);
         }
       },
-
       error => {
-        console.log(error);
-        setMessage(t('join.emailSendFail'));
-        setIsOpen(true);
+        console.log('이메일 중복체크 에러', error);
+        alert('중복 체크실패');
+        setSendingEmail(false);
       }
     );
   };
@@ -168,7 +190,7 @@ const Join = () => {
                 {...register('nickname', {
                   required: { value: true, message: t('join.nicknameRequired') },
                   pattern: {
-                    value: /[가-힣a-zA-Z0-9]{2,16}$/,
+                    value: /[가-힣a-zA-Z0-9]{2,10}$/,
                     message: t('join.nicknamePattern'),
                   },
                 })}
@@ -194,10 +216,11 @@ const Join = () => {
                 type="email"
                 className="input-container"
               />
-              <Button size={'medium'} scheme={'keyButton'} onClick={sendVerificationEmail}>
+              <Button size={'medium'} scheme={'keyButton'} onClick={sendVerificationEmail} disabled={sendingEmail}>
                 {t('join.verify')}
               </Button>
             </div>
+            {sendingEmail && <div className="sending">{'전송중입니다.'}</div>}
             {errors.email && <div className="guide-message">{errors.email.message}</div>}
             <div className="user-varification">
               <input
@@ -255,9 +278,11 @@ const Join = () => {
             )}
           </div>
 
-          <Button size={'large'} scheme={'keyButton'} type="submit" className="join-btn">
-            {t('join.join')}
-          </Button>
+          <div className="btn-wrapper">
+            <Button size={'large'} scheme={'keyButton'} type="submit" className="join-btn">
+              {t('join.join')}
+            </Button>
+          </div>
         </form>
       </div>
       {isOpen && <Modal message={message} setIsOpen={setIsOpen} width={70} />}
@@ -302,6 +327,15 @@ const JoinStyle = styled.div`
         color: ${({ theme }) => theme.color.red};
         ${({ theme }) => theme.font.body5};
       }
+      .sending {
+        min-height: 20px;
+
+        margin-left: 2px;
+        margin-bottom: 8px;
+
+        color: ${({ theme }) => theme.color.keyColor};
+        ${({ theme }) => theme.font.body5};
+      }
     }
   }
 
@@ -311,9 +345,19 @@ const JoinStyle = styled.div`
     padding: 15px;
     flex: 1;
 
+    outline: none;
     border: none;
     border-radius: 12px;
     background: ${({ theme }) => theme.color.gray20};
+  }
+
+  .btn-wrapper {
+    position: fixed;
+    bottom: 60px;
+    left: 0;
+
+    width: 100%;
+    padding: 0 28px;
   }
 
   .join-btn {
