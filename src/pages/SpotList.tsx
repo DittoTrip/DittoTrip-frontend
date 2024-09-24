@@ -77,7 +77,6 @@ const List = () => {
     toggleBookmark();
   };
 
-  // Infinite scroll logic
   const handleScroll = useCallback(() => {
     const scrollHeight = document.documentElement.scrollHeight;
     const scrollTop = document.documentElement.scrollTop;
