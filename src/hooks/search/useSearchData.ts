@@ -8,7 +8,7 @@ import { SpotData } from '../../models/spot/spotModel';
 import { CategoryData } from '../../models/category/categoryModel';
 import { searchUser } from '../../api/user';
 import { defaultPageOptions } from '../../constants/constant';
-import { UserData } from '../../models/userpage/userPageModel';
+import { UserData } from '../../models/user/userModel';
 
 const useSearchData = (tapId: number) => {
   // 데이터 관리

@@ -32,7 +32,7 @@ const SearchContent = ({ data }: Props) => {
 
   return (
     <SearchContentStyle>
-      <div className="content-box" onClick={() => navigate(`/list/${data.categoryId}`)}>
+      <div className="content-box" onClick={() => navigate(`/spot/list/${data.categoryId}`)}>
         <img className="content-img" src={data.imageFilePath ?? defaultImage}></img>
         <div className="title-box">
           <div className="content-title">{data.name}</div>

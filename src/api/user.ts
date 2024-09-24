@@ -14,7 +14,7 @@ export const modifyUserProfile = async (data: UserProfileRequset) => {
 
 // 유저 검색하기
 export const searchUser = async (data: SearchUserRequset) => {
-  const response = await api.get<SearchUserResponse>('/user/list', {
+  const response = await api.get<SearchUserResponse>('/user/list/search', {
     params: { ...data },
   });
   return response.data;

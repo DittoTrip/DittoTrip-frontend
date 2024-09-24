@@ -1,15 +1,17 @@
 import styled from 'styled-components';
 import { UserData } from '../../models/user/userModel';
 import ProfileImg from '../common/ProfileImg';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
   data: UserData;
 }
 
 const SearchUser = ({ data }: Props) => {
+  const navigate = useNavigate();
   return (
     <SearchUserStyle>
-      <div className="user-box">
+      <div className="user-box" onClick={() => navigate(`/mypage?user=${data.userId}`)}>
         <div className="user-img">
           <ProfileImg userProfileData={data.userProfileData} />
         </div>
