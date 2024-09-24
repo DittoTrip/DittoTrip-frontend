@@ -10,7 +10,7 @@ interface Props {
   showEditIcon?: boolean;
 }
 
-const profileImg = ({ userProfileData, width, background, showEditIcon }: Props) => {
+const ProfileImg = ({ userProfileData, width, background, showEditIcon }: Props) => {
   const { itemSkin, itemHair, itemEyes, itemMouse, itemAccessory } = userProfileData;
   const navigate = useNavigate();
 
@@ -61,4 +61,4 @@ const ProfileImgStyle = styled.div<{ width?: string; background?: boolean }>`
   }
 `;
 
-export default profileImg;
+export default ProfileImg;

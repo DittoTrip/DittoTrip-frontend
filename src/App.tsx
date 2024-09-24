@@ -40,7 +40,6 @@ import EditPassword from './pages/EditPassword';
 import MyDitto from './pages/MyDitto';
 import MySpotApplyList from './pages/MySpotApplyList';
 import MySpotApplyDetail from './pages/MySpotApplyDetail';
-import VisitedSpotCard from './components/spot/VisitedSpotCard';
 import VisitedSpotList from './pages/VisitedSpotList';
 import Map from './pages/Map';
 
@@ -264,13 +263,14 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: '/myPage',
+    path: '/mypage',
     element: (
-      <Layout GNBType="search">
+      <Layout GNBType="my">
         <MyPage />
       </Layout>
     ),
   },
+
   {
     path: '/favorite',
 

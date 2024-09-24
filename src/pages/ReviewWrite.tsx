@@ -3,12 +3,11 @@ import { styled } from 'styled-components';
 import { useTranslation } from 'react-i18next';
 
 import AppBar from '../components/common/AppBar';
-import LangSelectButton from '../components/LangSelectButton';
 import Star from '../components/common/Star';
 import Button from '../components/common/Button';
 import ImageUploader from '../components/review/UploadImage';
 import useReviewDetail from '../hooks/review/useReviewDetail';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { addReview, getReview, modifyReview } from '../api/review';
 import { convertURLtoFile } from '../utils/convertURLtoFile';
@@ -19,8 +18,6 @@ export interface FormInputs {
 }
 
 const NewReview = () => {
-  const { type } = useParams(); // Check for review id
-
   const { search } = useLocation();
   const queryParams = new URLSearchParams(search);
 
@@ -34,7 +31,7 @@ const NewReview = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const isEditing = type == 'edit';
+  const isEditing = reviewId;
 
   // 촬영지 조회용
   const { spotData } = useReviewDetail(spotId!);

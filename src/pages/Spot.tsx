@@ -38,7 +38,7 @@ const Spot = () => {
     setBookmarkedId(spotDetailData?.spotData.myBookmarkId);
   }, [spotDetailData]);
 
-  const { isVisited, markSpotAsVisited } = useVisitedSpot(id!);
+  const { markSpotAsVisited } = useVisitedSpot(id!);
 
   if (loading) return <ErrorPage message={'Loading'} type="loading" />;
   else if (error) return <ErrorPage message={'spot id를 확인해주세요'} type="error" />;

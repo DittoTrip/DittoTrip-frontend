@@ -69,7 +69,7 @@ const AroundStyle = styled.div`
   }
 
   .content-wrapper {
-    margin: 16px 28px;
+    margin: 16px 12px;
 
     .empty-data {
       display: flex;

@@ -7,7 +7,6 @@ import { SpotVisit } from '../../models/spot/spotModel';
 import MiniReviewItem from '../review/MiniReviewItem';
 import TagSlide from '../common/TagSlide';
 import formatDate from '../../utils/formatDate';
-import Tag from '../common/Tag';
 import { useNavigate } from 'react-router-dom';
 
 interface Props {
@@ -115,7 +114,7 @@ const VisitedSpotCardStyled = styled.div`
         .spot-info-address {
           color: ${({ theme }) => theme.color.gray60};
           ${({ theme }) => theme.font.body4};
-          width: 150px;
+          width: 160px;
 
           white-space: nowrap;
           overflow: hidden;
@@ -131,7 +130,7 @@ const VisitedSpotCardStyled = styled.div`
       }
       .tag-wrapper {
         margin: 8px 0;
-        width: 45vw;
+        width: 48vw;
 
         overflow-x: scroll;
       }
