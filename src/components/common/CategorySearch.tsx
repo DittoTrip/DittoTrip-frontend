@@ -1,7 +1,7 @@
 import React, { useState, ChangeEvent, useEffect } from 'react';
 import { styled } from 'styled-components';
 import { searchCategoryWithoutType } from '../../api/category';
-import { CategoryData } from '../../models/Category/categoryModel';
+import { CategoryData } from '../../models/category/categoryModel';
 import { ISpotForm } from '../../pages/SpotApply';
 import { UseFormSetValue } from 'react-hook-form';
 import { defaultImage } from '../../constants/constant';
