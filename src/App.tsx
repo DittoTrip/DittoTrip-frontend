@@ -42,6 +42,7 @@ import MySpotApplyList from './pages/MySpotApplyList';
 import MySpotApplyDetail from './pages/MySpotApplyDetail';
 import VisitedSpotCard from './components/spot/VisitedSpotCard';
 import VisitedSpotList from './pages/VisitedSpotList';
+import Map from './pages/Map';
 
 const router = createBrowserRouter([
   {
@@ -75,10 +76,18 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: '/category/:id',
+    path: '/spot/list/:id',
     element: (
       <Layout GNBType="search">
         <List />
+      </Layout>
+    ),
+  },
+  {
+    path: '/spot/map/:id',
+    element: (
+      <Layout GNBType="search">
+        <Map />
       </Layout>
     ),
   },

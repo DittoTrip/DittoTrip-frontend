@@ -42,8 +42,8 @@ export const spotList = async (categoryId: string, params: SpotListRequest) => {
 };
 // 카테고리 -> map 스팟 리스트
 export const spotMapList = async (categoryId: string, params: spotMapListRequest) => {
-  const response = await api.get<SpotListResponse>(`category/${categoryId}/spot/list`, {
-    params: { params },
+  const response = await api.get<SpotListResponse>(`category/${categoryId}/spot/list/map`, {
+    params: params,
   });
   return response.data;
 };

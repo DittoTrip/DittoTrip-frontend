@@ -3,17 +3,25 @@ import styled from 'styled-components';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationCrosshairs, faBars } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate, useParams } from 'react-router-dom';
 
-const ToggleButtonComponent: React.FC = () => {
-  const [isMapView, setIsMapView] = useState<boolean>(true);
+interface Props {
+  isMap: boolean;
+}
+const ToggleButtonComponent = ({ isMap }: Props) => {
+  // true: list view, false: map view
+  const [isMapView, setIsMapView] = useState<boolean>(isMap);
+  const navigate = useNavigate();
+  const { id } = useParams();
 
   const toggleView = () => {
-    setIsMapView(!isMapView);
     if (isMapView) {
-      // 여기에서 리스트 페이지로 전환
+      setIsMapView(!isMapView);
+      navigate(`/spot/list/${id}`);
       console.log('리스트 페이지로 전환');
     } else {
-      // 여기에서 지도 페이지로 전환
+      setIsMapView(!isMapView);
+      navigate(`/spot/map/${id}`);
       console.log('지도 페이지로 전환');
     }
   };
@@ -31,24 +39,25 @@ const ToggleButtonComponent: React.FC = () => {
 const ButtonContainer = styled.div`
   position: fixed;
   bottom: 100px;
-  width: 100%;
-
+  right: 20px;
   display: flex;
-  justify-content: center;
+  z-index: 10;
 `;
 
 const ToggleButton = styled.button<{ active: boolean }>`
   display: flex;
   align-items: center;
   gap: 8px;
+  z-index: 10;
 
-  padding: 14px 25px;
+  padding: 8px 12px;
   ${({ theme }) => theme.font.body2};
 
   color: ${({ active }) => (active ? 'white' : 'black')};
   background-color: ${({ theme, active }) => (active ? theme.color.subColor1 : 'white')};
 
   border: none;
+  border: 1px solid ${({ active, theme }) => (active ? theme.color.subColor1 : 'black')};
   border-radius: 100px;
 
   cursor: pointer;
