@@ -5,6 +5,7 @@ import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as faEmptyHeart } from '@fortawesome/free-regular-svg-icons';
 
 import Button from '../common/Button';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   isFavorite: boolean;
@@ -12,11 +13,13 @@ interface Props {
 }
 
 const FavoriteButton = ({ isFavorite, onClick }: Props) => {
+  const { t } = useTranslation();
+
   return (
     <ButtonStyled>
       <Button size={'smallWithIcon'} scheme={'subButton2'} onClick={onClick} className="favorite-container">
         <FontAwesomeIcon icon={isFavorite ? faHeart : faEmptyHeart} className="heart-icon" />
-        <div>즐겨찾기</div>
+        <div>{t('category.bookmark')}</div>
       </Button>
     </ButtonStyled>
   );

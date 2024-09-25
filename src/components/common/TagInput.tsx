@@ -1,4 +1,5 @@
 import { useState, KeyboardEvent, ChangeEvent } from 'react';
+import { useTranslation } from 'react-i18next';
 import { styled } from 'styled-components';
 
 interface Props {
@@ -8,6 +9,8 @@ interface Props {
 }
 
 const TagInput = ({ tags, handleAddTag, handleDeleteTag }: Props) => {
+  const { t } = useTranslation();
+
   const [inputValue, setInputValue] = useState('');
 
   // 태그 추가
@@ -19,7 +22,7 @@ const TagInput = ({ tags, handleAddTag, handleDeleteTag }: Props) => {
       if (!tags.includes(newTag) && tags.length < 10) {
         handleAddTag(newTag);
       } else if (tags.length >= 10) {
-        alert('10개까지만 등록이 가능합니다.');
+        alert(t('tag.tagLimitMessage'));
       }
       setInputValue('');
     }
@@ -43,7 +46,7 @@ const TagInput = ({ tags, handleAddTag, handleDeleteTag }: Props) => {
           value={inputValue}
           onChange={handleInputChange}
           onKeyDown={handleAddNewTag}
-          placeholder="태그를 입력하세요"
+          placeholder={t('tag.placeholder')}
         />
       </div>
       <div className="tag-list">

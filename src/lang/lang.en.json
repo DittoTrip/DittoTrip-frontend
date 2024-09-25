@@ -13,10 +13,15 @@
     "kakaoLogin": "Kakao Login"
   },
   "search": {
-    "placeholder": "search"
+    "search": "search",
+    "placeholder": "search content or celebrity",
+    "recentSearches": "Recent searches",
+    "suggestion": "Recommended search terms",
+    "rising": "Rising Ditto"
   },
+
   "category": {
-    "title": "Search",
+    "bookmark": "bookmark",
 
     "tap": {
       "contents": "contents",
@@ -32,7 +37,9 @@
       "singer": "singer",
       "comedian": "comedian"
     },
-    "favorite": "favorite"
+    "favorite": "favorite",
+    "noData": "The data is not available.",
+    "addFavorite": "Add your favorites!"
   },
   "review": {
     "title": "review",
@@ -70,7 +77,9 @@
     "report": "report",
     "delete": "delete",
     "modify": "modify",
-    "address": "Address"
+    "address": "Address",
+    "writeDitto": "Write Ditto",
+    "ApplyForASpot": "Apply for a spot"
   },
   "report": {
     "title": "Please select a reason for reporting.",
@@ -135,5 +144,40 @@
     "verifyEmail": "Please verify your email",
     "success": "Registration successful",
     "failure": "Registration failed"
+  },
+  "spotApply": {
+    "title": "Spot apply",
+    "name": "Spot name",
+    "address": "Address",
+    "category": "Category",
+    "tag": "Tags",
+    "stillcut": "Still cut",
+    "apply": "Apply",
+    "placeholder": {
+      "name": "Spot name",
+      "address": "What is the address of the spot?"
+    },
+    "successMessage": "It will be approved after confirmation by the administrator. Please wait a little bit!",
+    "errorMessage": "Spot registration failed. Please try again."
+  },
+  "guide": {
+    "mandatory": "* It's mandatory",
+    "mandatoryImage": "Please register your image"
+  },
+  "tag": {
+    "tag": "tag",
+    "placeholder": "Please enter a tag",
+    "tagLimitMessage": "You can only register up to 10 items."
+  },
+  "categorySearcher": {
+    "placeholder": "Please search for categories related to the spot",
+    "alreadySelectedCategory": "This category is already registered."
+  },
+  "write": {
+    "write": "Write Ditto",
+    "content": "content",
+    "tags": "tags",
+    "submit": "Submit",
+    "modify": "modify"
   }
 }

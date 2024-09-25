@@ -5,6 +5,7 @@ import { CategoryData } from '../../models/category/categoryModel';
 import { UseFormSetValue } from 'react-hook-form';
 import { defaultImage } from '../../constants/constant';
 import { FormInputs } from '../../pages/SpotApply';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   selectedCategory: CategoryData[];
@@ -12,6 +13,8 @@ interface Props {
   setValue: UseFormSetValue<FormInputs>;
 }
 const CategorySearch = ({ selectedCategory, setSelectedCategory, setValue }: Props) => {
+  const { t } = useTranslation();
+
   const [searchWord, setSearchWord] = useState('');
   const [categories, setCategories] = useState<CategoryData[]>([]);
 
@@ -49,7 +52,7 @@ const CategorySearch = ({ selectedCategory, setSelectedCategory, setValue }: Pro
       setSearchWord('');
       setCategories([]);
     } else {
-      alert('이미 등록된 카테고리입니다.');
+      alert(t('categorySearcher.alreadySelectedCategory'));
       setSearchWord('');
       setCategories([]);
     }
@@ -70,7 +73,7 @@ const CategorySearch = ({ selectedCategory, setSelectedCategory, setValue }: Pro
         type="text"
         value={searchWord}
         onChange={handleInputChange}
-        placeholder="스팟과 관련된 카테고리를 검색해 주세요"
+        placeholder={t('categorySearcher.placeholder')}
         className="search-input"
       />
       {categories.length > 0 && (

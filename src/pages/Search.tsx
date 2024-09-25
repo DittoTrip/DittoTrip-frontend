@@ -88,7 +88,7 @@ const Search = () => {
       <div className="container">
         <SearchBar setSearchWord={setSearchWord} placeholder={t('search.placeholder')} />
 
-        <div className="search-title">최근 검색</div>
+        <div className="search-title">{t('search.recentSearches')}</div>
 
         <div className="recent-list">
           <div className="recent-content">슬기로운 깜빵생활</div>
@@ -98,11 +98,11 @@ const Search = () => {
         </div>
         <div className="clear" />
 
-        <div className="search-title"> 추천 검색어</div>
+        <div className="search-title">{t('search.suggestion')}</div>
         <TextSlide carouselTextList={CAROUSEL_TEXTS} />
 
         <RiseDittoStyled>
-          <div className="ditto-title">급상승 디토</div>
+          <div className="ditto-title">{t('search.rising')}</div>
           <div className="ditto">|</div>
           <DittoTap tapData={tapData} selectedId={selectedId} setSelectedId={setSelectedId} />
         </RiseDittoStyled>

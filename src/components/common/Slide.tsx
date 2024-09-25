@@ -3,6 +3,7 @@ import ContentItem from '../category/ContentItem';
 import { CategoryData } from '../../models/category/categoryModel';
 import { useEffect, useState } from 'react';
 import { defaultImage } from '../../constants/constant';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   carouselList: CategoryData[];
@@ -11,6 +12,7 @@ interface Props {
 }
 
 const Slide = ({ carouselList, isFavorite, onEndReached }: Props) => {
+  const { t } = useTranslation();
   const [isEnd, setIsEnd] = useState(false);
 
   useEffect(() => {
@@ -33,7 +35,7 @@ const Slide = ({ carouselList, isFavorite, onEndReached }: Props) => {
   return (
     <SlideStyled>
       {filteredList?.length === 0 && (
-        <div className="empty-container">{isFavorite ? '즐겨찾기를 추가해보세요!' : '데이터가 없습니다!'}</div>
+        <div className="empty-container">{isFavorite ? t('category.addFavorite') : t('category.noData')}</div>
       )}
       <div className="slide" onScroll={handleScroll}>
         {filteredList?.map((item, idx) => (

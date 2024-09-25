@@ -31,14 +31,14 @@ const Ditto = () => {
   const expandedOptionsContent = [
     {
       id: 0,
-      text: '디토 작성하기',
+      text: t('bottomsheet.writeDitto'),
       handleClick: () => {
         navigate(`/ditto/new`);
       },
     },
     {
       id: 0,
-      text: t('스팟 신청하기'),
+      text: t('bottomsheet.ApplyForASpot'),
       handleClick: () => {
         navigate(`/spot/new`);
       },
@@ -89,7 +89,7 @@ const Ditto = () => {
         />
       </div>
       <div className="search-bar">
-        <SearchBar setSearchWord={setSearchWord} placeholder={t('search.placeholder')} />
+        <SearchBar setSearchWord={setSearchWord} placeholder={t('search.search')} />
       </div>
       <DittoInfinity dittoList={dittoList} itemsPerRow={2} />
 

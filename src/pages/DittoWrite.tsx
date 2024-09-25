@@ -9,6 +9,7 @@ import { useForm } from 'react-hook-form';
 import { addDitto, getDitto, modifyDitto } from '../api/ditto'; // Assuming you have these API calls
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { convertURLtoFile } from '../utils/convertURLtoFile';
+import LangSelectButton from '../components/LangSelectButton';
 
 export interface FormInputs {
   title: string;
@@ -19,7 +20,7 @@ export interface FormInputs {
 const DittoWrite = () => {
   const { t } = useTranslation();
   const [searchParams] = useSearchParams();
-  const dittoId = searchParams.get('ditto'); // Get the dittoId from query parameters
+  const dittoId = searchParams.get('ditto');
 
   const {
     register,
@@ -40,7 +41,7 @@ const DittoWrite = () => {
       const fetchDittoDetail = async () => {
         const existingDitto = await getDitto(dittoId);
         if (existingDitto.dittoData.isMine == false) {
-          navigate(`/ditto/${dittoId}`); // Redirect to theditto detail page
+          navigate(`/ditto/${dittoId}`);
         }
         if (existingDitto) {
           setValue('title', existingDitto.dittoData.title);
@@ -72,7 +73,7 @@ const DittoWrite = () => {
 
   const onSubmit = async (data: FormInputs) => {
     if (!selectedMainImage) {
-      alert('이미지는 필수 사항입니다.');
+      alert(t('guide.mandatoryImage'));
       return;
     }
     try {
@@ -91,7 +92,7 @@ const DittoWrite = () => {
 
       navigate('/ditto');
     } catch (error) {
-      alert('문제가 발생했습니다.');
+      alert(t('guide.error'));
       console.error('디토 등록 실패', error);
     }
   };
@@ -99,7 +100,11 @@ const DittoWrite = () => {
   return (
     <DittoWriteStyle>
       <div className="app-bar">
-        <AppBar leading={true} title={<div className="title">{dittoId ? '수정하기' : '작성하기'}</div>} />
+        <AppBar
+          leading={true}
+          title={<div className="title">{dittoId ? t('write.modify') : t('write.write')}</div>}
+          action={<LangSelectButton />}
+        />
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -112,25 +117,25 @@ const DittoWrite = () => {
         </div>
         <div className="content-wrapper">
           <input
-            {...register('title', { required: '* 필수 작성 사항입니다' })}
+            {...register('title', { required: t('guide.mandatory') })}
             className="spot-input"
-            placeholder="스팟 이름"
+            placeholder={t('spotApply.name')}
           />
           <span className="error-msg">{errors?.title?.message}</span>
         </div>
         <div className="ditto-input-box">
-          <div className="text-title">설명</div>
+          <div className="text-title">{t('write.content')}</div>
           <textarea
             className="ditto-text"
             placeholder={t('newReview.placeholder')}
-            {...register('body', { required: '* 필수 작성 사항입니다', maxLength: 1000 })}
+            {...register('body', { required: t('guide.mandatory'), maxLength: 1000 })}
           />
           <div className="text-length">({body ? body.length : 0}/1000)</div>
           {errors.body && <span className="error-msg">{errors?.body?.message}</span>}
 
           <div className="spot-box">
             <div className="tag-wrapper">
-              <span className="text-title">태그</span>
+              <span className="text-title">{t('write.tags')}</span>
               <span className="tag-length">({tags.length}/10)</span>
             </div>
             <TagInput tags={tags} handleAddTag={handleAddTag} handleDeleteTag={handleDeleteTag} />
@@ -140,7 +145,7 @@ const DittoWrite = () => {
 
         <div className="ditto-submit">
           <Button type="submit" size="large" scheme="subButton">
-            {dittoId ? '수정하기' : '완료하기'}
+            {dittoId ? t('write.modify') : t('write.submit')}
           </Button>
         </div>
       </form>
