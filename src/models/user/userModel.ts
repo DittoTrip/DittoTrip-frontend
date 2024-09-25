@@ -32,9 +32,16 @@ export interface BadgeData {
   createdDateTime: string;
   userBadgeId: number;
 }
+export interface ProgressionData {
+  presentExp: number;
+  requiredExp: number;
+  presentLevel: string;
+  nextLevel: string;
+  progressionRate: number;
+}
 
 export interface UserProfileData {
-  progressionBar: number;
+  progressionBar: ProgressionData;
   itemSkin: UserProfileItem;
   itemEyes: UserProfileItem;
   itemMouse: UserProfileItem;

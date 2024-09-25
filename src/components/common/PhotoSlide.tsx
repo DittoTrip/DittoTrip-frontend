@@ -26,8 +26,7 @@ const PhotoSlide = ({ photoList, width, height, gap }: Props) => {
 
 const PhotoSlideStyled = styled.div<{ width: number; height: number; gap: number }>`
   .photo-slide {
-    display: grid;
-    grid-auto-flow: column;
+    display: flex;
 
     gap: ${({ gap }) => gap}px;
 
