@@ -108,12 +108,15 @@ const MyPage = () => {
         </div>
 
         <div className="exp-bar">
-          <div className="exp-fill" style={{ width: '70%' }}></div>
+          <div className="exp-fill" style={{ width: userData?.userProfileData.progressionBar.progressionRate }}></div>
         </div>
         <div className="level">
-          <div className="now">LV1 스타터 디토</div>
-          <div className="count">(200/300)</div>
-          <div className="next">LV2 비기너 디토</div>
+          <div className="now">{userData?.userProfileData.progressionBar.presentLevel} </div>
+          <div className="count">
+            ({userData?.userProfileData.progressionBar.presentExp}/
+            {userData?.userProfileData.progressionBar.requiredExp})
+          </div>
+          <div className="next">{userData?.userProfileData.progressionBar.nextLevel}</div>
         </div>
 
         <div className="user-detail">

@@ -34,7 +34,7 @@ const Badge = () => {
     setLoading(true);
     try {
       const response = await getBadgeList(userId!);
-      setCurrentBadge(response.userProfileData.badge);
+      setCurrentBadge(response.userProfileData.badgeData);
       setUserBadge(response.badgeDataList);
       setIsMine(response.isMine);
     } catch (err) {
