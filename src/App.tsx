@@ -40,6 +40,7 @@ import EditPassword from './pages/EditPassword';
 import MyDitto from './pages/MyDitto';
 import MySpotApplyList from './pages/MySpotApplyList';
 import MySpotApplyDetail from './pages/MySpotApplyDetail';
+import Quest from './pages/Quest';
 
 const router = createBrowserRouter([
   {
@@ -322,6 +323,15 @@ const router = createBrowserRouter([
     element: (
       <Layout GNBType="my">
         <MySpotApplyDetail />
+      </Layout>
+    ),
+  },
+  {
+    path: '/quest',
+
+    element: (
+      <Layout GNBType="my">
+        <Quest />
       </Layout>
     ),
   },
