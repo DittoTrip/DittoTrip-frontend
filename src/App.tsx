@@ -361,8 +361,9 @@ const router = createBrowserRouter([
       <Layout GNBType="my">
         <Quest />
       </Layout>
-},
-{
+    ),
+  },
+  {
     path: '/visited-spot/:id',
     element: (
       <Layout GNBType="my">
