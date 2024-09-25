@@ -16,7 +16,7 @@ export interface CommentData {
   commentId: number;
   body: string;
   createdDateTime: Date;
-  userData: UserProfileData;
+  userData: UserData;
   isMine: boolean;
   childCommentDataList: CommentData[];
 }

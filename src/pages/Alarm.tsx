@@ -6,26 +6,11 @@ import { AlarmData } from '../models/alarm/alarmModel';
 import { getAlarmList } from '../api/alarm';
 import ErrorPage from './Error';
 import { defaultPageOptions } from '../constants/constant';
+import { useNavigate } from 'react-router-dom';
 
-const dummy = [
-  {
-    alarmId: 0,
-    title: '리뷰를 남겨보세요.',
-    body: '소덕동 팽나무의 방문의 즐거우셨다면 다른 분들을 위해 리뷰를 남겨주세요. (리뷰 쓰기는 방문 이후 0일 동안만 가능합니다.)',
-    path: 'string',
-    isChecked: false,
-    createdDateTime: new Date('2024-09-20T16:23:41.243Z'),
-  },
-  {
-    alarmId: 0,
-    title: '리뷰를 남겨보세요.',
-    body: '소덕동 팽나무의 방문의 즐거우셨다면 다른 분들을 위해 리뷰를 남겨주세요. (리뷰 쓰기는 방문 이후 0일 동안만 가능합니다.)',
-    path: 'string',
-    isChecked: true,
-    createdDateTime: new Date('2024-09-20T16:23:41.243Z'),
-  },
-];
 const Alarm = () => {
+  const navigate = useNavigate();
+
   const [alarmDataList, setAlarmDataList] = useState<AlarmData[]>([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPage, setTotalPage] = useState<number>(0);
@@ -66,7 +51,7 @@ const Alarm = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [handleScroll]);
 
-  if (loading) {
+  if (loading && currentPage == 0) {
     return <ErrorPage message={'Loading...'} type="loading" />;
   }
 
@@ -77,7 +62,12 @@ const Alarm = () => {
       </div>
       <div className="content-wrapper">
         {alarmDataList.map(alarm => (
-          <div className={`alarm-box ${alarm.isChecked ? 'checked' : ''}`} key={alarm.alarmId}>
+          <div
+            className={`alarm-box ${alarm.isChecked ? 'checked' : ''}`}
+            key={alarm.alarmId}
+            onClick={() => {
+              navigate(`${alarm.path}`);
+            }}>
             <div className={`alarm-title ${alarm.isChecked ? 'checked' : ''}`}>{alarm.title}</div>
             <div className={`alarm-content ${alarm.isChecked ? 'checked' : ''}`}>{alarm.body}</div>
             <div className={`alarm-date ${alarm.isChecked ? 'checked' : ''}`}>

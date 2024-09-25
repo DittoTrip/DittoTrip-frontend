@@ -35,7 +35,7 @@ const SearchCeleb = ({ data }: Props) => {
       <div
         className="celeb-box"
         onClick={() => {
-          navigate(`/list/${data.categoryId}`);
+          navigate(`/spot/list/${data.categoryId}`);
         }}>
         <img className="celeb-img" src={data.imageFilePath ?? defaultImage}></img>
         <div className="celeb-name">{data.name}</div>

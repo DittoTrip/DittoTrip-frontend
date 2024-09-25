@@ -1,16 +1,26 @@
 import styled from 'styled-components';
-import { UserData } from '../../models/userpage/userPageModel';
-import { defaultImage } from '../../constants/constant';
+import { UserData } from '../../models/user/userModel';
+import ProfileImg from '../common/ProfileImg';
+import { useNavigate } from 'react-router-dom';
+import { defaultBadge } from '../../constants/constant';
 
 interface Props {
   data: UserData;
 }
 
 const SearchUser = ({ data }: Props) => {
+  console.log(data.userProfileData);
+  const navigate = useNavigate();
   return (
     <SearchUserStyle>
-      <div className="user-box">
-        <img className="user-img" src={defaultImage} />
+      <div className="user-box" onClick={() => navigate(`/mypage?user=${data.userId}`)}>
+        <div className="user-img">
+          <ProfileImg userProfileData={data.userProfileData} />
+        </div>
+        <img
+          className="user-badge"
+          src={data.userProfileData.badgeData ? data.userProfileData.badgeData.imagePath : defaultBadge}
+        />
         <div className="user-name">{data.nickname}</div>
       </div>
     </SearchUserStyle>
@@ -31,8 +41,13 @@ const SearchUserStyle = styled.div`
     height: 40px;
     border-radius: 50%;
   }
+  .user-badge {
+    width: 20px;
+    height: 20px;
+  }
 
   .user-name {
+    margin-left: 8px;
     ${({ theme }) => theme.font.body2};
   }
 `;

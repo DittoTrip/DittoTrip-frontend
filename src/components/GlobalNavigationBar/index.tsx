@@ -18,7 +18,7 @@ const GlobalNavigationBar = ({ GNBType }: GlobalNavigationBarProps) => {
     { name: 'home', route: '/', icon: faHouse },
     { name: 'search', route: '/category', icon: faSearch },
     { name: 'ditto', route: '/ditto', icon: faLayerGroup },
-    { name: 'my', route: isLoggedIn ? '/spotApply' : '/login', icon: faUser },
+    { name: 'my', route: isLoggedIn ? '/mypage' : '/login', icon: faUser },
   ];
   if (GNBType === undefined) {
     return <></>;

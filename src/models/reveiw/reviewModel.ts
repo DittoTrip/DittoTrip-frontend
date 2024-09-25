@@ -16,7 +16,6 @@ export interface ReviewData {
 }
 
 export interface SpotReviewResponse {
-  // 겟 review/{reviewid} api
   spotName: string;
   reviewData: ReviewData;
   commentDataList: CommentData[];

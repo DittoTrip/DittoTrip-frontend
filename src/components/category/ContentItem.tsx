@@ -9,7 +9,7 @@ const ContentItem = ({ id, img, name }: ContentItemProps) => {
   const navigate = useNavigate();
   return (
     <ContentItemStyled>
-      <div onClick={() => navigate(`/category/${id}`)}>
+      <div onClick={() => navigate(`/spot/list/${id}`)}>
         <img className="content-item-img" src={img} alt={name} />
         <div className="content-item-name">{name}</div>
       </div>

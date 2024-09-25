@@ -8,7 +8,7 @@ import styled from 'styled-components';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as faEmptyHeart } from '@fortawesome/free-regular-svg-icons';
 
-import { CategoryData } from '../../models/Category/categoryModel';
+import { CategoryData } from '../../models/category/categoryModel';
 import { defaultImage } from '../../constants/constant';
 
 interface Props {
@@ -32,7 +32,7 @@ const SearchContent = ({ data }: Props) => {
 
   return (
     <SearchContentStyle>
-      <div className="content-box" onClick={() => navigate(`/list/${data.categoryId}`)}>
+      <div className="content-box" onClick={() => navigate(`/spot/list/${data.categoryId}`)}>
         <img className="content-img" src={data.imageFilePath ?? defaultImage}></img>
         <div className="title-box">
           <div className="content-title">{data.name}</div>

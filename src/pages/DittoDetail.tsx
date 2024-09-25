@@ -104,7 +104,6 @@ const DittoDetail = () => {
       id: 0,
       text: t('bottomsheet.delete'),
       handleClick: () => {
-        alert('delete');
         handleDeleteComment();
         setIsExpandedOptions(false);
       },
@@ -126,6 +125,13 @@ const DittoDetail = () => {
   const expandedMyDittoOptionsContent = [
     {
       id: 0,
+      text: t('bottomsheet.modify'),
+      handleClick: () => {
+        navigate(`/ditto/edit?ditto=${id!}`);
+      },
+    },
+    {
+      id: 1,
       text: t('bottomsheet.delete'),
       handleClick: () => {
         handleDeleteDitto();
@@ -145,23 +151,26 @@ const DittoDetail = () => {
     },
   ];
 
+  const [isFollowed, setIsFollowed] = useState(myFollowingId ?? null);
+
   const toggleFollow = async () => {
-    if (!myFollowingId) {
+    if (!isFollowed) {
       const res = await addFollow(dittoData!.userData.userId.toString());
       if (res == 200) {
         alert('팔로우 성공');
+        setIsFollowed(1);
       } else {
         alert('팔로우 실패');
       }
     } else {
-      const res = await deleteFollow(myFollowingId.toString());
+      const res = await deleteFollow(dittoData!.userData.userId.toString());
       if (res == 200) {
         alert('언팔로우되었습니다.');
+        setIsFollowed(null);
       } else {
         alert('언팔로우 실패');
       }
     }
-    window.location.reload();
   };
 
   const handleScroll = useCallback(() => {
@@ -197,7 +206,7 @@ const DittoDetail = () => {
           userId={dittoData!.userData.userId}
           name={dittoData!.userData.nickname}
           date={formatDate(dittoData!.createdDateTime)}
-          following={myFollowingId}
+          following={isFollowed}
           isMine={dittoData?.isMine}
           toggleFollow={toggleFollow}
           setIsExpandedOption={setIsExpandedDittoOptions}
@@ -273,6 +282,7 @@ const DittoDetailStyle = styled.div`
   .main-img {
     width: 100%;
     height: 400px;
+    object-fit: cover;
   }
   .content-wrapper {
     margin: 0 28px 16px 28px;

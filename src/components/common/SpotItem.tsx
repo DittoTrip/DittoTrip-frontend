@@ -53,7 +53,9 @@ const SpotItem = ({ data, setSelectedAddress, setIsOpen }: Props) => {
 
   return (
     <SpotItemStyle onClick={() => navigate(`/spot/${data.spotId}`)}>
-      <img className="spot-image" src={data.imagePath ?? defaultImage} />
+      <div className="spot-image-box">
+        <img className="spot-image" src={data.imagePath ?? defaultImage} />
+      </div>
       <div className="spot-info">
         <div className="spot-info-header">
           <div className="spot-info-name">{data.name}</div>
@@ -83,29 +85,34 @@ const SpotItem = ({ data, setSelectedAddress, setIsOpen }: Props) => {
 const SpotItemStyle = styled.div`
   display: flex;
   gap: 16px;
+  width: 100vw-32px;
 
   padding: 16px 0;
   border-bottom: 1px solid ${({ theme }) => theme.color.gray20};
   background-color: ${({ theme }) => theme.color.background};
 
-  .spot-image {
+  .spot-image-box {
     height: 100px;
-    width: 128px;
-    border-radius: 12px;
+    aspect-ratio: 6/5;
+
+    .spot-image {
+      border-radius: 12px;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
   }
 
   .spot-info {
     display: flex;
     flex-direction: column;
     justify-content: center;
-
-    flex: 1;
+    width: 100vw - 168px;
 
     .spot-info-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 8px;
 
       margin-bottom: 4px;
 
@@ -155,7 +162,7 @@ const SpotItemStyle = styled.div`
     }
     .spot-info-tag {
       margin-top: 10px;
-      width: 230px;
+      width: 100vw - 168px;
     }
   }
 `;

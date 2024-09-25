@@ -81,32 +81,37 @@ const Join = () => {
     setSendingEmail(true);
     duplicationCheckEmail(data).then(
       res => {
-        sendCode(data)
-          .then(
-            res => {
-              console.log(res);
-              if (res) {
-                setMessage(t('join.emailSent'));
-                setIsOpen(true);
-              } else {
+        if (res) {
+          sendCode(data)
+            .then(
+              res => {
+                console.log(res);
+                if (res) {
+                  setMessage(t('join.emailSent'));
+                  setIsOpen(true);
+                } else {
+                  setMessage(t('join.emailSendFail'));
+                  setIsOpen(true);
+                }
+              },
+
+              error => {
+                console.log('이메일 인증코드 전송 실패', error);
                 setMessage(t('join.emailSendFail'));
                 setIsOpen(true);
               }
-            },
-
-            error => {
-              console.log('이메일 인증코드 전송 실패', error);
-              setMessage(t('join.emailSendFail'));
-              setIsOpen(true);
-            }
-          )
-          .finally(() => {
-            setSendingEmail(false);
-          });
+            )
+            .finally(() => {
+              setSendingEmail(false);
+            });
+        } else {
+          alert('이미 가입된 이메일입니다.');
+          setSendingEmail(false);
+        }
       },
       error => {
         console.log('이메일 중복체크 에러', error);
-        alert('이미 가입된 이메일입니다.');
+        alert('중복 체크실패');
         setSendingEmail(false);
       }
     );

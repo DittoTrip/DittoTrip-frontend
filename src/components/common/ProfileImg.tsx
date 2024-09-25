@@ -10,17 +10,17 @@ interface Props {
   showEditIcon?: boolean;
 }
 
-const profileImg = ({ userProfileData, width, background, showEditIcon }: Props) => {
+const ProfileImg = ({ userProfileData, width, background, showEditIcon }: Props) => {
   const { itemSkin, itemHair, itemEyes, itemMouse, itemAccessory } = userProfileData;
   const navigate = useNavigate();
 
   return (
     <ProfileImgStyle width={width} background={background}>
-      {<img className="image-item" src={itemSkin.imagePath} alt={itemSkin.name} />}
-      {<img className="image-item" src={itemHair.imagePath} alt={itemHair.name} />}
-      {<img className="image-item" src={itemEyes.imagePath} alt={itemEyes.name} />}
-      {<img className="image-item" src={itemMouse.imagePath} alt={itemMouse.name} />}
-      {<img className="image-item" src={itemAccessory.imagePath} alt={itemAccessory.name} />}
+      {itemSkin && <img className="image-item" src={itemSkin.imagePath} alt={itemSkin.name} />}
+      {itemHair && <img className="image-item" src={itemHair.imagePath} alt={itemHair.name} />}
+      {itemEyes && <img className="image-item" src={itemEyes.imagePath} alt={itemEyes.name} />}
+      {itemMouse && <img className="image-item" src={itemMouse.imagePath} alt={itemMouse.name} />}
+      {itemAccessory && <img className="image-item" src={itemAccessory.imagePath} alt={itemAccessory.name} />}
       {showEditIcon && (
         <div className="edit-icon">
           <WriteButton
@@ -38,7 +38,7 @@ const profileImg = ({ userProfileData, width, background, showEditIcon }: Props)
 const ProfileImgStyle = styled.div<{ width?: string; background?: boolean }>`
   position: relative;
   width: ${({ width }) => (width ? width : '42px')};
-  aspect-ratio: 1;
+  height: ${({ width }) => (width ? width : '42px')};
 
   background: ${({ background, theme }) => (background ? 'transparent' : theme.color.gray20)};
 
@@ -61,4 +61,4 @@ const ProfileImgStyle = styled.div<{ width?: string; background?: boolean }>`
   }
 `;
 
-export default profileImg;
+export default ProfileImg;

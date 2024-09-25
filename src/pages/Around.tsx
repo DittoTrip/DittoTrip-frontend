@@ -16,7 +16,7 @@ import i18n from '../lang/i18n';
 const Around = () => {
   const { t } = useTranslation();
 
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const mapX = searchParams.get('mapX');
   const mapY = searchParams.get('mapY');
 

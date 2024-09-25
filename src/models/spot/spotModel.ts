@@ -29,6 +29,7 @@ export interface SpotDetailResponse {
   spotData: SpotData;
   spotImageDataList: SpotImageData[];
   reviewDataList: ReviewData[];
+  mySpotVisitId: number | null;
 }
 
 export interface SpotListResponse {
@@ -43,7 +44,6 @@ export interface SpotSearchListResponse {
 }
 
 export interface spotMapListRequest {
-  categoryId: string;
   startX: number;
   startY: number;
   endX: number;
@@ -56,4 +56,22 @@ export interface SpotListRequest {
   search?: string | null;
   userX?: number | null;
   userY?: number | null;
+}
+
+export interface SpotVisit {
+  spotVisitId: number;
+  imagePath: string;
+  hashtags: string[];
+  spotId: number;
+  spotName: string;
+  address: string;
+  createdDateTime: Date;
+  bookmarkId: number;
+  reviewMiniData: ReviewData;
+}
+
+export interface SpotVisitResponse {
+  spotVisitDataList: SpotVisit[];
+  count: number;
+  totalPages: number;
 }

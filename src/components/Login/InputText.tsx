@@ -16,7 +16,7 @@ const InputText = React.forwardRef(
 const InputTextStyled = styled.input`
   width: 100%;
   padding: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 
   border: none;
   border-bottom: 1px solid ${({ theme }) => theme.color.gray60};

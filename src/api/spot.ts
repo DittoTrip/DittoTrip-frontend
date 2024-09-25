@@ -5,6 +5,7 @@ import {
   SpotListResponse,
   spotMapListRequest,
   SpotSearchListResponse,
+  SpotVisitResponse,
 } from '../models/spot/spotModel';
 import { api } from './https';
 import { AroundSpotProps, LocationBasedListResponse } from '../models/spot/publicSpotModel';
@@ -41,8 +42,8 @@ export const spotList = async (categoryId: string, params: SpotListRequest) => {
 };
 // 카테고리 -> map 스팟 리스트
 export const spotMapList = async (categoryId: string, params: spotMapListRequest) => {
-  const response = await api.get<SpotListResponse>(`category/${categoryId}/spot/list`, {
-    params: { params },
+  const response = await api.get<SpotListResponse>(`category/${categoryId}/spot/list/map`, {
+    params: params,
   });
   return response.data;
 };
@@ -57,6 +58,15 @@ export const postVisitedSpot = async (spotId: string, userX?: number, userY?: nu
     }
   );
   return response;
+};
+
+// 방문 스팟 리스트
+export const getVisitedSpotList = async (userId: string, params: SpotListRequest) => {
+  const response = await api.get<SpotVisitResponse>(`/user/${userId}/visited`, {
+    params: { ...params },
+  });
+  console.log(response.data);
+  return response.data;
 };
 
 // 스팟 검색 (검색페이지)
@@ -86,4 +96,3 @@ export const aroundSpotList = async (params: AroundSpotProps) => {
   );
   return response;
 };
-// 공공데이터 주변 스팟 리스트
