@@ -151,23 +151,26 @@ const DittoDetail = () => {
     },
   ];
 
+  const [isFollowed, setIsFollowed] = useState(myFollowingId ?? null);
+
   const toggleFollow = async () => {
-    if (!myFollowingId) {
+    if (!isFollowed) {
       const res = await addFollow(dittoData!.userData.userId.toString());
       if (res == 200) {
         alert('팔로우 성공');
+        setIsFollowed(1);
       } else {
         alert('팔로우 실패');
       }
     } else {
-      const res = await deleteFollow(myFollowingId.toString());
+      const res = await deleteFollow(dittoData!.userData.userId.toString());
       if (res == 200) {
         alert('언팔로우되었습니다.');
+        setIsFollowed(null);
       } else {
         alert('언팔로우 실패');
       }
     }
-    window.location.reload();
   };
 
   const handleScroll = useCallback(() => {
@@ -203,7 +206,7 @@ const DittoDetail = () => {
           userId={dittoData!.userData.userId}
           name={dittoData!.userData.nickname}
           date={formatDate(dittoData!.createdDateTime)}
-          following={myFollowingId}
+          following={isFollowed}
           isMine={dittoData?.isMine}
           toggleFollow={toggleFollow}
           setIsExpandedOption={setIsExpandedDittoOptions}

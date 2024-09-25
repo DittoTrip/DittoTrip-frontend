@@ -16,11 +16,11 @@ const ProfileImg = ({ userProfileData, width, background, showEditIcon }: Props)
 
   return (
     <ProfileImgStyle width={width} background={background}>
-      {<img className="image-item" src={itemSkin.imagePath} alt={itemSkin.name} />}
-      {<img className="image-item" src={itemHair.imagePath} alt={itemHair.name} />}
-      {<img className="image-item" src={itemEyes.imagePath} alt={itemEyes.name} />}
-      {<img className="image-item" src={itemMouse.imagePath} alt={itemMouse.name} />}
-      {<img className="image-item" src={itemAccessory.imagePath} alt={itemAccessory.name} />}
+      {itemSkin && <img className="image-item" src={itemSkin.imagePath} alt={itemSkin.name} />}
+      {itemHair && <img className="image-item" src={itemHair.imagePath} alt={itemHair.name} />}
+      {itemEyes && <img className="image-item" src={itemEyes.imagePath} alt={itemEyes.name} />}
+      {itemMouse && <img className="image-item" src={itemMouse.imagePath} alt={itemMouse.name} />}
+      {itemAccessory && <img className="image-item" src={itemAccessory.imagePath} alt={itemAccessory.name} />}
       {showEditIcon && (
         <div className="edit-icon">
           <WriteButton

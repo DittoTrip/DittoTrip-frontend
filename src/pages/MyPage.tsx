@@ -9,6 +9,7 @@ import ErrorPage from './Error';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import Button from '../components/common/Button';
 import { addFollow, deleteFollow } from '../api/follow';
+import { useEffect, useState } from 'react';
 // import { useState } from 'react';
 
 const MyPage = () => {
@@ -17,25 +18,33 @@ const MyPage = () => {
   const { userData, loading, error } = useUserData(userId!);
   const navigate = useNavigate();
 
+  const [isFollowed, setIsFollowed] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (userData?.myFollowingId !== undefined) {
+      setIsFollowed(userData.myFollowingId);
+    }
+  }, [userData]);
+
   const toggleFollow = async () => {
-    if (!userData?.myFollowingId) {
+    if (!isFollowed) {
       const res = await addFollow(userData!.userData.userId.toString());
       if (res == 200) {
         alert('팔로우 성공');
+        setIsFollowed(1);
       } else {
         alert('팔로우 실패');
       }
     } else {
-      const res = await deleteFollow(userData?.myFollowingId.toString());
+      const res = await deleteFollow(userData!.userData.userId.toString());
       if (res == 200) {
         alert('언팔로우되었습니다.');
+        setIsFollowed(null);
       } else {
         alert('언팔로우 실패');
       }
     }
-    window.location.reload();
   };
-
   if (loading) {
     return <ErrorPage message={'Loading...'} type="loading" />;
   } else if (error) {
@@ -86,7 +95,7 @@ const MyPage = () => {
           <div className="fix">
             {userData?.isMine ? (
               <FontAwesomeIcon icon={faPen} onClick={() => navigate(`/edit-profile/${userData?.userData.userId}`)} />
-            ) : userData?.myFollowingId ? (
+            ) : isFollowed ? (
               <Button size={'small'} scheme={'keyButton'} onClick={toggleFollow}>
                 Following
               </Button>
@@ -392,12 +401,14 @@ const MyPageStyle = styled.div`
     .ditto-img {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
+      ascpect-ratio: 1;
       gap: 10px;
 
       .img-box {
         width: 100%;
-        height: 100%;
+        aspect-ratio: 1;
         border-radius: 5px;
+        object-fit: cover;
       }
     }
   }
