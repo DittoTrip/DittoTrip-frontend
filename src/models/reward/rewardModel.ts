@@ -1,6 +1,8 @@
+import { UserProfileData } from '../userpage/userPageModel';
+
 export type ItemType = 'SKIN' | 'EYES' | 'MOUSE' | 'HAIR' | 'ACCESSORY';
 
-export interface UserBadgeData {
+export interface BadgeData {
   rewardId: number;
   name: string;
   body: string;
@@ -11,8 +13,8 @@ export interface UserBadgeData {
 }
 
 export interface UserBadgeResponse {
-  // user/{userId}/bedge/list api
-  badgeDataList: UserBadgeData[];
+  userProfileData: UserProfileData;
+  badgeDataList: BadgeData[];
   isMine: boolean;
 }
 

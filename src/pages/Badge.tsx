@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import AppBar from '../components/common/AppBar';
 import { useEffect, useState } from 'react';
 import { getBadgeList, modyfyBadge } from '../api/reward';
-import { UserBadgeData } from '../models/reward/rewardModel';
+import { BadgeData } from '../models/reward/rewardModel';
 import { useSearchParams } from 'react-router-dom';
 import { defaultBadge } from '../constants/constant';
 import ErrorPage from './Error';
@@ -14,13 +14,14 @@ const Badge = () => {
 
   const [isOpen, setIsOpen] = useState(false);
 
-  const [userBadge, setUserBadge] = useState<UserBadgeData[]>([]);
-  const [selectedBadge, setSelectedBadge] = useState<UserBadgeData | null>(null);
+  const [userBadge, setUserBadge] = useState<BadgeData[]>([]);
+  const [selectedBadge, setSelectedBadge] = useState<BadgeData | null>(null);
+  const [currentBadge, setCurrentBadge] = useState<BadgeData | null>(null);
   const [isMine, setIsMine] = useState(false);
 
   const [loading, setLoading] = useState<boolean>(true);
 
-  const handleBoxClick = (item: UserBadgeData) => {
+  const handleBoxClick = (item: BadgeData) => {
     setSelectedBadge(item);
     setIsOpen(true);
   };
@@ -33,7 +34,7 @@ const Badge = () => {
     setLoading(true);
     try {
       const response = await getBadgeList(userId!);
-
+      setCurrentBadge(response.userProfileData.badge);
       setUserBadge(response.badgeDataList);
       setIsMine(response.isMine);
     } catch (err) {
@@ -76,8 +77,8 @@ const Badge = () => {
       </div>
       <div className="badge-box">
         <div className="badge-img-box">
-          <img className="badge-item-img" src={defaultBadge}></img>
-          <div className="badge-title">{userBadge[0].name}</div>
+          <img className="badge-item-img" src={currentBadge?.imagePath ?? defaultBadge}></img>
+          <div className="badge-title">{currentBadge?.name}</div>
         </div>
         <div className="badge-content">
           <div className="now">뱃지 수집 현황</div>
@@ -86,17 +87,19 @@ const Badge = () => {
       </div>
       <div className="container">
         <div className="badge-list">
-          {userBadge.map((item, index) => (
-            <div key={index} className="box-wrapper" onClick={() => handleBoxClick(item)}>
-              <div className="box">
-                <img
-                  className="badge-item-img"
-                  src={item.imagePath !== 'empty imagePath' ? item?.imagePath : defaultBadge}
-                />
+          {userBadge
+            .filter(item => item.userBadgeId != null)
+            .map((item, index) => (
+              <div key={index} className="box-wrapper" onClick={() => handleBoxClick(item)}>
+                <div className="box">
+                  <img
+                    className="badge-item-img"
+                    src={item.imagePath !== 'empty imagePath' ? item?.imagePath : defaultBadge}
+                  />
+                </div>
+                <div className="label">{item.name}</div>
               </div>
-              <div className="label">{item.name}</div>
-            </div>
-          ))}
+            ))}
         </div>
       </div>
 

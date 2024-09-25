@@ -1,4 +1,5 @@
-import { UserData } from '../user/userModel';
+import { BadgeData } from '../reward/rewardModel';
+import { ProgressionData, UserData } from '../user/userModel';
 
 export type ItemType = 'SKIN' | 'EYES' | 'MOUSE' | 'HAIR' | 'ACCESSORY';
 
@@ -10,20 +11,14 @@ export interface Item {
   etc: string;
 }
 
-export interface Badge {
-  id: number;
-  imagePath: string;
-  createdDateTime: Date;
-}
-
 export interface UserProfileData {
-  progressionBar: number;
+  progressionBar: ProgressionData;
   itemSkin: Item;
   itemEyes: Item;
   itemMouse: Item;
   itemHair: Item;
   itemAccessory: Item;
-  badge: Badge;
+  badgeData: BadgeData;
 }
 
 export interface DittoMiniData {

@@ -1,3 +1,5 @@
+import { BadgeData } from '../reward/rewardModel';
+
 export type ItemType = 'SKIN' | 'EYES' | 'MOUSE' | 'HAIR' | 'ACCESSORY';
 
 export interface UserProfileRequset {
@@ -23,15 +25,6 @@ export interface UserProfileItem {
   createdDateTime: string;
 }
 
-export interface BadgeData {
-  rewardId: number;
-  name: string;
-  body: string;
-  conditionBody: string;
-  imagePath: string;
-  createdDateTime: string;
-  userBadgeId: number;
-}
 export interface ProgressionData {
   presentExp: number;
   requiredExp: number;
