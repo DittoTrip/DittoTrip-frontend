@@ -7,7 +7,7 @@ import { faStar as faStarEmpty } from '@fortawesome/free-regular-svg-icons';
 import { ColorKey } from '../../styles/theme';
 import { useEffect, useState } from 'react';
 import { UseFormSetValue } from 'react-hook-form';
-import { FormInputs } from '../../pages/NewReview';
+import { FormInputs } from '../../pages/ReviewWrite';
 
 interface Props {
   rating: number;

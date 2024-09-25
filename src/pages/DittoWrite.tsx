@@ -1,13 +1,14 @@
 import styled from 'styled-components';
 import AppBar from '../components/common/AppBar';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import Button from '../components/common/Button';
 import TagInput from '../components/common/TagInput';
 import MainImageUploader from '../components/review/UploadOneImage';
 import { useForm } from 'react-hook-form';
-import { addDitto } from '../api/ditto'; // Assuming the API call is in this file
-import { useNavigate } from 'react-router-dom';
+import { addDitto, getDitto, modifyDitto } from '../api/ditto'; // Assuming you have these API calls
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { convertURLtoFile } from '../utils/convertURLtoFile';
 
 export interface FormInputs {
   title: string;
@@ -17,6 +18,9 @@ export interface FormInputs {
 
 const DittoWrite = () => {
   const { t } = useTranslation();
+  const [searchParams] = useSearchParams();
+  const dittoId = searchParams.get('ditto'); // Get the dittoId from query parameters
+
   const {
     register,
     handleSubmit,
@@ -25,14 +29,33 @@ const DittoWrite = () => {
     watch,
   } = useForm<FormInputs>();
 
-  // 대표 이미지
   const [selectedMainImage, setSelectedMainImage] = useState<File | null>(null);
-  const [mainpreviewUrl, setMainPreviewUrl] = useState<string | null>(null);
+  const [mainPreviewUrl, setMainPreviewUrl] = useState<string | null>(null);
   const [tags, setTags] = useState<string[]>([]);
-
   const body = watch('body');
-
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (dittoId) {
+      const fetchDittoDetail = async () => {
+        const existingDitto = await getDitto(dittoId);
+        if (existingDitto.dittoData.isMine == false) {
+          navigate(`/ditto/${dittoId}`); // Redirect to theditto detail page
+        }
+        if (existingDitto) {
+          setValue('title', existingDitto.dittoData.title);
+          setValue('body', existingDitto.dittoData.body);
+          setTags(existingDitto.dittoData.hashtags || []);
+          setMainPreviewUrl(existingDitto.dittoData.imagePath);
+          const file = await convertURLtoFile(existingDitto.dittoData.imagePath);
+          setSelectedMainImage(file);
+        }
+      };
+      fetchDittoDetail();
+    }
+  }, [dittoId, setValue]);
+
+  console.log('selectedMainImage:', selectedMainImage);
 
   const handleAddTag = (newTag: string) => {
     setTags([...tags, newTag]);
@@ -48,29 +71,27 @@ const DittoWrite = () => {
   };
 
   const onSubmit = async (data: FormInputs) => {
+    if (!selectedMainImage) {
+      alert('이미지는 필수 사항입니다.');
+      return;
+    }
     try {
       const formData = new FormData();
-      formData.append(
-        'saveReq',
-        new Blob([JSON.stringify(data)], {
-          type: 'application/json',
-        }) // application/json 형식으로 넣어 주기
-      );
+      formData.append('saveReq', new Blob([JSON.stringify(data)], { type: 'application/json' }));
 
       if (selectedMainImage) {
         formData.append('image', selectedMainImage);
       }
 
-      const entries = formData.entries();
-      for (const pair of entries) {
-        console.log(pair[0] + ', ' + pair[1]);
+      if (dittoId) {
+        await modifyDitto(dittoId, formData);
+      } else {
+        await addDitto(formData);
       }
 
-      const status = await addDitto(formData);
-      if (status === 200) {
-        navigate('/ditto');
-      }
+      navigate('/ditto');
     } catch (error) {
+      alert('문제가 발생했습니다.');
       console.error('디토 등록 실패', error);
     }
   };
@@ -78,22 +99,20 @@ const DittoWrite = () => {
   return (
     <DittoWriteStyle>
       <div className="app-bar">
-        <AppBar leading={true} title={<div className="title">작성하기</div>} />
+        <AppBar leading={true} title={<div className="title">{dittoId ? '수정하기' : '작성하기'}</div>} />
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="main-img">
           <MainImageUploader
             setSelectedImage={setSelectedMainImage}
-            previewUrl={mainpreviewUrl}
+            previewUrl={mainPreviewUrl}
             setPreviewUrl={setMainPreviewUrl}
           />
         </div>
         <div className="content-wrapper">
           <input
-            {...register('title', {
-              required: '* 필수 작성 사항입니다',
-            })}
+            {...register('title', { required: '* 필수 작성 사항입니다' })}
             className="spot-input"
             placeholder="스팟 이름"
           />
@@ -121,7 +140,7 @@ const DittoWrite = () => {
 
         <div className="ditto-submit">
           <Button type="submit" size="large" scheme="subButton">
-            완료하기
+            {dittoId ? '수정하기' : '완료하기'}
           </Button>
         </div>
       </form>
@@ -146,8 +165,8 @@ const DittoWriteStyle = styled.div`
   }
 
   .content-wrapper {
+    margin: 0 28px 12px 28px;
     padding-bottom: 12px;
-    margin-bottom: 12px;
     border-bottom: 1px solid ${({ theme }) => theme.color.gray40};
   }
 

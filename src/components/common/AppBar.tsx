@@ -3,18 +3,20 @@ import { useNavigate } from 'react-router-dom';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import { ColorKey } from '../../styles/theme';
 
 interface Props {
   leading: boolean;
   title: React.ReactNode;
   action?: React.ReactNode;
+  backgroundColor?: ColorKey;
 }
 
-const AppBar = ({ leading, title, action }: Props) => {
+const AppBar = ({ leading, title, action, backgroundColor }: Props) => {
   const navigate = useNavigate();
   return (
     <>
-      <AppBarStyle>
+      <AppBarStyle backgroundColor={backgroundColor!}>
         {leading && (
           <div className="leading">
             <FontAwesomeIcon icon={faChevronLeft} onClick={() => navigate(-1)} />
@@ -29,20 +31,21 @@ const AppBar = ({ leading, title, action }: Props) => {
   );
 };
 
-const AppBarStyle = styled.div`
+const AppBarStyle = styled.div<{ backgroundColor: ColorKey }>`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  max-width: 600px;
   height: 60px;
   padding: 0 28px;
-  max-width: 600px;
   margin: 0 auto;
 
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  background-color: white;
+  background-color: ${({ backgroundColor, theme }) => (backgroundColor ? theme.color[backgroundColor] : 'white')};
   z-index: 10;
 
   .leading {

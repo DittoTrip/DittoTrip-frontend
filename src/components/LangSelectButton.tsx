@@ -4,8 +4,13 @@ import { styled } from 'styled-components';
 import i18n from '../lang/i18n';
 import korea from '../assets/korea.png';
 import UK from '../assets/UK.jpg';
+import { ColorKey } from '../styles/theme';
 
-const LangSelectButton = () => {
+interface Props {
+  backgroundColor?: ColorKey;
+}
+
+const LangSelectButton = ({ backgroundColor }: Props) => {
   const [lang, setLang] = useState(i18n.language);
 
   const changeLanguage = () => {
@@ -15,7 +20,7 @@ const LangSelectButton = () => {
 
   return (
     <div>
-      <LangSelectButtonStyled>
+      <LangSelectButtonStyled backgroundColor={backgroundColor!}>
         <div className="langSelectButton" onClick={() => changeLanguage()}>
           <img src={lang === 'ko' ? korea : UK} width={'15px'} />
         </div>
@@ -24,20 +29,20 @@ const LangSelectButton = () => {
   );
 };
 
-const LangSelectButtonStyled = styled.div`
+const LangSelectButtonStyled = styled.div<{ backgroundColor: ColorKey }>`
   -ms-user-select: none;
   -moz-user-select: -moz-none;
   -khtml-user-select: none;
   -webkit-user-select: none;
   user-select: none;
 
-  margin-top: 9px;
   display: inline-block;
   text-align: center;
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  background-color: ${({ theme }) => theme.color.subColor1};
+  background-color: ${({ theme, backgroundColor }) =>
+    backgroundColor ? theme.color[backgroundColor] : theme.color.subColor1};
   .langSelectButton {
     display: flex;
     justify-content: center;

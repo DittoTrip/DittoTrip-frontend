@@ -11,7 +11,7 @@ import ImageUploader from '../components/review/UploadImage';
 import MainImageUploader from '../components/review/UploadOneImage';
 import TagInput from '../components/common/TagInput';
 import CategorySearch from '../components/common/CategorySearch';
-import { CategoryData } from '../models/Category/categoryModel';
+import { CategoryData } from '../models/category/categoryModel';
 
 export interface FormInputs {
   name: string;
@@ -231,12 +231,6 @@ const SpotApplyStyle = styled.div`
         width: 100%;
         cursor: pointer;
         ${({ theme }) => theme.font.body3}
-      }
-
-      .review-submit {
-        padding: 0 8%;
-        display: flex;
-        justify-content: center;
       }
 
       .submit-wrapper {

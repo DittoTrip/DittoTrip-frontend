@@ -104,7 +104,6 @@ const DittoDetail = () => {
       id: 0,
       text: t('bottomsheet.delete'),
       handleClick: () => {
-        alert('delete');
         handleDeleteComment();
         setIsExpandedOptions(false);
       },
@@ -126,6 +125,13 @@ const DittoDetail = () => {
   const expandedMyDittoOptionsContent = [
     {
       id: 0,
+      text: t('bottomsheet.modify'),
+      handleClick: () => {
+        navigate(`/ditto/edit?ditto=${id!}`);
+      },
+    },
+    {
+      id: 1,
       text: t('bottomsheet.delete'),
       handleClick: () => {
         handleDeleteDitto();
@@ -273,6 +279,7 @@ const DittoDetailStyle = styled.div`
   .main-img {
     width: 100%;
     height: 400px;
+    object-fit: cover;
   }
   .content-wrapper {
     margin: 0 28px 16px 28px;

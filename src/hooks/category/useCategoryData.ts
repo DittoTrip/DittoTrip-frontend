@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { CategoryData, SubType } from '../../models/Category/categoryModel';
+import { CategoryData, SubType } from '../../models/category/categoryModel';
 import { defaultPageOptions } from '../../constants/constant';
 import { fetchMoreData } from '../../api/category';
 

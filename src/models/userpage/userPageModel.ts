@@ -1,9 +1,6 @@
-export type ItemType = 'SKIN' | 'EYES' | 'MOUSE' | 'HAIR' | 'ACCESSORY';
+import { UserData } from '../user/userModel';
 
-export interface UserData {
-  userId: number;
-  nickname: string;
-}
+export type ItemType = 'SKIN' | 'EYES' | 'MOUSE' | 'HAIR' | 'ACCESSORY';
 
 export interface Item {
   id: number;
@@ -42,4 +39,7 @@ export interface UserPageResponse {
   dittoMiniDataList: DittoMiniData[];
   followingCount: number;
   followedCount: number;
+  isMine: boolean;
+  isNotCheckedAlarm: boolean;
+  myFollowingId: number;
 }

@@ -40,8 +40,7 @@ const UserProfileWithComment = ({
   return (
     <UserProfileWithCommentStyle isParentComment={isParentComment}>
       <div className="profile-left">
-        {/* <img className="user-img" src={profileImg} alt="프로필 이미지" onClick={() => navigate(`/mypage/${userId}`)} /> */}
-        <ProfileImg userProfileData={userProfileData} />
+        <ProfileImg userProfileData={userProfileData} width="42px" />
       </div>
       <div className="profile-right">
         <div className="profile-info">

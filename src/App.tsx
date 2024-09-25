@@ -1,6 +1,7 @@
 // import styled from 'styled-components';
 import { DittoProvider } from './context/themeContext';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import '../src/fonts/Font.css';
 
 import './App.css';
 import Layout from './layout/Layout';
@@ -9,7 +10,7 @@ import ErrorPage from './pages/Error';
 import LangPage from './pages/LangPage';
 import Category from './pages/Category';
 import Review from './pages/ReviewList';
-import NewReview from './pages/NewReview';
+import NewReview from './pages/ReviewWrite';
 import ReviewDetail from './pages/ReviewDetail';
 import Search from './pages/Search';
 import SearchResult from './pages/SearchResult';
@@ -17,7 +18,7 @@ import Join from './pages/Join';
 import Report from './pages/Report';
 import Spot from './pages/Spot';
 import Around from './pages/Around';
-import List from './pages/List';
+import List from './pages/SpotList';
 import Login from './pages/Login';
 
 import Ditto from './pages/Ditto';
@@ -30,12 +31,17 @@ import Character from './pages/Character';
 import Badge from './pages/Badge';
 import { getAccessToken } from './store/authStore';
 import HeaderToken from './api/https';
+import MyPage from './pages/MyPage';
 import Favorite from './pages/Favorite';
 import Follow from './pages/Follow';
 import FindPassword from './pages/FindPassword';
 import EditNickname from './pages/EditNickname';
 import EditPassword from './pages/EditPassword';
 import MyDitto from './pages/MyDitto';
+import MySpotApplyList from './pages/MySpotApplyList';
+import MySpotApplyDetail from './pages/MySpotApplyDetail';
+import VisitedSpotList from './pages/VisitedSpotList';
+import Map from './pages/Map';
 
 const router = createBrowserRouter([
   {
@@ -69,10 +75,18 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: '/category/:id',
+    path: '/spot/list/:id',
     element: (
       <Layout GNBType="search">
         <List />
+      </Layout>
+    ),
+  },
+  {
+    path: '/spot/map/:id',
+    element: (
+      <Layout GNBType="search">
+        <Map />
       </Layout>
     ),
   },
@@ -102,7 +116,15 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: '/review/new/:id',
+    path: '/review/new',
+    element: (
+      <Layout GNBType="search">
+        <NewReview />
+      </Layout>
+    ),
+  },
+  {
+    path: '/review/edit',
     element: (
       <Layout GNBType="search">
         <NewReview />
@@ -179,6 +201,15 @@ const router = createBrowserRouter([
     ),
   },
   {
+    path: '/ditto/edit',
+
+    element: (
+      <Layout>
+        <DittoWrite />
+      </Layout>
+    ),
+  },
+  {
     path: '/ditto/new',
 
     element: (
@@ -207,7 +238,7 @@ const router = createBrowserRouter([
   },
 
   {
-    path: '/editprofile',
+    path: '/edit-profile/:id',
 
     element: (
       <Layout GNBType="my">
@@ -231,6 +262,15 @@ const router = createBrowserRouter([
       </Layout>
     ),
   },
+  {
+    path: '/mypage',
+    element: (
+      <Layout GNBType="my">
+        <MyPage />
+      </Layout>
+    ),
+  },
+
   {
     path: '/favorite',
 
@@ -282,7 +322,43 @@ const router = createBrowserRouter([
 
     element: (
       <Layout GNBType="my">
-        <MyDitto />
+        <MyDitto isMine={false} />
+      </Layout>
+    ),
+  },
+  {
+    path: '/user-ditto',
+
+    element: (
+      <Layout GNBType="my">
+        <MyDitto isMine={true} />
+      </Layout>
+    ),
+  },
+  {
+    path: '/my-spotapply',
+
+    element: (
+      <Layout GNBType="my">
+        <MySpotApplyList />
+      </Layout>
+    ),
+  },
+  {
+    path: '/my-spotapply/:id',
+
+    element: (
+      <Layout GNBType="my">
+        <MySpotApplyDetail />
+      </Layout>
+    ),
+  },
+  {
+    path: '/visited-spot/:id',
+
+    element: (
+      <Layout GNBType="my">
+        <VisitedSpotList />
       </Layout>
     ),
   },

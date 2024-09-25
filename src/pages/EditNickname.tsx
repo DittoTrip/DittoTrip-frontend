@@ -20,9 +20,9 @@ const EditNickname = () => {
       const req = { nickname };
 
       const duplicateResponse = await duplicationCheck(req);
-      if (duplicateResponse === 200) {
+      if (duplicateResponse) {
         const editResponse = await editNickname(req);
-        if (editResponse === 200) {
+        if (editResponse) {
           alert('수정되었습니다.');
         } else {
           alert('닉네임 수정에 실패했습니다.');

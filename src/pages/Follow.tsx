@@ -33,16 +33,16 @@ const Follow = () => {
       <div className="content-wrapper">
         {selectedTapId === 1 && (
           <>
-            {FollowedCount}명
-            {FollowedList?.map(data => (
+            {FollowingCount}명
+            {FollowingList?.map(data => (
               <SearchUser data={data.userData} />
             ))}
           </>
         )}
         {selectedTapId === 2 && (
           <>
-            {FollowingCount}명
-            {FollowingList?.map(data => (
+            {FollowedCount}명
+            {FollowedList?.map(data => (
               <SearchUser data={data.userData} />
             ))}
           </>
