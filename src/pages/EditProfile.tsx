@@ -3,27 +3,26 @@ import AppBar from '../components/common/AppBar';
 import Button from '../components/common/Button';
 import { useEffect, useState } from 'react';
 import { getUserDetail } from '../api/user';
-import { useNavigate, useParams } from 'react-router-dom';
-import { UserDataForAdmin } from '../models/user/userModel';
+import { useNavigate } from 'react-router-dom';
+import { MyUserInfoData } from '../models/user/userModel';
 import ErrorPage from './Error';
 import ProfileImg from '../components/common/ProfileImg';
 
 const EditProfile = () => {
-  const { id } = useParams();
-  const [userData, setUserData] = useState<UserDataForAdmin>();
+  const [userData, setUserData] = useState<MyUserInfoData>();
   const [loading, setLoading] = useState<boolean>(true);
   const naviagate = useNavigate();
 
   const fetchUserInfo = async () => {
     setLoading(true);
 
-    const response = await getUserDetail(id!);
-    setUserData(response.userDataForAdmin);
+    const response = await getUserDetail();
+    setUserData(response.myUserInfoData);
     setLoading(false);
   };
   useEffect(() => {
     fetchUserInfo();
-  }, [id]);
+  }, []);
 
   if (loading) return <ErrorPage message={'Loading'} type="loading" />;
 
@@ -70,8 +69,8 @@ const EditProfile = () => {
             <a href="/find-password">비밀번호 찾기</a>
           </div>
           <div className="divider"></div>
-          <div className="join">
-            <a href="/join">회원가입</a>
+          <div className="withdraw" onClick={() => {}}>
+            <a>회원탈퇴</a>
           </div>
         </div>
       </div>
@@ -123,10 +122,7 @@ const EditProfileStyle = styled.div`
       align-items: center;
       gap: 10px;
       margin-bottom: 50px;
-
-      position: fixed;
-      bottom: 100px;
-      left: 0;
+      margin-top: 50px;
 
       width: 100%;
       padding: 0 28px;

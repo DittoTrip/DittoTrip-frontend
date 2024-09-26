@@ -56,19 +56,13 @@ export interface SearchUserResponse {
   userDataList: UserData[];
   totalPages: number;
 }
-
-export interface UserDataForAdmin {
-  userId: 2;
-  userStatus: 'NORMAL' | 'BANNED' | 'INACTIVE';
+export interface MyUserInfoData {
   nickname: string;
   email: string;
-  createdDateTime: Date;
-  progressionData: ProgressionData;
-  reviewCount: number;
-  dittoCount: number;
   userProfileData: UserProfileData;
 }
+
 export interface UserDetailResponse {
-  userDataForAdmin: UserDataForAdmin;
+  myUserInfoData: MyUserInfoData;
   totalPages: number;
 }

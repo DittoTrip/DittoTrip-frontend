@@ -20,7 +20,7 @@ export const searchUser = async (data: SearchUserRequset) => {
   return response.data;
 };
 // 유저 검색하기
-export const getUserDetail = async (id: string) => {
-  const response = await api.get<UserDetailResponse>(`https://dittotrip.site/user/${id}`);
+export const getUserDetail = async () => {
+  const response = await api.get<UserDetailResponse>(`/user/my-info`);
   return response.data;
 };

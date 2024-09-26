@@ -153,6 +153,10 @@ const DittoDetail = () => {
 
   const [isFollowed, setIsFollowed] = useState(myFollowingId ?? null);
 
+  useEffect(() => {
+    setIsFollowed(myFollowingId);
+  }, [myFollowingId]);
+
   const toggleFollow = async () => {
     if (!isFollowed) {
       const res = await addFollow(dittoData!.userData.userId.toString());
