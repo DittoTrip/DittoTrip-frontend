@@ -2,7 +2,7 @@ import { styled } from 'styled-components';
 import { useTranslation } from 'react-i18next';
 
 import AppBar from '../components/common/AppBar';
-import SpotCard from '../components/common/SpotCard';
+import SpotCard from '../components/spot/SpotCard';
 import { useCallback, useEffect, useState } from 'react';
 import BottomSheet from '../components/bottomsheet/BottomSheet';
 import { useSearchParams } from 'react-router-dom';

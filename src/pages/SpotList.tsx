@@ -12,7 +12,7 @@ import TagSlide from '../components/common/TagSlide';
 import DropDown from '../components/common/DropDown';
 import BottomSheet from '../components/bottomsheet/BottomSheet';
 import ToggleButtonComponent from '../components/common/ToggleView';
-import SpotItem from '../components/common/SpotItem';
+import SpotItem from '../components/spot/SpotItem';
 
 import { OptionItem } from './ReviewList';
 import useSpotList from '../hooks/spot/useSpotList';

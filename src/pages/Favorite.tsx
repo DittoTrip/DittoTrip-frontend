@@ -7,7 +7,7 @@ import { useState } from 'react';
 import useFavoriteData from '../hooks/favorite/useFavoriteData';
 import SearchContent from '../components/search/SearchContent';
 import SearchCeleb from '../components/search/SearchCeleb';
-import SpotItem from '../components/common/SpotItem';
+import SpotItem from '../components/spot/SpotItem';
 import BottomSheet from '../components/bottomsheet/BottomSheet';
 import { useTranslation } from 'react-i18next';
 

@@ -7,7 +7,7 @@ import { useSearchParams } from 'react-router-dom';
 import Tap from '../components/common/Tab';
 import DropDown from '../components/common/DropDown';
 import BottomSheet from '../components/bottomsheet/BottomSheet';
-import SpotItem from '../components/common/SpotItem';
+import SpotItem from '../components/spot/SpotItem';
 import { TapItem } from './Category';
 import { OptionItem } from './ReviewList';
 import SearchUser from '../components/search/SearchUser';

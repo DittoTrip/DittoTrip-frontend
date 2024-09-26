@@ -6,9 +6,9 @@ import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as faEmptyHeart } from '@fortawesome/free-regular-svg-icons';
 
-import Dot from './Dot';
-import TagSlide from './TagSlide';
-import Star from './Star';
+import Dot from '../common/Dot';
+import TagSlide from '../common/TagSlide';
+import Star from '../common/Star';
 import { defaultImage } from '../../constants/constant';
 import useBookmarkedSpot from '../../hooks/spot/useSpotLike';
 import { useEffect, useState } from 'react';

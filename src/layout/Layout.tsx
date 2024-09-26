@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import GlobalNavigationBar from '../components/GlobalNavigationBar';
 import { GlobalNavigationBarType } from '../components/GlobalNavigationBar/types';
+import ScrollToTop from '../components/common/ScrollToTop';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -9,6 +10,7 @@ interface LayoutProps {
 const Layout = ({ children, GNBType }: LayoutProps) => {
   return (
     <LayoutStyle>
+      <ScrollToTop />
       {children}
       <GlobalNavigationBar GNBType={GNBType} />
     </LayoutStyle>

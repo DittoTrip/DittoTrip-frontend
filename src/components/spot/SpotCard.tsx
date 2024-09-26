@@ -1,6 +1,6 @@
 import { styled } from 'styled-components';
-import Dot from './Dot';
-import Star from './Star';
+import Dot from '../common/Dot';
+import Star from '../common/Star';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
