@@ -4,10 +4,13 @@ import Button from '../components/common/Button';
 import { useEffect, useState } from 'react';
 import { TapItem } from './Category';
 import Tap from '../components/common/Tab';
-import { UserItemDataMap } from '../models/reward/rewardModel';
+import { Item, UserItemDataMap } from '../models/reward/rewardModel';
 import ErrorPage from './Error';
 import { defaultImage } from '../constants/constant';
-import { getItemList } from '../api/reward';
+import { getItemList, modyfyItem } from '../api/reward';
+import ProfileImg from '../components/common/ProfileImg';
+import { UserProfileData, UserProfileItem } from '../models/user/userModel';
+import { getWearingImagePaths } from '../utils/getWearingImagePaths ';
 
 const tapData: TapItem[] = [
   {
@@ -41,29 +44,48 @@ const Character = () => {
   // 탭 id
   const [selectedId, setSelectedId] = useState<number>(tapData[0]?.id);
   // 선택된 아이템 리스트
-  const [selectedItemList, setSelectedItemList] = useState<string[]>([]);
+  const [selectedItemList, setSelectedItemList] = useState<UserProfileItem[]>([]);
+  // 현재 설정된 아이템 정보
+  const [userProfileData, setUserProfileData] = useState<UserProfileData>();
   // 유저가 가진 아이템 리스트
   const [itemList, setItemList] = useState<UserItemDataMap>();
   const [loading, setLoading] = useState<boolean>(true);
 
-  //유저 정보 => 현재 아이템 정보 => 초기화
-
   // 선택된 아이템 리스트에 추가
-  const handleClick = (index: number, newItem: string) => {
+  const handleClick = (index: number, newItem: UserProfileItem) => {
     setSelectedItemList(prevItems => prevItems.map((item, i) => (i === index ? newItem : item)));
+    console.log(selectedItemList);
   };
 
-  // 유저의 아이템 리스트 정보
   const fetchItems = async () => {
     setLoading(true);
     try {
       const response = await getItemList();
+
+      setUserProfileData(response.userProfileData);
+
+      const { itemSkin, itemHair, itemEyes, itemMouth, itemAccessory } = response.userProfileData;
+      setSelectedItemList([itemSkin, itemHair, itemEyes, itemMouth, itemAccessory]);
 
       setItemList(response.userItemDataMap);
     } catch (err) {
       console.log(err);
     } finally {
       setLoading(false);
+    }
+  };
+
+  // 유저 아이템 수정
+
+  const EditItems = async () => {
+    try {
+      await modyfyItem(selectedItemList);
+
+      alert(`변경되었습니다.`);
+      fetchItems();
+    } catch (err) {
+      console.log(err);
+      alert(`문제가 발생했습니다. 다시 시도해주세요.`);
     }
   };
 
@@ -82,13 +104,22 @@ const Character = () => {
           leading={true}
           title={<div className="title">캐릭터 편집</div>}
           action={
-            <Button size={'small'} scheme={'keyButton'}>
+            <Button size={'small'} scheme={'keyButton'} onClick={() => EditItems()}>
               완료
             </Button>
           }
         />
       </div>
       <div className="container">
+        <div className="profile-img-wrapper">
+          <div className="profile">
+            {selectedItemList && <img className="image-item" src={selectedItemList[0].wearingImagePath} />}
+            {selectedItemList && <img className="image-item" src={selectedItemList[1].wearingImagePath} />}
+            {selectedItemList && <img className="image-item" src={selectedItemList[2].wearingImagePath} />}
+            {selectedItemList && <img className="image-item" src={selectedItemList[3].wearingImagePath} />}
+            {selectedItemList && <img className="image-item" src={selectedItemList[4].wearingImagePath} />}
+          </div>
+        </div>
         <div className="character-tab">
           <div className="content-wrapper">
             <Tap tapData={tapData} selectedId={selectedId} setSelectedId={setSelectedId} />
@@ -96,7 +127,7 @@ const Character = () => {
               {selectedId == 0 && (
                 <>
                   {itemList!.SKIN.map((item, index) => (
-                    <div className="box" key={index} onClick={() => handleClick(0, item.imagePath)}>
+                    <div className="box" key={index} onClick={() => handleClick(0, item)}>
                       {<img src={item.imagePath} width={'100%'} />}
                     </div>
                   ))}
@@ -105,7 +136,7 @@ const Character = () => {
               {selectedId == 1 && (
                 <>
                   {itemList!.HAIR.map((item, index) => (
-                    <div className="box" key={index} onClick={() => handleClick(1, item.imagePath)}>
+                    <div className="box" key={index} onClick={() => handleClick(1, item)}>
                       {<img src={item.imagePath} width={'100%'} />}
                     </div>
                   ))}
@@ -114,7 +145,7 @@ const Character = () => {
               {selectedId == 2 && (
                 <>
                   {itemList!.EYES.map((item, index) => (
-                    <div className="box" key={index} onClick={() => handleClick(2, item.imagePath)}>
+                    <div className="box" key={index} onClick={() => handleClick(2, item)}>
                       {<img src={item.imagePath} width={'100%'} />}
                     </div>
                   ))}
@@ -122,8 +153,8 @@ const Character = () => {
               )}
               {selectedId == 3 && (
                 <>
-                  {itemList!.HAIR.map((item, index) => (
-                    <div className="box" key={index} onClick={() => handleClick(3, item.imagePath)}>
+                  {itemList!.MOUTH.map((item, index) => (
+                    <div className="box" key={index} onClick={() => handleClick(3, item)}>
                       {<img src={item.imagePath ?? defaultImage} width={'100%'} />}
                     </div>
                   ))}
@@ -132,7 +163,7 @@ const Character = () => {
               {selectedId == 4 && (
                 <>
                   {itemList!.ACCESSORY.map((item, index) => (
-                    <div className="box" key={index} onClick={() => handleClick(4, item.imagePath)}>
+                    <div className="box" key={index} onClick={() => handleClick(4, item)}>
                       {<img src={item.imagePath} width={'100%'} />}
                     </div>
                   ))}
@@ -156,17 +187,39 @@ const CharacterStyle = styled.div`
   }
 
   .container {
-    height: 400px;
     width: 100%;
+    aspect-ratio: 1;
     background-color: #f9f9f9;
     position: relative;
+
+    .profile-img-wrapper {
+      width: 100%;
+      margin: 0 auto;
+
+      .profile {
+        position: relative;
+        aspect-ratio: 1;
+        width: 100%
+
+        border-radius: 50%;
+
+        .image-item {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          opacity: 0.9;
+        }
+      }
+    }
   }
   .character-tab {
     height: 500px;
     width: 100%;
     background-color: white;
     position: absolute;
-    top: 310px;
+    top: 100vw;
     border-radius: 30px;
     box-shadow: 0px -1px 15px -2px rgb(0, 0, 0, 0.1);
   }

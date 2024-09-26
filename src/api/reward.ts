@@ -1,4 +1,5 @@
 import { UserBadgeResponse, UserItemListResponse } from '../models/reward/rewardModel';
+import { UserProfileItem } from '../models/user/userModel';
 import { api } from './https';
 
 //유저의 뱃지리스트 조회
@@ -15,6 +16,17 @@ export const getItemList = async () => {
 
 // 뱃지 수정
 export const modyfyBadge = async (userBadgeId: number) => {
-  const response = await api.put<UserItemListResponse>('/profile/badge', { userBadgeId });
+  const response = await api.put('/profile/badge', { userBadgeId });
+  return response.status;
+};
+// 캐릭터 수정
+export const modyfyItem = async (item: UserProfileItem[]) => {
+  const response = await api.put('/profile/items', {
+    userItemSkinId: item[0].userRewardId,
+    userItemHairId: item[1].userRewardId,
+    userItemEyesId: item[2].userRewardId,
+    userItemMouthId: item[3].userRewardId,
+    userItemAccessoryId: item[4].userRewardId,
+  });
   return response.status;
 };

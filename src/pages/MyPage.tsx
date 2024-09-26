@@ -10,7 +10,6 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import Button from '../components/common/Button';
 import { addFollow, deleteFollow } from '../api/follow';
 import { useEffect, useState } from 'react';
-// import { useState } from 'react';
 
 const MyPage = () => {
   const [searchParams] = useSearchParams();
@@ -108,12 +107,17 @@ const MyPage = () => {
         </div>
 
         <div className="exp-bar">
-          <div className="exp-fill" style={{ width: '70%' }}></div>
+          <div
+            className="exp-fill"
+            style={{ width: `${userData!.userProfileData.progressionData.progressionRate * 100}%` }}></div>
         </div>
         <div className="level">
-          <div className="now">LV1 스타터 디토</div>
-          <div className="count">(200/300)</div>
-          <div className="next">LV2 비기너 디토</div>
+          <div className="now">{userData?.userProfileData.progressionData.presentLevel} </div>
+          <div className="count">
+            ({userData?.userProfileData.progressionData.presentExp}/
+            {userData?.userProfileData.progressionData.requiredExp})
+          </div>
+          <div className="next">{userData?.userProfileData.progressionData.nextLevel}</div>
         </div>
 
         <div className="user-detail">

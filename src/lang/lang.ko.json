@@ -13,31 +13,16 @@
     "kakaoLogin": "카카오톡 로그인"
   },
   "search": {
-    "placeHolder": "좋아하는 콘텐츠나 연예인을 검색해 보세요",
+    "search": "검색",
+    "placeholder": "좋아하는 콘텐츠나 연예인을 검색해 보세요",
     "recentSearches": "최근 검색",
     "suggestion": "추천 검색어",
     "rising": "급상승 디토"
   },
+
   "category": {
-    "tap": {
-      "contents": "영상 콘텐츠",
-      "celebrity": "연예인"
-    },
-    "contents": {
-      "entertainment": "예능",
-      "drama": "드라마",
-      "movie": "영화  "
-    },
-    "celebrity": {
-      "actor": "배우",
-      "singer": "가수",
-      "comedian": "개그맨"
-    }
-  },
-  "search": {
-    "placeholder": "좋아하는 콘텐츠나 연예인을 검색해 보세요"
-  },
-  "category": {
+    "bookmark": "즐겨찾기",
+
     "tap": {
       "contents": "영상 콘텐츠",
       "celebrity": "연예인"
@@ -52,7 +37,9 @@
       "singer": "가수",
       "comedian": "개그맨"
     },
-    "favorite": "즐겨찾기"
+    "favorite": "즐겨찾기",
+    "noData": "데이터가 없습니다.",
+    "addFavorite": "즐겨찾기를 추가해보세요"
   },
   "review": {
     "title": "리뷰",
@@ -90,7 +77,9 @@
     "report": "신고하기",
     "delete": "삭제하기",
     "modify": "수정하기",
-    "address": "주소 상세보기"
+    "address": "주소 상세보기",
+    "writeDitto": "디토 작성하기",
+    "ApplyForASpot": "스팟 등록하기"
   },
   "report": {
     "title": "신고하는 이유를 선택해 주세요.",
@@ -155,5 +144,41 @@
     "verifyEmail": "이메일 인증을 해주세요",
     "success": "회원가입 성공",
     "failure": "회원가입 실패"
+  },
+  "spotApply": {
+    "title": "스팟 신청하기",
+    "name": "스팟 이름",
+    "address": "주소",
+    "category": "카테고리",
+    "tag": "태그",
+    "stillcut": "스틸컷",
+    "apply": "스팟 신청",
+    "placeholder": {
+      "name": "스팟의 이름을 알려 주세요!",
+      "address": "스팟의 주소는 어떻게 되나요?"
+    },
+    "successMessage": "관리자의 확인 후 승인될 예정입니다. 조금만 기다려 주세요!",
+    "errorMessage": "스팟 등록에 실패했습니다. 다시 시도해주세요."
+  },
+  "guide": {
+    "mandatory": "* 필수 작성 사항입니다",
+    "mandatoryImage": "이미지를 등록해 주세요",
+    "error": "문제가 발생했습니다."
+  },
+  "tag": {
+    "tag": "태그",
+    "placeholder": "태그를 입력하세요",
+    "tagLimitMessage": "10개까지만 등록이 가능합니다."
+  },
+  "categorySearcher": {
+    "placeholder": "스팟과 관련된 카테고리를 검색해 주세요",
+    "alreadySelectedCategory": "이미 선택된 카테고리입니다."
+  },
+  "write": {
+    "write": "디토 작성하기",
+    "content": "내용",
+    "tags": "태그",
+    "submit": "완료하기",
+    "modify": "수정하기"
   }
 }

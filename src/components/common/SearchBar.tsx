@@ -4,11 +4,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 
 interface SearchBarProps {
-  setSearchWord: (searchWord: string) => void;
   placeholder: string;
+  setSearchWord: (searchWord: string) => void;
+  handleSubmit?: (search: string) => void;
 }
 
-const SearchBar = ({ setSearchWord, placeholder }: SearchBarProps) => {
+const SearchBar = ({ setSearchWord, placeholder, handleSubmit }: SearchBarProps) => {
   const queryParams = new URLSearchParams(window.location.search);
   const initialSearchTerm = queryParams.get('search') || ''; // Default to empty string if no 'search' param
 
@@ -16,6 +17,7 @@ const SearchBar = ({ setSearchWord, placeholder }: SearchBarProps) => {
 
   const handleSearch = () => {
     setSearchWord(searchTerm);
+    if (handleSubmit) handleSubmit(searchTerm);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {

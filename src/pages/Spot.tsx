@@ -124,6 +124,7 @@ const SpotStyle = styled.div`
   .main-img {
     width: 100%;
     aspect-ratio: 1;
+    object-fit: cover;
   }
   .content-wrapper {
     margin: 29px 28px 16px 28px;

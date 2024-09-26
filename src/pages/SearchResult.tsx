@@ -19,13 +19,13 @@ const SearchResult = () => {
   const { t } = useTranslation();
   const [searchParams, setSearchParams] = useSearchParams();
   const searchWordFromURL = searchParams.get('search') || '';
-  const sortFromURL = searchParams.get('sort') || 'createdDateTime,desc';
+  // const sortFromURL = searchParams.get('sort') || 'createdDateTime,desc';
 
   const tapData: TapItem[] = [
-    { id: 1, title: '스팟', content: <div>드라마 / 영화</div> },
-    { id: 2, title: '컨텐츠', content: <div>연예인들</div> },
-    { id: 3, title: '연예인', content: <div>연예인들</div> },
-    { id: 4, title: '사용자', content: <div>연예인들</div> },
+    { id: 1, title: '스팟', content: <></> },
+    { id: 2, title: '컨텐츠', content: <></> },
+    { id: 3, title: '연예인', content: <></> },
+    { id: 4, title: '사용자', content: <></> },
   ];
 
   const [searchWord, setSearchWord] = useState(searchWordFromURL);
@@ -79,21 +79,8 @@ const SearchResult = () => {
     setContentPage,
     setCelebrityPage,
     setUserPage,
-    setSpotListData,
+    // setSpotListData,
   } = useSearchData(selectedTapId);
-
-  useEffect(() => {
-    const navigationEntries = performance.getEntriesByType('navigation');
-    const navEntry = navigationEntries[0] as PerformanceNavigationTiming;
-
-    if (navEntry?.type === 'reload') {
-      // 새로고침 시 searchWord를 빈 문자열로 설정
-      setSearchWord('');
-      setSearchParams({ search: '', sort: sortFromURL });
-      setSpotPage(0);
-      setSpotListData([]);
-    }
-  }, []);
 
   useEffect(() => {
     setSearchParams({ search: searchWord, sort: sortOptions[selectedSortId].sort! });
@@ -107,7 +94,7 @@ const SearchResult = () => {
     <SearchResultStyled>
       <div className="app-bar">
         <AppBar
-          leading={true}
+          leading={false}
           title={
             <div className="title">
               <SearchBar setSearchWord={setSearchWord} placeholder={t('search.placeholder')} />

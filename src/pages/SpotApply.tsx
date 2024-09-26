@@ -12,6 +12,9 @@ import MainImageUploader from '../components/review/UploadOneImage';
 import TagInput from '../components/common/TagInput';
 import CategorySearch from '../components/common/CategorySearch';
 import { CategoryData } from '../models/category/categoryModel';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
+import LangSelectButton from '../components/LangSelectButton';
 
 export interface FormInputs {
   name: string;
@@ -23,6 +26,9 @@ export interface FormInputs {
 }
 
 const SpotApply = () => {
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+
   // 주소 검색
   const [addressModalOpen, setAddressModalOpen] = useState(false);
 
@@ -75,9 +81,10 @@ const SpotApply = () => {
 
     try {
       await addSpotApply(formData);
-      alert('스팟 등록이 완료되었습니다!');
+      alert(t('spotApply.successMessage'));
+      navigate(`/my-spotapply`);
     } catch (error) {
-      alert('스팟 등록에 실패했습니다. 다시 시도해주세요.');
+      alert(t('spotApply.errorMessage'));
     }
   };
 
@@ -98,7 +105,7 @@ const SpotApply = () => {
     <>
       <SpotApplyStyle>
         <div className="app-bar">
-          <AppBar leading={true} title={<div className="title">스팟 신청하기</div>} action={<></>} />
+          <AppBar leading={true} title={<div className="title">{t('spotApply.title')}</div>} action={<></>} />
         </div>
 
         <div className="spot-apply-container">
@@ -114,32 +121,32 @@ const SpotApply = () => {
             <div className="content-wrapper">
               <div className="spot-box">
                 <div className="spot-title">
-                  이름 <span className="error-msg">{errors?.name?.message}</span>
+                  {t('spotApply.name')} <span className="error-msg">{errors?.name?.message}</span>
                 </div>
                 <input
                   {...register('name', {
-                    required: '* 필수 작성 사항입니다',
+                    required: t('guide.mandatory'),
                   })}
                   className="spot-input"
-                  placeholder="스팟의 이름을 알려 주세요!"
+                  placeholder={t('spotApply.placeholder.name')}
                 />
               </div>
               <div className="spot-box">
                 <div className="spot-title">
-                  주소 <span className="error-msg">{errors?.address?.message}</span>
+                  {t('spotApply.address')} <span className="error-msg">{errors?.address?.message}</span>
                 </div>
                 <input
                   {...register('address', {
-                    required: '* 필수 작성 사항입니다',
+                    required: t('guide.mandatory'),
                   })}
                   className="spot-input"
-                  placeholder="스팟의 주소는 어떻게 되나요?"
+                  placeholder={t('spotApply.placeholder.address')}
                   readOnly
                   onClick={() => setAddressModalOpen(true)}
                 />
               </div>
               <div className="spot-box">
-                <div className="spot-title">카테고리</div>
+                <div className="spot-title">{t('spotApply.category')}</div>
                 <CategorySearch
                   selectedCategory={selectedCategory}
                   setSelectedCategory={setSelectedCategory}
@@ -149,7 +156,7 @@ const SpotApply = () => {
 
               <div className="spot-box">
                 <div className="tag-wrapper">
-                  <span className="spot-title">태그</span>
+                  <span className="spot-title">{t('spotApply.tag')}</span>
                   <span className="tag-length">({tags.length}/10)</span>
                 </div>
                 <TagInput tags={tags} handleAddTag={handleAddTag} handleDeleteTag={handleDeleteTag} />
@@ -157,7 +164,7 @@ const SpotApply = () => {
 
               <div className="spot-box last-spot-box">
                 <div className="tag-wrapper">
-                  <div className="spot-title">스틸컷</div>
+                  <div className="spot-title">{t('spotApply.stillcut')}</div>
                 </div>
                 <ImageUploader
                   selectedImages={selectedImages}
@@ -168,7 +175,7 @@ const SpotApply = () => {
               </div>
               <div className="submit-wrapper">
                 <Button size="large" scheme="subButton" className="spot-submit-button">
-                  스팟 등록
+                  {t('spotApply.apply')}
                 </Button>
               </div>
             </div>

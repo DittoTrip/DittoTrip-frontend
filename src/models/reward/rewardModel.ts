@@ -1,6 +1,8 @@
-export type ItemType = 'SKIN' | 'EYES' | 'MOUSE' | 'HAIR' | 'ACCESSORY';
+import { UserProfileData, UserProfileItem } from '../user/userModel';
 
-export interface UserBadgeData {
+export type ItemType = 'SKIN' | 'EYES' | 'MOUTH' | 'HAIR' | 'ACCESSORY';
+
+export interface BadgeData {
   rewardId: number;
   name: string;
   body: string;
@@ -11,26 +13,28 @@ export interface UserBadgeData {
 }
 
 export interface UserBadgeResponse {
-  // user/{userId}/bedge/list api
-  badgeDataList: UserBadgeData[];
+  userProfileData: UserProfileData;
+  badgeDataList: BadgeData[];
   isMine: boolean;
 }
 
 export interface Item {
   id: number;
   imagePath: string;
+  wearingImgPath: string;
   createdDateTime: Date;
   itemType: ItemType;
 }
 
 export interface UserItemDataMap {
-  SKIN: Item[];
-  EYES: Item[];
-  MOUSE: Item[];
-  HAIR: Item[];
-  ACCESSORY: Item[];
+  SKIN: UserProfileItem[];
+  EYES: UserProfileItem[];
+  MOUTH: UserProfileItem[];
+  HAIR: UserProfileItem[];
+  ACCESSORY: UserProfileItem[];
 }
 
 export interface UserItemListResponse {
+  userProfileData: UserProfileData;
   userItemDataMap: UserItemDataMap;
 }
