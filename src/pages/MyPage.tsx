@@ -177,7 +177,11 @@ const MyPage = () => {
                 찜
                 <FontAwesomeIcon icon={faChevronRight} className="right-icon" />
               </div>
-              <div className="btn">
+              <div
+                className="btn"
+                onClick={() => {
+                  navigate(`/quest`);
+                }}>
                 <FontAwesomeIcon icon={faFlag} />
                 퀘스트
                 <FontAwesomeIcon icon={faChevronRight} className="right-icon" />

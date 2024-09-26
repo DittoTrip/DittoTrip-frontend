@@ -4,13 +4,11 @@ import Button from '../components/common/Button';
 import { useEffect, useState } from 'react';
 import { TapItem } from './Category';
 import Tap from '../components/common/Tab';
-import { Item, UserItemDataMap } from '../models/reward/rewardModel';
+import { UserItemDataMap } from '../models/reward/rewardModel';
 import ErrorPage from './Error';
 import { defaultImage } from '../constants/constant';
 import { getItemList, modyfyItem } from '../api/reward';
-import ProfileImg from '../components/common/ProfileImg';
-import { UserProfileData, UserProfileItem } from '../models/user/userModel';
-import { getWearingImagePaths } from '../utils/getWearingImagePaths ';
+import { UserProfileItem } from '../models/user/userModel';
 
 const tapData: TapItem[] = [
   {
@@ -45,8 +43,6 @@ const Character = () => {
   const [selectedId, setSelectedId] = useState<number>(tapData[0]?.id);
   // 선택된 아이템 리스트
   const [selectedItemList, setSelectedItemList] = useState<UserProfileItem[]>([]);
-  // 현재 설정된 아이템 정보
-  const [userProfileData, setUserProfileData] = useState<UserProfileData>();
   // 유저가 가진 아이템 리스트
   const [itemList, setItemList] = useState<UserItemDataMap>();
   const [loading, setLoading] = useState<boolean>(true);
@@ -61,8 +57,6 @@ const Character = () => {
     setLoading(true);
     try {
       const response = await getItemList();
-
-      setUserProfileData(response.userProfileData);
 
       const { itemSkin, itemHair, itemEyes, itemMouth, itemAccessory } = response.userProfileData;
       setSelectedItemList([itemSkin, itemHair, itemEyes, itemMouth, itemAccessory]);
@@ -247,6 +241,7 @@ const CharacterStyle = styled.div`
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
     border-radius: 100%;
   }
+
   @media screen and (min-width: 600px) {
     .character-tab {
       top: 600px;

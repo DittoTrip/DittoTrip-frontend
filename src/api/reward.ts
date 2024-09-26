@@ -1,3 +1,4 @@
+import { UserQuestDataListResponse } from '../models/quest/questModel';
 import { UserBadgeResponse, UserItemListResponse } from '../models/reward/rewardModel';
 import { UserProfileItem } from '../models/user/userModel';
 import { api } from './https';
@@ -29,4 +30,14 @@ export const modyfyItem = async (item: UserProfileItem[]) => {
     userItemAccessoryId: item[4].userRewardId,
   });
   return response.status;
+};
+//유저의 퀘스트리스트 조회
+export const getQuestList = async (UserQuestStatus: string) => {
+  const response = await api.get<UserQuestDataListResponse>(`/quest/list`, { params: { UserQuestStatus } });
+  return response.data;
+};
+//유저의 퀘스트 보상 수령
+export const getQuestItem = async (userQuestId: number) => {
+  const response = await api.post(`/quest/${userQuestId}/achieve`);
+  return response;
 };
