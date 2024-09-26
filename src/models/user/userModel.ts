@@ -18,6 +18,7 @@ export interface SearchUserRequset {
 }
 
 export interface UserProfileItem {
+  itemId: number;
   userRewardId: number;
   name: string;
   imagePath: string;

@@ -65,6 +65,7 @@ const VisitedSpotCardStyled = styled.div`
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.1));
   padding: 20px 16px 10px 16px;
   margin-bottom: 20px;
+  width: 100vw - 24px;
 
   .visit-date {
     margin-bottom: 16px;
@@ -77,7 +78,7 @@ const VisitedSpotCardStyled = styled.div`
     margin-bottom: 16px;
 
     .spot-image {
-      width: 25vw;
+      width: 120px;
       aspect-ratio: 1.3;
       border-radius: 12px;
       object-fit: cover;
@@ -114,7 +115,7 @@ const VisitedSpotCardStyled = styled.div`
         .spot-info-address {
           color: ${({ theme }) => theme.color.gray60};
           ${({ theme }) => theme.font.body4};
-          width: 160px;
+          width: 100%;
 
           white-space: nowrap;
           overflow: hidden;
@@ -130,7 +131,6 @@ const VisitedSpotCardStyled = styled.div`
       }
       .tag-wrapper {
         margin: 8px 0;
-        width: 48vw;
 
         overflow-x: scroll;
       }

@@ -4,12 +4,13 @@ import Button from '../components/common/Button';
 import { useEffect, useState } from 'react';
 import { TapItem } from './Category';
 import Tap from '../components/common/Tab';
-import { UserItemDataMap } from '../models/reward/rewardModel';
+import { Item, UserItemDataMap } from '../models/reward/rewardModel';
 import ErrorPage from './Error';
 import { defaultImage } from '../constants/constant';
 import { getItemList, modyfyItem } from '../api/reward';
 import ProfileImg from '../components/common/ProfileImg';
-import { UserProfileData } from '../models/user/userModel';
+import { UserProfileData, UserProfileItem } from '../models/user/userModel';
+import { getWearingImagePaths } from '../utils/getWearingImagePaths ';
 
 const tapData: TapItem[] = [
   {
@@ -43,7 +44,7 @@ const Character = () => {
   // 탭 id
   const [selectedId, setSelectedId] = useState<number>(tapData[0]?.id);
   // 선택된 아이템 리스트
-  const [selectedItemList, setSelectedItemList] = useState<string[]>(['0', '0', '0', '0', '0']);
+  const [selectedItemList, setSelectedItemList] = useState<UserProfileItem[]>([]);
   // 현재 설정된 아이템 정보
   const [userProfileData, setUserProfileData] = useState<UserProfileData>();
   // 유저가 가진 아이템 리스트
@@ -51,18 +52,20 @@ const Character = () => {
   const [loading, setLoading] = useState<boolean>(true);
 
   // 선택된 아이템 리스트에 추가
-  const handleClick = (index: number, newItem: string) => {
+  const handleClick = (index: number, newItem: UserProfileItem) => {
     setSelectedItemList(prevItems => prevItems.map((item, i) => (i === index ? newItem : item)));
     console.log(selectedItemList);
   };
 
-  // 유저의 아이템 리스트 정보
   const fetchItems = async () => {
     setLoading(true);
     try {
       const response = await getItemList();
 
       setUserProfileData(response.userProfileData);
+
+      const { itemSkin, itemHair, itemEyes, itemMouth, itemAccessory } = response.userProfileData;
+      setSelectedItemList([itemSkin, itemHair, itemEyes, itemMouth, itemAccessory]);
 
       setItemList(response.userItemDataMap);
     } catch (err) {
@@ -109,7 +112,13 @@ const Character = () => {
       </div>
       <div className="container">
         <div className="profile-img-wrapper">
-          <ProfileImg userProfileData={userProfileData!} width="100%" background={true} />
+          <div className="profile">
+            {selectedItemList && <img className="image-item" src={selectedItemList[0].wearingImagePath} />}
+            {selectedItemList && <img className="image-item" src={selectedItemList[1].wearingImagePath} />}
+            {selectedItemList && <img className="image-item" src={selectedItemList[2].wearingImagePath} />}
+            {selectedItemList && <img className="image-item" src={selectedItemList[3].wearingImagePath} />}
+            {selectedItemList && <img className="image-item" src={selectedItemList[4].wearingImagePath} />}
+          </div>
         </div>
         <div className="character-tab">
           <div className="content-wrapper">
@@ -118,7 +127,7 @@ const Character = () => {
               {selectedId == 0 && (
                 <>
                   {itemList!.SKIN.map((item, index) => (
-                    <div className="box" key={index} onClick={() => handleClick(0, item.imagePath)}>
+                    <div className="box" key={index} onClick={() => handleClick(0, item)}>
                       {<img src={item.imagePath} width={'100%'} />}
                     </div>
                   ))}
@@ -127,7 +136,7 @@ const Character = () => {
               {selectedId == 1 && (
                 <>
                   {itemList!.HAIR.map((item, index) => (
-                    <div className="box" key={index} onClick={() => handleClick(1, item.imagePath)}>
+                    <div className="box" key={index} onClick={() => handleClick(1, item)}>
                       {<img src={item.imagePath} width={'100%'} />}
                     </div>
                   ))}
@@ -136,7 +145,7 @@ const Character = () => {
               {selectedId == 2 && (
                 <>
                   {itemList!.EYES.map((item, index) => (
-                    <div className="box" key={index} onClick={() => handleClick(2, item.imagePath)}>
+                    <div className="box" key={index} onClick={() => handleClick(2, item)}>
                       {<img src={item.imagePath} width={'100%'} />}
                     </div>
                   ))}
@@ -144,8 +153,8 @@ const Character = () => {
               )}
               {selectedId == 3 && (
                 <>
-                  {itemList!.HAIR.map((item, index) => (
-                    <div className="box" key={index} onClick={() => handleClick(3, item.imagePath)}>
+                  {itemList!.MOUTH.map((item, index) => (
+                    <div className="box" key={index} onClick={() => handleClick(3, item)}>
                       {<img src={item.imagePath ?? defaultImage} width={'100%'} />}
                     </div>
                   ))}
@@ -154,7 +163,7 @@ const Character = () => {
               {selectedId == 4 && (
                 <>
                   {itemList!.ACCESSORY.map((item, index) => (
-                    <div className="box" key={index} onClick={() => handleClick(4, item.imagePath)}>
+                    <div className="box" key={index} onClick={() => handleClick(4, item)}>
                       {<img src={item.imagePath} width={'100%'} />}
                     </div>
                   ))}
@@ -186,6 +195,23 @@ const CharacterStyle = styled.div`
     .profile-img-wrapper {
       width: 100%;
       margin: 0 auto;
+
+      .profile {
+        position: relative;
+        aspect-ratio: 1;
+        width: 100%
+
+        border-radius: 50%;
+
+        .image-item {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          opacity: 0.9;
+        }
+      }
     }
   }
   .character-tab {

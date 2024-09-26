@@ -1,4 +1,4 @@
-import { UserProfileData } from '../user/userModel';
+import { UserProfileData, UserProfileItem } from '../user/userModel';
 
 export type ItemType = 'SKIN' | 'EYES' | 'MOUTH' | 'HAIR' | 'ACCESSORY';
 
@@ -21,16 +21,17 @@ export interface UserBadgeResponse {
 export interface Item {
   id: number;
   imagePath: string;
+  wearingImgPath: string;
   createdDateTime: Date;
   itemType: ItemType;
 }
 
 export interface UserItemDataMap {
-  SKIN: Item[];
-  EYES: Item[];
-  MOUTH: Item[];
-  HAIR: Item[];
-  ACCESSORY: Item[];
+  SKIN: UserProfileItem[];
+  EYES: UserProfileItem[];
+  MOUTH: UserProfileItem[];
+  HAIR: UserProfileItem[];
+  ACCESSORY: UserProfileItem[];
 }
 
 export interface UserItemListResponse {
