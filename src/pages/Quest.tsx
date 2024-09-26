@@ -4,7 +4,7 @@ import { TapItem } from './Category';
 import { useEffect, useState } from 'react';
 import Tap from '../components/common/Tab';
 import QuestCard from '../components/quest/QuestCard';
-import { UserQuest, UserQuestDataListResponse } from '../models/quest/questModel';
+import { UserQuest } from '../models/quest/questModel';
 import { getQuestList } from '../api/reward';
 
 const tapData: TapItem[] = [

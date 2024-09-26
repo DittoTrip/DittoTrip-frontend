@@ -164,7 +164,8 @@
     "mandatory": "* It's mandatory",
     "mandatoryImage": "Please register your image",
     "error": "error",
-    "login": "Login Required"
+    "login": "Login Required",
+    "logout": "Logout"
   },
   "tag": {
     "tag": "tag",

@@ -7,11 +7,16 @@ import { useNavigate } from 'react-router-dom';
 import { MyUserInfoData } from '../models/user/userModel';
 import ErrorPage from './Error';
 import ProfileImg from '../components/common/ProfileImg';
+import { logout } from '../api/auth';
+import { useAuthStore } from '../store/authStore';
+import { useTranslation } from 'react-i18next';
 
 const EditProfile = () => {
   const [userData, setUserData] = useState<MyUserInfoData>();
   const [loading, setLoading] = useState<boolean>(true);
   const naviagate = useNavigate();
+  const { storeLogout } = useAuthStore();
+  const { t } = useTranslation();
 
   const fetchUserInfo = async () => {
     setLoading(true);
@@ -20,6 +25,17 @@ const EditProfile = () => {
     setUserData(response.myUserInfoData);
     setLoading(false);
   };
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      storeLogout();
+      alert(t('guide.logout'));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     fetchUserInfo();
   }, []);
@@ -66,7 +82,7 @@ const EditProfile = () => {
         </div>
         <div className="sub-menu-wrapper">
           <div className="find-pw">
-            <a href="/find-password">비밀번호 찾기</a>
+            <a onClick={handleLogout}>로그아웃</a>
           </div>
           <div className="divider"></div>
           <div className="withdraw" onClick={() => {}}>

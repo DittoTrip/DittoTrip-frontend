@@ -2,7 +2,7 @@ export interface RewardData {
   rewardId: number;
   name: string;
   imagePath: string;
-  xp: number;
+  rewardExp: number;
   type: 'ITEM' | 'BADGE';
 }
 
