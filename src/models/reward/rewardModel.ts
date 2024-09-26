@@ -1,6 +1,6 @@
-import { UserProfileData } from '../userpage/userPageModel';
+import { UserProfileData } from '../user/userModel';
 
-export type ItemType = 'SKIN' | 'EYES' | 'MOUSE' | 'HAIR' | 'ACCESSORY';
+export type ItemType = 'SKIN' | 'EYES' | 'MOUTH' | 'HAIR' | 'ACCESSORY';
 
 export interface BadgeData {
   rewardId: number;
@@ -28,11 +28,12 @@ export interface Item {
 export interface UserItemDataMap {
   SKIN: Item[];
   EYES: Item[];
-  MOUSE: Item[];
+  MOUTH: Item[];
   HAIR: Item[];
   ACCESSORY: Item[];
 }
 
 export interface UserItemListResponse {
+  userProfileData: UserProfileData;
   userItemDataMap: UserItemDataMap;
 }

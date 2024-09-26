@@ -15,6 +15,17 @@ export const getItemList = async () => {
 
 // 뱃지 수정
 export const modyfyBadge = async (userBadgeId: number) => {
-  const response = await api.put<UserItemListResponse>('/profile/badge', { userBadgeId });
+  const response = await api.put('/profile/badge', { userBadgeId });
+  return response.status;
+};
+// 캐릭터 수정
+export const modyfyItem = async (itemId: string[]) => {
+  const response = await api.put('/profile/items', {
+    userItemSkinId: itemId[0],
+    userItemEyesId: itemId[1],
+    userItemMouthId: itemId[2],
+    userItemHairId: itemId[3],
+    userItemAccessoryId: itemId[4],
+  });
   return response.status;
 };

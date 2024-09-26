@@ -14,7 +14,7 @@
   },
   "search": {
     "search": "검색",
-    "placeHolder": "좋아하는 콘텐츠나 연예인을 검색해 보세요",
+    "placeholder": "좋아하는 콘텐츠나 연예인을 검색해 보세요",
     "recentSearches": "최근 검색",
     "suggestion": "추천 검색어",
     "rising": "급상승 디토"

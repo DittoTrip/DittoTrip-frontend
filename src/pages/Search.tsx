@@ -13,6 +13,7 @@ import DittoSlide from '../components/search/DittoSlide';
 
 import { TapItem } from './Category';
 import { useNavigate } from 'react-router-dom';
+import { deleteSearchWord, getRecentSearchWords, saveSearchWord } from '../utils/recentSearches';
 
 export interface searchItem {
   title: string;
@@ -66,12 +67,18 @@ const CAROUSEL_TEXTS = [
 const Search = () => {
   const { t } = useTranslation();
   const [searchWord, setSearchWord] = useState('');
+  const [recentWord, setRecentWord] = useState(getRecentSearchWords());
 
   const navigate = useNavigate();
   console.log(searchWord);
   if (searchWord) {
     navigate(`/search-result?search=${searchWord}`);
   }
+
+  const handleDeleteSearch = (word: string) => {
+    deleteSearchWord(word);
+    setRecentWord(getRecentSearchWords());
+  };
 
   const tapData: TapItem[] = [
     { id: 1, title: `${t('category.tap.contents')}`, content: <div>영상 컨턴츠</div> },
@@ -86,17 +93,20 @@ const Search = () => {
       </div>
 
       <div className="container">
-        <SearchBar setSearchWord={setSearchWord} placeholder={t('search.placeholder')} />
+        <SearchBar setSearchWord={setSearchWord} placeholder={t('search.placeholder')} handleSubmit={saveSearchWord} />
 
         <div className="search-title">{t('search.recentSearches')}</div>
 
         <div className="recent-list">
-          <div className="recent-content">슬기로운 깜빵생활</div>
-          <div className="delete-btn">
-            <FontAwesomeIcon icon={faXmark} />
-          </div>
+          {recentWord.map((word: string) => (
+            <div className="recent-item" key={word}>
+              <div className="recent-content">{word}</div>
+              <div className="delete-btn" onClick={() => handleDeleteSearch(word)}>
+                <FontAwesomeIcon icon={faXmark} />
+              </div>
+            </div>
+          ))}
         </div>
-        <div className="clear" />
 
         <div className="search-title">{t('search.suggestion')}</div>
         <TextSlide carouselTextList={CAROUSEL_TEXTS} />
@@ -142,10 +152,9 @@ const SearchStyled = styled.div`
   .container {
     margin: 10px 28px;
   }
-  .recent-list {
-    display: block;
-  }
+
   .recent-content {
+    padding: 5px;
     width: 95%;
     float: left;
   }

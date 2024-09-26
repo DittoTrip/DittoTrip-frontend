@@ -1,11 +1,11 @@
 import { BadgeData } from '../reward/rewardModel';
 
-export type ItemType = 'SKIN' | 'EYES' | 'MOUSE' | 'HAIR' | 'ACCESSORY';
+export type ItemType = 'SKIN' | 'EYES' | 'MOUTH' | 'HAIR' | 'ACCESSORY';
 
 export interface UserProfileRequset {
   itemSkinId: number;
   itemEyesId: number;
-  itemMouseId: number;
+  itemMouthId: number;
   itemHairId: number;
   itemAccessoryId: number;
   badgeId: number;
@@ -21,6 +21,7 @@ export interface UserProfileItem {
   userRewardId: number;
   name: string;
   imagePath: string;
+  wearingImagePath: string;
   itemType: ItemType;
   createdDateTime: string;
 }
@@ -34,10 +35,10 @@ export interface ProgressionData {
 }
 
 export interface UserProfileData {
-  progressionBar: ProgressionData;
+  progressionData: ProgressionData;
   itemSkin: UserProfileItem;
   itemEyes: UserProfileItem;
-  itemMouse: UserProfileItem;
+  itemMouth: UserProfileItem;
   itemHair: UserProfileItem;
   itemAccessory: UserProfileItem;
   badgeData: BadgeData;
@@ -61,7 +62,7 @@ export interface UserDataForAdmin {
   nickname: string;
   email: string;
   createdDateTime: Date;
-  progressionBar: number;
+  progressionData: ProgressionData;
   reviewCount: number;
   dittoCount: number;
   userProfileData: UserProfileData;

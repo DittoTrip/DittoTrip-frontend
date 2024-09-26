@@ -7,7 +7,9 @@ import Tap from '../components/common/Tab';
 import { UserItemDataMap } from '../models/reward/rewardModel';
 import ErrorPage from './Error';
 import { defaultImage } from '../constants/constant';
-import { getItemList } from '../api/reward';
+import { getItemList, modyfyItem } from '../api/reward';
+import ProfileImg from '../components/common/ProfileImg';
+import { UserProfileData } from '../models/user/userModel';
 
 const tapData: TapItem[] = [
   {
@@ -41,16 +43,17 @@ const Character = () => {
   // 탭 id
   const [selectedId, setSelectedId] = useState<number>(tapData[0]?.id);
   // 선택된 아이템 리스트
-  const [selectedItemList, setSelectedItemList] = useState<string[]>([]);
+  const [selectedItemList, setSelectedItemList] = useState<string[]>(['0', '0', '0', '0', '0']);
+  // 현재 설정된 아이템 정보
+  const [userProfileData, setUserProfileData] = useState<UserProfileData>();
   // 유저가 가진 아이템 리스트
   const [itemList, setItemList] = useState<UserItemDataMap>();
   const [loading, setLoading] = useState<boolean>(true);
 
-  //유저 정보 => 현재 아이템 정보 => 초기화
-
   // 선택된 아이템 리스트에 추가
   const handleClick = (index: number, newItem: string) => {
     setSelectedItemList(prevItems => prevItems.map((item, i) => (i === index ? newItem : item)));
+    console.log(selectedItemList);
   };
 
   // 유저의 아이템 리스트 정보
@@ -59,11 +62,27 @@ const Character = () => {
     try {
       const response = await getItemList();
 
+      setUserProfileData(response.userProfileData);
+
       setItemList(response.userItemDataMap);
     } catch (err) {
       console.log(err);
     } finally {
       setLoading(false);
+    }
+  };
+
+  // 유저 아이템 수정
+
+  const EditItems = async () => {
+    try {
+      await modyfyItem(selectedItemList);
+
+      alert(`변경되었습니다.`);
+      fetchItems();
+    } catch (err) {
+      console.log(err);
+      alert(`문제가 발생했습니다. 다시 시도해주세요.`);
     }
   };
 
@@ -82,13 +101,16 @@ const Character = () => {
           leading={true}
           title={<div className="title">캐릭터 편집</div>}
           action={
-            <Button size={'small'} scheme={'keyButton'}>
+            <Button size={'small'} scheme={'keyButton'} onClick={() => EditItems()}>
               완료
             </Button>
           }
         />
       </div>
       <div className="container">
+        <div className="profile-img-wrapper">
+          <ProfileImg userProfileData={userProfileData!} width="100%" background={true} />
+        </div>
         <div className="character-tab">
           <div className="content-wrapper">
             <Tap tapData={tapData} selectedId={selectedId} setSelectedId={setSelectedId} />
@@ -156,17 +178,22 @@ const CharacterStyle = styled.div`
   }
 
   .container {
-    height: 400px;
     width: 100%;
+    aspect-ratio: 1;
     background-color: #f9f9f9;
     position: relative;
+
+    .profile-img-wrapper {
+      width: 100%;
+      margin: 0 auto;
+    }
   }
   .character-tab {
     height: 500px;
     width: 100%;
     background-color: white;
     position: absolute;
-    top: 310px;
+    top: 100vw;
     border-radius: 30px;
     box-shadow: 0px -1px 15px -2px rgb(0, 0, 0, 0.1);
   }

@@ -1,7 +1,7 @@
 import { BadgeData } from '../reward/rewardModel';
 import { ProgressionData, UserData } from '../user/userModel';
 
-export type ItemType = 'SKIN' | 'EYES' | 'MOUSE' | 'HAIR' | 'ACCESSORY';
+export type ItemType = 'SKIN' | 'EYES' | 'MOUTH' | 'HAIR' | 'ACCESSORY';
 
 export interface Item {
   id: number;
@@ -12,10 +12,10 @@ export interface Item {
 }
 
 export interface UserProfileData {
-  progressionBar: ProgressionData;
+  progressionData: ProgressionData;
   itemSkin: Item;
   itemEyes: Item;
-  itemMouse: Item;
+  itemMouth: Item;
   itemHair: Item;
   itemAccessory: Item;
   badgeData: BadgeData;
