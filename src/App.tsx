@@ -16,7 +16,7 @@ import Search from './pages/Search';
 import SearchResult from './pages/SearchResult';
 import Join from './pages/Join';
 import Report from './pages/Report';
-import Spot from './pages/Spot';
+import Spot from './pages/SpotDetail';
 import Around from './pages/Around';
 import List from './pages/SpotList';
 import Login from './pages/Login';
@@ -43,6 +43,7 @@ import MySpotApplyDetail from './pages/MySpotApplyDetail';
 import Quest from './pages/Quest';
 import VisitedSpotList from './pages/VisitedSpotList';
 import Map from './pages/Map';
+import SpotDetail from './pages/SpotDetail';
 
 const router = createBrowserRouter([
   {
@@ -95,7 +96,7 @@ const router = createBrowserRouter([
     path: '/spot/:id',
     element: (
       <Layout GNBType="search">
-        <Spot />
+        <SpotDetail />
       </Layout>
     ),
   },

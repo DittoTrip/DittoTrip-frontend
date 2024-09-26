@@ -1,7 +1,14 @@
 import { useState, useEffect } from 'react';
 import { postVisitedSpot } from '../../api/spot';
+import { useAuthStore } from '../../store/authStore';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 const useVisitedSpot = (spotId: string) => {
+  const { t } = useTranslation();
+  const { isLoggedIn } = useAuthStore();
+  const navigate = useNavigate();
+
   const [isVisited, setIsVisited] = useState<boolean>(false);
   const [userX, setUserX] = useState<number | null>(null);
   const [userY, setUserY] = useState<number | null>(null);
@@ -20,6 +27,11 @@ const useVisitedSpot = (spotId: string) => {
 
   const markSpotAsVisited = async () => {
     if (userX == null || userY == null) {
+      return;
+    }
+    if (!isLoggedIn) {
+      alert(t('guide.login'));
+      navigate('/login');
       return;
     }
 

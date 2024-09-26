@@ -10,6 +10,7 @@ import { addDitto, getDitto, modifyDitto } from '../api/ditto'; // Assuming you 
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { convertURLtoFile } from '../utils/convertURLtoFile';
 import LangSelectButton from '../components/LangSelectButton';
+import { useAuthStore } from '../store/authStore';
 
 export interface FormInputs {
   title: string;
@@ -35,6 +36,7 @@ const DittoWrite = () => {
   const [tags, setTags] = useState<string[]>([]);
   const body = watch('body');
   const navigate = useNavigate();
+  const { isLoggedIn } = useAuthStore();
 
   useEffect(() => {
     if (dittoId) {
@@ -76,6 +78,13 @@ const DittoWrite = () => {
       alert(t('guide.mandatoryImage'));
       return;
     }
+
+    if (!isLoggedIn) {
+      alert(t('guide.login'));
+      navigate('/login');
+      return;
+    }
+
     try {
       const formData = new FormData();
       formData.append('saveReq', new Blob([JSON.stringify(data)], { type: 'application/json' }));

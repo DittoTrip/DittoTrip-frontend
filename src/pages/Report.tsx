@@ -7,12 +7,14 @@ import AppBar from '../components/common/AppBar';
 import Modal from '../components/common/Modal';
 import { addReport } from '../api/report';
 import { ReportReasonType, ReportTargetType } from '../models/report/reportModel';
+import { useAuthStore } from '../store/authStore';
 
 const Report = () => {
   const { t } = useTranslation();
   const { type, id } = useParams();
   const targetType = type as ReportTargetType;
   const navigate = useNavigate();
+  const { isLoggedIn } = useAuthStore();
 
   const [isOpen, setIsOpen] = useState(false);
   const [message, setMessage] = useState('');
@@ -28,6 +30,12 @@ const Report = () => {
 
   // 신고 등록 핸들러
   const handleReportSubmit = async (reasonType: ReportReasonType) => {
+    if (!isLoggedIn) {
+      alert(t('guide.login'));
+      navigate('/login');
+      return;
+    }
+
     try {
       const data = {
         reportReasonType: reasonType,

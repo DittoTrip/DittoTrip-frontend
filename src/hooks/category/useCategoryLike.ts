@@ -1,8 +1,14 @@
 import { useState, useEffect } from 'react';
 import { addBookmark, bookmarkedCategory, removeBookmark } from '../../api/category';
+import { useAuthStore } from '../../store/authStore';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 const useBookmarkedCategory = (id: string) => {
   const [isBookmarked, setIsBookmarked] = useState<boolean>(false);
+  const { isLoggedIn } = useAuthStore();
+  const { t } = useTranslation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchBookmarkStatus = async () => {
@@ -18,6 +24,12 @@ const useBookmarkedCategory = (id: string) => {
   }, [id]);
 
   const toggleBookmark = async () => {
+    if (!isLoggedIn) {
+      alert(t('guide.login'));
+      navigate('/login');
+
+      return;
+    }
     try {
       if (isBookmarked) {
         removeBookmark(id);

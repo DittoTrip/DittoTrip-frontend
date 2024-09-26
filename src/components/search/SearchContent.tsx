@@ -2,7 +2,6 @@ import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import useBookmarkedCategory from '../../hooks/category/useCategoryLike';
-import { useAuthStore } from '../../store/authStore';
 
 import styled from 'styled-components';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
@@ -18,15 +17,10 @@ interface Props {
 const SearchContent = ({ data }: Props) => {
   const navigate = useNavigate();
   const { isBookmarked, toggleBookmark } = useBookmarkedCategory(data.categoryId.toString());
-  const { isLoggedIn } = useAuthStore();
 
   const handleHeartClick = (event: React.MouseEvent) => {
     event.stopPropagation();
-    console.log(isLoggedIn);
-    if (!isLoggedIn) {
-      alert('로그인하세요');
-      return;
-    }
+
     toggleBookmark();
   };
 

@@ -2,6 +2,10 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
+import { useAuthStore } from '../store/authStore';
+
 import { addSpotApply } from '../api/spotApply';
 
 import AppBar from '../components/common/AppBar';
@@ -12,9 +16,6 @@ import MainImageUploader from '../components/review/UploadOneImage';
 import TagInput from '../components/common/TagInput';
 import CategorySearch from '../components/common/CategorySearch';
 import { CategoryData } from '../models/category/categoryModel';
-import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
-import LangSelectButton from '../components/LangSelectButton';
 
 export interface FormInputs {
   name: string;
@@ -28,6 +29,7 @@ export interface FormInputs {
 const SpotApply = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const { isLoggedIn } = useAuthStore();
 
   // 주소 검색
   const [addressModalOpen, setAddressModalOpen] = useState(false);
@@ -54,6 +56,12 @@ const SpotApply = () => {
   } = useForm<FormInputs>();
 
   const onValid = async (data: FormInputs) => {
+    if (!isLoggedIn) {
+      alert(t('guide.login'));
+      navigate('/login');
+      return;
+    }
+
     const formData = new FormData();
 
     // 스팟 정보 추가

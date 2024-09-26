@@ -1,7 +1,11 @@
 import { useState, useEffect, useCallback } from 'react';
-import { useParams } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
+import { useNavigate, useParams } from 'react-router-dom';
 import { styled } from 'styled-components';
+
+import { useTranslation } from 'react-i18next';
+import { useAuthStore } from '../store/authStore';
+import useSpotList from '../hooks/spot/useSpotList';
+import useBookmarkedCategory from '../hooks/category/useCategoryLike';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
@@ -13,22 +17,22 @@ import DropDown from '../components/common/DropDown';
 import BottomSheet from '../components/bottomsheet/BottomSheet';
 import ToggleButtonComponent from '../components/common/ToggleView';
 import SpotItem from '../components/spot/SpotItem';
+import ErrorPage from './Error';
 
 import { OptionItem } from './ReviewList';
-import useSpotList from '../hooks/spot/useSpotList';
-import ErrorPage from './Error';
 import { defaultImage, defaultPageOptions } from '../constants/constant';
-import useBookmarkedCategory from '../hooks/category/useCategoryLike';
 
 const List = () => {
   const { t } = useTranslation();
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const [currentPage, setCurrentPage] = useState(0);
   const [selectedAddress, setSelectedAddress] = useState('');
   const [isSortOpen, setIsSortOpen] = useState(false);
 
   const { isBookmarked, toggleBookmark } = useBookmarkedCategory(id!);
+  const { isLoggedIn } = useAuthStore();
 
   const sortOptions: OptionItem[] = [
     {

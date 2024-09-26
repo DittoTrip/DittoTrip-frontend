@@ -11,6 +11,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { addReview, getReview, modifyReview } from '../api/review';
 import { convertURLtoFile } from '../utils/convertURLtoFile';
+import { useAuthStore } from '../store/authStore';
 
 export interface FormInputs {
   rating: number;
@@ -30,6 +31,7 @@ const NewReview = () => {
 
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const { isLoggedIn } = useAuthStore();
 
   const isEditing = reviewId;
 
@@ -108,6 +110,12 @@ const NewReview = () => {
       console.error('리뷰 등록/수정 실패', error);
     }
   };
+
+  if (!isLoggedIn) {
+    alert(t('guide.login'));
+    navigate('/login');
+    return;
+  }
 
   return (
     <NewReviewStyle>

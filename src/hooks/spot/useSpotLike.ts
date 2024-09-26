@@ -2,10 +2,15 @@ import { useState, useEffect } from 'react';
 import { bookmarkedSpot } from '../../api/spot';
 import { addSpotBookmark, removeSpotBookmark } from '../../api/spot';
 import { useAuthStore } from '../../store/authStore';
+import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const useBookmarkedSpot = (spotId: string, bookmarkedId: number) => {
   const [isBookmarked, setIsBookmarked] = useState<boolean>(false);
   const { isLoggedIn } = useAuthStore();
+
+  const navigate = useNavigate();
+  const { t } = useTranslation();
 
   useEffect(() => {
     const fetchBookmarkStatus = async () => {
@@ -22,6 +27,13 @@ const useBookmarkedSpot = (spotId: string, bookmarkedId: number) => {
   }, [spotId]);
 
   const toggleBookmark = async () => {
+    // console.log('북마크 여부', isLoggedIn);
+    if (!isLoggedIn) {
+      alert(t('guide.login'));
+      navigate('/login');
+      return;
+    }
+
     try {
       if (isBookmarked) {
         removeSpotBookmark(spotId, bookmarkedId);

@@ -1,5 +1,10 @@
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
+
+import { useTranslation } from 'react-i18next';
+import useBookmarkedSpot from '../../hooks/spot/useSpotLike';
+import { useAuthStore } from '../../store/authStore';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
@@ -9,11 +14,8 @@ import { faHeart as faEmptyHeart } from '@fortawesome/free-regular-svg-icons';
 import Dot from '../common/Dot';
 import TagSlide from '../common/TagSlide';
 import Star from '../common/Star';
-import { defaultImage } from '../../constants/constant';
-import useBookmarkedSpot from '../../hooks/spot/useSpotLike';
-import { useEffect, useState } from 'react';
-import { useAuthStore } from '../../store/authStore';
 import { SpotData } from '../../models/spot/spotModel';
+import { defaultImage } from '../../constants/constant';
 
 interface Props {
   data: SpotData;
@@ -23,6 +25,7 @@ interface Props {
 
 const SpotItem = ({ data, setSelectedAddress, setIsOpen }: Props) => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const { isLoggedIn } = useAuthStore();
 
   // 주소 클릭
@@ -42,10 +45,10 @@ const SpotItem = ({ data, setSelectedAddress, setIsOpen }: Props) => {
   }, [data]);
 
   const handleHeartClick = (event: React.MouseEvent) => {
-    console.log(isLoggedIn);
     event.stopPropagation();
     if (!isLoggedIn) {
-      alert('로그인하세요');
+      alert(t('guide.login'));
+      navigate('/login');
       return;
     }
     toggleBookmark();

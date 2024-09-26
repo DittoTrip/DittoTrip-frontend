@@ -162,7 +162,9 @@
   },
   "guide": {
     "mandatory": "* It's mandatory",
-    "mandatoryImage": "Please register your image"
+    "mandatoryImage": "Please register your image",
+    "error": "error",
+    "login": "Login Required"
   },
   "tag": {
     "tag": "tag",
