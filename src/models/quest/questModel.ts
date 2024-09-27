@@ -3,7 +3,7 @@ export interface RewardData {
   name: string;
   imagePath: string;
   rewardExp: number;
-  type: 'ITEM' | 'BADGE';
+  rewardType: 'ITEM' | 'BADGE';
 }
 
 export interface UserQuest {

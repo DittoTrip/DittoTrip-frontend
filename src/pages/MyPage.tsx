@@ -10,6 +10,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import Button from '../components/common/Button';
 import { addFollow, deleteFollow } from '../api/follow';
 import { useEffect, useState } from 'react';
+import { defaultBadge } from '../constants/constant';
 
 const MyPage = () => {
   const [searchParams] = useSearchParams();
@@ -81,7 +82,12 @@ const MyPage = () => {
           </div>
           <div className="user-name-box">
             <div className="badge-img">
-              <img src={userData?.userData.userProfileData.badgeData.imagePath}></img>
+              <img
+                src={
+                  userData?.userData.userProfileData.badgeData
+                    ? userData?.userData.userProfileData.badgeData.imagePath
+                    : defaultBadge
+                }></img>
             </div>
             <div className="user-badge" onClick={() => navigate(`/badge?user=${userData?.userData.userId}`)}>
               {userData?.userData.userProfileData.badgeData.name}

@@ -26,13 +26,13 @@ const QuestCard = ({ quest, setSelectedTapId }: QuestCardProps) => {
       <div className="quest-box">
         <div className="detail">
           <div className="text-box">
-            <div className={`item${quest.rewardData.type == 'ITEM' ? 1 : ''}`}>{'ITEM'}</div>
+            <div className={`item${quest.rewardData.rewardType == 'ITEM' ? 1 : ''}`}>{quest.rewardData.rewardType}</div>
             <div className="quest">{quest.title}</div>
             <div className="compen">{`${quest.rewardData.name} + ${quest.rewardData.rewardExp}XP 지급`}</div>
           </div>
           {quest.userQuestStatus == 'PENDING' && (
             <div className="img-box prev" onClick={() => handleGetQuestItem(quest.userQuestId)}>
-              {quest.rewardData.type} 받기
+              {quest.rewardData.rewardType} 받기
             </div>
           )}
           {quest.userQuestStatus != 'PENDING' && (

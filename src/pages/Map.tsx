@@ -73,9 +73,9 @@ const Map = () => {
         });
         // 마커 클릭 이벤트
         kakao.maps.event.addListener(marker, 'click', function () {
-          alert(
-            `이름: ${spots[i].name} / 별점: ${spots[i].rating} / 주소: ${spots[i].address} / 해시태그: ${spots[i].hashtags}`
-          );
+          // alert(
+          //   `이름: ${spots[i].name} / 별점: ${spots[i].rating} / 주소: ${spots[i].address} / 해시태그: ${spots[i].hashtags}`
+          // );
         });
 
         marker.setMap(kakaoMap);
