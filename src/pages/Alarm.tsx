@@ -7,9 +7,11 @@ import { getAlarmList } from '../api/alarm';
 import ErrorPage from './Error';
 import { defaultPageOptions } from '../constants/constant';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const Alarm = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const [alarmDataList, setAlarmDataList] = useState<AlarmData[]>([]);
   const [currentPage, setCurrentPage] = useState(0);
@@ -58,7 +60,7 @@ const Alarm = () => {
   return (
     <AlarmStyle>
       <div className="app-bar">
-        <AppBar leading={true} title={<div className="title">알림</div>} />
+        <AppBar leading={true} title={<div className="title">{t('alarm.title')}</div>} />
       </div>
       <div className="content-wrapper">
         {alarmDataList.map(alarm => (

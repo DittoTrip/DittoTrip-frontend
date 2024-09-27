@@ -6,29 +6,32 @@ import Tap from '../components/common/Tab';
 import QuestCard from '../components/quest/QuestCard';
 import { UserQuest } from '../models/quest/questModel';
 import { getQuestList } from '../api/reward';
+import { useTranslation } from 'react-i18next';
 
-const tapData: TapItem[] = [
-  {
-    id: 0,
-    title: '달성',
-    content: <></>,
-  },
-  {
-    id: 1,
-    title: '진행중',
-    content: <></>,
-  },
-  {
-    id: 2,
-    title: '완료',
-    content: <></>,
-  },
-];
 const Quest = () => {
-  const [selectedTapId, setSelectedTapId] = useState<number>(tapData[0]?.id);
-  const status = ['PENDING', 'NOT_ACHIEVE', 'ACHIEVE'];
+  const { t } = useTranslation();
 
+  const tapData: TapItem[] = [
+    {
+      id: 0,
+      title: `${t('quest.attainment')}`,
+      content: <></>,
+    },
+    {
+      id: 1,
+      title: `${t('quest.progress')}`,
+      content: <></>,
+    },
+    {
+      id: 2,
+      title: `${t('quest.complete')}`,
+      content: <></>,
+    },
+  ];
+
+  const [selectedTapId, setSelectedTapId] = useState<number>(tapData[0]?.id);
   const [userQuestDataList, setUserQuestDataList] = useState<UserQuest[] | null>(null);
+  const status = ['PENDING', 'NOT_ACHIEVE', 'ACHIEVE'];
 
   useEffect(() => {
     const fetchQuestData = async () => {

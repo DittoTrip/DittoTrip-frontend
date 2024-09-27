@@ -182,5 +182,71 @@
     "tags": "태그",
     "submit": "완료하기",
     "modify": "수정하기"
+  },
+  "myPage": {
+    "title": "마이페이지",
+    "spot": "방문 스팟",
+    "follower": "팔로워",
+    "following": "팔로잉",
+    "ditto": "디토",
+    "like": "찜",
+    "quest": "퀘스트",
+    "spotApplication": "스팟 신청",
+    "spotEmpty": "방문 스팟이 없습니다.",
+    "address": "주소",
+    "category": "카테고리",
+    "more": "더 찾아보기"
+  },
+  "alarm": {
+    "title": "알람",
+    "sending": "전송중입니다.",
+    "plzEmail": "전송받을 이메일을 입력하세요"
+  },
+  "editProfile": {
+    "title": "회원정보",
+    "nickname": "닉네임",
+    "nicknameChange": "닉네임 변경",
+    "id": "아이디",
+    "password": "비밀번호",
+    "passwordChange": "변경하기",
+    "logout": "로그아웃",
+    "withdrawal": "회원탈퇴"
+  },
+  "editNickname": {
+    "title": "닉네임 변경",
+    "nickname": "닉네임",
+    "input": "닉네임을 입력해 주세요",
+    "checkDuplication": "중복 확인"
+  },
+  "editPassword": {
+    "title": "비밀번호 변경",
+    "password": "비밀번호",
+    "newPassword": "새 비밀번호",
+    "Change": "변경하기"
+  },
+  "character": {
+    "title": "캐릭터 편집",
+    "complete": "완료",
+    "skin": "피부",
+    "head": "머리",
+    "eye": "눈",
+    "mouth": "입",
+    "decoration": "장식"
+  },
+  "badge": {
+    "title": "뱃지",
+    "badgeCollectionStatus": "뱃지 수집 현황",
+    "representativeBadge": "대표 배지로 설정"
+  },
+  "quest": {
+    "title": "퀘스트",
+    "attainment": "달성",
+    "progress": "진행중",
+    "complete": "완료"
+  },
+  "follow": {
+    "title": "팔로우",
+    "follow": "팔로우",
+    "following": "팔로잉"
   }
 }

@@ -7,8 +7,10 @@ import { useSearchParams } from 'react-router-dom';
 import { defaultBadge } from '../constants/constant';
 import ErrorPage from './Error';
 import Button from '../components/common/Button';
+import { useTranslation } from 'react-i18next';
 
 const Badge = () => {
+  const { t } = useTranslation();
   const [searchParams] = useSearchParams();
   const userId = searchParams.get('user');
 
@@ -73,7 +75,7 @@ const Badge = () => {
   return (
     <BadgeStyle>
       <div className="app-bar">
-        <AppBar leading={true} title={<div className="title">뱃지</div>} />
+        <AppBar leading={true} title={<div className="title">{t('badge.title')}</div>} />
       </div>
       <div className="badge-box">
         <div className="badge-img-box">
@@ -81,7 +83,7 @@ const Badge = () => {
           <div className="badge-title">{currentBadge?.name}</div>
         </div>
         <div className="badge-content">
-          <div className="now">뱃지 수집 현황</div>
+          <div className="now">{t('badge.badgeCollectionStatus')}</div>
           <div className="count">{userBadge.length}</div>
         </div>
       </div>
@@ -125,7 +127,7 @@ const Badge = () => {
                   color="keyColor"
                   backgroundColor="subColor3"
                   onClick={handleClick}>
-                  대표 배지로 설정
+                  {t('badge.representativeBadge')}
                 </Button>
               )}
             </div>
@@ -273,7 +275,7 @@ const Modal = styled.div`
     align-items: center;
     padding: 48px 28px 120px 28px;
     text-align: center;
-
+  }
   .selected-title {
       margin-top: 16px;
       margin-bottom: 4px;

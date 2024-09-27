@@ -38,14 +38,14 @@ const EditNickname = () => {
   return (
     <EditNicknameStyle>
       <div className="app-bar">
-        <AppBar leading={true} title={<div className="title">{'닉네임 변경'}</div>} />
+        <AppBar leading={true} title={<div className="title">{t('editNickname.title')}</div>} />
       </div>
       <div className="content-wrapper">
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="input-title">{'닉네임'}</div>
+          <div className="input-title">{t('editNickname.nickname')}</div>
           <div className="user-verification">
             <input
-              placeholder="닉네임"
+              placeholder={t('editNickname.input')}
               type="text"
               {...register('nickname', {
                 required: '닉네임은 필수 입력 사항입니다.',
@@ -57,7 +57,7 @@ const EditNickname = () => {
               className="input-container"
             />
             <Button size={'medium'} scheme={'keyButton'} type="submit" disabled={isSubmitting}>
-              {'수정하기'}
+            {t('editNickname.checkDuplication')}
             </Button>
           </div>
           {errors.nickname && <div className="sending">{errors.nickname.message?.toString()}</div>}
@@ -113,7 +113,7 @@ const EditNicknameStyle = styled.div`
       height: 52px;
       padding: 15px;
       flex: 1;
-      margin 100px;
+      margin: 100px;
 
       outline: none;
       border: none;

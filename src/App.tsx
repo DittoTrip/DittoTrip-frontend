@@ -16,7 +16,6 @@ import Search from './pages/Search';
 import SearchResult from './pages/SearchResult';
 import Join from './pages/Join';
 import Report from './pages/Report';
-import Spot from './pages/SpotDetail';
 import Around from './pages/Around';
 import List from './pages/SpotList';
 import Login from './pages/Login';
