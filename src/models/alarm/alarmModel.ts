@@ -1,6 +1,7 @@
 export interface AlarmListRequest {
   page: number;
   size: number;
+  sort: string;
 }
 
 export interface AlarmData {
