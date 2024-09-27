@@ -189,10 +189,16 @@
       "ditto": "디토",
       "like": "찜",
       "quest":"퀘스트",
-      "spotApplication": "스팟 신청"
+      "spotApplication": "스팟 신청",
+      "spotEmpty":"방문 스팟이 없습니다.",
+      "address": "주소",
+      "category":"카테고리",
+      "more":"더 찾아보기"
   },
     "alarm" : {
-      "title":"알람"
+      "title":"알람",
+      "sending":"전송중입니다.",
+      "plzEmail":"전송받을 이메일을 입력하세요"
   },
   "editProfile": {
     "title":"회원정보",
@@ -234,6 +240,9 @@
     "title": "퀘스트",
     "progress": "진행중",
     "complete":"완료"
+  },
+  "follow": {
+    "title":"팔로우"
   }
 
     

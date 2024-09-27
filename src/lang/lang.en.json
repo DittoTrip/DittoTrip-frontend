@@ -188,10 +188,16 @@
     "ditto": "ditto",
     "like": "like",
     "quest":"quest",
-    "spotApplication": "spotApplication"
+    "spotApplication": "spotApplication",
+    "spotEmpty":"There are no visiting spots.",
+    "address": "주소",
+    "category":"카테고리",
+    "more":"Find out more"
 },
   "alarm" : {
-      "title":"Alarm"
+      "title":"Alarm",
+      "sending":"전송중입니다.",
+      "plzEmail":"Please enter the email address to be sent"
   },
   "editProfile": {
     "title":"Member Information",
@@ -233,5 +239,8 @@
     "title": "Quest",
     "progress": "in progress",
     "complete":"complete"
+  },
+  "follow": {
+    "title":"Follow"
   }
 }
