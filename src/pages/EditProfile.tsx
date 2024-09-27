@@ -7,12 +7,14 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { UserDataForAdmin } from '../models/user/userModel';
 import ErrorPage from './Error';
 import ProfileImg from '../components/common/ProfileImg';
+import { useTranslation } from 'react-i18next';
 
 const EditProfile = () => {
   const { id } = useParams();
   const [userData, setUserData] = useState<UserDataForAdmin>();
   const [loading, setLoading] = useState<boolean>(true);
   const naviagate = useNavigate();
+  const { t } = useTranslation();
 
   const fetchUserInfo = async () => {
     setLoading(true);
@@ -30,7 +32,7 @@ const EditProfile = () => {
   return (
     <EditProfileStyle>
       <div className="app-bar">
-        <AppBar leading={true} title={<div className="title">회원정보</div>} />
+        <AppBar leading={true} title={<div className="title">{t('editProfile.title')}</div>} />
       </div>
 
       <div className="main-box">
@@ -42,36 +44,36 @@ const EditProfile = () => {
       <div className="content-wrapper">
         <div className="profile-box">
           <div className="text-wrapper">
-            <div className="profile-title">{'닉네임'}</div>
+            <div className="profile-title">{t('editProfile.nickname')}</div>
             <div className="profile-text">{userData!.nickname}</div>
           </div>
           <div className="btn-wrapper">
             <Button size={'small'} scheme={'subButton2'} onClick={() => naviagate(`/edit-nickname`)}>
-              닉네임 변경
+            {t('editProfile.nicknameChange')}
             </Button>
           </div>
         </div>
         <div className="profile-box">
           <div>
-            <div className="profile-title">아이디</div>
+            <div className="profile-title">{t('editProfile.id')}</div>
             <div className="profile-text">{userData!.email}</div>
           </div>
         </div>
         <div className="profile-box">
-          <div className="profile-title">비밀번호</div>
+          <div className="profile-title">{t('editProfile.password')}</div>
           <div className="btn-wrapper">
             <Button size={'small'} scheme={'subButton2'} onClick={() => naviagate(`/edit-password`)}>
-              변경하기
+            {t('editProfile.passwordChange')}
             </Button>
           </div>
         </div>
         <div className="sub-menu-wrapper">
           <div className="find-pw">
-            <a href="/find-password">비밀번호 찾기</a>
+            <a href="/find-password">{t('editProfile.passwordFind')}</a>
           </div>
           <div className="divider"></div>
           <div className="join">
-            <a href="/join">회원가입</a>
+            <a href="/join">{t('editProfile.join')}</a>
           </div>
         </div>
       </div>

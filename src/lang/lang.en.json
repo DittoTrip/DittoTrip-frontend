@@ -179,5 +179,68 @@
     "tags": "tags",
     "submit": "Submit",
     "modify": "modify"
+  },
+  "myPage": {
+    "title": "Mypage",
+    "spot" : "visit spot",
+    "follower": "follower",
+    "following": "following",
+    "ditto": "ditto",
+    "like": "like",
+    "quest":"quest",
+    "spotApplication": "spotApplication",
+    "spotEmpty":"There are no visiting spots.",
+    "address": "주소",
+    "category":"카테고리",
+    "more":"Find out more"
+},
+  "alarm" : {
+      "title":"Alarm",
+      "sending":"전송중입니다.",
+      "plzEmail":"Please enter the email address to be sent"
+  },
+  "editProfile": {
+    "title":"Member Information",
+    "nickname":"nickname",
+    "nicknameChange":"Change nickname ",
+    "id":"Id",
+    "password":"password",
+    "passwordChange":"Change",
+    "passwordFind":"Find ",
+    "join":"join"
+  },
+  "editNickname": {
+    "title" : "Change nickname",
+    "nickname": "nickname",
+    "input":"Please enter your nickname",
+    "checkDuplication":"check Duplication"
+  },
+  "editPassword": {
+    "title": "change password",
+    "password":"password",
+    "newPassword":"new password",
+    "Change":"Change"
+  },
+  "character":{
+    "title":"Edit Character",
+    "complete":"complete",
+    "skin": "skin",
+    "head": "head",
+    "eye" : "eye",
+    "mouth": "mouth",
+    "decoration": "decoration"
+  },
+  "badge": {
+    "title": "badge",
+    "badgeCollectionStatus": "badge Collection Status",
+    "representativeBadge": "representative Badge"
+  },
+  "quest": {
+    "title": "Quest",
+    "progress": "in progress",
+    "complete":"complete"
+  },
+  "follow": {
+    "title":"Follow"
   }
 }

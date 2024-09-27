@@ -10,12 +10,14 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import Button from '../components/common/Button';
 import { addFollow, deleteFollow } from '../api/follow';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const MyPage = () => {
   const [searchParams] = useSearchParams();
   const userId = searchParams.get('user');
   const { userData, loading, error } = useUserData(userId!);
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const [isFollowed, setIsFollowed] = useState<number | null>(null);
 
@@ -56,7 +58,7 @@ const MyPage = () => {
       <div className="app-bar">
         <AppBar
           leading={false}
-          title={<div className="title">{'마이페이지'}</div>}
+          title={<div className="title">{t('myPage.title')}</div>}
           action={
             <div className="action">
               <div className="alarm-wrapper" onClick={() => navigate(`/alarm`)}>
@@ -127,7 +129,7 @@ const MyPage = () => {
               navigate(`/visited-spot/${userData?.userData.userId}`);
             }}>
             <FontAwesomeIcon icon={faMap} className="follow-number" />
-            <div className="list">방문 스팟</div>
+            <div className="list">{t('myPage.spot')}</div>
           </div>
           <div
             className="box-section"
@@ -135,7 +137,7 @@ const MyPage = () => {
               navigate(`/follow/${userData?.userData.userId}`);
             }}>
             <div className="follow-number">{userData?.followedCount}</div>
-            <div className="list">팔로워</div>
+            <div className="list">{t('myPage.follower')}</div>
           </div>
           <div
             className="box-section"
@@ -143,7 +145,7 @@ const MyPage = () => {
               navigate(`/follow/${userData?.userData.userId}`);
             }}>
             <div className="follow-number">{userData?.followingCount}</div>
-            <div className="list">팔로잉</div>
+            <div className="list">{t('myPage.following')}</div>
           </div>
         </div>
 
@@ -154,7 +156,7 @@ const MyPage = () => {
               onClick={() => {
                 navigate(`/user-ditto/${userData?.userData.userId}`);
               }}>
-              디토
+              {t('myPage.ditto')}
               <FontAwesomeIcon icon={faChevronRight} />
             </div>
             <div className="ditto-img">
@@ -174,12 +176,12 @@ const MyPage = () => {
                   navigate(`/favorite`);
                 }}>
                 <FontAwesomeIcon icon={faHeart} />
-                찜
+                {t('myPage.like')}
                 <FontAwesomeIcon icon={faChevronRight} className="right-icon" />
               </div>
               <div className="btn">
                 <FontAwesomeIcon icon={faFlag} />
-                퀘스트
+                {t('myPage.quest')}
                 <FontAwesomeIcon icon={faChevronRight} className="right-icon" />
               </div>
               <div
@@ -188,7 +190,7 @@ const MyPage = () => {
                   navigate(`/my-spotapply`);
                 }}>
                 <FontAwesomeIcon icon={faMapPin} />
-                스팟 신청
+                {t('myPage.spotApplication')}
                 <FontAwesomeIcon icon={faChevronRight} className="right-icon" />
               </div>
             </div>

@@ -8,6 +8,8 @@ import { useParams } from 'react-router';
 import useFollowList from '../hooks/follow/useFollowList';
 import SearchUser from '../components/search/SearchUser';
 import ErrorPage from './Error';
+import { useTranslation } from 'react-i18next';
+const { t } = useTranslation();
 
 const tapData: TapItem[] = [
   { id: 1, title: '팔로우', content: <div></div> },
@@ -27,7 +29,7 @@ const Follow = () => {
   return (
     <FollowStyle>
       <div className="app-bar">
-        <AppBar leading={true} title={<div className="title">팔로우</div>} />
+        <AppBar leading={true} title={<div className="title">{t('follow.title')}</div>} />
       </div>
       <Tap tapData={tapData} selectedId={selectedTapId} setSelectedId={setSelectedId} />
       <div className="content-wrapper">

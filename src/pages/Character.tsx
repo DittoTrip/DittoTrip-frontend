@@ -11,36 +11,38 @@ import { getItemList, modyfyItem } from '../api/reward';
 import ProfileImg from '../components/common/ProfileImg';
 import { UserProfileData, UserProfileItem } from '../models/user/userModel';
 import { getWearingImagePaths } from '../utils/getWearingImagePaths ';
-
+import { useTranslation } from 'react-i18next';
+const { t } = useTranslation();
 const tapData: TapItem[] = [
   {
     id: 0,
-    title: '피부',
+    title: `${t('character.skin')}`,
     content: <></>,
   },
   {
     id: 1,
-    title: '머리',
+    title: `${t('character.head')}`,
     content: <></>,
   },
   {
     id: 2,
-    title: '눈',
+    title: `${t('character.eye')}`,
     content: <></>,
   },
   {
     id: 3,
-    title: '입',
+    title: `${t('character.mouth')}`,
     content: <></>,
   },
   {
     id: 4,
-    title: '장식',
+    title: `${t('character.decoration')}`,
     content: <></>,
   },
 ];
 
 const Character = () => {
+  
   // 탭 id
   const [selectedId, setSelectedId] = useState<number>(tapData[0]?.id);
   // 선택된 아이템 리스트
@@ -102,10 +104,10 @@ const Character = () => {
       <div className="app-bar">
         <AppBar
           leading={true}
-          title={<div className="title">캐릭터 편집</div>}
+          title={<div className="title">{t('character.title')}</div>}
           action={
             <Button size={'small'} scheme={'keyButton'} onClick={() => EditItems()}>
-              완료
+              {t('character.complete')}
             </Button>
           }
         />
@@ -199,10 +201,9 @@ const CharacterStyle = styled.div`
       .profile {
         position: relative;
         aspect-ratio: 1;
-        width: 100%
-
+        width: 100%;
         border-radius: 50%;
-
+      }
         .image-item {
           position: absolute;
           top: 0;
@@ -211,7 +212,7 @@ const CharacterStyle = styled.div`
           height: 100%;
           opacity: 0.9;
         }
-      }
+      
     }
   }
   .character-tab {

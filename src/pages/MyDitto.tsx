@@ -9,7 +9,8 @@ import ErrorPage from './Error';
 import useUserDittoList from '../hooks/ditto/useUserDittoList';
 import DittoInfinity from '../components/ditto/DittoInfinity';
 import useUserFavoriteDittoList from '../hooks/ditto/useFavoriteDittoList';
-
+import { useTranslation } from 'react-i18next';
+const { t } = useTranslation();
 const tapData: TapItem[] = [
   { id: 1, title: '디토', content: <div></div> },
   { id: 2, title: '북마크', content: <div></div> },
@@ -47,7 +48,7 @@ const MyDitto = ({ isMine }: { isMine: boolean }) => {
   return (
     <MyDittoStyle>
       <div className="app-bar">
-        <AppBar leading={true} title={<div className="title">디토</div>} />
+        <AppBar leading={true} title={<div className="title">{t('myPage.ditto')}</div>} />
       </div>
       {isMine && <Tap tapData={tapData} selectedId={selectedTapId} setSelectedId={setSelectedId} />}
       <div className="content-wrapper">
