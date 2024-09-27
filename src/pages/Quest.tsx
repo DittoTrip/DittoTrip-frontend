@@ -3,17 +3,18 @@ import AppBar from "../components/common/AppBar";
 import { TapItem } from "./Category";
 import { useState } from "react";
 import Tap from "../components/common/Tab";
-
+import { useTranslation } from "react-i18next";
+const { t } = useTranslation();
 const Quest = () => {
     const tapData: TapItem[] = [
         {
             id: 0,
-            title: '진행중',
+            title: `${t('quest.progress')}`,
             content: <></>,
         },
         {
             id: 1,
-            title: '완료',
+            title: `${t('quest.complete')}`,
             content: <></>,
         },
     ];
@@ -30,7 +31,7 @@ const Quest = () => {
             <div className="app-bar">
                 <AppBar
                     leading={true}
-                    title={<div className="title">퀘스트</div>}
+                    title={<div className="title">{t('quest.title')}</div>}
                 />
             </div>
             <Tap tapData={tapData} selectedId={selectedId} setSelectedId={setSelectedId} />
