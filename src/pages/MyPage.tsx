@@ -90,7 +90,9 @@ const MyPage = () => {
                 }></img>
             </div>
             <div className="user-badge" onClick={() => navigate(`/badge?user=${userData?.userData.userId}`)}>
-              {userData?.userData.userProfileData.badgeData.name}
+              {userData?.userData.userProfileData.badgeData
+                ? userData?.userData.userProfileData.badgeData.name
+                : '스타터 디토'}
               <div className="chevron">
                 <FontAwesomeIcon icon={faChevronRight} />
               </div>
