@@ -10,6 +10,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import Button from '../components/common/Button';
 import { addFollow, deleteFollow } from '../api/follow';
 import { useEffect, useState } from 'react';
+import { defaultBadge, defaultImage } from '../constants/constant';
 
 const MyPage = () => {
   const [searchParams] = useSearchParams();
@@ -80,11 +81,20 @@ const MyPage = () => {
             <ProfileImg userProfileData={userData!.userData.userProfileData} width="80px" background={true} />
           </div>
           <div className="user-name-box">
-            <div className="badge-img">
-              <img src={userData?.userData.userProfileData.badgeData.imagePath}></img>
-            </div>
+            {/* <div className="badge-img"> */}
+            <img
+              className="badge-img"
+              src={
+                userData?.userData.userProfileData.badgeData
+                  ? defaultBadge
+                  : userData?.userData.userProfileData.badgeData.imagePath
+                // : defaultImage
+              }></img>
+            {/* </div> */}
             <div className="user-badge" onClick={() => navigate(`/badge?user=${userData?.userData.userId}`)}>
-              {userData?.userData.userProfileData.badgeData.name}
+              {userData?.userData.userProfileData.badgeData
+                ? userData?.userData.userProfileData.badgeData.name
+                : '스타터 디토'}
               <div className="chevron">
                 <FontAwesomeIcon icon={faChevronRight} />
               </div>
@@ -283,14 +293,15 @@ const MyPageStyle = styled.div`
       .badge-img {
         position: absolute;
         left: -10px;
-        top: -5px;
+
+        width: 18px;
+        height: 18px;
       }
 
       .user-badge {
         color: ${({ theme }) => theme.color.keyColor};
         background-color: #afc5fe;
         ${({ theme }) => theme.font.body5};
-        // display: inline-block;
         border-radius: 50px;
         padding: 0 20px;
         display: flex;
