@@ -88,14 +88,14 @@ const SpotItem = ({ data, setSelectedAddress, setIsOpen }: Props) => {
 const SpotItemStyle = styled.div`
   display: flex;
   gap: 16px;
-  width: 100vw-32px;
+  width: calc(100vw - 56px);
 
   padding: 16px 0;
   border-bottom: 1px solid ${({ theme }) => theme.color.gray20};
   background-color: ${({ theme }) => theme.color.background};
 
   .spot-image-box {
-    height: 100px;
+    width: 120px;
     aspect-ratio: 6/5;
 
     .spot-image {
@@ -111,6 +111,7 @@ const SpotItemStyle = styled.div`
     flex-direction: column;
     justify-content: center;
     width: 100vw - 168px;
+    flex: 1;
 
     .spot-info-header {
       display: flex;
@@ -165,7 +166,7 @@ const SpotItemStyle = styled.div`
     }
     .spot-info-tag {
       margin-top: 10px;
-      width: 100vw - 168px;
+      width: calc(100vw - 192px);
     }
   }
 `;

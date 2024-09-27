@@ -21,7 +21,7 @@ const Alarm = () => {
   const fetchAlarms = async () => {
     setLoading(true);
     try {
-      const req = { page: currentPage, size: defaultPageOptions };
+      const req = { page: currentPage, size: defaultPageOptions, sort: 'createdDateTime,desc' };
 
       const response = await getAlarmList(req);
 
