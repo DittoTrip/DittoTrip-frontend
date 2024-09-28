@@ -12,6 +12,7 @@ import { addFollow, deleteFollow } from '../api/follow';
 import { useEffect, useState } from 'react';
 import { defaultBadge } from '../constants/constant';
 import { useTranslation } from 'react-i18next';
+import { useAuthStore } from '../store/authStore';
 
 const MyPage = () => {
   const [searchParams] = useSearchParams();
@@ -19,6 +20,7 @@ const MyPage = () => {
   const { userData, loading, error } = useUserData(userId!);
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const { isLoggedIn } = useAuthStore();
 
   const [isFollowed, setIsFollowed] = useState<number | null>(null);
 
@@ -29,6 +31,13 @@ const MyPage = () => {
   }, [userData]);
 
   const toggleFollow = async () => {
+    if (!isLoggedIn) {
+      alert(t('guide.login'));
+      navigate('/login');
+
+      return;
+    }
+
     if (!isFollowed) {
       const res = await addFollow(userData!.userData.userId.toString());
       if (res == 200) {
@@ -83,16 +92,13 @@ const MyPage = () => {
             <ProfileImg userProfileData={userData!.userData.userProfileData} width="80px" background={true} />
           </div>
           <div className="user-name-box">
-            {/* <div className="badge-img"> */}
             <img
               className="badge-img"
               src={
                 userData?.userData.userProfileData.badgeData
-                  ? defaultBadge
-                  : userData?.userData.userProfileData.badgeData.imagePath
-                // : defaultImage
+                  ? userData?.userData.userProfileData.badgeData.imagePath
+                  : defaultBadge
               }></img>
-            {/* </div> */}
             <div className="user-badge" onClick={() => navigate(`/badge?user=${userData?.userData.userId}`)}>
               {userData?.userData.userProfileData.badgeData
                 ? userData?.userData.userProfileData.badgeData.name
@@ -105,7 +111,7 @@ const MyPage = () => {
           </div>
           <div className="fix">
             {userData?.isMine ? (
-              <FontAwesomeIcon icon={faPen} onClick={() => navigate(`/edit-profile/${userData?.userData.userId}`)} />
+              <FontAwesomeIcon icon={faPen} onClick={() => navigate(`/edit-profile`)} />
             ) : isFollowed ? (
               <Button size={'small'} scheme={'keyButton'} onClick={toggleFollow}>
                 Following

@@ -1,20 +1,22 @@
 import styled from 'styled-components';
-import mainImage from '../../assets/homemain.png';
+import { DittoData } from '../../models/mainpage/mainpage';
+import { defaultImage } from '../../constants/constant';
+interface Props {
+  data: DittoData;
+}
 
-const Weekend = () => {
+const Weekend = ({ data }: Props) => {
   return (
-    <WeekendStyled>
+    <WeekendStyled mainImg={data.imagePath ?? defaultImage}>
       <div className="main-img">
-        <div className="main-title">"도깨비" 촬영지 강릉 주문진 방파제</div>
-        <div className="main-content">
-          도깨비 신부 김고은이 도깨비 공유를 불러낼면서 면장면을 만들어낸 장소로 유명한 이곳! 김고은이 어쩌구 저쩌구
-        </div>
+        <div className="main-title">{data.title}</div>
+        <div className="main-content">{data.body}</div>
       </div>
     </WeekendStyled>
   );
 };
 
-const WeekendStyled = styled.div`
+const WeekendStyled = styled.div<{ mainImg: string }>`
   width: 100%;
   aspect-ratio: 1;
   text-align: left;
@@ -25,7 +27,7 @@ const WeekendStyled = styled.div`
     width: 100%;
 
     border-radius: 12px;
-    background-image: url(${mainImage});
+    background-image: url(${({ mainImg }) => mainImg});
     background-size: cover;
   }
 

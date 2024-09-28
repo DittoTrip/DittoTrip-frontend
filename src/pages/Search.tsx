@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import styled from 'styled-components';
@@ -14,78 +14,51 @@ import DittoSlide from '../components/search/DittoSlide';
 import { TapItem } from './Category';
 import { useNavigate } from 'react-router-dom';
 import { deleteSearchWord, getRecentSearchWords, saveSearchWord } from '../utils/recentSearches';
-
-export interface searchItem {
-  title: string;
-}
-
-export interface dittoItem {
-  img: string;
-  title: string;
-}
-
-const CAROUSEL_IMAGES: dittoItem[] = [
-  {
-    img: 'https://velog.velcdn.com/images/gogo6570/post/43eb6553-a55e-4856-b497-e6c4f86b94e7/image.png',
-    title: '1.눈물의 여왕',
-  },
-  {
-    img: 'https://velog.velcdn.com/images/gogo6570/post/43eb6553-a55e-4856-b497-e6c4f86b94e7/image.png',
-    title: '2.눈물의 여왕',
-  },
-  {
-    img: 'https://velog.velcdn.com/images/gogo6570/post/43eb6553-a55e-4856-b497-e6c4f86b94e7/image.png',
-    title: '3.눈물의 여왕',
-  },
-  {
-    img: 'https://velog.velcdn.com/images/gogo6570/post/43eb6553-a55e-4856-b497-e6c4f86b94e7/image.png',
-    title: '4.눈물의 여왕',
-  },
-  {
-    img: 'https://velog.velcdn.com/images/gogo6570/post/43eb6553-a55e-4856-b497-e6c4f86b94e7/image.png',
-    title: '5.눈물의 여왕',
-  },
-  {
-    img: 'https://velog.velcdn.com/images/gogo6570/post/43eb6553-a55e-4856-b497-e6c4f86b94e7/image.png',
-    title: '6.눈물의 여왕',
-  },
-  {
-    img: 'https://velog.velcdn.com/images/gogo6570/post/43eb6553-a55e-4856-b497-e6c4f86b94e7/image.png',
-    title: '7.눈물의 여왕',
-  },
-];
-
-const CAROUSEL_TEXTS = [
-  { title: '도꺠비' },
-  { title: '공유' },
-  { title: '강원도' },
-  { title: '이상한 변호사 우영우' },
-  { title: '도꺠비' },
-  { title: '도꺠비' },
-];
+import { getCategoryRank, getSearchRank } from '../api/search';
+import { CategorySearchPageData } from '../models/category/categoryModel';
 
 const Search = () => {
   const { t } = useTranslation();
   const [searchWord, setSearchWord] = useState('');
   const [recentWord, setRecentWord] = useState(getRecentSearchWords());
+  const [searchRank, setSearchWordRank] = useState([]);
+  const [categoryRank, setCategoryRank] = useState<CategorySearchPageData[]>([]);
 
   const navigate = useNavigate();
-  console.log(searchWord);
+
+  const tapData: TapItem[] = [
+    { id: 0, title: `${t('category.tap.contents')}`, content: <div>영상 컨턴츠</div> },
+    { id: 1, title: `${t('category.tap.celebrity')}`, content: <div>연예인</div> },
+  ];
+  const majorType = ['CONTENT', 'PERSON'];
+
+  const [selectedId, setSelectedId] = useState<number>(tapData[0]?.id);
+
+  const fetchSearchRankAndCategory = async () => {
+    try {
+      const searchResponse = await getSearchRank();
+      const categoryResponst = await getCategoryRank(majorType[selectedId]);
+      setSearchWordRank(searchResponse.words);
+      setCategoryRank(categoryResponst.categorySearchPageDataList);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchSearchRankAndCategory();
+  }, [selectedId]);
+
   if (searchWord) {
     navigate(`/search-result?search=${searchWord}`);
   }
+  console.log(searchRank);
 
   const handleDeleteSearch = (word: string) => {
     deleteSearchWord(word);
     setRecentWord(getRecentSearchWords());
   };
 
-  const tapData: TapItem[] = [
-    { id: 1, title: `${t('category.tap.contents')}`, content: <div>영상 컨턴츠</div> },
-    { id: 2, title: `${t('category.tap.celebrity')}`, content: <div>연예인</div> },
-  ];
-
-  const [selectedId, setSelectedId] = useState<number>(tapData[0]?.id);
   return (
     <SearchStyled>
       <div className="app-bar">
@@ -109,14 +82,14 @@ const Search = () => {
         </div>
 
         <div className="search-title">{t('search.suggestion')}</div>
-        <TextSlide carouselTextList={CAROUSEL_TEXTS} />
+        <TextSlide carouselTextList={searchRank} />
 
         <RiseDittoStyled>
           <div className="ditto-title">{t('search.rising')}</div>
           <div className="ditto">|</div>
           <DittoTap tapData={tapData} selectedId={selectedId} setSelectedId={setSelectedId} />
         </RiseDittoStyled>
-        <DittoSlide carouselDittoList={CAROUSEL_IMAGES} />
+        <DittoSlide carouselDittoList={categoryRank} />
       </div>
     </SearchStyled>
   );

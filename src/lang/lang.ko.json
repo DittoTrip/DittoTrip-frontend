@@ -17,8 +17,11 @@
     "placeholder": "좋아하는 콘텐츠나 연예인을 검색해 보세요",
     "recentSearches": "최근 검색",
     "suggestion": "추천 검색어",
-    "rising": "급상승 디토",
+
     "what": "무엇을 찾으시나요?"
+
+    "rising": "급상승 카테고리"
+
   },
 
   "category": {
@@ -213,6 +216,7 @@
     "id": "아이디",
     "password": "비밀번호",
     "passwordChange": "변경하기",
+    "checkLogout": "정말 로그아웃 하시겠습니까?",
     "logout": "로그아웃",
     "withdrawal": "회원탈퇴"
   },

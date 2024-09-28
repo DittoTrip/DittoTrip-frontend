@@ -23,6 +23,7 @@ export const apiMultipart = axios.create({
     'Access-Control-Allow-Origin': '*',
   },
 });
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const addRequestInterceptor = (instance: any) => {
   instance.interceptors.request.use(
     (config: AxiosRequestConfig) => {
@@ -36,6 +37,7 @@ const addRequestInterceptor = (instance: any) => {
     }
   );
 };
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const addResponseInterceptor = (instance: any) => {
   instance.interceptors.response.use(
     (response: AxiosResponse) => {
