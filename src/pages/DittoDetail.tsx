@@ -26,11 +26,14 @@ import { defaultImage, defaultPageOptions } from '../constants/constant';
 import formatDate from '../utils/formatDate';
 import { deleteDitto } from '../api/ditto';
 import { addFollow, deleteFollow } from '../api/follow';
+import { useAuthStore } from '../store/authStore';
 
 const DittoDetail = () => {
   const { id } = useParams();
   const { t } = useTranslation();
   const navigate = useNavigate();
+
+  const { isLoggedIn } = useAuthStore();
 
   const { dittoData, commentData, commentCount, initialBookmarkCount, myFollowingId, error, loading } = useDittoDetail(
     id!
@@ -56,6 +59,12 @@ const DittoDetail = () => {
   // 댓글 컨트롤 (등록)
   const handleSubmit = (comment: string) => {
     const body = { body: comment };
+    if (!isLoggedIn) {
+      alert(t('guide.login'));
+      navigate('/login');
+
+      return;
+    }
 
     addDittoComment(id!, body, parentComment?.commentId.toString()).then(
       res => {
@@ -158,6 +167,13 @@ const DittoDetail = () => {
   }, [myFollowingId]);
 
   const toggleFollow = async () => {
+    if (!isLoggedIn) {
+      alert(t('guide.login'));
+      navigate('/login');
+
+      return;
+    }
+
     if (!isFollowed) {
       const res = await addFollow(dittoData!.userData.userId.toString());
       if (res == 200) {

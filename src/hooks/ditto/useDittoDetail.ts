@@ -25,7 +25,7 @@ const useDittoDetail = (dittoId: string) => {
           setMyFollowingId(response.myFollowingId);
         }
       } catch (err) {
-        setError('스팟 상세정보 불러오기 실패');
+        setError('디토 상세정보 불러오기 실패');
         console.error(err);
       } finally {
         setLoading(false);
