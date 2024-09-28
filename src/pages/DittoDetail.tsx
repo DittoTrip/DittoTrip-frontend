@@ -201,7 +201,7 @@ const DittoDetail = () => {
   return (
     <DittoDetailStyle>
       <div className="app-bar">
-        <AppBar leading={false} title={<div className="title">Ditto</div>} />
+        <AppBar leading={false} title={<div className="title">{t('myPage.ditto')}</div>} />
       </div>
       <img className="main-img" src={dittoData!.imagePath ?? defaultImage} />
       <div className="content-wrapper">
@@ -253,7 +253,7 @@ const DittoDetail = () => {
         fixed={false}
       />
       <div className="content-wrapper">
-        <div className="more">더 찾아보기</div>
+        <div className="more">{t('myPage.more')}</div>
       </div>
       <DittoInfinity dittoList={dittoList} itemsPerRow={2} />
       {isExpandedOptions && selectedComment && (

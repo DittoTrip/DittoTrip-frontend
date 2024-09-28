@@ -9,36 +9,39 @@ import ErrorPage from './Error';
 import { defaultImage } from '../constants/constant';
 import { getItemList, modyfyItem } from '../api/reward';
 import { UserProfileItem } from '../models/user/userModel';
-
-const tapData: TapItem[] = [
-  {
-    id: 0,
-    title: '피부',
-    content: <></>,
-  },
-  {
-    id: 1,
-    title: '머리',
-    content: <></>,
-  },
-  {
-    id: 2,
-    title: '눈',
-    content: <></>,
-  },
-  {
-    id: 3,
-    title: '입',
-    content: <></>,
-  },
-  {
-    id: 4,
-    title: '장식',
-    content: <></>,
-  },
-];
+import { useTranslation } from 'react-i18next';
 
 const Character = () => {
+  const { t } = useTranslation();
+
+  const tapData: TapItem[] = [
+    {
+      id: 0,
+      title: `${t('character.skin')}`,
+      content: <></>,
+    },
+    {
+      id: 1,
+      title: `${t('character.head')}`,
+      content: <></>,
+    },
+    {
+      id: 2,
+      title: `${t('character.eye')}`,
+      content: <></>,
+    },
+    {
+      id: 3,
+      title: `${t('character.mouth')}`,
+      content: <></>,
+    },
+    {
+      id: 4,
+      title: `${t('character.decoration')}`,
+      content: <></>,
+    },
+  ];
+
   // 탭 id
   const [selectedId, setSelectedId] = useState<number>(tapData[0]?.id);
   // 선택된 아이템 리스트
@@ -96,10 +99,10 @@ const Character = () => {
       <div className="app-bar">
         <AppBar
           leading={true}
-          title={<div className="title">캐릭터 편집</div>}
+          title={<div className="title">{t('character.title')}</div>}
           action={
             <Button size={'small'} scheme={'keyButton'} onClick={() => EditItems()}>
-              완료
+              {t('character.complete')}
             </Button>
           }
         />
@@ -193,18 +196,16 @@ const CharacterStyle = styled.div`
       .profile {
         position: relative;
         aspect-ratio: 1;
-        width: 100%
-
+        width: 100%;
         border-radius: 50%;
-
-        .image-item {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          opacity: 0.9;
-        }
+      }
+      .image-item {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.9;
       }
     }
   }
@@ -247,7 +248,6 @@ const CharacterStyle = styled.div`
       top: 600px;
     }
   }
-
 `;
 
 export default Character;

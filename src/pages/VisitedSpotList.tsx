@@ -44,13 +44,13 @@ const Around = () => {
   return (
     <AroundStyle>
       <div className="app-bar">
-        <AppBar leading={true} title={<div className="title">{'방문 스팟'}</div>} action={<LangSelectButton />} />
+        <AppBar leading={true} title={<div className="title">{t('myPage.spot')}</div>} action={<LangSelectButton />} />
       </div>
       <div className="content-wrapper">
         {visitedList.map(data => (
           <VisitedSpotCard data={data} setIsOpen={setIsOpen} setSelectedAddress={setSelectedAddress} />
         ))}
-        {!loading && visitedList.length == 0 && <div className="empty-data">방문 스팟이 없습니다.</div>}
+        {!loading && visitedList.length == 0 && <div className="empty-data">{t('myPage.spotEmpty')}</div>}
       </div>
 
       {isOpen && <BottomSheet title={t('bottomsheet.address')} content={selectedAddress} setIsOpen={setIsOpen} />}

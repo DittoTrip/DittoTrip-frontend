@@ -24,6 +24,8 @@ const TagSlideStyled = styled.div`
     display: flex;
     gap: 24px 8px;
 
+    max-width: 100%;
+
     margin: 0;
     padding: 0;
 

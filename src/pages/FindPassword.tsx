@@ -30,7 +30,7 @@ const FindPassword = () => {
   return (
     <FindPasswordStyle>
       <div className="app-bar">
-        <AppBar leading={true} title={<div className="title">{'비밀번호 찾기'}</div>} />
+        <AppBar leading={true} title={<div className="title">{t('editProfile.passwordFind')}</div>} />
       </div>
       <div className="content-wrapper">
         <div className="input-title">{t('join.email')}</div>
@@ -46,8 +46,8 @@ const FindPassword = () => {
             {'전송하기'}
           </Button>
         </div>
-        {loading && <div className="sending">전송중입니다.</div>}
-        {!loading && !email && <div className="sending">전송받을 이메일을 입력하세요</div>}
+        {loading && <div className="sending">{t('alarm.sending')}</div>}
+        {!loading && !email && <div className="sending">{t('alarm.plzEmail')}</div>}
       </div>
     </FindPasswordStyle>
   );
@@ -98,7 +98,7 @@ const FindPasswordStyle = styled.div`
       height: 52px;
       padding: 15px;
       flex: 1;
-      margin 100px;
+      margin :100px;
 
       outline: none;
       border: none;

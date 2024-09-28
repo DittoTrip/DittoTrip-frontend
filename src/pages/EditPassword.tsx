@@ -39,12 +39,12 @@ const EditPassword = () => {
   return (
     <EditPasswordStyle>
       <div className="app-bar">
-        <AppBar leading={true} title={<div className="title">{'비밀번호 변경'}</div>} />
+        <AppBar leading={true} title={<div className="title">{t('editPassword.title')}</div>} />
       </div>
       <div className="content-wrapper">
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="section">
-            <div className="input-title">{'기존 비밀번호'}</div>
+            <div className="input-title">{t('editPassword.password')}</div>
             <div className="user-varification">
               <input
                 {...register('originPassword', {
@@ -58,7 +58,7 @@ const EditPassword = () => {
             {errors.originPassword && <div className="guide-message">{errors.originPassword.message}</div>}
           </div>
           <div className="section">
-            <div className="input-title">{'새 비밀번호'}</div>
+            <div className="input-title">{t('editPassword.newPassword')}</div>
             <div className="user-varification">
               <input
                 {...register('newPassword', {
@@ -97,7 +97,7 @@ const EditPassword = () => {
           </div>
           <div className="password-submit">
             <Button size={'large'} scheme={'keyButton'} type="submit" className="join-btn">
-              {'변경하기'}
+            {t('editPassword.Change')}
             </Button>
           </div>
         </form>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import MarkerImg from '../assets/marker.png';
 import ToggleButtonComponent from '../components/common/ToggleView';
 import { spotMapList } from '../api/spot';
@@ -24,7 +24,6 @@ const { kakao } = window;
 const Map = () => {
   const [location, setLocation] = useState([36, 127]);
   const [zoom, setZoom] = useState(9);
-  // const [markers, setMarkers] = useState<SpotData[]>([]);
   const { id } = useParams();
 
   const imageSrc = MarkerImg;
@@ -67,15 +66,59 @@ const Map = () => {
 
     fetchSpots(bound.ha, bound.qa, bound.oa, bound.pa).then(spots => {
       for (let i = 0; i < spots.length; i++) {
+        const position = new kakao.maps.LatLng(spots[i].pointY, spots[i].pointX);
         const marker = new kakao.maps.Marker({
-          position: new kakao.maps.LatLng(spots[i].pointY, spots[i].pointX),
+          map: kakaoMap,
+          position: position,
           image: markerImage,
         });
-        // 마커 클릭 이벤트
+
+        // 태그 2개만 뽑기
+        const tagHTML = spots[i].hashtags
+          ? spots[i].hashtags
+              .slice(0, 2)
+              .map(item => `<span class='tag'>#${item}</span>`)
+              .join(' ')
+          : '';
+
+        // 오버레이
+        const customOverlay = new kakao.maps.CustomOverlay({
+          position: position,
+          content:
+            `<a class='map-overlay'  href='/spot/${spots[i].spotId}' >` +
+            `<div class="spot-image-box">` +
+            `<img class="spot-image" src=${spots[i].imagePath} />` +
+            `</div>` +
+            `<div class="spot-info">` +
+            `<div class="spot-info-header">` +
+            `<div class="spot-info-name">${spots[i].name}</div>` +
+            `<div class="spot-info-rating">${spots[i].rating.toFixed(1)}</div>` +
+            `</div>` +
+            `<div class="spot-info-address-wrapper" onClick={handleAddressClick}>` +
+            `<div class="spot-info-distance">${'300m'}</div>` +
+            `<div class="spot-info-address">${spots[i].address}</div>` +
+            `<FontAwesomeIcon className="more-icon" icon={faChevronDown} />` +
+            `</div>` +
+            `<div class="spot-info-tag-wrapper">` +
+            `<div class="tag-slide">` +
+            tagHTML +
+            `</div>` +
+            `</div>` +
+            `</div>` +
+            `</a>`,
+
+          xAnchor: 0.5,
+          yAnchor: 1.7,
+        });
+
+        // 마커 클릭시 오버레이 표시
         kakao.maps.event.addListener(marker, 'click', function () {
-          // alert(
-          //   `이름: ${spots[i].name} / 별점: ${spots[i].rating} / 주소: ${spots[i].address} / 해시태그: ${spots[i].hashtags}`
-          // );
+          customOverlay.setMap(kakaoMap);
+        });
+
+        // 맵 클릭 시 오버레이 제거
+        kakao.maps.event.addListener(kakaoMap, 'click', function () {
+          customOverlay.setMap(null);
         });
 
         marker.setMap(kakaoMap);
@@ -88,9 +131,9 @@ const Map = () => {
       const center = kakaoMap.getCenter();
       const newZoom = kakaoMap.getLevel();
 
-      console.log('지도 좌측 하단 위도, 경도', bound.ha, bound.qa);
-      console.log('지도 우측 상단 위도, 경도', bound.oa, bound.pa);
-      console.log('중심', center.Ma, center.La, 'zoom ', zoom);
+      // console.log('지도 좌측 하단 위도, 경도', bound.ha, bound.qa);
+      // console.log('지도 우측 상단 위도, 경도', bound.oa, bound.pa);
+      // console.log('중심', center.Ma, center.La, 'zoom ', zoom);
 
       setLocation([center.Ma, center.La]);
       setZoom(newZoom);
@@ -103,9 +146,9 @@ const Map = () => {
       const bound = kakaoMap.getBounds();
       const center = kakaoMap.getCenter();
       const newZoom = kakaoMap.getLevel();
-      console.log('지도 좌측 하단 경도, 위도', bound.ha, bound.qa);
-      console.log('지도 우측 상단 경도, 위도', bound.oa, bound.pa);
-      console.log('중심', center.Ma, center.La, 'zoom ', zoom);
+      // console.log('지도 좌측 하단 경도, 위도', bound.ha, bound.qa);
+      // console.log('지도 우측 상단 경도, 위도', bound.oa, bound.pa);
+      // console.log('중심', center.Ma, center.La, 'zoom ', zoom);
 
       setLocation([center.Ma, center.La]);
       setZoom(newZoom);
@@ -128,6 +171,7 @@ const Map = () => {
           }
         />
       </div>
+
       <div id="map" style={{ width: '100%', height: '100vh' }}></div>
     </MapStyle>
   );
@@ -143,6 +187,102 @@ const MapStyle = styled.div`
         color: ${({ theme }) => theme.color.keyColor};
       }
     }
+  }
+
+  .map-overlay {
+    display: flex;
+    gap: 16px;
+
+    width: 300px;
+    height: 120px;
+
+    padding: 14px;
+
+    text-decoration: none;
+    background-color: white;
+    boarder-radius: 16px;
+    border-radius: 16px;
+  }
+  .spot-image-box {
+    width: 90px;
+    height: 90px;
+    border-radius: 16px;
+  }
+  .spot-image {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 16px;
+  }
+  .spot-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .spot-info-header {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+
+      margin-bottom: 4px;
+
+      .spot-info-name {
+        ${({ theme }) => theme.font.body2};
+      }
+
+      .spot-info-rating {
+        ${({ theme }) => theme.font.body5}
+      }
+    }
+
+    .spot-info-address-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+
+      .spot-info-distance {
+        ${({ theme }) => theme.font.body4};
+        color: ${({ theme }) => theme.color.gray80};
+      }
+
+      .spot-info-address {
+        color: ${({ theme }) => theme.color.gray60};
+        ${({ theme }) => theme.font.body4};
+        width: 135px;
+
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+
+  .tag-slide {
+    width: 100%;
+    display: flex;
+    gap: 24px 8px;
+
+    margin: 0;
+    padding: 0;
+    margin-top: 6px;
+
+    white-space: nowrap;
+    overflow-x: scroll;
+    list-style: none;
+
+    -ms-overflow-style: none; /* 인터넷 익스플로러 */
+    scrollbar-width: none; /* 파이어폭스 */
+  }
+
+  .tag {
+    width: fit-content;
+    padding: 2px 12px;
+
+    border-radius: 15px;
+
+    background-color: ${({ theme }) => theme.color.subColor3};
+    color: black;
+    ${({ theme }) => theme.font.body4};
   }
 `;
 

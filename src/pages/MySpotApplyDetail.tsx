@@ -36,12 +36,12 @@ const MySpotApplyDetail = () => {
         </div>
       </div>
       <div className="content-wrapper">
-        <div className="spot-subtitle"> {'주소'}</div>
+        <div className="spot-subtitle"> {t('myPage.address')}</div>
 
         <div className="apply-address"> {spotApplyDetailData?.address}</div>
       </div>
       <div className="content-wrapper">
-        <div className="spot-subtitle"> {'카테고리'}</div>
+        <div className="spot-subtitle"> {t('myPage.category')}</div>
 
         <div className="category-list">
           {spotApplyDetailData?.categoryDataList.map(category => (
