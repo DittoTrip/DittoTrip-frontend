@@ -47,11 +47,14 @@ const ProfileImgStyle = styled.div<{ width?: string; background?: boolean }>`
 
   .image-item {
     position: absolute;
-    top: 0;
+    top: 4%;
     left: 0;
+
     width: 100%;
     height: 100%;
-    opacity: 0.9;
+
+    object-fit: cover;
+    transform: scale(1.5);
   }
 
   .edit-icon {

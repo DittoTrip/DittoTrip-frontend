@@ -55,3 +55,11 @@ export interface CategoryAddProps {
   categorySaveReq: CategoryAddData;
   image: string | null;
 }
+export interface CategorySearchPageData {
+  categoryId: number;
+  name: string;
+  imagePath: string;
+}
+export interface CategorySearchResponse {
+  categorySearchPageDataList: CategorySearchPageData[];
+}

@@ -1,8 +1,8 @@
 import styled from 'styled-components';
-import { dramaItem } from '../../pages/Home';
+import { CategoryData } from '../../models/mainpage/mainpage';
 
 interface Props {
-  dramaList: dramaItem[];
+  dramaList: CategoryData[];
 }
 
 const Drama = ({ dramaList }: Props) => {
@@ -13,8 +13,8 @@ const Drama = ({ dramaList }: Props) => {
           return (
             <li key={i} className="drama-list">
               <div className="drama-box">
-                <img className="drama-img" src={item.img}></img>
-                <div className="drama-title">{item.title}</div>
+                <img className="drama-img" src={item.imagePath}></img>
+                <div className="drama-title">{item.name}</div>
               </div>
             </li>
           );

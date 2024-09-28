@@ -1,9 +1,8 @@
 import styled from 'styled-components';
-import { searchItem } from '../../pages/Search';
 import SearchItem from '../search/SearchItem';
 
 interface Props {
-  carouselTextList: searchItem[];
+  carouselTextList: string[];
 }
 
 const TextSlide = ({ carouselTextList }: Props) => {
@@ -13,7 +12,7 @@ const TextSlide = ({ carouselTextList }: Props) => {
         {carouselTextList?.map(item => {
           return (
             <li>
-              <SearchItem title={item.title} />
+              <SearchItem title={item} />
             </li>
           );
         })}

@@ -1,8 +1,8 @@
 import styled from 'styled-components';
-import { dittoItem } from '../../pages/Home';
+import { SpotData } from '../../models/mainpage/mainpage';
 
 interface Props {
-  dittoList: dittoItem[];
+  dittoList: SpotData[];
 }
 
 const HotDitto = ({ dittoList }: Props) => {
@@ -11,9 +11,9 @@ const HotDitto = ({ dittoList }: Props) => {
       {dittoList.map((item, i) => {
         return (
           <div key={i} className="ditto-box">
-            <img className="ditto-img" src={item.img}></img>
-            <div className="ditto-location">{item.location}</div>
-            <div className="ditto-title">{item.title}</div>
+            <img className="ditto-img" src={item.imagePath}></img>
+            <div className="ditto-location">{item.categoryName}</div>
+            <div className="ditto-title">{item.name}</div>
           </div>
         );
       })}
