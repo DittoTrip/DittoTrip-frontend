@@ -11,6 +11,8 @@ import FavoriteButton from '../components/category/FavoriteButton';
 
 import useCategoryData from '../hooks/category/useCategoryData';
 import LangSelectButton from '../components/LangSelectButton';
+import { useAuthStore } from '../store/authStore';
+import Modal from '../components/common/Modal';
 
 export interface TapItem {
   id: number;
@@ -21,8 +23,10 @@ export interface TapItem {
 const Category = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const { isLoggedIn } = useAuthStore();
 
   const [isFavorite, setFavoritesView] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const {
     dramaList,
@@ -47,7 +51,11 @@ const Category = () => {
   } = useCategoryData();
 
   const handleHeartClick = () => {
-    setFavoritesView(!isFavorite);
+    if (!isLoggedIn) {
+      setIsOpen(true);
+    } else {
+      setFavoritesView(!isFavorite);
+    }
   };
 
   const tapData: TapItem[] = [
@@ -137,6 +145,10 @@ const Category = () => {
         <FavoriteButton isFavorite={isFavorite} onClick={handleHeartClick} />
         {tapData[selectedId].content}
       </div>
+
+      {isOpen && (
+        <Modal width={65} message={t('guide.login')} handleConfirm={() => navigate('/login')} setIsOpen={setIsOpen} />
+      )}
     </CategoryStyled>
   );
 };

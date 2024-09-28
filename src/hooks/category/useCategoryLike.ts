@@ -20,7 +20,9 @@ const useBookmarkedCategory = (id: string) => {
       }
     };
 
-    fetchBookmarkStatus();
+    if (isLoggedIn) {
+      fetchBookmarkStatus();
+    }
   }, [id]);
 
   const toggleBookmark = async () => {
