@@ -17,7 +17,8 @@
     "placeholder": "좋아하는 콘텐츠나 연예인을 검색해 보세요",
     "recentSearches": "최근 검색",
     "suggestion": "추천 검색어",
-    "rising": "급상승 디토"
+    "rising": "급상승 디토",
+    "what": "무엇을 찾으시나요?"
   },
 
   "category": {
@@ -25,7 +26,10 @@
 
     "tap": {
       "contents": "영상 콘텐츠",
-      "celebrity": "연예인"
+      "celebrity": "연예인",
+      "tapContents":"컨텐츠",
+      "spot":"스팟",
+      "user":"사용자"
     },
     "contents": {
       "entertainment": "예능",
