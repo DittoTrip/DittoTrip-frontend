@@ -7,88 +7,65 @@ import Weekend from '../components/home/Weekend';
 import Drama from '../components/home/Drama';
 import HotDitto from '../components/home/HotDitto';
 import KakaoLoginRedirect from '../hooks/login/kakaoLogin';
-
-export interface dramaItem {
-  img: string;
-  title: string;
-}
-
-export interface dittoItem {
-  img: string;
-  location: string;
-  title: string;
-}
-
-const DRAMA_IMAGE = [
-  {
-    img: 'https://velog.velcdn.com/images/gogo6570/post/a68996dd-2333-41bb-89a6-36c9e710d0b3/image.png',
-    title: '뷰티 인사이드',
-  },
-  {
-    img: 'https://velog.velcdn.com/images/gogo6570/post/19a374e7-3cc0-4db5-8335-7c33d9ce2328/image.png',
-    title: '동백꽃 필 무렵',
-  },
-  {
-    img: 'https://velog.velcdn.com/images/gogo6570/post/c0999bfc-93fd-4a41-a1ba-1a277d109ea8/image.png',
-    title: '눈물의 여왕',
-  },
-  {
-    img: 'https://velog.velcdn.com/images/gogo6570/post/79bf120a-36d6-4d9c-972d-5866617a4ad0/image.png',
-    title: '도꺠비',
-  },
-  {
-    img: 'https://velog.velcdn.com/images/gogo6570/post/7ea13176-f7e3-4aa4-8419-d29eec305775/image.png',
-    title: '나의 아저씨',
-  },
-];
-
-const DITTO_IMAGE = [
-  {
-    img: 'https://velog.velcdn.com/images/gogo6570/post/8b1d5b9c-c003-4f3d-908f-c970a65b431f/image.png',
-    location: '수원 방화수류정',
-    title: '수원 토박이',
-  },
-  {
-    img: 'https://velog.velcdn.com/images/gogo6570/post/8b1d5b9c-c003-4f3d-908f-c970a65b431f/image.png',
-    location: '수원 방화수류정',
-    title: '수원 토박이',
-  },
-  {
-    img: 'https://velog.velcdn.com/images/gogo6570/post/8b1d5b9c-c003-4f3d-908f-c970a65b431f/image.png',
-    location: '수원 방화수류정',
-    title: '수원 토박이',
-  },
-  {
-    img: 'https://velog.velcdn.com/images/gogo6570/post/8b1d5b9c-c003-4f3d-908f-c970a65b431f/image.png',
-    location: '수원 방화수류정',
-    title: '수원 토박이',
-  },
-  {
-    img: 'https://velog.velcdn.com/images/gogo6570/post/8b1d5b9c-c003-4f3d-908f-c970a65b431f/image.png',
-    location: '수원 방화수류정asdwadfjejlwkjekljwlje',
-    title: '수원 토박이',
-  },
-  {
-    img: 'https://velog.velcdn.com/images/gogo6570/post/8b1d5b9c-c003-4f3d-908f-c970a65b431f/image.png',
-    location: '수원 방화수류정',
-    title: '수원 토박이',
-  },
-];
+import { useEffect, useState } from 'react';
+import { getHomeData } from '../api/home';
+import { HomeData } from '../models/mainpage/mainpage';
+import ErrorPage from './Error';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBell } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
   const { t } = useTranslation();
+  const [homeData, setHomeData] = useState<HomeData>();
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+
+  const fetchHome = () => {
+    setLoading(true);
+    getHomeData()
+      .then(response => {
+        setHomeData(response);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+  useEffect(() => {
+    fetchHome();
+  }, []);
+
+  if (loading) {
+    return <ErrorPage message={'Loading...'} type="loading" />;
+  }
+
   return (
     <HomeStyled>
       <KakaoLoginRedirect />
       <div className="app-bar">
-        <AppBar leading={false} title={<div className="title">Home</div>} action={<LangSelectButton />} />
+        <AppBar
+          leading={false}
+          title={<div className="title">Home</div>}
+          action={
+            <div className="action">
+              <div className="alarm-wrapper" onClick={() => navigate(`/alarm`)}>
+                <FontAwesomeIcon className="alarm-icon" icon={faBell} />
+                {homeData!.isNotCheckedAlarm && <span className="not-checked" />}
+              </div>
+              <LangSelectButton />
+            </div>
+          }
+        />
       </div>
       <div className="body2">{t('home.suggest')}</div>
-      <Weekend />
+      <Weekend data={homeData!.dittoData} />
       <div className="body2">{t('home.where')}</div>
-      <Drama dramaList={DRAMA_IMAGE} />
+      <Drama dramaList={homeData!.categoryDataList} />
       <div className="body2">{t('home.hot ditto')}</div>
-      <HotDitto dittoList={DITTO_IMAGE} />
+      <HotDitto dittoList={homeData!.spotDataList} />
     </HomeStyled>
   );
 };
@@ -100,6 +77,35 @@ const HomeStyled = styled.div`
     color: ${({ theme }) => theme.color.keyColor};
     ${({ theme }) => theme.font.title}
   }
+
+  .action {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .alarm-wrapper {
+    position: relative;
+    display: inline-block;
+
+    .alarm-icon {
+      font-size: 20px;
+      path {
+        color: ${({ theme }) => theme.color.subColor2};
+      }
+    }
+
+    .not-checked {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 3px;
+      height: 3px;
+      background-color: red;
+      border-radius: 50%;
+    }
+  }
+
   .body2 {
     color: ${({ theme }) => theme.color.keyColor};
     ${({ theme }) => theme.font.body2}

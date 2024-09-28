@@ -1,9 +1,8 @@
 import { useState, useEffect, useCallback } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 import { useTranslation } from 'react-i18next';
-import { useAuthStore } from '../store/authStore';
 import useSpotList from '../hooks/spot/useSpotList';
 import useBookmarkedCategory from '../hooks/category/useCategoryLike';
 
@@ -25,14 +24,12 @@ import { defaultImage, defaultPageOptions } from '../constants/constant';
 const List = () => {
   const { t } = useTranslation();
   const { id } = useParams();
-  const navigate = useNavigate();
 
   const [currentPage, setCurrentPage] = useState(0);
   const [selectedAddress, setSelectedAddress] = useState('');
   const [isSortOpen, setIsSortOpen] = useState(false);
 
   const { isBookmarked, toggleBookmark } = useBookmarkedCategory(id!);
-  const { isLoggedIn } = useAuthStore();
 
   const sortOptions: OptionItem[] = [
     {
