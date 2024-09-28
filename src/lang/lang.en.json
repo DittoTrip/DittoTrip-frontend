@@ -209,6 +209,7 @@
     "id": "Id",
     "password": "password",
     "passwordChange": "Change",
+    "checkLogout": "Are you sure you want to log out?",
     "logout": "Logout ",
     "withdrawal": "Withdrawal"
   },

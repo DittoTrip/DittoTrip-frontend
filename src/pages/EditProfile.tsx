@@ -10,6 +10,7 @@ import ProfileImg from '../components/common/ProfileImg';
 import { logout } from '../api/auth';
 import { useAuthStore } from '../store/authStore';
 import { useTranslation } from 'react-i18next';
+import Modal from '../components/common/Modal';
 
 const EditProfile = () => {
   const [userData, setUserData] = useState<MyUserInfoData>();
@@ -17,6 +18,8 @@ const EditProfile = () => {
   const naviagate = useNavigate();
   const { storeLogout } = useAuthStore();
   const { t } = useTranslation();
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [modalText, setModaText] = useState('');
 
   const fetchUserInfo = async () => {
     setLoading(true);
@@ -82,7 +85,13 @@ const EditProfile = () => {
         </div>
         <div className="sub-menu-wrapper">
           <div className="find-pw">
-            <a onClick={handleLogout}>{t('editProfile.logout')}</a>
+            <a
+              onClick={() => {
+                setModaText(t('editProfile.checkLogout'));
+                setIsOpen(true);
+              }}>
+              {t('editProfile.logout')}
+            </a>
           </div>
           <div className="divider"></div>
           <div className="withdraw" onClick={() => {}}>
@@ -90,6 +99,7 @@ const EditProfile = () => {
           </div>
         </div>
       </div>
+      {isOpen && <Modal message={modalText} setIsOpen={setIsOpen} handleConfirm={handleLogout} width={65} />}
     </EditProfileStyle>
   );
 };
