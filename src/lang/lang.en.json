@@ -245,6 +245,33 @@
     "complete": "Complete"
   },
   "follow": {
-    "title": "Follow"
+    "title": "follow",
+    "follow": "follow",
+    "following": "following"
+  },
+  "alert": {
+    "tokenReissue": "Token reissue",
+    "login": "Please login",
+    "loginFail":"Login failed.",
+    "reviewDeleteOk":"Your review has been successfully deleted.",
+    "reviewDeleteFail":"Failed to delete review.",
+    "location":"Please double check your location.",
+    "change":"It has change.",
+    "solution":"A problem occurred. Please try again.",
+    "delete":"It has been deleted.",
+    "followOk":"follow success",
+    "followFail":"follow fail",
+    "unFollow":"UnFollow",
+    "unFollowFail":"UnFollow Fail ",
+    "modify":"modify.",
+    "nicknameFixFail":"Failed to edit nickname.",
+    "already":"This nickname already exists.",
+    "passwordFix":"your password has been modified.",
+    "sent":"sent",
+    "checkEmail":"Check your email",
+    "alreadyEmail":"This email has already been registered.",
+    "duplicateFail":"Duplicate check failed",
+    "permission":"You do not have permission.",
+    "img":"You can only upload up to 10 images."
   }
 }

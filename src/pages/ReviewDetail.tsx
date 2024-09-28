@@ -70,7 +70,7 @@ const ReviewDetail = () => {
   const handleDeleteReview = () => {
     deleteReview(id!).then(
       res => {
-        alert('Delete');
+        alert(`${t('message.delete')}`);
         console.log(res);
         window.location.reload();
       },
@@ -86,7 +86,7 @@ const ReviewDetail = () => {
       id: 0,
       text: t('bottomsheet.delete'),
       handleClick: () => {
-        alert('delete');
+        alert(`${t('message.delete')}`);
         handleDelete();
         setIsExpandedOptions(false);
       },
@@ -129,7 +129,7 @@ const ReviewDetail = () => {
       id: 1,
       text: t('bottomsheet.modify'),
       handleClick: () => {
-        alert('modify');
+        alert(`${t('message.modify')}`);
         setIsExpandedReviewOptions(false);
       },
     },

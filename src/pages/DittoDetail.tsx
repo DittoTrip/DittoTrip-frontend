@@ -88,7 +88,7 @@ const DittoDetail = () => {
   const handleDeleteDitto = () => {
     deleteDitto(id!).then(
       res => {
-        alert('삭제되었습니다.');
+        alert(`${t('message.delete')}`);
         console.log(res);
         navigate('/ditto');
       },
@@ -161,18 +161,18 @@ const DittoDetail = () => {
     if (!isFollowed) {
       const res = await addFollow(dittoData!.userData.userId.toString());
       if (res == 200) {
-        alert('팔로우 성공');
+        alert(`${t('message.followOk')}`);
         setIsFollowed(1);
       } else {
-        alert('팔로우 실패');
+        alert(`${t('message.followFail')}`);
       }
     } else {
       const res = await deleteFollow(dittoData!.userData.userId.toString());
       if (res == 200) {
-        alert('언팔로우되었습니다.');
+        alert(`${t('message.unFollow')}`);
         setIsFollowed(null);
       } else {
-        alert('언팔로우 실패');
+        alert(`${t('message.unFollowFail')}`);
       }
     }
   };

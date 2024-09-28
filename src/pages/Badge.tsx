@@ -50,11 +50,11 @@ const Badge = () => {
     try {
       await modyfyBadge(selectedBadge!.userBadgeId!);
 
-      alert(`변경되었습니다.`);
+      alert(`${t('message.change')}`);
       fetchItems();
     } catch (err) {
       console.log(err);
-      alert(`문제가 발생했습니다. 다시 시도해주세요.`);
+      alert(`${t('message.solution')}`);
     } finally {
       setIsOpen(false);
     }

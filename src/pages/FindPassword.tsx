@@ -18,10 +18,10 @@ const FindPassword = () => {
 
       const response = await sendPassword(req);
       if (response == 200) {
-        alert('전송되었습니다. ');
+        alert(`${t('message.sent')}`);
       }
     } catch (error) {
-      alert('이메일을 확인하세요');
+      alert(`${t('message.checkEmail')}`);
     } finally {
       setLoading(false);
     }

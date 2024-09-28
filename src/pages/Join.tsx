@@ -105,13 +105,13 @@ const Join = () => {
               setSendingEmail(false);
             });
         } else {
-          alert('이미 가입된 이메일입니다.');
+          alert(`${t('message.alreadyEmail')}`);
           setSendingEmail(false);
         }
       },
       error => {
         console.log('이메일 중복체크 에러', error);
-        alert('중복 체크실패');
+        alert(`${t('message.duplicateFail')}`);
         setSendingEmail(false);
       }
     );

@@ -32,18 +32,18 @@ const MyPage = () => {
     if (!isFollowed) {
       const res = await addFollow(userData!.userData.userId.toString());
       if (res == 200) {
-        alert('팔로우 성공');
+        alert(`${t('message.followOk')}`);
         setIsFollowed(1);
       } else {
-        alert('팔로우 실패');
+        alert(`${t('message.followFail')}`);
       }
     } else {
       const res = await deleteFollow(userData!.userData.userId.toString());
       if (res == 200) {
-        alert('언팔로우되었습니다.');
+        alert(`${t('message.unFollow')}`);
         setIsFollowed(null);
       } else {
-        alert('언팔로우 실패');
+        alert(`${t('message.unFollowFail')}`);
       }
     }
   };

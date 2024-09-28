@@ -26,11 +26,11 @@ const EditPassword = () => {
     const req = { originPassword: data.originPassword, newPassword: data.newPassword };
     editPassword(req).then(
       res => {
-        alert('비밀번호가 수정되었습니다. ');
+        alert(`${t('message.passwordFix')}`);
         reset();
       },
       error => {
-        alert('문제가 발생했습니다.');
+        alert(`${t('message.solution')}`);
         console.log(error);
       }
     );

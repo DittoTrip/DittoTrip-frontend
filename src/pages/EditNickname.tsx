@@ -23,12 +23,12 @@ const EditNickname = () => {
       if (duplicateResponse) {
         const editResponse = await editNickname(req);
         if (editResponse) {
-          alert('수정되었습니다.');
+          alert(`${t('message.modify')}`);
         } else {
-          alert('닉네임 수정에 실패했습니다.');
+          alert(`${t('message.nicknameFixFail')}`);
         }
       } else {
-        alert('이미 존재하는 닉네임입니다.');
+        alert(`${t('message.already')}`);
       }
     } catch (error) {
       console.error(error);
