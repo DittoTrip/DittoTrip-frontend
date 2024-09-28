@@ -75,7 +75,7 @@ const Ditto = () => {
       <div className="app-bar">
         <AppBar
           leading={false}
-          title={<div className="title">{t('myPage.ditto')}</div>}
+          title={<div className="title">Ditto</div>}
           action={
             <div className="action">
               <WriteButton

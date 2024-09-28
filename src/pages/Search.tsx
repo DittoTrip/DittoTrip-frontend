@@ -62,7 +62,7 @@ const Search = () => {
   return (
     <SearchStyled>
       <div className="app-bar">
-        <AppBar leading={true} title={<div className="title">무엇을 찾으시나요?</div>} action={<></>} />
+        <AppBar leading={true} title={<div className="title">{t('search.what')}</div>} action={<></>} />
       </div>
 
       <div className="container">
