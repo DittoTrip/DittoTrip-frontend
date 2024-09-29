@@ -30,7 +30,7 @@ const FindPassword = () => {
   return (
     <FindPasswordStyle>
       <div className="app-bar">
-        <AppBar leading={true} title={<div className="title">{t('editProfile.passwordFind')}</div>} />
+        <AppBar leading={true} title={<div className="title">{t('editProfile.findPassword')}</div>} />
       </div>
       <div className="content-wrapper">
         <div className="input-title">{t('join.email')}</div>
@@ -65,46 +65,44 @@ const FindPasswordStyle = styled.div`
   .content-wrapper {
     margin: 30px 28px 0 28px;
 
-      .input-title {
-        margin-bottom: 10px;
+    .input-title {
+      margin-bottom: 10px;
 
-        color: ${({ theme }) => theme.color.gray80};
-        ${({ theme }) => theme.font.body2};
-      }
+      color: ${({ theme }) => theme.color.gray80};
+      ${({ theme }) => theme.font.body2};
+    }
 
-      .user-varification {
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 13px;
+    .user-varification {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 13px;
 
-        margin-bottom: 10px;
-      }
+      margin-bottom: 10px;
+    }
 
-      .sending {
-        min-height: 20px;
+    .sending {
+      min-height: 20px;
 
-        margin-left: 10px;
-        margin-bottom: 8px;
+      margin-left: 10px;
+      margin-bottom: 8px;
 
-        color: ${({ theme }) => theme.color.keyColor};
-        ${({ theme }) => theme.font.body5};
-      }
-     
+      color: ${({ theme }) => theme.color.keyColor};
+      ${({ theme }) => theme.font.body5};
+    }
   }
 
-    .input-container {
-      height: 52px;
-      padding: 15px;
-      flex: 1;
-      margin :100px;
+  .input-container {
+    height: 52px;
+    padding: 15px;
+    flex: 1;
 
-      outline: none;
-      border: none;
-      border-radius: 12px;
-      background: ${({ theme }) => theme.color.gray20};
-    }
+    outline: none;
+    border: none;
+    border-radius: 12px;
+    background: ${({ theme }) => theme.color.gray20};
+  }
 `;
 
 export default FindPassword;

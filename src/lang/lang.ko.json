@@ -21,7 +21,6 @@
     "what": "무엇을 찾으시나요?",
 
     "rising": "급상승 카테고리"
-
   },
 
   "category": {
@@ -30,9 +29,9 @@
     "tap": {
       "contents": "영상 콘텐츠",
       "celebrity": "연예인",
-      "tapContents":"컨텐츠",
-      "spot":"스팟",
-      "user":"사용자"
+      "tapContents": "컨텐츠",
+      "spot": "스팟",
+      "user": "사용자"
     },
     "contents": {
       "entertainment": "예능",
@@ -218,7 +217,8 @@
     "passwordChange": "변경하기",
     "checkLogout": "정말 로그아웃 하시겠습니까?",
     "logout": "로그아웃",
-    "withdrawal": "회원탈퇴"
+    "withdrawal": "회원탈퇴",
+    "findPassword": "비밀번호 찾기"
   },
   "editNickname": {
     "title": "닉네임 변경",
@@ -260,26 +260,26 @@
   "message": {
     "tokenReissue": "토큰 재발급",
     "login": "로그인 하세요",
-    "loginFail":"로그인에 실패했습니다.",
-    "reviewDeleteOk":"리뷰가 성공적으로 삭제되었습니다.",
-    "reviewDeleteFail":"리뷰 삭제에 실패했습니다.",
-    "location":"위치를 다시 확인하세요",
-    "change":"변경되었습니다.",
-    "solution":"문제가 발생했습니다. 다시 시도해주세요",
-    "delete":"삭제되었습니다.",
-    "followOk":"팔로우 성공",
-    "followFail":"팔로우 실패",
-    "unFollow":"언팔로우되었습니다.",
-    "unFollowFail":"언팔로우 실패",
-    "modify":"수정되었습니다.",
-    "nicknameFixFail":"닉네임 수정에 실패했습니다.",
-    "already":"이미 존재하는 닉네임 입니다.",
-    "passwordFix":"비밀번호가 수정되었습니다.",
-    "sent":"전송되었습니다.",
-    "checkEmail":"이메일을 확인하세요",
-    "alreadyEmail":"이미 가입된 이메일입니다.",
-    "duplicateFail":"중복 체크 실패",
-    "permission":"권한이 없습니다.",
-    "img":"이미지는 최대 10개까지만 업로드할 수 있습니다."
+    "loginFail": "로그인에 실패했습니다.",
+    "reviewDeleteOk": "리뷰가 성공적으로 삭제되었습니다.",
+    "reviewDeleteFail": "리뷰 삭제에 실패했습니다.",
+    "location": "위치를 다시 확인하세요",
+    "change": "변경되었습니다.",
+    "solution": "문제가 발생했습니다. 다시 시도해주세요",
+    "delete": "삭제되었습니다.",
+    "followOk": "팔로우 성공",
+    "followFail": "팔로우 실패",
+    "unFollow": "언팔로우되었습니다.",
+    "unFollowFail": "언팔로우 실패",
+    "modify": "수정되었습니다.",
+    "nicknameFixFail": "닉네임 수정에 실패했습니다.",
+    "already": "이미 존재하는 닉네임 입니다.",
+    "passwordFix": "비밀번호가 수정되었습니다.",
+    "sent": "전송되었습니다.",
+    "checkEmail": "이메일을 확인하세요",
+    "alreadyEmail": "이미 가입된 이메일입니다.",
+    "duplicateFail": "중복 체크 실패",
+    "permission": "권한이 없습니다.",
+    "img": "이미지는 최대 10개까지만 업로드할 수 있습니다."
   }
 }

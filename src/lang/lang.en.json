@@ -217,7 +217,8 @@
     "passwordChange": "Change",
     "checkLogout": "Are you sure you want to log out?",
     "logout": "Logout ",
-    "withdrawal": "Withdrawal"
+    "withdrawal": "Withdrawal",
+    "findPassword": "find password"
   },
   "editNickname": {
     "title": "Change nickname",
