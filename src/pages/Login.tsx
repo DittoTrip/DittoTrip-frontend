@@ -5,13 +5,15 @@ import { useForm } from 'react-hook-form';
 import { login } from '../api/auth';
 import { useAuthStore } from '../store/authStore';
 
+import AppBar from '../components/common/AppBar';
 import Button from '../components/common/Button';
 import InputText from '../components/Login/InputText';
 import kakaoImg from '../assets/kakao.png';
 import { LoginProps } from '../models/login/loginModel';
 import { useTranslation } from 'react-i18next';
 import LangSelectButton from '../components/LangSelectButton';
-import AppBar from '../components/common/AppBar';
+
+import logo from '../assets/Ditto_logo.png';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -44,7 +46,12 @@ const Login = () => {
       <div className="app-bar">
         <AppBar
           leading={false}
-          title={''}
+          title={
+            <div className="title">
+              <img className="logo" src={logo} />
+              Ditto Trip
+            </div>
+          }
           action={
             <div className="action">
               <LangSelectButton />
@@ -52,7 +59,7 @@ const Login = () => {
           }
         />
       </div>
-      <div className="title">
+      <div className="guide-title">
         {t('login.welcome')}
         <br />
         {t('login.suggest')}
@@ -64,12 +71,16 @@ const Login = () => {
           {errors.email && <p className="error-text">이메일을 입력해주세요</p>}
         </fieldset>
         <fieldset>
-          <InputText placeholder={t('login.password')} inputType="password" {...register('password', { required: true })} />
+          <InputText
+            placeholder={t('login.password')}
+            inputType="password"
+            {...register('password', { required: true })}
+          />
           {errors.password && <p className="error-text">비밀번호를 입력해주세요</p>}
         </fieldset>
         <fieldset>
           <Button type="submit" size="large" scheme="keyButton">
-          {t('login.login')}
+            {t('login.login')}
           </Button>
         </fieldset>
       </form>
@@ -104,7 +115,22 @@ const LoginStyle = styled.div`
 
   margin: 0 28px;
 
-  .title {
+  .app-bar {
+    .title {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      color: ${({ theme }) => theme.color.keyColor};
+      ${({ theme }) => theme.font.body1}
+      font-weight: bold;
+
+      .logo {
+        width: 33px;
+      }
+    }
+  }
+
+  .guide-title {
     width: 100%;
     margin-bottom: 30px;
     text-align: left;
@@ -122,6 +148,7 @@ const LoginStyle = styled.div`
     .error-text {
       color: red;
       margin: 0 0 10px 0;
+      ${({ theme }) => theme.font.body5}
     }
   }
 

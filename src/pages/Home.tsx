@@ -15,6 +15,8 @@ import { faBell } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import HotSpot from '../components/home/HotSpot';
 
+import logo from '../assets/Ditto_logo.png';
+
 const Home = () => {
   const { t } = useTranslation();
   const [homeData, setHomeData] = useState<HomeData>();
@@ -48,7 +50,12 @@ const Home = () => {
       <div className="app-bar">
         <AppBar
           leading={false}
-          title={<div className="title">Home</div>}
+          title={
+            <div className="title">
+              <img className="logo" src={logo} />
+              Ditto Trip
+            </div>
+          }
           action={
             <div className="action">
               <div className="alarm-wrapper" onClick={() => navigate(`/alarm`)}>
@@ -74,8 +81,16 @@ const HomeStyled = styled.div`
   margin: 0 28px;
 
   .title {
+    display: flex;
+    gap: 14px;
+    align-items: center;
     color: ${({ theme }) => theme.color.keyColor};
-    ${({ theme }) => theme.font.title}
+    ${({ theme }) => theme.font.body1}
+    font-weight: bold;
+
+    .logo {
+      width: 33px;
+    }
   }
 
   .action {
