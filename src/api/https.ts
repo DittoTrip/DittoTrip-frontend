@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next';
 
 // application/json용
 export const api = axios.create({
-  // baseURL: 'http://dittotrip.site',
   baseURL: `${import.meta.env.VITE_BASE_URL}`,
   timeout: 30000,
   headers: {

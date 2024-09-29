@@ -156,18 +156,22 @@ const Join = () => {
     if (isChecked) {
       setLoading(true);
 
-      join(joinData).then(
-        res => {
-          console.log(res);
-          console.log(t('join.success'));
-        },
-        error => {
-          console.log(t('join.failure'));
-          console.log(error);
-          setMessage(t('join.failure'));
-          setIsOpen(true);
-        }
-      );
+      join(joinData)
+        .then(
+          res => {
+            console.log(res);
+            console.log(t('join.success'));
+          },
+          error => {
+            console.log(t('join.failure'));
+            console.log(error);
+            setMessage(t('join.failure'));
+            setIsOpen(true);
+          }
+        )
+        .finally(() => {
+          setLoading(false);
+        });
     } else {
       if (!nicknameChecked) {
         setMessage(t('join.checkNickname'));
@@ -178,7 +182,6 @@ const Join = () => {
       }
       setIsOpen(true);
     }
-    setLoading(false);
   };
 
   return (
