@@ -57,7 +57,7 @@ const EditNickname = () => {
               className="input-container"
             />
             <Button size={'medium'} scheme={'keyButton'} type="submit" disabled={isSubmitting}>
-            {t('editNickname.checkDuplication')}
+              {t('editNickname.checkDuplication')}
             </Button>
           </div>
           {errors.nickname && <div className="sending">{errors.nickname.message?.toString()}</div>}
@@ -79,47 +79,45 @@ const EditNicknameStyle = styled.div`
   .content-wrapper {
     margin: 30px 28px 0 28px;
 
-      .input-title {
-        margin-bottom: 10px;
+    .input-title {
+      margin-bottom: 10px;
 
-        color: ${({ theme }) => theme.color.gray80};
-        ${({ theme }) => theme.font.body2};
-      }
-
-      .user-verification {
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 13px;
-
-        margin-bottom: 10px;
-      }
-
-      .sending {
-        min-height: 20px;
-
-        margin-left: 5px;
-        margin-bottom: 8px;
-
-        color: ${({ theme }) => theme.color.keyColor};
-        ${({ theme }) => theme.font.body5};
-      }
+      color: ${({ theme }) => theme.color.gray80};
+      ${({ theme }) => theme.font.body2};
     }
-     
-  
 
-    .input-container {
-      height: 52px;
-      padding: 15px;
-      flex: 1;
-      margin: 100px;
+    .user-verification {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 13px;
 
-      outline: none;
-      border: none;
-      border-radius: 12px;
-      background: ${({ theme }) => theme.color.gray20};
+      margin-bottom: 10px;
     }
+
+    .sending {
+      min-height: 20px;
+
+      margin-left: 5px;
+      margin-bottom: 8px;
+
+      color: ${({ theme }) => theme.color.keyColor};
+      ${({ theme }) => theme.font.body5};
+    }
+  }
+
+  .input-container {
+    height: 52px;
+    padding: 15px;
+    flex: 1;
+    margin: 0px;
+
+    outline: none;
+    border: none;
+    border-radius: 12px;
+    background: ${({ theme }) => theme.color.gray20};
+  }
 `;
 
 export default EditNickname;

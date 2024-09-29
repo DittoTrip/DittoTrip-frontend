@@ -6,6 +6,7 @@ import Button from '../components/common/Button';
 import Modal from '../components/common/Modal';
 import { duplicationCheck, duplicationCheckEmail, join, sendCode, varifyCode } from '../api/auth';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 type Inputs = {
   nickname: string;
@@ -33,6 +34,7 @@ const Join = () => {
   const [loading, setLoading] = useState(false);
 
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   const nickname = watch('nickname');
   const email = watch('email');
@@ -171,6 +173,8 @@ const Join = () => {
         )
         .finally(() => {
           setLoading(false);
+          alert(t('join.success'));
+          navigate('/');
         });
     } else {
       if (!nicknameChecked) {
