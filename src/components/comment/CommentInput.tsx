@@ -47,7 +47,6 @@ const CommentInputStyled = styled.div<{ fixed: boolean }>`
   align-items: center;
 
   width: 100%;
-  max-width: 600px;
   height: 60px;
 
   position: ${({ fixed }) => (fixed ? 'fixed' : 'static')};
