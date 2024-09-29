@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 
 import { deleteReview, getReviewList } from '../../api/review';
 import { ReviewData } from '../../models/reveiw/reviewModel';
+import { useTranslation } from 'react-i18next';
 
 const useReviewList = (spotId: string, sort: string, page: number, size: number) => {
   const [reviewList, setReviewList] = useState<ReviewData[]>([]);
@@ -11,6 +12,8 @@ const useReviewList = (spotId: string, sort: string, page: number, size: number)
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [hasMore, setHasMore] = useState(true);
+
+  const { t } = useTranslation();
 
   const fetchSpotList = async () => {
     const req = { page, size, sort };
@@ -39,12 +42,12 @@ const useReviewList = (spotId: string, sort: string, page: number, size: number)
       if (status === 200) {
         // 삭제 성공 시 해당 리뷰를 리스트에서 제거
         setReviewList(prevList => prevList.filter(review => review.reviewId.toString() != reviewId));
-        alert('리뷰가 성공적으로 삭제되었습니다.');
+        alert(`${t('message.reviewDeleteOk')}`);
       } else {
-        alert('리뷰 삭제에 실패했습니다.');
+        alert(`${t('message.reviewDeleteFail')}`);
       }
     } catch (error) {
-      alert('리뷰 삭제에 실패했습니다.');
+      alert(`${t('message.reviewDeleteFail')}`);
     } finally {
       setLoading(false);
     }

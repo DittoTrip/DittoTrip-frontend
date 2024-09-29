@@ -24,7 +24,7 @@ const useDittoBookmark = (id: string, likes: number) => {
         console.log('북마크 여부 받아오기 실패', error);
       }
     };
-    if (!isLoggedIn) {
+    if (isLoggedIn) {
       fetchBookmarkStatus();
     }
   }, [id, likes]);

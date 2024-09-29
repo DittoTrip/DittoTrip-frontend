@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import DittoItem from './DittoItem';
 import { CategorySearchPageData } from '../../models/category/categoryModel';
+import CategoryItem from './CategoryItem';
 
 interface Props {
   carouselDittoList: CategorySearchPageData[];
@@ -13,7 +13,7 @@ const DittoSlide = ({ carouselDittoList }: Props) => {
         {carouselDittoList?.map(item => {
           return (
             <li>
-              <DittoItem img={item.imagePath} title={item.name}></DittoItem>
+              <CategoryItem img={item.imagePath} title={item.name} id={item.categoryId}></CategoryItem>
             </li>
           );
         })}

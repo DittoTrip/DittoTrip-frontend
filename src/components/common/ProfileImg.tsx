@@ -54,7 +54,7 @@ const ProfileImgStyle = styled.div<{ width?: string; background?: boolean }>`
     height: 100%;
 
     object-fit: cover;
-    transform: scale(1.5);
+    transform: scale(1.3);
   }
 
   .edit-icon {

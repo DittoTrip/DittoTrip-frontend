@@ -17,6 +17,9 @@
     "placeholder": "search content or celebrity",
     "recentSearches": "Recent searches",
     "suggestion": "Recommended search terms",
+
+    "what": "What are you looking for?",
+
     "rising": "Rising Category"
   },
 
@@ -25,7 +28,10 @@
 
     "tap": {
       "contents": "contents",
-      "celebrity": "celebrity"
+      "celebrity": "celebrity",
+      "tapContents": "contents",
+      "spot": "spot",
+      "user": "user"
     },
     "contents": {
       "entertainment": "entertainment",
@@ -63,7 +69,7 @@
   },
   "comment": {
     "comment": "comment",
-    "placeholder": "Write comment here",
+    "placeholder": "Write comment",
     "submit": "submit"
   },
   "home": {
@@ -209,6 +215,7 @@
     "id": "Id",
     "password": "password",
     "passwordChange": "Change",
+    "checkLogout": "Are you sure you want to log out?",
     "logout": "Logout ",
     "withdrawal": "Withdrawal"
   },
@@ -245,6 +252,33 @@
     "complete": "Complete"
   },
   "follow": {
-    "title": "Follow"
+    "title": "follow",
+    "follow": "follow",
+    "following": "following"
+  },
+  "alert": {
+    "tokenReissue": "Token reissue",
+    "login": "Please login",
+    "loginFail": "Login failed.",
+    "reviewDeleteOk": "Your review has been successfully deleted.",
+    "reviewDeleteFail": "Failed to delete review.",
+    "location": "Please double check your location.",
+    "change": "It has change.",
+    "solution": "A problem occurred. Please try again.",
+    "delete": "It has been deleted.",
+    "followOk": "follow success",
+    "followFail": "follow fail",
+    "unFollow": "UnFollow",
+    "unFollowFail": "UnFollow Fail ",
+    "modify": "modify.",
+    "nicknameFixFail": "Failed to edit nickname.",
+    "already": "This nickname already exists.",
+    "passwordFix": "your password has been modified.",
+    "sent": "sent",
+    "checkEmail": "Check your email",
+    "alreadyEmail": "This email has already been registered.",
+    "duplicateFail": "Duplicate check failed",
+    "permission": "You do not have permission.",
+    "img": "You can only upload up to 10 images."
   }
 }

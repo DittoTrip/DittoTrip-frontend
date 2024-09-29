@@ -12,6 +12,7 @@ import { addFollow, deleteFollow } from '../api/follow';
 import { useEffect, useState } from 'react';
 import { defaultBadge } from '../constants/constant';
 import { useTranslation } from 'react-i18next';
+import { useAuthStore } from '../store/authStore';
 
 const MyPage = () => {
   const [searchParams] = useSearchParams();
@@ -19,6 +20,7 @@ const MyPage = () => {
   const { userData, loading, error } = useUserData(userId!);
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const { isLoggedIn } = useAuthStore();
 
   const [isFollowed, setIsFollowed] = useState<number | null>(null);
 
@@ -29,21 +31,28 @@ const MyPage = () => {
   }, [userData]);
 
   const toggleFollow = async () => {
+    if (!isLoggedIn) {
+      alert(t('guide.login'));
+      navigate('/login');
+
+      return;
+    }
+
     if (!isFollowed) {
       const res = await addFollow(userData!.userData.userId.toString());
       if (res == 200) {
-        alert('팔로우 성공');
+        alert(`${t('message.followOk')}`);
         setIsFollowed(1);
       } else {
-        alert('팔로우 실패');
+        alert(`${t('message.followFail')}`);
       }
     } else {
       const res = await deleteFollow(userData!.userData.userId.toString());
       if (res == 200) {
-        alert('언팔로우되었습니다.');
+        alert(`${t('message.unFollow')}`);
         setIsFollowed(null);
       } else {
-        alert('언팔로우 실패');
+        alert(`${t('message.unFollowFail')}`);
       }
     }
   };
@@ -83,16 +92,13 @@ const MyPage = () => {
             <ProfileImg userProfileData={userData!.userData.userProfileData} width="80px" background={true} />
           </div>
           <div className="user-name-box">
-            {/* <div className="badge-img"> */}
             <img
               className="badge-img"
               src={
                 userData?.userData.userProfileData.badgeData
-                  ? defaultBadge
-                  : userData?.userData.userProfileData.badgeData.imagePath
-                // : defaultImage
+                  ? userData?.userData.userProfileData.badgeData.imagePath
+                  : defaultBadge
               }></img>
-            {/* </div> */}
             <div className="user-badge" onClick={() => navigate(`/badge?user=${userData?.userData.userId}`)}>
               {userData?.userData.userProfileData.badgeData
                 ? userData?.userData.userProfileData.badgeData.name
@@ -105,7 +111,7 @@ const MyPage = () => {
           </div>
           <div className="fix">
             {userData?.isMine ? (
-              <FontAwesomeIcon icon={faPen} onClick={() => navigate(`/edit-profile/${userData?.userData.userId}`)} />
+              <FontAwesomeIcon icon={faPen} onClick={() => navigate(`/edit-profile`)} />
             ) : isFollowed ? (
               <Button size={'small'} scheme={'keyButton'} onClick={toggleFollow}>
                 Following
@@ -328,10 +334,8 @@ const MyPageStyle = styled.div`
     height: 9px;
     background-color: #e0e0e0;
     border-radius: 10px;
-    margin-top: 20px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 8px;
+    margin: 8px 16px 0 16px;
+
     overflow: hidden;
 
     .exp-fill {
@@ -343,9 +347,7 @@ const MyPageStyle = styled.div`
   }
 
   .level {
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 8px;
+    margin: 8px 16px 0 16px;
     display: flex;
     justify-content: space-between;
     .now {

@@ -22,10 +22,10 @@ const SearchResult = () => {
   // const sortFromURL = searchParams.get('sort') || 'createdDateTime,desc';
 
   const tapData: TapItem[] = [
-    { id: 1, title: '스팟', content: <></> },
-    { id: 2, title: '컨텐츠', content: <></> },
-    { id: 3, title: '연예인', content: <></> },
-    { id: 4, title: '사용자', content: <></> },
+    { id: 1, title: `${t('category.tap.spot')}`, content: <></> },
+    { id: 2, title: `${t('category.tap.tapContents')}`, content: <></> },
+    { id: 3, title: `${t('category.tap.celebrity')}`, content: <></> },
+    { id: 4, title: `${t('category.tap.user')}`, content: <></> },
   ];
 
   const [searchWord, setSearchWord] = useState(searchWordFromURL);

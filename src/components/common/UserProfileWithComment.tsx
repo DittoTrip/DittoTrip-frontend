@@ -8,6 +8,7 @@ import { CommentData } from '../../models/ditto/dittoModel';
 import { useNavigate } from 'react-router';
 import { UserProfileData } from '../../models/user/userModel';
 import ProfileImg from './ProfileImg';
+import { defaultBadge } from '../../constants/constant';
 
 interface Props {
   userProfileData: UserProfileData;
@@ -49,6 +50,9 @@ const UserProfileWithComment = ({
               <div className="user-name" onClick={() => navigate(`/mypage/${userId}`)}>
                 {name}
               </div>
+              <img
+                className="badge-img"
+                src={userProfileData.badgeData ? userProfileData.badgeData.imagePath : defaultBadge}></img>
               {/* 내 글이 아니고 팔로우 x - 디토에서만 보임*/}
               {isMine == false && following && (
                 <>
@@ -108,6 +112,11 @@ const UserProfileWithCommentStyle = styled.div<{ isParentComment?: boolean; comm
     height: 42px;
   }
 
+  .badge-img {
+    width: 16px;
+    height: 16px;
+  }
+
   .profile-right {
     flex: 1;
 
@@ -118,6 +127,7 @@ const UserProfileWithCommentStyle = styled.div<{ isParentComment?: boolean; comm
       .nickname-wrapper {
         display: flex;
         gap: 8px;
+        align-items: center;
 
         .user-name {
           ${({ theme }) => theme.font.body2}

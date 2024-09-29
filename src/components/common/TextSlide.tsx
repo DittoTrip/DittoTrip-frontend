@@ -23,11 +23,7 @@ const TextSlide = ({ carouselTextList }: Props) => {
 
 const TextSlideStyled = styled.div`
   .slide {
-    display: grid;
-    grid-auto-flow: column;
-    box-sizing: border-box;
-    grid-template-rows: auto;
-    grid-auto-columns: minmax(auto, 1fr);
+    display: flex;
     list-style: none;
     gap: 24px 8px;
     margin: 0;

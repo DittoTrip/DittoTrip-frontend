@@ -1,18 +1,21 @@
 import styled from 'styled-components';
 import { CategoryData } from '../../models/mainpage/mainpage';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
   dramaList: CategoryData[];
 }
 
 const Drama = ({ dramaList }: Props) => {
+  const navigate = useNavigate();
+
   return (
     <DramaStyled>
       <ul className="drama-main">
         {dramaList?.map((item, i) => {
           return (
             <li key={i} className="drama-list">
-              <div className="drama-box">
+              <div className="drama-box" onClick={() => navigate(`/spot/list/${item.categoryId}`)}>
                 <img className="drama-img" src={item.imagePath}></img>
                 <div className="drama-title">{item.name}</div>
               </div>

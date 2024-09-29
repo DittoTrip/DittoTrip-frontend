@@ -1,27 +1,30 @@
 import styled from 'styled-components';
 import { SpotData } from '../../models/mainpage/mainpage';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
   dittoList: SpotData[];
 }
 
-const HotDitto = ({ dittoList }: Props) => {
+const HotSpot = ({ dittoList }: Props) => {
+  const navigate = useNavigate();
+
   return (
-    <HotDittoStyled>
+    <HotSpotStyled>
       {dittoList.map((item, i) => {
         return (
-          <div key={i} className="ditto-box">
+          <div key={i} className="ditto-box" onClick={() => navigate(`/spot/${item.spotId}`)}>
             <img className="ditto-img" src={item.imagePath}></img>
             <div className="ditto-location">{item.categoryName}</div>
             <div className="ditto-title">{item.name}</div>
           </div>
         );
       })}
-    </HotDittoStyled>
+    </HotSpotStyled>
   );
 };
 
-const HotDittoStyled = styled.div`
+const HotSpotStyled = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 14px;
@@ -70,4 +73,4 @@ const HotDittoStyled = styled.div`
   }
 `;
 
-export default HotDitto;
+export default HotSpot;

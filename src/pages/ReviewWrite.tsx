@@ -61,7 +61,7 @@ const NewReview = () => {
         if (existingReview) {
           // 본인이 작성한 글이 아닐 때
           if (!existingReview.reviewData.isMine) {
-            alert('권한이 없습니다. ');
+            alert(`${t('message.permission')}`);
             navigate(-1);
             return;
           }

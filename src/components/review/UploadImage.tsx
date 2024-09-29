@@ -2,6 +2,7 @@ import React, { ChangeEvent, useRef } from 'react';
 import { styled } from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { useTranslation } from 'react-i18next';
 
 interface ImageUploaderProps {
   selectedImages: File[];
@@ -22,9 +23,9 @@ function ImageUploader({ selectedImages, setSelectedImages, previewUrls, setPrev
 
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(event.target.files || []);
-
+    const { t } = useTranslation();
     if (files.length + selectedImages.length > 10) {
-      alert('You can only upload up to 10 images.');
+      alert(`${t('message.img')}`);
       return;
     }
 

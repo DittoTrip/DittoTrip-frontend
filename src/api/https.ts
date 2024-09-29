@@ -1,6 +1,7 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { logout, refreshToken } from './auth';
 import { getAccessToken, useAuthStore } from '../store/authStore';
+import { useTranslation } from 'react-i18next';
 
 // application/json용
 export const api = axios.create({
@@ -47,9 +48,10 @@ const addResponseInterceptor = (instance: any) => {
       const status = error.response!.status; // 현재 발생한 에러 코드
 
       const { storeLogin, storeLogout } = useAuthStore();
+      const { t } = useTranslation();
       if (status === 401) {
         console.log('토큰 재발급 요청');
-        alert('토큰 재발급');
+        alert(`${t('message.tokenReissue')}`);
         refreshToken()
           .then(res => {
             console.log('토큰 재발급 성공res : ', res);

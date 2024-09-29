@@ -19,8 +19,8 @@ const CommentInput = ({ placeholder, handleSubmit, fixed = true }: Props) => {
   };
 
   const handleClick = () => {
-    handleSubmit(commentText); // Submit the comment
-    setCommentText(''); // Reset the input field
+    handleSubmit(commentText);
+    setCommentText('');
   };
 
   return (
@@ -32,7 +32,7 @@ const CommentInput = ({ placeholder, handleSubmit, fixed = true }: Props) => {
           placeholder={placeholder ? placeholder : t('comment.placeholder')}
           value={commentText}
           onChange={e => setCommentText(e.target.value)}
-          onKeyDown={handleKeyDown} // Enter key event handler
+          onKeyDown={handleKeyDown}
         />
         <button className="comment-submit" onClick={handleClick}>
           {t('comment.submit')}
@@ -46,12 +46,14 @@ const CommentInputStyled = styled.div<{ fixed: boolean }>`
   display: flex;
   align-items: center;
 
+  width: 100%;
+  max-width: 600px;
+  height: 60px;
+
   position: ${({ fixed }) => (fixed ? 'fixed' : 'static')};
   bottom: ${({ fixed }) => (fixed ? '87px' : 'auto')};
   left: ${({ fixed }) => (fixed ? '0' : 'auto')};
-
-  height: 60px;
-  width: 100%;
+  right: ${({ fixed }) => (fixed ? '0' : 'auto')};
 
   background-color: white;
   padding: 10px 28px;
@@ -63,7 +65,7 @@ const CommentInputStyled = styled.div<{ fixed: boolean }>`
     padding: 5px 20px;
     margin: 0 auto;
 
-    flex: 1;
+    width: 100%;
     max-width: 600px;
     border: 1px solid ${({ theme }) => theme.color.keyColor};
     border-radius: 20px;
@@ -73,6 +75,7 @@ const CommentInputStyled = styled.div<{ fixed: boolean }>`
       background-color: transparent;
       border: none;
       outline: none;
+      min-width: 0;
     }
 
     .comment-submit {
