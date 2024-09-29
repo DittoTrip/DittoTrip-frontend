@@ -17,6 +17,7 @@ import HotSpot from '../components/home/HotSpot';
 
 import logo from '../assets/Ditto_logo.png';
 import i18n from '../lang/i18n';
+import { useAuthStore } from '../store/authStore';
 
 const Home = () => {
   const { t } = useTranslation();
@@ -24,6 +25,7 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const language = i18n.language;
+  const { isLoggedIn } = useAuthStore();
 
   const fetchHome = () => {
     setLoading(true);
@@ -61,7 +63,7 @@ const Home = () => {
           action={
             <div className="action">
               <div className="alarm-wrapper" onClick={() => navigate(`/alarm`)}>
-                <FontAwesomeIcon className="alarm-icon" icon={faBell} />
+                {isLoggedIn && <FontAwesomeIcon className="alarm-icon" icon={faBell} />}
                 {homeData!.isNotCheckedAlarm && <span className="not-checked" />}
               </div>
               <LangSelectButton />

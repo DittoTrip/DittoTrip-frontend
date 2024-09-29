@@ -264,7 +264,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: '/mypage',
+    path: '/my-page',
     element: (
       <Layout GNBType="my">
         <MyPage />

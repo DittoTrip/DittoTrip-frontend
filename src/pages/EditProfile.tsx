@@ -79,11 +79,13 @@ const EditProfile = () => {
         </div>
         <div className="profile-box">
           <div className="profile-title">{t('editProfile.password')}</div>
-          <div className="btn-wrapper">
-            <Button size={'small'} scheme={'subButton2'} onClick={() => naviagate(`/edit-password`)}>
-              {t('editProfile.passwordChange')}
-            </Button>
-          </div>
+          {userData!.email != null && (
+            <div className="btn-wrapper">
+              <Button size={'small'} scheme={'subButton2'} onClick={() => naviagate(`/edit-password`)}>
+                {t('editProfile.passwordChange')}
+              </Button>
+            </div>
+          )}
         </div>
         <div className="sub-menu-wrapper">
           <div className="find-pw">

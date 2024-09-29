@@ -47,7 +47,7 @@ const UserProfileWithComment = ({
         <div className="profile-info">
           <div className="profile-details">
             <div className="nickname-wrapper">
-              <div className="user-name" onClick={() => navigate(`/mypage?user=${userId}`)}>
+              <div className="user-name" onClick={() => navigate(`/my-page?user=${userId}`)}>
                 {name}
               </div>
               <img
