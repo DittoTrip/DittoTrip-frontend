@@ -334,10 +334,8 @@ const MyPageStyle = styled.div`
     height: 9px;
     background-color: #e0e0e0;
     border-radius: 10px;
-    margin-top: 20px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 8px;
+    margin: 8px 16px 0 16px;
+
     overflow: hidden;
 
     .exp-fill {
@@ -349,9 +347,7 @@ const MyPageStyle = styled.div`
   }
 
   .level {
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 8px;
+    margin: 8px 16px 0 16px;
     display: flex;
     justify-content: space-between;
     .now {
