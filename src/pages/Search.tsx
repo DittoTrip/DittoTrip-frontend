@@ -34,6 +34,7 @@ const Search = () => {
 
   const [selectedId, setSelectedId] = useState<number>(tapData[0]?.id);
 
+  // 인기 카테고리 및 검색어
   const fetchSearchRankAndCategory = async () => {
     try {
       const searchResponse = await getSearchRank();
@@ -52,7 +53,6 @@ const Search = () => {
   if (searchWord) {
     navigate(`/search-result?search=${searchWord}`);
   }
-  console.log(searchRank);
 
   const handleDeleteSearch = (word: string) => {
     deleteSearchWord(word);
@@ -73,7 +73,9 @@ const Search = () => {
         <div className="recent-list">
           {recentWord.map((word: string) => (
             <div className="recent-item" key={word}>
-              <div className="recent-content">{word}</div>
+              <div className="recent-content" onClick={() => setSearchWord(word)}>
+                {word}
+              </div>
               <div className="delete-btn" onClick={() => handleDeleteSearch(word)}>
                 <FontAwesomeIcon icon={faXmark} />
               </div>
@@ -130,10 +132,13 @@ const SearchStyled = styled.div`
     padding: 5px;
     width: 95%;
     float: left;
+
+    cursor: pointer;
   }
   .delete-btn {
     width: 5%;
     float: left;
+    cursor: pointer;
   }
   .clear {
     clear: both;

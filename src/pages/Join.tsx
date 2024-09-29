@@ -30,6 +30,8 @@ const Join = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [message, setMessage] = useState('');
 
+  const [loading, setLoading] = useState(false);
+
   const { t } = useTranslation();
 
   const nickname = watch('nickname');
@@ -152,6 +154,8 @@ const Join = () => {
     const joinData = { nickname, email, password, code };
 
     if (isChecked) {
+      setLoading(true);
+
       join(joinData).then(
         res => {
           console.log(res);
@@ -174,6 +178,7 @@ const Join = () => {
       }
       setIsOpen(true);
     }
+    setLoading(false);
   };
 
   return (
@@ -279,7 +284,7 @@ const Join = () => {
           </div>
 
           <div className="btn-wrapper">
-            <Button size={'large'} scheme={'keyButton'} type="submit" className="join-btn">
+            <Button size={'large'} scheme={'keyButton'} type="submit" className="join-btn" disabled={loading}>
               {t('join.join')}
             </Button>
           </div>
@@ -352,12 +357,8 @@ const JoinStyle = styled.div`
   }
 
   .btn-wrapper {
-    position: fixed;
-    bottom: 60px;
-    left: 0;
-
     width: 100%;
-    padding: 0 28px;
+    margin: 0 auto;
   }
 
   .join-btn {

@@ -5,7 +5,6 @@ import AppBar from '../components/common/AppBar';
 import LangSelectButton from '../components/LangSelectButton';
 import Weekend from '../components/home/Weekend';
 import Drama from '../components/home/Drama';
-import HotDitto from '../components/home/HotDitto';
 import KakaoLoginRedirect from '../hooks/login/kakaoLogin';
 import { useEffect, useState } from 'react';
 import { getHomeData } from '../api/home';
@@ -14,6 +13,7 @@ import ErrorPage from './Error';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
+import HotSpot from '../components/home/HotSpot';
 
 const Home = () => {
   const { t } = useTranslation();
@@ -65,7 +65,7 @@ const Home = () => {
       <div className="body2">{t('home.where')}</div>
       <Drama dramaList={homeData!.categoryDataList} />
       <div className="body2">{t('home.hot ditto')}</div>
-      <HotDitto dittoList={homeData!.spotDataList} />
+      <HotSpot dittoList={homeData!.spotDataList} />
     </HomeStyled>
   );
 };

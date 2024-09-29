@@ -27,7 +27,7 @@ const GlobalNavigationBar = ({ GNBType }: GlobalNavigationBarProps) => {
   const GNBItem = ({ item }: { item: GNBItemDataType }) => {
     return (
       <button className={`gnb-item ${item.name === GNBType ? 'active' : ''}`} onClick={() => navigate(item.route)}>
-        <FontAwesomeIcon icon={item.icon as IconProp} />
+        <FontAwesomeIcon icon={item.icon as IconProp} className="gnb-icon" />
         {item.name}
       </button>
     );
@@ -68,15 +68,23 @@ export const GlobalNavigationBarStyled = styled.div`
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      gap: 7px;
 
+      margin: auto;
       width: 84px;
       height: 60px;
 
       cursor: pointer;
       border: none;
 
+      ${({ theme }) => theme.font.body6};
+
       .GNB-fa-icon {
         color: blue;
+      }
+
+      .gnb-icon {
+        font-size: 30px;
       }
 
       &.active,

@@ -1,14 +1,16 @@
 import styled from 'styled-components';
 import { DittoData } from '../../models/mainpage/mainpage';
 import { defaultImage } from '../../constants/constant';
+import { useNavigate } from 'react-router-dom';
 interface Props {
   data: DittoData;
 }
 
 const Weekend = ({ data }: Props) => {
+  const navigate = useNavigate();
   return (
     <WeekendStyled mainImg={data.imagePath ?? defaultImage}>
-      <div className="main-img">
+      <div className="main-img" onClick={() => navigate(`/ditto/${data.dittoId}`)}>
         <div className="main-title">{data.title}</div>
         <div className="main-content">{data.body}</div>
       </div>

@@ -74,6 +74,12 @@ const ModalStyle = styled.div<{ width: number }>`
       color: ${({ theme }) => theme.color.keyColor};
     }
   }
+
+  @media screen and (min-width: 600px) {
+    .modal-content {
+      width: 360px;
+    }
+  }
 `;
 
 export default Modal;
