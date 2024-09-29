@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { searchDittoList } from '../../api/ditto';
 import { DittoMiniData } from '../../models/ditto/dittoModel';
+import LangPage from '../../pages/LangPage';
 
-const useDittoList = (page: number, size: number, searchWord: string) => {
+const useDittoList = (page: number, size: number, searchWord: string, language: string) => {
   const [dittoList, setdittoList] = useState<DittoMiniData[]>([]);
 
   const [loading, setLoading] = useState(true);
@@ -36,7 +37,7 @@ const useDittoList = (page: number, size: number, searchWord: string) => {
       setHasMore(true);
     }
     fetchSpotList();
-  }, [page, searchWord]);
+  }, [page, searchWord, language]);
 
   return { dittoList, loading, error, hasMore };
 };

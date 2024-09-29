@@ -9,7 +9,7 @@ import {
   SendPasswordProps,
   VerifyCodeProps,
 } from '../models/login/loginModel';
-import { api } from './https';
+import { api, refreshApi } from './https';
 
 export const login = async (data: LoginProps) => {
   const response = await api.post<LoginResponse>('/auth/login', { ...data });
@@ -20,8 +20,8 @@ export const logout = async () => {
   return response.status;
 };
 
-export const refreshToken = async () => {
-  const response = await api.post<LoginResponse>('/auth/refresh');
+export const getNewRereshToken = async () => {
+  const response = await refreshApi.post<LoginResponse>('/auth/refresh');
   return response.data;
 };
 export const sendCode = async (data: SendCodeProps) => {

@@ -28,7 +28,7 @@ import Alarm from './pages/Alarm';
 import EditProfile from './pages/EditProfile';
 import Character from './pages/Character';
 import Badge from './pages/Badge';
-import { getAccessToken } from './store/authStore';
+import { getAccessToken, getRefreshToken } from './store/authStore';
 import HeaderToken from './api/https';
 import MyPage from './pages/MyPage';
 import Favorite from './pages/Favorite';
@@ -374,8 +374,9 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  const token = getAccessToken();
-  HeaderToken.set(token);
+  const accessToken = getAccessToken();
+  const refreshToken = getRefreshToken();
+  HeaderToken.set(accessToken, refreshToken);
 
   return (
     <>

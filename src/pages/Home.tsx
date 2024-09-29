@@ -16,12 +16,14 @@ import { useNavigate } from 'react-router-dom';
 import HotSpot from '../components/home/HotSpot';
 
 import logo from '../assets/Ditto_logo.png';
+import i18n from '../lang/i18n';
 
 const Home = () => {
   const { t } = useTranslation();
   const [homeData, setHomeData] = useState<HomeData>();
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const language = i18n.language;
 
   const fetchHome = () => {
     setLoading(true);
@@ -38,7 +40,7 @@ const Home = () => {
   };
   useEffect(() => {
     fetchHome();
-  }, []);
+  }, [language]);
 
   if (loading) {
     return <ErrorPage message={'Loading...'} type="loading" />;

@@ -27,6 +27,7 @@ import formatDate from '../utils/formatDate';
 import { deleteDitto } from '../api/ditto';
 import { addFollow, deleteFollow } from '../api/follow';
 import { useAuthStore } from '../store/authStore';
+import i18n from '../lang/i18n';
 
 const DittoDetail = () => {
   const { id } = useParams();
@@ -34,6 +35,7 @@ const DittoDetail = () => {
   const navigate = useNavigate();
 
   const { isLoggedIn } = useAuthStore();
+  const language = i18n.language;
 
   const { dittoData, commentData, commentCount, initialBookmarkCount, myFollowingId, error, loading } = useDittoDetail(
     id!
@@ -42,7 +44,7 @@ const DittoDetail = () => {
 
   // 더 알아보기
   const [currentPage, setCurrentPage] = useState(0);
-  const { dittoList, hasMore } = useDittoList(currentPage, defaultPageOptions, '');
+  const { dittoList, hasMore } = useDittoList(currentPage, defaultPageOptions, '', language);
 
   // 댓글 삭제 or 신고 펼치기
   const [isExpandedOptions, setIsExpandedOptions] = useState(false);
@@ -217,7 +219,7 @@ const DittoDetail = () => {
   return (
     <DittoDetailStyle>
       <div className="app-bar">
-        <AppBar leading={false} title={<div className="title">{t('myPage.ditto')}</div>} />
+        <AppBar leading={false} title={<div className="title">{'Ditto'}</div>} />
       </div>
       <img className="main-img" src={dittoData!.imagePath ?? defaultImage} />
       <div className="content-wrapper">

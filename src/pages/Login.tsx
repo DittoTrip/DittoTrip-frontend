@@ -14,10 +14,11 @@ import { useTranslation } from 'react-i18next';
 import LangSelectButton from '../components/LangSelectButton';
 
 import logo from '../assets/Ditto_logo.png';
+import HeaderToken from '../api/https';
 
 const Login = () => {
   const navigate = useNavigate();
-  const { storeLogin } = useAuthStore();
+  const { storeLogin, storeLogout } = useAuthStore();
   const { t } = useTranslation();
 
   const {
@@ -28,6 +29,8 @@ const Login = () => {
 
   const onSubmit = (data: LoginProps) => {
     console.log(data);
+    storeLogout();
+    HeaderToken.set('', '');
     login(data).then(
       res => {
         storeLogin(res.accessToken, res.refreshToken);
@@ -36,7 +39,7 @@ const Login = () => {
       },
       error => {
         console.log(error);
-        alert(`${t('message.loginFail')}`);
+        alert(t('message.loginFail'));
       }
     );
   };

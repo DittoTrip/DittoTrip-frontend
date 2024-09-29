@@ -11,14 +11,14 @@ import SpotItem from '../components/spot/SpotItem';
 import BottomSheet from '../components/bottomsheet/BottomSheet';
 import { useTranslation } from 'react-i18next';
 
-const tapData: TapItem[] = [
-  { id: 1, title: '스팟', content: <div>드라마 / 영화</div> },
-  { id: 2, title: '컨텐츠', content: <div>연예인들</div> },
-  { id: 3, title: '연예인', content: <div>연예인들</div> },
-];
-
 const Favorite = () => {
   const { t } = useTranslation();
+
+  const tapData: TapItem[] = [
+    { id: 1, title: t('category.tap.spot'), content: <div>드라마 / 영화</div> },
+    { id: 2, title: t('category.tap.contents'), content: <div>연예인들</div> },
+    { id: 3, title: t('category.tap.celebrity'), content: <div>연예인들</div> },
+  ];
 
   const [selectedTapId, setSelectedId] = useState<number>(tapData[0]?.id);
   const { spotListData, contentListData, celebrityListData } = useFavoriteData();
@@ -30,7 +30,7 @@ const Favorite = () => {
   return (
     <FavoriteStyle>
       <div className="app-bar">
-        <AppBar leading={true} title={<div className="title">찜</div>} />
+        <AppBar leading={true} title={<div className="title">{t('myPage.like')}</div>} />
       </div>
       <Tap tapData={tapData} selectedId={selectedTapId} setSelectedId={setSelectedId} />
       <div className="content-wrapper">

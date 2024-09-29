@@ -10,6 +10,7 @@ import ErrorPage from './Error';
 import WriteButton from '../components/ditto/WriteButton';
 import BottomSheet from '../components/bottomsheet/BottomSheet';
 import { useNavigate } from 'react-router-dom';
+import i18n from '../lang/i18n';
 // import { defaultPageOptions } from '../constants/constant';
 
 export interface dittoInfi {
@@ -21,9 +22,15 @@ export interface dittoInfi {
 const Ditto = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const language = i18n.language;
+
   const [searchWord, setSearchWord] = useState('');
   const [currentPage, setCurrentPage] = useState(0);
-  const { dittoList, loading, error, hasMore } = useDittoList(currentPage, 10, searchWord);
+  const { dittoList, loading, error, hasMore } = useDittoList(currentPage, 10, searchWord, language);
+
+  useEffect(() => {
+    setCurrentPage(0);
+  }, [language]);
 
   // 디토 작성, 스팟 신청
   const [isExpandedOptions, setIsExpandedOptions] = useState(false);
@@ -68,7 +75,7 @@ const Ditto = () => {
   if (loading && currentPage === 0) {
     return <ErrorPage message={'Loading...'} type="loading" />;
   } else if (error) {
-    return <ErrorPage message={'spot id를 확인해주세요'} type="error" />;
+    return <ErrorPage message={'Error'} type="error" />;
   }
   return (
     <DittoStyle>

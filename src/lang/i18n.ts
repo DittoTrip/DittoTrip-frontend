@@ -1,8 +1,8 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-
 import langEn from './lang.en.json';
 import langKo from './lang.ko.json';
+import { useLanguageStore } from '../store/langStore';
 
 const resource = {
   en: {
@@ -12,10 +12,14 @@ const resource = {
     translation: langKo,
   },
 };
+
+// zustand 스토어에서 언어 가져오기
+const language = useLanguageStore.getState().language;
+
 i18n.use(initReactI18next).init({
   resources: resource,
-  lng: 'ko', // 기본 설정 언어, 'cimode'로 설정할 경우 키 값으로 출력된다.
-  fallbackLng: 'en', // 번역 파일에서 찾을 수 없는 경우 기본 언어
+  lng: language, // zustand에서 가져온 언어로 초기화
+  fallbackLng: 'en',
   interpolation: {
     escapeValue: false,
   },

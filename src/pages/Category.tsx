@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
@@ -13,6 +13,7 @@ import useCategoryData from '../hooks/category/useCategoryData';
 import LangSelectButton from '../components/LangSelectButton';
 import { useAuthStore } from '../store/authStore';
 import Modal from '../components/common/Modal';
+import i18n from '../lang/i18n';
 
 export interface TapItem {
   id: number;
@@ -24,6 +25,7 @@ const Category = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { isLoggedIn } = useAuthStore();
+  const language = i18n.language;
 
   const [isFavorite, setFavoritesView] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -48,7 +50,7 @@ const Category = () => {
     setComedianPage,
     setSingerPage,
     loadMoreData,
-  } = useCategoryData();
+  } = useCategoryData(language);
 
   const handleHeartClick = () => {
     if (!isLoggedIn) {

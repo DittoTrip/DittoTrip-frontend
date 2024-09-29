@@ -31,9 +31,11 @@ const EditProfile = () => {
 
   const handleLogout = async () => {
     try {
-      await logout();
+      const response = await logout();
+      console.log(response);
       storeLogout();
       alert(t('guide.logout'));
+      naviagate('/');
     } catch (error) {
       console.error(error);
     }

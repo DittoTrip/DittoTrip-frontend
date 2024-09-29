@@ -3,7 +3,7 @@ import { CategoryData, SubType } from '../../models/category/categoryModel';
 import { defaultPageOptions } from '../../constants/constant';
 import { fetchMoreData } from '../../api/category';
 
-const useCategoryData = () => {
+const useCategoryData = (language: string) => {
   // 데이터 관리
   const [dramaList, setDramaList] = useState<CategoryData[]>([]);
   const [movieList, setMovieList] = useState<CategoryData[]>([]);
@@ -53,15 +53,36 @@ const useCategoryData = () => {
     setPage(prevPage => prevPage + 1);
   };
 
-  useEffect(() => {
-    loadMoreData('CONTENT_DRAMA', dramaPage, setDramaPage);
-    loadMoreData('CONTENT_MOVIE', moviePage, setMoviePage);
-    loadMoreData('CONTENT_ENTERTAINMENT', entertainmentPage, setEntertainmentPage);
+  const loadInitialData = () => {
+    // 페이지 초기화
+    setDramaPage(0);
+    setMoviePage(0);
+    setEntertainmentPage(0);
+    setActorPage(0);
+    setComedianPage(0);
+    setSingerPage(0);
 
-    loadMoreData('PERSON_ACTOR', actorPage, setActorPage);
-    loadMoreData('PERSON_SINGER', singerPage, setSingerPage);
-    loadMoreData('PERSON_COMEDIAN', comedianPage, setComedianPage);
-  }, []);
+    // 데이터 초기화
+    setDramaList([]);
+    setMovieList([]);
+    setEntertainmentList([]);
+    setActorList([]);
+    setComedianList([]);
+    setSingerList([]);
+
+    // 첫 페이지 데이터를 다시 로드
+    loadMoreData('CONTENT_DRAMA', 0, setDramaPage);
+    loadMoreData('CONTENT_MOVIE', 0, setMoviePage);
+    loadMoreData('CONTENT_ENTERTAINMENT', 0, setEntertainmentPage);
+    loadMoreData('PERSON_ACTOR', 0, setActorPage);
+    loadMoreData('PERSON_SINGER', 0, setSingerPage);
+    loadMoreData('PERSON_COMEDIAN', 0, setComedianPage);
+  };
+
+  // 언어 변경에 따른 데이터 초기화 및 재로드
+  useEffect(() => {
+    loadInitialData();
+  }, [language]); // 언어가 변경될 때마다 실행
 
   return {
     dramaList,

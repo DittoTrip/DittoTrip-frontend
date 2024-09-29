@@ -35,7 +35,7 @@ const Slide = ({ carouselList, isFavorite, onEndReached }: Props) => {
   return (
     <SlideStyled>
       {filteredList?.length === 0 && (
-        <div className="empty-container">{isFavorite ? t('category.addFavorite') : t('category.noData')}</div>
+        <div className="empty-container">{isFavorite ? t('category.addFavorite') : ''}</div>
       )}
       <div className="slide" onScroll={handleScroll}>
         {filteredList?.map((item, idx) => (
