@@ -194,10 +194,10 @@
     "spot": "visit spot",
     "follower": "follower",
     "following": "following",
-    "ditto": "ditto",
-    "like": "like",
-    "quest": "quest",
-    "spotApplication": "spotApplication",
+    "ditto": "Ditto",
+    "like": "Like",
+    "quest": "Quest",
+    "spotApplication": "Spot Application",
     "spotEmpty": "There are no visiting spots.",
     "address": "주소",
     "category": "카테고리",
@@ -253,9 +253,10 @@
     "complete": "Complete"
   },
   "follow": {
-    "title": "follow",
-    "follow": "follow",
-    "following": "following"
+    "title": "Follow",
+    "follow": "Follow",
+    "follower": "Follower",
+    "following": "Following"
   },
   "alert": {
     "tokenReissue": "Token reissue",

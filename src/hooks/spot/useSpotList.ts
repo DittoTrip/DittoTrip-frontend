@@ -34,8 +34,8 @@ const useSpotList = (categoryId: string, sort: string, page: number, size: numbe
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(position => {
-      setUserX(position.coords.latitude);
-      setUserY(position.coords.longitude);
+      setUserX(position.coords.longitude);
+      setUserY(position.coords.latitude);
     });
   }, []);
 

@@ -255,6 +255,7 @@
   "follow": {
     "title": "팔로우",
     "follow": "팔로우",
+    "follower": "팔로워",
     "following": "팔로잉"
   },
   "message": {

@@ -14,7 +14,7 @@ const Follow = () => {
   const { t } = useTranslation();
 
   const tapData: TapItem[] = [
-    { id: 1, title: t('follow.follow'), content: <div></div> },
+    { id: 1, title: t('follow.follower'), content: <div></div> },
     { id: 2, title: t('follow.following'), content: <div></div> },
   ];
 
@@ -36,16 +36,16 @@ const Follow = () => {
       <div className="content-wrapper">
         {selectedTapId === 1 && (
           <>
-            {FollowingCount}명
-            {FollowingList?.map(data => (
+            {FollowedCount}명
+            {FollowedList?.map(data => (
               <SearchUser data={data.userData} />
             ))}
           </>
         )}
         {selectedTapId === 2 && (
           <>
-            {FollowedCount}명
-            {FollowedList?.map(data => (
+            {FollowingCount}명
+            {FollowingList?.map(data => (
               <SearchUser data={data.userData} />
             ))}
           </>
