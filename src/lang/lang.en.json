@@ -253,7 +253,8 @@
     "title": "Quest",
     "attainment": "Attainment",
     "progress": "In progress",
-    "complete": "Complete"
+    "complete": "Complete",
+    "receive": ""
   },
   "follow": {
     "title": "Follow",

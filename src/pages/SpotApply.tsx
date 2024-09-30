@@ -97,7 +97,7 @@ const SpotApply = () => {
     } catch (error) {
       alert(t('spotApply.errorMessage'));
     } finally {
-      setSending(true);
+      setSending(false);
     }
   };
 

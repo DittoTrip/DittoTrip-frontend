@@ -253,7 +253,8 @@
     "title": "퀘스트",
     "attainment": "달성",
     "progress": "진행중",
-    "complete": "완료"
+    "complete": "완료",
+    "receive": "받기"
   },
   "follow": {
     "title": "팔로우",

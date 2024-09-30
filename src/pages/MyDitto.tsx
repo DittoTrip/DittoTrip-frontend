@@ -11,7 +11,7 @@ import DittoInfinity from '../components/ditto/DittoInfinity';
 import useUserFavoriteDittoList from '../hooks/ditto/useFavoriteDittoList';
 import { useTranslation } from 'react-i18next';
 
-const MyDitto = ({ isMine }: { isMine: boolean }) => {
+const MyDitto = () => {
   const { t } = useTranslation();
   const tapData: TapItem[] = [
     { id: 1, title: t('myPage.ditto'), content: <div></div> },
@@ -44,14 +44,13 @@ const MyDitto = ({ isMine }: { isMine: boolean }) => {
   if ((loading || floading) && currentPage === 0) {
     return <ErrorPage message={'Loading...'} type="loading" />;
   }
-  console.log(dittoList, currentPage, loading, hasMore);
 
   return (
     <MyDittoStyle>
       <div className="app-bar">
         <AppBar leading={true} title={<div className="title">{t('myPage.ditto')}</div>} />
       </div>
-      {isMine && <Tap tapData={tapData} selectedId={selectedTapId} setSelectedId={setSelectedId} />}
+      {dittoList && <Tap tapData={tapData} selectedId={selectedTapId} setSelectedId={setSelectedId} />}
       <div className="content-wrapper">
         {selectedTapId === 1 && (
           <>

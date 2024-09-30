@@ -11,7 +11,7 @@ interface ImageUploaderProps {
   setPreviewUrls: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
-function ImageUploader({ selectedImages, setSelectedImages, previewUrls, setPreviewUrls }: ImageUploaderProps) {
+const ImageUploader = ({ selectedImages, setSelectedImages, previewUrls, setPreviewUrls }: ImageUploaderProps) => {
   const imageInput = useRef<HTMLInputElement>(null);
   const { t } = useTranslation();
 
@@ -48,12 +48,6 @@ function ImageUploader({ selectedImages, setSelectedImages, previewUrls, setPrev
     });
   };
 
-  React.useEffect(() => {
-    return () => {
-      previewUrls.forEach(url => URL.revokeObjectURL(url));
-    };
-  }, [previewUrls]);
-
   return (
     <ImageUploaderStyle>
       <input
@@ -70,19 +64,13 @@ function ImageUploader({ selectedImages, setSelectedImages, previewUrls, setPrev
           <FontAwesomeIcon icon={faPlus} />
         </button>
         {previewUrls.map((url, index) => (
-          <img
-            className="image-preview"
-            key={index}
-            src={url}
-            alt={`Image Preview ${index}`}
-            onClick={() => handleRemoveImage(index)}
-          />
+          <img className="image-preview" key={index} src={url} onClick={() => handleRemoveImage(index)} />
         ))}
       </div>
       <div className="file-length">({selectedImages.length}/10)</div>
     </ImageUploaderStyle>
   );
-}
+};
 
 const ImageUploaderStyle = styled.div`
   .image-list {
