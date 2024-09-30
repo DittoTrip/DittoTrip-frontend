@@ -9,11 +9,19 @@ interface ImageUploaderProps {
   setSelectedImages: React.Dispatch<React.SetStateAction<File[]>>;
   previewUrls: string[];
   setPreviewUrls: React.Dispatch<React.SetStateAction<string[]>>;
+  maxCount?: number;
 }
 
-const ImageUploader = ({ selectedImages, setSelectedImages, previewUrls, setPreviewUrls }: ImageUploaderProps) => {
+const ImageUploader = ({
+  selectedImages,
+  setSelectedImages,
+  previewUrls,
+  setPreviewUrls,
+  maxCount,
+}: ImageUploaderProps) => {
   const imageInput = useRef<HTMLInputElement>(null);
   const { t } = useTranslation();
+  const maxImageCount = maxCount ?? 10;
 
   const onClickImageUpload = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
@@ -24,7 +32,7 @@ const ImageUploader = ({ selectedImages, setSelectedImages, previewUrls, setPrev
 
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(event.target.files || []);
-    if (files.length + selectedImages.length > 10) {
+    if (files.length + selectedImages.length > maxImageCount) {
       alert(`${t('message.img')}`);
       return;
     }
@@ -67,7 +75,9 @@ const ImageUploader = ({ selectedImages, setSelectedImages, previewUrls, setPrev
           <img className="image-preview" key={index} src={url} onClick={() => handleRemoveImage(index)} />
         ))}
       </div>
-      <div className="file-length">({selectedImages.length}/10)</div>
+      <div className="file-length">
+        ({selectedImages.length}/{maxImageCount})
+      </div>
     </ImageUploaderStyle>
   );
 };

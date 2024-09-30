@@ -9,6 +9,7 @@ import useFollowList from '../hooks/follow/useFollowList';
 import SearchUser from '../components/search/SearchUser';
 import ErrorPage from './Error';
 import { useTranslation } from 'react-i18next';
+import { useSearchParams } from 'react-router-dom';
 
 const Follow = () => {
   const { t } = useTranslation();
@@ -19,8 +20,10 @@ const Follow = () => {
   ];
 
   const { id } = useParams();
+  const [searchParams] = useSearchParams();
+  const tapId = searchParams.get('tapId') || '1';
 
-  const [selectedTapId, setSelectedId] = useState<number>(tapData[0]?.id);
+  const [selectedTapId, setSelectedId] = useState<number>(parseInt(tapId) ?? tapData[0]?.id);
   const { FollowedList, FollowedCount, FollowingList, FollowingCount, loading } = useFollowList(id!);
 
   if (loading) {

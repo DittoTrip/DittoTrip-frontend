@@ -166,8 +166,8 @@
     "approved": "Approved",
     "pending": "Pending",
     "rejected": "Rejected",
-    "successMessage": "It will be approved after confirmation by the administrator. Please wait a little bit!",
-    "errorMessage": "Spot registration failed. Please try again."
+    "successMessage": "It will be approved after confirmation by the administrator.\nPlease wait a little bit!",
+    "errorMessage": "Spot registration failed.\nPlease try again."
   },
   "guide": {
     "mandatory": "* It's mandatory",

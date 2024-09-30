@@ -318,21 +318,13 @@ const router = createBrowserRouter([
       </Layout>
     ),
   },
+
   {
     path: '/user-ditto/:id',
 
     element: (
       <Layout GNBType="my">
-        <MyDitto isMine={false} />
-      </Layout>
-    ),
-  },
-  {
-    path: '/user-ditto',
-
-    element: (
-      <Layout GNBType="my">
-        <MyDitto isMine={true} />
+        <MyDitto />
       </Layout>
     ),
   },

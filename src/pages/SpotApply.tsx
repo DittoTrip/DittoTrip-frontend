@@ -184,6 +184,7 @@ const SpotApply = () => {
                   setSelectedImages={setSelectedImages}
                   previewUrls={previewUrls}
                   setPreviewUrls={setPreviewUrls}
+                  maxCount={5}
                 />
               </div>
               <div className="submit-wrapper">

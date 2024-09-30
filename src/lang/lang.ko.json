@@ -166,8 +166,8 @@
     "approved": "승인 완료",
     "pending": "승인 대기",
     "rejected": "승인 거절",
-    "successMessage": "관리자의 확인 후 승인될 예정입니다. 조금만 기다려 주세요!",
-    "errorMessage": "스팟 등록에 실패했습니다. 다시 시도해주세요."
+    "successMessage": "관리자의 확인 후 승인될 예정입니다.\n조금만 기다려 주세요!",
+    "errorMessage": "스팟 등록에 실패했습니다.\n 다시 시도해주세요."
   },
   "guide": {
     "mandatory": "* 필수 작성 사항입니다",

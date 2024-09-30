@@ -10,6 +10,7 @@ import useUserDittoList from '../hooks/ditto/useUserDittoList';
 import DittoInfinity from '../components/ditto/DittoInfinity';
 import useUserFavoriteDittoList from '../hooks/ditto/useFavoriteDittoList';
 import { useTranslation } from 'react-i18next';
+import { useSearchParams } from 'react-router-dom';
 
 const MyDitto = () => {
   const { t } = useTranslation();
@@ -19,6 +20,8 @@ const MyDitto = () => {
   ];
 
   const { id } = useParams();
+  const [searchParams] = useSearchParams();
+  const isMine = searchParams.get('isMine') || false;
 
   const [selectedTapId, setSelectedId] = useState<number>(tapData[0]?.id);
   const [currentPage, setCurrentPage] = useState(0);
@@ -32,7 +35,7 @@ const MyDitto = () => {
     const clientHeight = document.documentElement.clientHeight;
 
     if (scrollTop + clientHeight >= scrollHeight - 10 && hasMore && !loading) {
-      setCurrentPage(prevPage => prevPage + 1); // Load next page
+      setCurrentPage(prevPage => prevPage + 1);
     }
   }, [hasMore, loading]);
 
@@ -50,7 +53,7 @@ const MyDitto = () => {
       <div className="app-bar">
         <AppBar leading={true} title={<div className="title">{t('myPage.ditto')}</div>} />
       </div>
-      {dittoList && <Tap tapData={tapData} selectedId={selectedTapId} setSelectedId={setSelectedId} />}
+      {isMine == 'true' && <Tap tapData={tapData} selectedId={selectedTapId} setSelectedId={setSelectedId} />}
       <div className="content-wrapper">
         {selectedTapId === 1 && (
           <>

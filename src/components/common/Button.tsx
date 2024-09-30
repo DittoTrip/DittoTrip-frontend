@@ -44,6 +44,7 @@ export const ButtonStyle = styled.button<Omit<Props, 'children'>>`
   background-color: ${({ backgroundColor, theme, scheme }) =>
     backgroundColor ? theme.color[backgroundColor] : theme.buttonScheme[scheme].backgroundColor};
 
+  white-space: nowrap;
   ${({ theme, size }) => theme.button[size].font};
   opacity: ${({ disabled }) => (disabled ? 0.5 : 1)};
   pointer-events: ${({ disabled }) => (disabled ? 'none' : 'auto')};
