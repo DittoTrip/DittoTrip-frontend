@@ -198,7 +198,7 @@ const MyPage = () => {
               <div
                 className="btn"
                 onClick={() => {
-                  navigate(`/quest`);
+                  navigate(`/quest/list`);
                 }}>
                 <FontAwesomeIcon icon={faFlag} />
                 {t('myPage.quest')}

@@ -48,6 +48,8 @@ const SpotApply = () => {
   // 태그
   const [tags, setTags] = useState<string[]>([]);
 
+  const [sending, setSending] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -88,11 +90,14 @@ const SpotApply = () => {
     }
 
     try {
+      setSending(true);
       await addSpotApply(formData);
       alert(t('spotApply.successMessage'));
       navigate(`/my-spotapply`);
     } catch (error) {
       alert(t('spotApply.errorMessage'));
+    } finally {
+      setSending(true);
     }
   };
 
@@ -182,7 +187,7 @@ const SpotApply = () => {
                 />
               </div>
               <div className="submit-wrapper">
-                <Button size="large" scheme="subButton" className="spot-submit-button">
+                <Button size="large" scheme="subButton" className="spot-submit-button" disabled={sending}>
                   {t('spotApply.apply')}
                 </Button>
               </div>

@@ -13,6 +13,7 @@ interface ImageUploaderProps {
 
 function ImageUploader({ selectedImages, setSelectedImages, previewUrls, setPreviewUrls }: ImageUploaderProps) {
   const imageInput = useRef<HTMLInputElement>(null);
+  const { t } = useTranslation();
 
   const onClickImageUpload = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
@@ -23,7 +24,6 @@ function ImageUploader({ selectedImages, setSelectedImages, previewUrls, setPrev
 
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(event.target.files || []);
-    const { t } = useTranslation();
     if (files.length + selectedImages.length > 10) {
       alert(`${t('message.img')}`);
       return;

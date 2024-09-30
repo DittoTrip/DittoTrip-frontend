@@ -163,6 +163,9 @@
       "name": "Spot name",
       "address": "What is the address of the spot?"
     },
+    "approved": "Approved",
+    "pending": "Pending",
+    "rejected": "Rejected",
     "successMessage": "It will be approved after confirmation by the administrator. Please wait a little bit!",
     "errorMessage": "Spot registration failed. Please try again."
   },

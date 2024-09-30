@@ -355,7 +355,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: '/quest',
+    path: '/quest/list',
 
     element: (
       <Layout GNBType="my">

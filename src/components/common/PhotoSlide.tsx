@@ -1,5 +1,4 @@
 import { styled } from 'styled-components';
-import { SpotImageData } from '../../models/spot/spotModel';
 
 interface Props {
   photoList?: string[];
@@ -43,6 +42,7 @@ const PhotoSlideStyled = styled.div<{ width: number; height: number; gap: number
   .still-cut {
     width: ${({ width }) => width}px;
     height: ${({ height }) => height}px;
+    object-fit: cover;
   }
 `;
 

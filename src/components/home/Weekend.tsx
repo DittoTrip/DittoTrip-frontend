@@ -9,7 +9,7 @@ interface Props {
 const Weekend = ({ data }: Props) => {
   const navigate = useNavigate();
   return (
-    <WeekendStyled mainImg={data.imagePath ?? defaultImage}>
+    <WeekendStyled $mainimg={data.imagePath ?? defaultImage}>
       <div className="main-img" onClick={() => navigate(`/ditto/${data.dittoId}`)}>
         <div className="main-title">{data.title}</div>
         <div className="main-content">{data.body}</div>
@@ -18,7 +18,7 @@ const Weekend = ({ data }: Props) => {
   );
 };
 
-const WeekendStyled = styled.div<{ mainImg: string }>`
+const WeekendStyled = styled.div<{ $mainimg: string }>`
   width: 100%;
   aspect-ratio: 1;
   text-align: left;
@@ -29,7 +29,7 @@ const WeekendStyled = styled.div<{ mainImg: string }>`
     width: 100%;
 
     border-radius: 12px;
-    background-image: url(${({ mainImg }) => mainImg});
+    background-image: url(${({ $mainimg }) => $mainimg});
     background-size: cover;
   }
 

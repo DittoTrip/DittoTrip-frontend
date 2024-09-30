@@ -42,7 +42,6 @@ const Quest = () => {
         setUserQuestDataList(data.userQuestDataList);
       } catch (error) {
         console.error('Failed to fetch quest data', error);
-      } finally {
       }
     };
 
