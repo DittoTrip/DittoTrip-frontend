@@ -84,7 +84,7 @@ const Badge = () => {
         </div>
         <div className="badge-content">
           <div className="now">{t('badge.badgeCollectionStatus')}</div>
-          <div className="count">{userBadge.length}</div>
+          <div className="count">{userBadge.filter(item => item.userBadgeId != null).length}</div>
         </div>
       </div>
       <div className="container">
@@ -268,7 +268,6 @@ const Modal = styled.div`
   z-index: 30;
   transition: all 0.3s ease-in-out;
 
-
   .modal-content {
     display: flex;
     flex-direction: column;
@@ -277,10 +276,10 @@ const Modal = styled.div`
     text-align: center;
   }
   .selected-title {
-      margin-top: 16px;
-      margin-bottom: 4px;
+    margin-top: 16px;
+    margin-bottom: 4px;
 
-      ${({ theme }) => theme.font.body2};
+    ${({ theme }) => theme.font.body2};
   }
 
   .selected-condition {

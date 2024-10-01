@@ -19,7 +19,8 @@ const useSpotList = (categoryId: string, sort: string, page: number, size: numbe
     const req = { page, size, sort, userX, userY };
     try {
       const response = await spotList(categoryId, req);
-      if (response.spotDataList.length < size) {
+
+      if (page + 1 < response.totalPages) {
         setHasMore(false);
       }
 

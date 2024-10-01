@@ -61,6 +61,11 @@ const BottomSheetStyled = styled.div`
 
     z-index: 10;
     background-color: rgba(0, 0, 0, 0.4);
+
+    @media screen and (min-width: 600px) {
+      width: 600px;
+      margin: 0 auto;
+    }
   }
 
   .bottom-sheet-content {
@@ -75,6 +80,11 @@ const BottomSheetStyled = styled.div`
     border-radius: 12px 12px 0 0;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     z-index: 20;
+
+    @media screen and (min-width: 600px) {
+      width: 600px;
+      left: calc(50vw - 300px);
+    }
   }
 
   .head {

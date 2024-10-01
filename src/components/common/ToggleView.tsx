@@ -41,7 +41,7 @@ const ButtonContainer = styled.div`
   bottom: 100px;
   right: 20px;
   display: flex;
-  z-index: 10;
+  z-index: 9;
 
   @media screen and (min-width: 600px) {
     right: calc(50vw - 250px);
