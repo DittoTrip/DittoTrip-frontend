@@ -66,4 +66,5 @@ export interface DittoMiniData {
 export interface DittoListResponse {
   dittoMiniDataList: DittoMiniData[];
   totalPage: number;
+  isMine: boolean;
 }

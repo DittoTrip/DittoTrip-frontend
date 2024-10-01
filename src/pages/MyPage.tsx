@@ -317,6 +317,8 @@ const MyPageStyle = styled.div`
       .user-badge {
         color: ${({ theme }) => theme.color.keyColor};
         width: fit-content;
+
+        white-space: nowrap;
         background-color: #afc5fe;
         ${({ theme }) => theme.font.body5};
         border-radius: 50px;
@@ -325,7 +327,7 @@ const MyPageStyle = styled.div`
         font-weight: bold;
 
         .chevron {
-          margin-left: 4px;
+          margin-left: 8px;
           path {
             color: ${({ theme }) => theme.color.subColor1};
           }

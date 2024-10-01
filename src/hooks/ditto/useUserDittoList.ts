@@ -5,6 +5,7 @@ import { DittoMiniData } from '../../models/ditto/dittoModel';
 
 const useUserDittoList = (userId: string, page: number, size: number) => {
   const [dittoList, setDittoList] = useState<DittoMiniData[]>([]);
+  const [isMine, setIsMine] = useState(false);
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -19,6 +20,7 @@ const useUserDittoList = (userId: string, page: number, size: number) => {
       }
 
       setDittoList(prev => [...prev, ...response.dittoMiniDataList]);
+      setIsMine(response.isMine);
     } catch (err) {
       setError('데이터를 불러오는 중 오류가 발생했습니다.');
     } finally {
@@ -34,7 +36,7 @@ const useUserDittoList = (userId: string, page: number, size: number) => {
     fetchDittioList();
   }, [userId, page]);
 
-  return { dittoList, loading, error, hasMore };
+  return { dittoList, loading, error, hasMore, isMine };
 };
 
 export default useUserDittoList;

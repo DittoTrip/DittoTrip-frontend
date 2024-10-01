@@ -20,7 +20,7 @@ const useSpotList = (categoryId: string, sort: string, page: number, size: numbe
     try {
       const response = await spotList(categoryId, req);
 
-      if (page + 1 < response.totalPages) {
+      if (page + 1 == response.totalPages) {
         setHasMore(false);
       }
 

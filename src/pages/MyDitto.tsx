@@ -20,12 +20,10 @@ const MyDitto = () => {
   ];
 
   const { id } = useParams();
-  const [searchParams] = useSearchParams();
-  const isMine = searchParams.get('isMine') || false;
 
   const [selectedTapId, setSelectedId] = useState<number>(tapData[0]?.id);
   const [currentPage, setCurrentPage] = useState(0);
-  const { dittoList, loading, hasMore } = useUserDittoList(id!, currentPage, 10);
+  const { dittoList, loading, hasMore, isMine } = useUserDittoList(id!, currentPage, 10);
   const { bookmarkedDittoList, floading } = useUserFavoriteDittoList();
 
   // Infinite scroll logic
@@ -53,7 +51,7 @@ const MyDitto = () => {
       <div className="app-bar">
         <AppBar leading={true} title={<div className="title">{t('myPage.ditto')}</div>} />
       </div>
-      {isMine == 'true' && <Tap tapData={tapData} selectedId={selectedTapId} setSelectedId={setSelectedId} />}
+      {isMine && <Tap tapData={tapData} selectedId={selectedTapId} setSelectedId={setSelectedId} />}
       <div className="content-wrapper">
         {selectedTapId === 1 && (
           <>
