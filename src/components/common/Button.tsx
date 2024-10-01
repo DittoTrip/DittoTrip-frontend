@@ -6,8 +6,8 @@ interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   size: ButtonSize;
   scheme: ButtonScheme;
   disabled?: boolean;
-  backgroundColor?: ColorKey; // ColorKey 타입으로 변경
-  color?: ColorKey; // ColorKey 타입으로 변경
+  backgroundColor?: ColorKey;
+  color?: ColorKey;
   borderColor?: ColorKey;
 }
 

@@ -137,6 +137,7 @@ const SpotStyle = styled.div`
     .spot-name-button {
       display: flex;
       justify-content: space-between;
+      align-items: center;
 
       margin-bottom: 6px;
 

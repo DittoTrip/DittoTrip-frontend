@@ -63,7 +63,7 @@ const CommenList = ({ comments, parentComment, setSelectedComment, setIsExpanded
 
 const CommentListStyled = styled.div`
   .comment-title {
-    padding-top: 16px;
+    padding-top: 4px;
     padding-bottom: 8px;
     ${({ theme }) => theme.font.body2}
   }

@@ -16,6 +16,7 @@ import TagSlide from '../common/TagSlide';
 import Star from '../common/Star';
 import { SpotData } from '../../models/spot/spotModel';
 import { defaultImage } from '../../constants/constant';
+import { formatDistance } from '../../utils/formatDistance';
 
 interface Props {
   data: SpotData;
@@ -71,7 +72,7 @@ const SpotItem = ({ data, setSelectedAddress, setIsOpen }: Props) => {
           <Star rating={data.rating} size={12} gap={3} />
         </div>
         <div className="spot-info-address-wrapper" onClick={handleAddressClick}>
-          <div className="spot-info-distance">{'임시'}</div>
+          <div className="spot-info-distance">{formatDistance(data.distance)}</div>
           <Dot color={'gray40'} />
 
           <div className="spot-info-address">{data.address}</div>
@@ -110,8 +111,7 @@ const SpotItemStyle = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 100vw - 168px;
-    flex: 1;
+    width: calc(100vw - 168px);
 
     .spot-info-header {
       display: flex;
@@ -167,6 +167,18 @@ const SpotItemStyle = styled.div`
     .spot-info-tag {
       margin-top: 10px;
       width: calc(100vw - 192px);
+    }
+  }
+
+  @media screen and (min-width: 600px) {
+    width: 544px;
+
+    .spot-info {
+      width: 442px;
+
+      .spot-info-tag {
+        width: 408px;
+      }
     }
   }
 `;

@@ -33,10 +33,18 @@ const useSpotList = (categoryId: string, sort: string, page: number, size: numbe
   };
 
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition(position => {
-      setUserX(position.coords.latitude);
-      setUserY(position.coords.longitude);
-    });
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        setUserX(position.coords.longitude);
+        setUserY(position.coords.latitude);
+      },
+      error => {
+        setUserX(null);
+        setUserY(null);
+        setLoading(false);
+        console.log(error.message);
+      }
+    );
   }, []);
 
   // 나머지가 바뀌면 + fetchSpotList
@@ -45,7 +53,7 @@ const useSpotList = (categoryId: string, sort: string, page: number, size: numbe
       setSpotData([]);
       setHasMore(true);
     }
-    if (userX && userY) fetchSpotList();
+    fetchSpotList();
   }, [categoryId, userX, userY, page, sort]);
 
   // sort가 바뀌면 모두 비우고 fetchSpotList

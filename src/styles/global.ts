@@ -13,6 +13,7 @@ export const GlobalStyle = createGlobalStyle<Props>`
     body{
         padding: 0;
         margin: 0;
+        background-color: ${({ theme }) => theme.color.gray40};
     }
     h1{
         margin: 0;

@@ -99,14 +99,17 @@ const MyPage = () => {
                   ? userData?.userData.userProfileData.badgeData.imagePath
                   : defaultBadge
               }></img>
-            <div className="user-badge" onClick={() => navigate(`/badge?user=${userData?.userData.userId}`)}>
-              {userData?.userData.userProfileData.badgeData
-                ? userData?.userData.userProfileData.badgeData.name
-                : '스타터 디토'}
-              <div className="chevron">
-                <FontAwesomeIcon icon={faChevronRight} />
+            <div>
+              <div className="user-badge" onClick={() => navigate(`/badge?user=${userData?.userData.userId}`)}>
+                {userData?.userData.userProfileData.badgeData
+                  ? userData?.userData.userProfileData.badgeData.name
+                  : '스타터 디토'}
+                <div className="chevron">
+                  <FontAwesomeIcon icon={faChevronRight} />
+                </div>
               </div>
             </div>
+
             <div className="user-name">{userData?.userData.nickname}</div>
           </div>
           <div className="fix">
@@ -308,15 +311,16 @@ const MyPageStyle = styled.div`
 
       .user-badge {
         color: ${({ theme }) => theme.color.keyColor};
+        width: fit-content;
         background-color: #afc5fe;
         ${({ theme }) => theme.font.body5};
         border-radius: 50px;
-        padding: 0 20px;
+        padding: 0 10px 0 20px;
         display: flex;
-        justify-content: space-between;
         font-weight: bold;
 
         .chevron {
+          margin-left: 4px;
           path {
             color: ${({ theme }) => theme.color.subColor1};
           }

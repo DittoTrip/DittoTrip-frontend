@@ -1,20 +1,20 @@
 {
-  "error": "error page",
+  "error": "Error page",
   "login": {
-    "welcome": "welcome",
-    "suggest": "enjoy your ditto",
-    "email": "email",
-    "password": "password",
-    "login": "login",
-    "findId": "find id",
-    "findPassword": "find password",
-    "join": "join",
+    "welcome": "Welcome",
+    "suggest": "Enjoy your ditto",
+    "email": "Email",
+    "password": "Password",
+    "login": "Login",
+    "findId": "Find id",
+    "findPassword": "Find password",
+    "join": "Join",
     "or": "or",
     "kakaoLogin": "Kakao Login"
   },
   "search": {
-    "search": "search",
-    "placeholder": "search content or celebrity",
+    "search": "Search",
+    "placeholder": "Search content or celebrity",
     "recentSearches": "Recent searches",
     "suggestion": "Recommended search terms",
 
@@ -24,65 +24,65 @@
   },
 
   "category": {
-    "bookmark": "bookmark",
+    "bookmark": "Bookmark",
 
     "tap": {
-      "contents": "contents",
-      "celebrity": "celebrity",
-      "tapContents": "contents",
-      "spot": "spot",
-      "user": "user"
+      "contents": "Contents",
+      "celebrity": "Celebrity",
+      "tapContents": "Contents",
+      "spot": "Spot",
+      "user": "User"
     },
     "contents": {
-      "entertainment": "entertainment",
-      "drama": "drama",
-      "movie": "movie  "
+      "entertainment": "Entertainment",
+      "drama": "Drama",
+      "movie": "Movie  "
     },
     "celebrity": {
-      "actor": "actor",
-      "singer": "singer",
-      "comedian": "comedian"
+      "actor": "Actor",
+      "singer": "Singer",
+      "comedian": "Comedian"
     },
-    "favorite": "favorite",
+    "favorite": "Favorite",
     "noData": "The data is not available.",
     "addFavorite": "Add your favorites!"
   },
   "review": {
-    "title": "review",
-    "write comment": "write comment",
+    "title": "Review",
+    "write comment": "Write comment",
     "tap": {
-      "total": "total",
-      "comment": "comment",
-      "photo": "photo"
+      "total": "All",
+      "comment": "Comment",
+      "photo": "Photo"
     },
     "reviewSortOptions": {
-      "newest": "newest",
-      "oldest": "oldest",
-      "highest": "highest",
-      "lowest": "lowest"
+      "newest": "Newest",
+      "oldest": "Oldest",
+      "highest": "Highest",
+      "lowest": "Lowest"
     }
   },
   "newReview": {
-    "review": "review",
-    "photo": "photo",
+    "review": "Review",
+    "photo": "Photo",
     "placeholder": "Please write what you would like to share about the spot."
   },
   "comment": {
-    "comment": "comment",
+    "comment": "Comment",
     "placeholder": "Write comment",
-    "submit": "submit"
+    "submit": "Submit"
   },
   "home": {
     "suggest": "Coming weekend! How is it here?",
     "where": "That place in the drama! Where is it?",
-    "hot ditto": "What is this week’s HOT Ditto?"
+    "hot spot": "What is this week’s HOT Spot?"
   },
   "bottomsheet": {
-    "sort": "sort",
+    "sort": "Sort",
     "viewDetail": "View Detail",
-    "report": "report",
-    "delete": "delete",
-    "modify": "modify",
+    "report": "Report",
+    "delete": "Delete",
+    "modify": "Modify",
     "address": "Address",
     "writeDitto": "Write Ditto",
     "ApplyForASpot": "Apply for a spot"
@@ -95,11 +95,11 @@
       "BUSINESS": "Promotional and commercial purposes",
       "PERSONAL_INFORMATION_EXPOSURE": "Personal Information Exposure",
       "SENSATIONAL_CONTENTS": "Pornography and sexually suggestive content",
-      "ILLEGAL_NICKNAME": "inappropriate nickname",
-      "ETC": "etc."
+      "ILLEGAL_NICKNAME": "Inappropriate nickname",
+      "ETC": "Etc."
     },
     "successMessage": "Your report has been received.",
-    "errorMessage": "error"
+    "errorMessage": "Error"
   },
   "spot": {
     "visit": "Visit",

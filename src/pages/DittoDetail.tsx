@@ -99,7 +99,7 @@ const DittoDetail = () => {
   const handleDeleteDitto = () => {
     deleteDitto(id!).then(
       res => {
-        alert(`${t('message.delete')}`);
+        alert(`${t('alert.delete')}`);
         console.log(res);
         navigate('/ditto');
       },

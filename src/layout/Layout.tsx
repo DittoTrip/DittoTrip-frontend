@@ -23,5 +23,6 @@ const LayoutStyle = styled.main`
 
   margin: 0 auto;
   padding-bottom: 87px;
+  background-color: white;
 `;
 export default Layout;

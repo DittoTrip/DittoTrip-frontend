@@ -25,18 +25,20 @@ const CommentInput = ({ placeholder, handleSubmit, fixed = true }: Props) => {
 
   return (
     <CommentInputStyled fixed={fixed}>
-      <div className="comment-input-wrapper">
-        <input
-          className="comment-input"
-          type="text"
-          placeholder={placeholder ? placeholder : t('comment.placeholder')}
-          value={commentText}
-          onChange={e => setCommentText(e.target.value)}
-          onKeyDown={handleKeyDown}
-        />
-        <button className="comment-submit" onClick={handleClick}>
-          {t('comment.submit')}
-        </button>
+      <div className="input-container">
+        <div className="comment-input-wrapper">
+          <input
+            className="comment-input"
+            type="text"
+            placeholder={placeholder ? placeholder : t('comment.placeholder')}
+            value={commentText}
+            onChange={e => setCommentText(e.target.value)}
+            onKeyDown={handleKeyDown}
+          />
+          <button className="comment-submit" onClick={handleClick}>
+            {t('comment.submit')}
+          </button>
+        </div>
       </div>
     </CommentInputStyled>
   );
@@ -54,20 +56,31 @@ const CommentInputStyled = styled.div<{ fixed: boolean }>`
   left: ${({ fixed }) => (fixed ? '0' : 'auto')};
   right: ${({ fixed }) => (fixed ? '0' : 'auto')};
 
-  background-color: white;
-  padding: 10px 28px;
+  background-color: ${({ theme }) => theme.color.gray40};
+
+  .input-container {
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+    height: 60px;
+    max-width: 600px;
+
+    margin: 0 auto;
+    background-color: white;
+    padding: 10px 20px;
+  }
 
   .comment-input-wrapper {
     display: flex;
     justify-content: space-between;
-
     padding: 5px 20px;
-    margin: 0 auto;
 
     width: 100%;
-    max-width: 600px;
     border: 1px solid ${({ theme }) => theme.color.keyColor};
     border-radius: 20px;
+
+    background-color: white;
 
     .comment-input {
       flex: 1;

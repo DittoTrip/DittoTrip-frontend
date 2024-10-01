@@ -10,6 +10,7 @@ export interface SpotData {
   rating: number;
   hashtags: string[];
   myBookmarkId: number;
+  distance: string;
 }
 
 export interface SpotImageData {

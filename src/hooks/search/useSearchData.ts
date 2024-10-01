@@ -34,8 +34,8 @@ const useSearchData = (tapId: number) => {
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(position => {
-      setUserX(position.coords.latitude);
-      setUserY(position.coords.longitude);
+      setUserX(position.coords.longitude);
+      setUserY(position.coords.latitude);
     });
   }, []);
 

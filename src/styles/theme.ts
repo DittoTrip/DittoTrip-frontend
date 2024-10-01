@@ -51,6 +51,10 @@ const fonts = {
     font-size: 10px;
     font-weight: 400;
   `,
+  body7: css`
+    font-size: 10px;
+    font-weight: bold;
+  `,
 };
 
 interface Theme {
@@ -108,7 +112,7 @@ export const light: Theme = {
       width: '104px',
     },
     small: {
-      font: fonts.body5,
+      font: fonts.body7,
       padding: '3px 15px',
     },
     smallWithIcon: {

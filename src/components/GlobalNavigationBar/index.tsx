@@ -35,10 +35,12 @@ const GlobalNavigationBar = ({ GNBType }: GlobalNavigationBarProps) => {
 
   return (
     <GlobalNavigationBarStyled>
-      <div className="gnb-item-wrapper">
-        {GNBItemData.map((item, idx) => (
-          <GNBItem key={`gnb-item-${idx}`} item={item} />
-        ))}
+      <div className="gnb-container">
+        <div className="gnb-item-wrapper">
+          {GNBItemData.map((item, idx) => (
+            <GNBItem key={`gnb-item-${idx}`} item={item} />
+          ))}
+        </div>
       </div>
     </GlobalNavigationBarStyled>
   );
@@ -53,8 +55,12 @@ export const GlobalNavigationBarStyled = styled.div`
   width: 100%;
   height: 87px;
 
-  background: ${({ theme }) => theme.color.background};
+  background: ${({ theme }) => theme.color.gray40};
   z-index: 30;
+
+  .gnb-container {
+    background: white;
+  }
 
   .gnb-item-wrapper {
     display: flex;
@@ -62,6 +68,8 @@ export const GlobalNavigationBarStyled = styled.div`
 
     width: 375px;
     height: 100%;
+
+    margin: 0 auto;
 
     .gnb-item {
       display: flex;
@@ -95,6 +103,18 @@ export const GlobalNavigationBarStyled = styled.div`
           color: ${({ theme }) => theme.color.keyColor};
         }
       }
+    }
+  }
+
+  @media screen and (min-width: 375px) {
+    .gnb-container {
+      width: 600px;
+    }
+  }
+
+  @media screen and (min-width: 600px) {
+    .gnb-container {
+      width: 600px;
     }
   }
 `;
