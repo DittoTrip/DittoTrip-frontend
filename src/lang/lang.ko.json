@@ -221,6 +221,7 @@
     "checkLogout": "정말 로그아웃 하시겠습니까?",
     "logout": "로그아웃",
     "withdrawal": "회원탈퇴",
+    "checkWithdrawal": "정말 회원탈퇴 하시겠습니까?",
     "findPassword": "비밀번호 찾기"
   },
   "editNickname": {

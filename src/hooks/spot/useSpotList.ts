@@ -38,6 +38,8 @@ const useSpotList = (categoryId: string, sort: string, page: number, size: numbe
       position => {
         setUserX(position.coords.longitude);
         setUserY(position.coords.latitude);
+        setSpotData([]);
+        setHasMore(true);
       },
       error => {
         setUserX(null);

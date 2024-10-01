@@ -258,7 +258,7 @@ const MapStyle = styled.div`
   }
 
   .tag-slide {
-    width: 100%;
+    width: 166px;
     display: flex;
     gap: 24px 8px;
 

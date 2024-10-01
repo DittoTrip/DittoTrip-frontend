@@ -19,6 +19,10 @@ export const logout = async () => {
   const response = await api.delete(`auth/logout`);
   return response.status;
 };
+export const withDrawal = async () => {
+  const response = await api.delete('/profile');
+  return response;
+};
 
 export const getNewRereshToken = async () => {
   const response = await refreshApi.post<LoginResponse>('/auth/refresh');

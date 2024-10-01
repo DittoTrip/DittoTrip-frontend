@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { MyUserInfoData } from '../models/user/userModel';
 import ErrorPage from './Error';
 import ProfileImg from '../components/common/ProfileImg';
-import { logout } from '../api/auth';
+import { logout, withDrawal } from '../api/auth';
 import { useAuthStore } from '../store/authStore';
 import { useTranslation } from 'react-i18next';
 import Modal from '../components/common/Modal';
@@ -27,6 +27,19 @@ const EditProfile = () => {
     const response = await getUserDetail();
     setUserData(response.myUserInfoData);
     setLoading(false);
+  };
+
+  const handleWithDrawal = async () => {
+    if (confirm(t('editProfile.checkWithdrawal'))) {
+      try {
+        await withDrawal();
+        storeLogout();
+        naviagate('/');
+      } catch (error) {
+        console.error(error);
+        alert(t('guide.error'));
+      }
+    }
   };
 
   const handleLogout = async () => {
@@ -98,7 +111,7 @@ const EditProfile = () => {
             </a>
           </div>
           <div className="divider"></div>
-          <div className="withdraw" onClick={() => {}}>
+          <div className="withdrawal" onClick={() => handleWithDrawal()}>
             <a>{t('editProfile.withdrawal')}</a>
           </div>
         </div>

@@ -49,6 +49,7 @@ const DramaStyled = styled.div`
     width: 90%;
     aspect-ratio: 1;
     border-radius: 50%;
+    object-fit: cover;
   }
 
   .drama-title {

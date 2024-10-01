@@ -91,6 +91,8 @@ const VisitedSpotCardStyled = styled.div`
       padding: 0 16px;
       flex: 1;
 
+      width: calc(100% - 208px);
+
       box-sizing: border-box;
 
       .spot-info-name-wrapper {
@@ -130,9 +132,23 @@ const VisitedSpotCardStyled = styled.div`
         }
       }
       .tag-wrapper {
+        width: calc(100vw - 196px);
         margin: 8px 0;
 
         overflow-x: scroll;
+      }
+    }
+  }
+
+  @media screen and (min-width: 600px) {
+    width: 568px;
+    .spot-section {
+      .spot-info {
+        width: 392px;
+
+        .tag-wrapper {
+          width: 384px;
+        }
       }
     }
   }

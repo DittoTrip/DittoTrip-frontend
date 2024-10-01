@@ -187,18 +187,22 @@ const CharacterStyle = styled.div`
 
   .container {
     width: 100%;
+    height: 100%;
     aspect-ratio: 1;
     background-color: #f9f9f9;
     position: relative;
 
     .profile-img-wrapper {
       width: 100%;
+      height: 100%;
+
       margin: 0 auto;
 
       .profile {
         position: relative;
         aspect-ratio: 1;
         width: 100%;
+        height: 100%;
         border-radius: 50%;
       }
       .image-item {
@@ -207,7 +211,6 @@ const CharacterStyle = styled.div`
         left: 0;
         width: 100%;
         height: 100%;
-        opacity: 0.9;
       }
     }
   }

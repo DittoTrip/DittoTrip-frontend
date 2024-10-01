@@ -28,7 +28,7 @@ const QuestCard = ({ quest, setSelectedTapId }: QuestCardProps) => {
           <div className="text-box">
             <div className={`item${quest.rewardType == 'ITEM' ? 2 : ''}`}>{quest.rewardType}</div>
             <div className="quest">{quest.title}</div>
-            <div className="compen">{`${quest.rewardData.name} + ${quest.rewardExp}XP 지급`}</div>
+            <div className="compen">{`${quest.body}`}</div>
           </div>
           {/* 달성 & 수령 x */}
           {quest.userQuestStatus == 'PENDING' && (

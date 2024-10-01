@@ -221,6 +221,7 @@
     "checkLogout": "Are you sure you want to log out?",
     "logout": "Logout ",
     "withdrawal": "Withdrawal",
+    "checkWithdrawal": "Are you sure you want to withdraw your account?",
     "findPassword": "find password"
   },
   "editNickname": {
@@ -262,7 +263,7 @@
     "follower": "Follower",
     "following": "Following"
   },
-  "alert": {
+  "message": {
     "tokenReissue": "Token reissue",
     "login": "Please login",
     "loginFail": "Login failed.",
