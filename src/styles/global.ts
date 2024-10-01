@@ -7,7 +7,9 @@ interface Props {
 export const GlobalStyle = createGlobalStyle<Props>`
 
     :root{
-        background-color: ${props => (props.themeName === 'light' ? 'white' : 'black')}
+        // background-color: ${props => (props.themeName === 'light' ? 'white' : 'black')}
+        background-color: ${({ theme }) => theme.color.gray40};
+
     }
     
     body{

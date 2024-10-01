@@ -13,7 +13,7 @@ const SearchUser = ({ data }: Props) => {
   const navigate = useNavigate();
   return (
     <SearchUserStyle>
-      <div className="user-box" onClick={() => navigate(`/mypage?user=${data.userId}`)}>
+      <div className="user-box" onClick={() => navigate(`/my-page?user=${data.userId}`)}>
         <div className="user-img">
           <ProfileImg userProfileData={data.userProfileData} />
         </div>

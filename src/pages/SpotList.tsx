@@ -104,7 +104,7 @@ const List = () => {
       <div className="app-bar">
         <AppBar
           leading={true}
-          title={<div className="title">{categoryData?.name}</div>}
+          title={<div>{categoryData?.name}</div>}
           action={
             <div className="heart">
               <FontAwesomeIcon icon={isBookmarked ? faHeart : faEmptyHeart} onClick={handleHeartClick} />
@@ -144,8 +144,6 @@ const List = () => {
 };
 
 const ListStyle = styled.div`
-  width: 100%;
-
   .app-bar {
     ${({ theme }) => theme.font.subTitle}
 

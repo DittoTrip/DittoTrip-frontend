@@ -18,8 +18,6 @@ const TagSlide = ({ tagList }: Props) => {
 };
 
 const TagSlideStyled = styled.div`
-  width: 100%;
-
   .tag-slide {
     display: flex;
     gap: 24px 8px;

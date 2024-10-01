@@ -2,8 +2,6 @@ export interface RewardData {
   rewardId: number;
   name: string;
   imagePath: string;
-  rewardExp: number;
-  rewardType: 'ITEM' | 'BADGE';
 }
 
 export interface UserQuest {
@@ -14,6 +12,8 @@ export interface UserQuest {
   nowCount: number;
   userQuestStatus: 'NOT_ACHIEVE' | 'ACHIEVE' | 'PENDING';
   rewardData: RewardData;
+  rewardExp: number;
+  rewardType: 'ITEM' | 'BADGE';
 }
 
 export interface UserQuestDataListResponse {

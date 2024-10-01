@@ -42,6 +42,8 @@ const NewReview = () => {
   // 이미지 url
   const [previewUrls, setPreviewUrls] = useState<string[]>([]);
 
+  const [sending, setSending] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -99,11 +101,15 @@ const NewReview = () => {
         formData.append('images', file);
       });
 
+      setSending(true);
+
       if (isEditing) {
         await modifyReview(reviewId!, formData);
       } else {
         await addReview(spotVisitId!, formData);
       }
+
+      setSending(false);
 
       navigate(`/reviews/${spotId!}`);
     } catch (error) {
@@ -157,7 +163,7 @@ const NewReview = () => {
           />
         </div>
         <div className="review-submit">
-          <Button size="large" scheme="subButton" className="review-submit-button">
+          <Button size="large" scheme="subButton" className="review-submit-button" disabled={sending}>
             {isEditing ? '수정 완료' : '작성 완료'}
           </Button>
         </div>

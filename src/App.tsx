@@ -264,7 +264,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: '/mypage',
+    path: '/my-page',
     element: (
       <Layout GNBType="my">
         <MyPage />
@@ -318,21 +318,13 @@ const router = createBrowserRouter([
       </Layout>
     ),
   },
+
   {
     path: '/user-ditto/:id',
 
     element: (
       <Layout GNBType="my">
-        <MyDitto isMine={false} />
-      </Layout>
-    ),
-  },
-  {
-    path: '/user-ditto',
-
-    element: (
-      <Layout GNBType="my">
-        <MyDitto isMine={true} />
+        <MyDitto />
       </Layout>
     ),
   },
@@ -355,7 +347,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: '/quest',
+    path: '/quest/list',
 
     element: (
       <Layout GNBType="my">

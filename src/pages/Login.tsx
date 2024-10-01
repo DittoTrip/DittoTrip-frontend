@@ -50,7 +50,7 @@ const Login = () => {
         <AppBar
           leading={false}
           title={
-            <div className="title">
+            <div className="title" onClick={() => navigate('/')}>
               <img className="logo" src={logo} />
               Ditto Trip
             </div>

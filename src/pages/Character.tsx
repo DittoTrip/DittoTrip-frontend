@@ -10,9 +10,11 @@ import { defaultImage } from '../constants/constant';
 import { getItemList, modyfyItem } from '../api/reward';
 import { UserProfileItem } from '../models/user/userModel';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 const Character = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   const tapData: TapItem[] = [
     {
@@ -79,7 +81,7 @@ const Character = () => {
       await modyfyItem(selectedItemList);
 
       alert(`${t('message.change')}`);
-      fetchItems();
+      navigate(`/my-page`);
     } catch (err) {
       console.log(err);
       alert(`${t('message.solution')}`);

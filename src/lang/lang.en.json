@@ -74,7 +74,7 @@
   },
   "home": {
     "suggest": "Coming weekend! How is it here?",
-    "where": "That place in the drama! Where is it?",
+    "where": "That place in the contents! Where is it?",
     "hot spot": "What is this week’s HOT Spot?"
   },
   "bottomsheet": {
@@ -163,8 +163,11 @@
       "name": "Spot name",
       "address": "What is the address of the spot?"
     },
-    "successMessage": "It will be approved after confirmation by the administrator. Please wait a little bit!",
-    "errorMessage": "Spot registration failed. Please try again."
+    "approved": "Approved",
+    "pending": "Pending",
+    "rejected": "Rejected",
+    "successMessage": "It will be approved after confirmation by the administrator.\nPlease wait a little bit!",
+    "errorMessage": "Spot registration failed.\nPlease try again."
   },
   "guide": {
     "mandatory": "* It's mandatory",
@@ -194,10 +197,10 @@
     "spot": "visit spot",
     "follower": "follower",
     "following": "following",
-    "ditto": "ditto",
-    "like": "like",
-    "quest": "quest",
-    "spotApplication": "spotApplication",
+    "ditto": "Ditto",
+    "like": "Like",
+    "quest": "Quest",
+    "spotApplication": "Spot Application",
     "spotEmpty": "There are no visiting spots.",
     "address": "주소",
     "category": "카테고리",
@@ -250,12 +253,14 @@
     "title": "Quest",
     "attainment": "Attainment",
     "progress": "In progress",
-    "complete": "Complete"
+    "complete": "Complete",
+    "receive": ""
   },
   "follow": {
-    "title": "follow",
-    "follow": "follow",
-    "following": "following"
+    "title": "Follow",
+    "follow": "Follow",
+    "follower": "Follower",
+    "following": "Following"
   },
   "alert": {
     "tokenReissue": "Token reissue",

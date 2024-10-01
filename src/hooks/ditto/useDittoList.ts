@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { searchDittoList } from '../../api/ditto';
 import { DittoMiniData } from '../../models/ditto/dittoModel';
-import LangPage from '../../pages/LangPage';
 
 const useDittoList = (page: number, size: number, searchWord: string, language: string) => {
   const [dittoList, setdittoList] = useState<DittoMiniData[]>([]);
@@ -12,7 +11,7 @@ const useDittoList = (page: number, size: number, searchWord: string, language: 
 
   const fetchSpotList = async () => {
     try {
-      const req = { page, size };
+      const req = { page, size, sort: 'createdDateTime,desc' };
       const response = await searchDittoList(searchWord, req);
 
       if (response.dittoMiniDataList.length < size) {

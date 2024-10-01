@@ -61,7 +61,6 @@ const MyPage = () => {
   } else if (error) {
     return <ErrorPage message={error} type="error" />;
   }
-  console.log(userData?.isNotCheckedAlarm);
 
   return (
     <MyPageStyle>
@@ -71,10 +70,12 @@ const MyPage = () => {
           title={<div className="title">{t('myPage.title')}</div>}
           action={
             <div className="action">
-              <div className="alarm-wrapper" onClick={() => navigate(`/alarm`)}>
-                <FontAwesomeIcon className="alarm-icon" icon={faBell} />
-                {userData?.isNotCheckedAlarm && <span className="not-checked" />}
-              </div>
+              {userData?.isMine && (
+                <div className="alarm-wrapper" onClick={() => navigate(`/alarm`)}>
+                  <FontAwesomeIcon className="alarm-icon" icon={faBell} />
+                  {userData?.isNotCheckedAlarm && <span className="not-checked" />}
+                </div>
+              )}
               <LangSelectButton backgroundColor="subColor2" />
             </div>
           }
@@ -147,7 +148,9 @@ const MyPage = () => {
             onClick={() => {
               navigate(`/visited-spot/${userData?.userData.userId}`);
             }}>
-            <FontAwesomeIcon icon={faMap} className="follow-number" />
+            <div className="follow-number">
+              <FontAwesomeIcon icon={faMap} className="follow-number" />
+            </div>
             <div className="list">{t('myPage.spot')}</div>
           </div>
           <div
@@ -161,7 +164,7 @@ const MyPage = () => {
           <div
             className="box-section"
             onClick={() => {
-              navigate(`/follow/${userData?.userData.userId}`);
+              navigate(`/follow/${userData?.userData.userId}?tapId=2`);
             }}>
             <div className="follow-number">{userData?.followingCount}</div>
             <div className="list">{t('myPage.following')}</div>
@@ -173,7 +176,9 @@ const MyPage = () => {
             <div
               className="ditto-text"
               onClick={() => {
-                navigate(`/user-ditto/${userData?.userData.userId}`);
+                userData?.isMine
+                  ? navigate(`/user-ditto/${userData?.userData.userId}?isMine=true`)
+                  : navigate(`/user-ditto/${userData?.userData.userId}?isMine=false`);
               }}>
               {t('myPage.ditto')}
               <FontAwesomeIcon icon={faChevronRight} />
@@ -201,7 +206,7 @@ const MyPage = () => {
               <div
                 className="btn"
                 onClick={() => {
-                  navigate(`/quest`);
+                  navigate(`/quest/list`);
                 }}>
                 <FontAwesomeIcon icon={faFlag} />
                 {t('myPage.quest')}

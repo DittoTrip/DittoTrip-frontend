@@ -9,18 +9,21 @@ import useFollowList from '../hooks/follow/useFollowList';
 import SearchUser from '../components/search/SearchUser';
 import ErrorPage from './Error';
 import { useTranslation } from 'react-i18next';
+import { useSearchParams } from 'react-router-dom';
 
 const Follow = () => {
   const { t } = useTranslation();
 
   const tapData: TapItem[] = [
-    { id: 1, title: t('follow.follow'), content: <div></div> },
+    { id: 1, title: t('follow.follower'), content: <div></div> },
     { id: 2, title: t('follow.following'), content: <div></div> },
   ];
 
   const { id } = useParams();
+  const [searchParams] = useSearchParams();
+  const tapId = searchParams.get('tapId') || '1';
 
-  const [selectedTapId, setSelectedId] = useState<number>(tapData[0]?.id);
+  const [selectedTapId, setSelectedId] = useState<number>(parseInt(tapId) ?? tapData[0]?.id);
   const { FollowedList, FollowedCount, FollowingList, FollowingCount, loading } = useFollowList(id!);
 
   if (loading) {
@@ -36,16 +39,16 @@ const Follow = () => {
       <div className="content-wrapper">
         {selectedTapId === 1 && (
           <>
-            {FollowingCount}명
-            {FollowingList?.map(data => (
+            {FollowedCount}명
+            {FollowedList?.map(data => (
               <SearchUser data={data.userData} />
             ))}
           </>
         )}
         {selectedTapId === 2 && (
           <>
-            {FollowedCount}명
-            {FollowedList?.map(data => (
+            {FollowingCount}명
+            {FollowingList?.map(data => (
               <SearchUser data={data.userData} />
             ))}
           </>

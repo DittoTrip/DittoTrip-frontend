@@ -6,7 +6,7 @@ import Button from '../components/common/Button';
 import TagInput from '../components/common/TagInput';
 import MainImageUploader from '../components/review/UploadOneImage';
 import { useForm } from 'react-hook-form';
-import { addDitto, getDitto, modifyDitto } from '../api/ditto'; // Assuming you have these API calls
+import { addDitto, getDitto, modifyDitto } from '../api/ditto';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { convertURLtoFile } from '../utils/convertURLtoFile';
 import LangSelectButton from '../components/LangSelectButton';
@@ -37,6 +37,7 @@ const DittoWrite = () => {
   const body = watch('body');
   const navigate = useNavigate();
   const { isLoggedIn } = useAuthStore();
+  const [sending, setSending] = useState(false);
 
   useEffect(() => {
     if (dittoId) {
@@ -57,8 +58,6 @@ const DittoWrite = () => {
       fetchDittoDetail();
     }
   }, [dittoId, setValue]);
-
-  console.log('selectedMainImage:', selectedMainImage);
 
   const handleAddTag = (newTag: string) => {
     setTags([...tags, newTag]);
@@ -93,11 +92,13 @@ const DittoWrite = () => {
         formData.append('image', selectedMainImage);
       }
 
+      setSending(true);
       if (dittoId) {
         await modifyDitto(dittoId, formData);
       } else {
         await addDitto(formData);
       }
+      setSending(false);
 
       navigate('/ditto');
     } catch (error) {
@@ -153,7 +154,7 @@ const DittoWrite = () => {
         </div>
 
         <div className="ditto-submit">
-          <Button type="submit" size="large" scheme="subButton">
+          <Button type="submit" size="large" scheme="subButton" disabled={sending}>
             {dittoId ? t('write.modify') : t('write.submit')}
           </Button>
         </div>
@@ -188,7 +189,7 @@ const DittoWriteStyle = styled.div`
     padding: 0 28px;
 
     .text-title {
-      ${({ theme }) => theme.font.body1}; //
+      ${({ theme }) => theme.font.body1};
     }
 
     .ditto-text {

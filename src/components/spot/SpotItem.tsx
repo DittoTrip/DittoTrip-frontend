@@ -142,15 +142,18 @@ const SpotItemStyle = styled.div`
       align-items: center;
       gap: 4px;
 
+      width: calc(100vw - 200px);
+
       .spot-info-distance {
         ${({ theme }) => theme.font.body4};
         color: ${({ theme }) => theme.color.gray80};
       }
 
       .spot-info-address {
+        width: calc(100vw - 240px);
+
         color: ${({ theme }) => theme.color.gray60};
         ${({ theme }) => theme.font.body4};
-        width: 135px;
 
         white-space: nowrap;
         overflow: hidden;
@@ -174,7 +177,15 @@ const SpotItemStyle = styled.div`
     width: 544px;
 
     .spot-info {
-      width: 442px;
+      width: 432px;
+
+      .spot-info-address-wrapper {
+        width: 400px;
+
+        .spot-info-address {
+          width: 360px;
+        }
+      }
 
       .spot-info-tag {
         width: 408px;

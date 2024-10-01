@@ -74,8 +74,8 @@
   },
   "home": {
     "suggest": "다가오는 주말! 여긴 어때요?",
-    "where": "드라마 속 그곳! 어디지?",
-    "hot spot": "이번 주 HOT 스팟는?"
+    "where": "화면 속 그곳! 어디지?",
+    "hot spot": "이번 주 HOT 스팟은?"
   },
   "bottomsheet": {
     "sort": "정렬",
@@ -163,8 +163,11 @@
       "name": "스팟의 이름을 알려 주세요!",
       "address": "스팟의 주소는 어떻게 되나요?"
     },
-    "successMessage": "관리자의 확인 후 승인될 예정입니다. 조금만 기다려 주세요!",
-    "errorMessage": "스팟 등록에 실패했습니다. 다시 시도해주세요."
+    "approved": "승인 완료",
+    "pending": "승인 대기",
+    "rejected": "승인 거절",
+    "successMessage": "관리자의 확인 후 승인될 예정입니다.\n조금만 기다려 주세요!",
+    "errorMessage": "스팟 등록에 실패했습니다.\n 다시 시도해주세요."
   },
   "guide": {
     "mandatory": "* 필수 작성 사항입니다",
@@ -250,11 +253,13 @@
     "title": "퀘스트",
     "attainment": "달성",
     "progress": "진행중",
-    "complete": "완료"
+    "complete": "완료",
+    "receive": "받기"
   },
   "follow": {
     "title": "팔로우",
     "follow": "팔로우",
+    "follower": "팔로워",
     "following": "팔로잉"
   },
   "message": {

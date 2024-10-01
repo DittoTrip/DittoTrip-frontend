@@ -2,18 +2,20 @@ import { styled } from 'styled-components';
 
 import { SpotApplyStatus } from '../../models/spotapply/spotApplyModel';
 import Button from '../common/Button';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   status: SpotApplyStatus;
 }
 
-const SpotApplyStatusItemMap: { [key in SpotApplyStatus]: string } = {
-  PENDING: '신청중',
-  APPROVED: '신청 완료',
-  REJECTED: '신청 거절',
-};
-
 const SpotApplyStatusItem = ({ status }: Props) => {
+  const { t } = useTranslation();
+
+  const SpotApplyStatusItemMap: { [key in SpotApplyStatus]: string } = {
+    PENDING: t('spotApply.pending'),
+    APPROVED: t('spotApply.approved'),
+    REJECTED: t('spotApply.rejected'),
+  };
   return (
     <SpotApplyStatusItemStyle>
       {status == 'PENDING' && (

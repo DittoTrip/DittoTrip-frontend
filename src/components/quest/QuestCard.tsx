@@ -26,15 +26,17 @@ const QuestCard = ({ quest, setSelectedTapId }: QuestCardProps) => {
       <div className="quest-box">
         <div className="detail">
           <div className="text-box">
-            <div className={`item${quest.rewardData.rewardType == 'ITEM' ? 1 : ''}`}>{quest.rewardData.rewardType}</div>
+            <div className={`item${quest.rewardType == 'ITEM' ? 2 : ''}`}>{quest.rewardType}</div>
             <div className="quest">{quest.title}</div>
-            <div className="compen">{`${quest.rewardData.name} + ${quest.rewardData.rewardExp}XP 지급`}</div>
+            <div className="compen">{`${quest.rewardData.name} + ${quest.rewardExp}XP 지급`}</div>
           </div>
+          {/* 달성 & 수령 x */}
           {quest.userQuestStatus == 'PENDING' && (
             <div className="img-box prev" onClick={() => handleGetQuestItem(quest.userQuestId)}>
-              {quest.rewardData.rewardType} 받기
+              {quest.rewardType}
             </div>
           )}
+
           {quest.userQuestStatus != 'PENDING' && (
             <img
               className={`img-box ${quest.userQuestStatus == 'ACHIEVE' ? 'complete' : ''}`}
@@ -45,7 +47,9 @@ const QuestCard = ({ quest, setSelectedTapId }: QuestCardProps) => {
 
         <div className="exp-container">
           <div className="exp">
-            <div className="exp-fill" style={{ width: `${expPercentage}%` }}></div>
+            <div
+              className={`exp-fill ${quest.userQuestStatus == 'ACHIEVE' ? 'complete' : ''}`}
+              style={{ width: `${expPercentage}%` }}></div>
           </div>
           <div className="exp-text">
             {quest.nowCount}/{quest.conditionCount}
@@ -147,6 +151,9 @@ const QuestCardStyle = styled.div`
         background-color: ${({ theme }) => theme.color.subColor1};
         transition: width 0.5s ease;
         border-radius: 5px 0 0 5px;
+      }
+      .exp-fill.complete {
+        background-color: ${({ theme }) => theme.color.gray60};
       }
     }
 

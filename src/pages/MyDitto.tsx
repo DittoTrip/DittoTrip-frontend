@@ -10,8 +10,9 @@ import useUserDittoList from '../hooks/ditto/useUserDittoList';
 import DittoInfinity from '../components/ditto/DittoInfinity';
 import useUserFavoriteDittoList from '../hooks/ditto/useFavoriteDittoList';
 import { useTranslation } from 'react-i18next';
+import { useSearchParams } from 'react-router-dom';
 
-const MyDitto = ({ isMine }: { isMine: boolean }) => {
+const MyDitto = () => {
   const { t } = useTranslation();
   const tapData: TapItem[] = [
     { id: 1, title: t('myPage.ditto'), content: <div></div> },
@@ -19,6 +20,8 @@ const MyDitto = ({ isMine }: { isMine: boolean }) => {
   ];
 
   const { id } = useParams();
+  const [searchParams] = useSearchParams();
+  const isMine = searchParams.get('isMine') || false;
 
   const [selectedTapId, setSelectedId] = useState<number>(tapData[0]?.id);
   const [currentPage, setCurrentPage] = useState(0);
@@ -32,7 +35,7 @@ const MyDitto = ({ isMine }: { isMine: boolean }) => {
     const clientHeight = document.documentElement.clientHeight;
 
     if (scrollTop + clientHeight >= scrollHeight - 10 && hasMore && !loading) {
-      setCurrentPage(prevPage => prevPage + 1); // Load next page
+      setCurrentPage(prevPage => prevPage + 1);
     }
   }, [hasMore, loading]);
 
@@ -44,14 +47,13 @@ const MyDitto = ({ isMine }: { isMine: boolean }) => {
   if ((loading || floading) && currentPage === 0) {
     return <ErrorPage message={'Loading...'} type="loading" />;
   }
-  console.log(dittoList, currentPage, loading, hasMore);
 
   return (
     <MyDittoStyle>
       <div className="app-bar">
         <AppBar leading={true} title={<div className="title">{t('myPage.ditto')}</div>} />
       </div>
-      {isMine && <Tap tapData={tapData} selectedId={selectedTapId} setSelectedId={setSelectedId} />}
+      {isMine == 'true' && <Tap tapData={tapData} selectedId={selectedTapId} setSelectedId={setSelectedId} />}
       <div className="content-wrapper">
         {selectedTapId === 1 && (
           <>

@@ -42,6 +42,10 @@ const ButtonContainer = styled.div`
   right: 20px;
   display: flex;
   z-index: 10;
+
+  @media screen and (min-width: 600px) {
+    right: calc(50vw - 250px);
+  }
 `;
 
 const ToggleButton = styled.button<{ active: boolean }>`

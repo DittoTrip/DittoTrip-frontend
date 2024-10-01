@@ -11,7 +11,6 @@ import WriteButton from '../components/ditto/WriteButton';
 import BottomSheet from '../components/bottomsheet/BottomSheet';
 import { useNavigate } from 'react-router-dom';
 import i18n from '../lang/i18n';
-// import { defaultPageOptions } from '../constants/constant';
 
 export interface dittoInfi {
   img: string;
@@ -62,8 +61,8 @@ const Ditto = () => {
     const scrollTop = document.documentElement.scrollTop;
     const clientHeight = document.documentElement.clientHeight;
 
-    if (scrollTop + clientHeight >= scrollHeight - 10 && hasMore && !loading) {
-      setCurrentPage(prevPage => prevPage + 1); // Load next page
+    if (scrollTop + clientHeight >= scrollHeight - 30 && hasMore && !loading) {
+      setCurrentPage(prevPage => prevPage + 1);
     }
   }, [hasMore, loading]);
 
