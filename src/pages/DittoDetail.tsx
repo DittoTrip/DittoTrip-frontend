@@ -28,6 +28,7 @@ import { deleteDitto } from '../api/ditto';
 import { addFollow, deleteFollow } from '../api/follow';
 import { useAuthStore } from '../store/authStore';
 import i18n from '../lang/i18n';
+import LangSelectButton from '../components/LangSelectButton';
 
 const DittoDetail = () => {
   const { id } = useParams();
@@ -38,7 +39,8 @@ const DittoDetail = () => {
   const language = i18n.language;
 
   const { dittoData, commentData, commentCount, initialBookmarkCount, myFollowingId, error, loading } = useDittoDetail(
-    id!
+    id!,
+    language
   );
   const { isBookmarked, toggleBookmark, bookmarkCount } = useDittoBookmark(id!, initialBookmarkCount!);
 
@@ -219,7 +221,7 @@ const DittoDetail = () => {
   return (
     <DittoDetailStyle>
       <div className="app-bar">
-        <AppBar leading={false} title={<div className="title">{'Ditto'}</div>} />
+        <AppBar leading={false} title={<div className="title">{'Ditto'}</div>} action={<LangSelectButton />} />
       </div>
       <img className="main-img" src={dittoData!.imagePath ?? defaultImage} />
       <div className="content-wrapper">

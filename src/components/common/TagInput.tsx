@@ -15,11 +15,11 @@ const TagInput = ({ tags, handleAddTag, handleDeleteTag }: Props) => {
 
   // 태그 추가
   const handleAddNewTag = (event: KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'Enter') {
+    if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
       const newTag = inputValue.trim();
-      //  중복 방지, 10개 이하
-      if (!tags.includes(newTag) && tags.length < 10) {
+      //  중복 방지, 10개 이하, 공백 불가
+      if (!tags.includes(newTag) && tags.length < 10 && newTag.length > 0) {
         handleAddTag(newTag);
       } else if (tags.length >= 10) {
         alert(t('tag.tagLimitMessage'));
@@ -31,6 +31,7 @@ const TagInput = ({ tags, handleAddTag, handleDeleteTag }: Props) => {
   const handleRemoveTag = (tag: string) => {
     handleDeleteTag(tag);
   };
+
   // inputValue 관리
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);

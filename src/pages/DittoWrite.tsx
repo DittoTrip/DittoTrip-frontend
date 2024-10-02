@@ -9,7 +9,6 @@ import { useForm } from 'react-hook-form';
 import { addDitto, getDitto, modifyDitto } from '../api/ditto';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { convertURLtoFile } from '../utils/convertURLtoFile';
-import LangSelectButton from '../components/LangSelectButton';
 import { useAuthStore } from '../store/authStore';
 
 export interface FormInputs {
@@ -110,11 +109,7 @@ const DittoWrite = () => {
   return (
     <DittoWriteStyle>
       <div className="app-bar">
-        <AppBar
-          leading={true}
-          title={<div className="title">{dittoId ? t('write.modify') : t('write.write')}</div>}
-          action={<LangSelectButton />}
-        />
+        <AppBar leading={true} title={<div className="title">{dittoId ? t('write.modify') : t('write.write')}</div>} />
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)}>

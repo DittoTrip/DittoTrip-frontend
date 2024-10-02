@@ -4,62 +4,56 @@ import { spotList } from '../../api/spot';
 
 import { CategoryData } from '../../models/category/categoryModel';
 import { SpotData } from '../../models/spot/spotModel';
+import { useTranslation } from 'react-i18next';
 
-const useSpotList = (categoryId: string, sort: string, page: number, size: number) => {
+const useSpotList = (
+  categoryId: string,
+  sort: string,
+  page: number,
+  size: number,
+  userX: number | null,
+  userY: number | null
+) => {
   const [spotData, setSpotData] = useState<SpotData[]>([]);
   const [categoryData, setCategoryData] = useState<CategoryData>();
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [hasMore, setHasMore] = useState(true);
 
-  const [userX, setUserX] = useState<number | null>(null);
-  const [userY, setUserY] = useState<number | null>(null);
+  const { t } = useTranslation();
 
-  const fetchSpotList = async () => {
-    const req = { page, size, sort, userX, userY };
+  const fetchSpotList = async (prev: SpotData[]) => {
+    const req = { page, sort, size, userX, userY };
     try {
       const response = await spotList(categoryId, req);
 
-      if (page + 1 == response.totalPages) {
+      if (page + 1 >= response.totalPages) {
         setHasMore(false);
       }
 
-      setSpotData(prev => [...prev, ...response.spotDataList]);
+      setSpotData([...prev, ...response.spotDataList]);
       setCategoryData(response.categoryData);
     } catch (err) {
-      setError('데이터를 불러오는 중 오류가 발생했습니다.');
+      setError(t('quide.error'));
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition(
-      position => {
-        setUserX(position.coords.longitude);
-        setUserY(position.coords.latitude);
-        setSpotData([]);
-        setHasMore(true);
-      },
-      error => {
-        setUserX(null);
-        setUserY(null);
-        setLoading(false);
-        console.log(error.message);
-      }
-    );
-  }, []);
-
-  // 나머지가 바뀌면 + fetchSpotList
-  useEffect(() => {
-    if (page == 0) {
-      setSpotData([]);
+    // 유저 위치를 처음 불러온 경우
+    if (page == 0 && userX !== null && userY !== null) {
       setHasMore(true);
+      fetchSpotList([]);
+      // 기본 데이터 로드
+    } else if (page === 0) {
+      setHasMore(true);
+      fetchSpotList([]);
+      // 페이지 이동
+    } else {
+      fetchSpotList(spotData);
     }
-    fetchSpotList();
-  }, [categoryId, userX, userY, page, sort]);
-
-  // sort가 바뀌면 모두 비우고 fetchSpotList
+  }, [page, categoryId, userX, userY, sort]);
 
   return { spotData, categoryData, loading, error, hasMore };
 };

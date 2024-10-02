@@ -67,11 +67,30 @@ const List = () => {
   const [selectedSortId, setSelectedSortId] = useState(sortOptions[0].id);
   const [isAddressOpen, setIsAddressOpen] = useState(false);
 
+  const [userX, setUserX] = useState<number | null>(null);
+  const [userY, setUserY] = useState<number | null>(null);
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        setUserX(position.coords.longitude);
+        setUserY(position.coords.latitude);
+      },
+      error => {
+        console.error(error.message);
+        setUserX(null);
+        setUserY(null);
+      }
+    );
+  }, []);
+
   const { spotData, categoryData, loading, error, hasMore } = useSpotList(
     id!,
     sortOptions[selectedSortId].sort!,
     currentPage,
-    defaultPageOptions
+    defaultPageOptions,
+    userX,
+    userY
   );
 
   const handleHeartClick = () => {
@@ -84,7 +103,7 @@ const List = () => {
     const clientHeight = document.documentElement.clientHeight;
 
     if (scrollTop + clientHeight >= scrollHeight - 10 && hasMore && !loading) {
-      setCurrentPage(prevPage => prevPage + 1); // Load next page
+      setCurrentPage(prevPage => prevPage + 1);
     }
   }, [hasMore, loading]);
 
