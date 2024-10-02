@@ -57,6 +57,7 @@ const SearchContentStyle = styled.div`
   .title-box {
     display: flex;
     justify-content: space-between;
+    align-items: center;
   }
 
   .content-title {

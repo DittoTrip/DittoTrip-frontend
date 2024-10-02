@@ -1,10 +1,18 @@
+import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 interface Props {
   text: string;
 }
 const Tag = ({ text }: Props) => {
-  return <TagStyled>#{text}</TagStyled>;
+  const navigate = useNavigate();
+  const handleClick = (event: React.MouseEvent) => {
+    event.stopPropagation();
+
+    navigate(`/search-result?search=${text}`);
+  };
+
+  return <TagStyled onClick={handleClick}>#{text}</TagStyled>;
 };
 
 const TagStyled = styled.div`
