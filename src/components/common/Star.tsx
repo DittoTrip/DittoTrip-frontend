@@ -48,6 +48,10 @@ const Star = ({ rating, size, gap, color, isEditable, showRatingValue, setRating
     if (setRating) setRating('rating', idx + 1);
   };
 
+  useEffect(() => {
+    setCurRating(rating);
+  }, [rating]);
+
   return (
     <StarStyle color={color} gap={gap} size={size}>
       <div className={`star ${isEditable ? 'editable' : ''}`}>

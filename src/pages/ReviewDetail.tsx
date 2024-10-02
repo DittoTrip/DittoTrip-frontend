@@ -129,7 +129,8 @@ const ReviewDetail = () => {
       id: 1,
       text: t('bottomsheet.modify'),
       handleClick: () => {
-        alert(`${t('message.modify')}`);
+        navigate(`/review/edit?review=${id!}&spotName=${spotData}`);
+
         setIsExpandedReviewOptions(false);
       },
     },

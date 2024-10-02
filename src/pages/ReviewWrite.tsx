@@ -28,6 +28,7 @@ const NewReview = () => {
   const reviewId = queryParams.get('review'); // 서버로 보낼 때
   // 공통
   const spotId = queryParams.get('spot'); // 기존 정보 불러오기 및 촬영지 데이터 조회용
+  const spotName = queryParams.get('spotName'); // 기존 정보 불러오기 및 촬영지 데이터 조회용
 
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -85,7 +86,8 @@ const NewReview = () => {
   }, [spotVisitId, reviewId, spotId, isEditing, setValue]);
 
   const onSubmit = async (data: FormInputs) => {
-    if (!data.rating) {
+    console.log('data', data.rating);
+    if (data.rating == undefined) {
       setValue('rating', 4);
     }
     try {
@@ -110,10 +112,10 @@ const NewReview = () => {
       }
 
       setSending(false);
-
-      navigate(`/reviews/${spotId!}`);
+      navigate(-1);
     } catch (error) {
       console.error('리뷰 등록/수정 실패', error);
+      setSending(false);
     }
   };
 
@@ -131,7 +133,7 @@ const NewReview = () => {
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="location-rating-card">
-          <div className="spot-name">{spotData}</div>
+          <div className="spot-name">{spotData || spotName}</div>
           <Star
             rating={watch('rating') || 4}
             showRatingValue={false}
