@@ -33,6 +33,8 @@ const HotSpotStyled = styled.div`
     position: relative;
     width: 100%;
     aspect-ratio: 1;
+
+    cursor: pointer;
   }
 
   .ditto-img {

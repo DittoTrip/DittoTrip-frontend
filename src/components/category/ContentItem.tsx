@@ -24,6 +24,7 @@ const ContentItemStyled = styled.div`
   gap: 16px;
 
   margin-right: 16px;
+  cursor: pointer;
 
   .content-item-img {
     width: 100px;

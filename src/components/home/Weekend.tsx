@@ -10,27 +10,29 @@ const Weekend = ({ data }: Props) => {
   const navigate = useNavigate();
   return (
     <WeekendStyled $mainimg={data.imagePath ?? defaultImage}>
-      <div className="main-img" onClick={() => navigate(`/ditto/${data.dittoId}`)}>
-        <div className="main-title">{data.title}</div>
-        <div className="main-content">{data.body}</div>
-      </div>
+      <img className="main-img" src={data.imagePath} onClick={() => navigate(`/ditto/${data.dittoId}`)} />
+      <div className="main-title">{data.title}</div>
+      <div className="main-content">{data.body}</div>
     </WeekendStyled>
   );
 };
 
 const WeekendStyled = styled.div<{ $mainimg: string }>`
+  position: relative;
+
   width: 100%;
-  aspect-ratio: 1;
+  aspect-ratio: 1 / 1;
   text-align: left;
+
+  cursor: pointer;
 
   .main-img {
     position: relative;
-    height: 100%;
     width: 100%;
+    aspect-ratio: 1 / 1;
 
     border-radius: 12px;
-    background-image: url(${({ $mainimg }) => $mainimg});
-    background-size: cover;
+    object-fit: cover;
   }
 
   .main-title {
