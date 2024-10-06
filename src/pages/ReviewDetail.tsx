@@ -145,7 +145,7 @@ const ReviewDetail = () => {
   return (
     <ReviewDetailStyle>
       <div className="app-bar">
-        <AppBar leading={true} title={<div className="title">{spotData}</div>} action={<LangSelectButton />} />
+        <AppBar leading={true} title={<div className="title">{spotData}</div>} />
       </div>
       <div className="content">
         <ReviewItem setIsExpandedOption={setIsExpandedReviewOptions} review={reviewDetailData!} />

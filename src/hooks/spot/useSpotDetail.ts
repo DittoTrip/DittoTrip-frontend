@@ -5,11 +5,10 @@ import { SpotDetailResponse } from '../../models/spot/spotModel';
 const useSpotDetail = (spotId: string, isBookmarked: boolean) => {
   const [spotDetailData, setSpotDetailData] = useState<SpotDetailResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchSpotDetail = async () => {
-      setLoading(true);
       try {
         const response = await spotDetail(spotId);
         if (response) {

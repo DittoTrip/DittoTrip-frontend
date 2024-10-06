@@ -34,7 +34,7 @@ const useSpotList = (
       setSpotData([...prev, ...response.spotDataList]);
       setCategoryData(response.categoryData);
     } catch (err) {
-      setError(t('quide.error'));
+      setError(t('guide.error'));
     } finally {
       setLoading(false);
     }

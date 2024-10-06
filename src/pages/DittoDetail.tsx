@@ -38,9 +38,13 @@ const DittoDetail = () => {
   const { isLoggedIn } = useAuthStore();
   const language = i18n.language;
 
+  // 댓글 상태
+  const [isCommentSending, setIsCommentSending] = useState(false);
+
   const { dittoData, commentData, commentCount, initialBookmarkCount, myFollowingId, error, loading } = useDittoDetail(
     id!,
-    language
+    language,
+    isCommentSending
   );
   const { isBookmarked, toggleBookmark, bookmarkCount } = useDittoBookmark(id!, initialBookmarkCount!);
 
@@ -74,7 +78,8 @@ const DittoDetail = () => {
       res => {
         console.log(res);
         setParentComment(null);
-        window.location.reload();
+        // window.location.reload();
+        setIsCommentSending(!isCommentSending);
       },
       error => {
         console.log(error);
@@ -88,7 +93,8 @@ const DittoDetail = () => {
       deleteDittoComment(id!, selectedComment?.commentId.toString()).then(
         res => {
           console.log(res);
-          window.location.reload();
+          // window.location.reload();
+          setIsCommentSending(!isCommentSending);
         },
         error => {
           console.log(error);
@@ -221,7 +227,15 @@ const DittoDetail = () => {
   return (
     <DittoDetailStyle>
       <div className="app-bar">
-        <AppBar leading={false} title={<div className="title">{'Ditto'}</div>} action={<LangSelectButton />} />
+        <AppBar
+          leading={false}
+          title={
+            <div className="title" onClick={() => navigate('/ditto')}>
+              {'Ditto'}
+            </div>
+          }
+          action={<LangSelectButton />}
+        />
       </div>
       <img className="main-img" src={dittoData!.imagePath ?? defaultImage} />
       <div className="content-wrapper">

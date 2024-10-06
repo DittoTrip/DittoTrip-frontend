@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { getDitto } from '../../api/ditto';
 import { CommentData, DittoData } from '../../models/ditto/dittoModel';
 
-const useDittoDetail = (dittoId: string, language: string) => {
+const useDittoDetail = (dittoId: string, language: string, isCommentSending: boolean) => {
   const [dittoData, setDittoData] = useState<DittoData | null>(null);
   const [commentData, setCommentData] = useState<CommentData[] | null>(null);
   const [commentCount, setCommentCount] = useState<number>(0);
@@ -14,7 +14,6 @@ const useDittoDetail = (dittoId: string, language: string) => {
 
   useEffect(() => {
     const fetchSpotDetail = async () => {
-      setLoading(true);
       try {
         const response = await getDitto(dittoId);
         if (response) {
@@ -33,7 +32,7 @@ const useDittoDetail = (dittoId: string, language: string) => {
     };
 
     fetchSpotDetail();
-  }, [dittoId, language]);
+  }, [dittoId, language, isCommentSending]);
 
   return { dittoData, commentData, commentCount, initialBookmarkCount, myFollowingId, error, loading };
 };

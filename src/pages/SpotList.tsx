@@ -75,6 +75,7 @@ const List = () => {
       position => {
         setUserX(position.coords.longitude);
         setUserY(position.coords.latitude);
+        setCurrentPage(0);
       },
       error => {
         console.error(error.message);
@@ -92,6 +93,8 @@ const List = () => {
     userX,
     userY
   );
+
+  console.log(userX, userY);
 
   const handleHeartClick = () => {
     toggleBookmark();
