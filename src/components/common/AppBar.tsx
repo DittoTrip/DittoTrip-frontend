@@ -53,6 +53,8 @@ const AppBarStyle = styled.div<{ backgroundColor: ColorKey }>`
     align-items: center;
     font-size: 20px;
     margin-right: 20px;
+
+    cursor: pointer;
   }
   .appbar-title {
     flex: 1;

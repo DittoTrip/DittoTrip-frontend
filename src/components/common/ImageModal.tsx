@@ -1,13 +1,15 @@
+import { faX } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { styled } from 'styled-components';
 
 interface Props {
-  message: string;
+  imageUrl: string;
   handleConfirm?: () => void;
   setIsOpen: (isOpen: boolean) => void;
   width: number;
 }
 
-const Modal = ({ message, handleConfirm, setIsOpen, width }: Props) => {
+const ImageModal = ({ imageUrl, setIsOpen, width }: Props) => {
   return (
     <ModalStyle width={width}>
       <div
@@ -16,11 +18,8 @@ const Modal = ({ message, handleConfirm, setIsOpen, width }: Props) => {
           setIsOpen(false);
         }}>
         <div className="modal-content" onClick={e => e.stopPropagation()}>
-          <div className="message">{message}</div>
-          <hr />
-          <div className="confirm" onClick={handleConfirm ? handleConfirm : () => setIsOpen(false)}>
-            확인
-          </div>
+          <FontAwesomeIcon className="close-button" icon={faX} onClick={() => setIsOpen(false)} />
+          <img src={imageUrl} />
         </div>
       </div>
     </ModalStyle>
@@ -42,7 +41,7 @@ const ModalStyle = styled.div<{ width: number }>`
     align-items: center;
     justify-content: center;
 
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.5);
 
     z-index: 35;
   }
@@ -63,23 +62,32 @@ const ModalStyle = styled.div<{ width: number }>`
 
     text-align: center;
 
-    .message {
-      padding: 20px 0;
+    .close-button {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+
+      path {
+        color: ${({ theme }) => theme.color.gray80};
+      }
+
+      cursor: pointer;
+      border: none;
     }
-    hr {
-      margin: 0;
-    }
-    .confirm {
-      padding: 11px 0;
-      color: ${({ theme }) => theme.color.keyColor};
+
+    img {
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      border-radius: 14px;
     }
   }
 
-  @media screen and (min-width: 600px) {
+  @media screen and (min-width: 800px) {
     .modal-content {
-      width: 360px;
+      width: 700px;
     }
   }
 `;
 
-export default Modal;
+export default ImageModal;

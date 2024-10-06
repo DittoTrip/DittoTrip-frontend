@@ -106,7 +106,7 @@ const MyPage = () => {
                   ? userData?.userData.userProfileData.badgeData.name
                   : '스타터 디토'}
                 <div className="chevron">
-                  <FontAwesomeIcon icon={faChevronRight} />
+                  <FontAwesomeIcon icon={faChevronRight} className="right-icon" />
                 </div>
               </div>
             </div>
@@ -115,7 +115,7 @@ const MyPage = () => {
           </div>
           <div className="fix">
             {userData?.isMine ? (
-              <FontAwesomeIcon icon={faPen} onClick={() => navigate(`/edit-profile`)} />
+              <FontAwesomeIcon icon={faPen} onClick={() => navigate(`/edit-profile`)} className="right-icon" />
             ) : isFollowed ? (
               <Button size={'small'} scheme={'keyButton'} onClick={toggleFollow}>
                 Following
@@ -181,7 +181,7 @@ const MyPage = () => {
                   : navigate(`/user-ditto/${userData?.userData.userId}?isMine=false`);
               }}>
               {t('myPage.ditto')}
-              <FontAwesomeIcon icon={faChevronRight} />
+              <FontAwesomeIcon icon={faChevronRight} className="right-icon" />
             </div>
             <div className="ditto-img">
               {userData?.dittoMiniDataList.map(data => {
@@ -257,6 +257,8 @@ const MyPageStyle = styled.div`
       position: relative;
       display: inline-block;
 
+      cursor: pointer;
+
       .alarm-icon {
         font-size: 20px;
         path {
@@ -308,7 +310,7 @@ const MyPageStyle = styled.div`
 
       .badge-img {
         position: absolute;
-        left: -10px;
+        left: -4px;
 
         width: 18px;
         height: 18px;
@@ -396,6 +398,7 @@ const MyPageStyle = styled.div`
       justify-content: space-between;
 
       gap: 6px;
+      cursor: pointer;
     }
 
     .follow-number {
@@ -463,10 +466,11 @@ const MyPageStyle = styled.div`
     svg {
       margin-right: 10px;
     }
+  }
 
-    .right-icon {
-      margin-left: auto;
-    }
+  .right-icon {
+    margin-left: auto;
+    cursor: pointer;
   }
 `;
 

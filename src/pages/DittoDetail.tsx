@@ -29,6 +29,7 @@ import { addFollow, deleteFollow } from '../api/follow';
 import { useAuthStore } from '../store/authStore';
 import i18n from '../lang/i18n';
 import LangSelectButton from '../components/LangSelectButton';
+import ImageModal from '../components/common/ImageModal';
 
 const DittoDetail = () => {
   const { id } = useParams();
@@ -203,6 +204,12 @@ const DittoDetail = () => {
     }
   };
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleImageClick = () => {
+    setIsModalOpen(true);
+  };
+
   const handleScroll = useCallback(() => {
     const scrollHeight = document.documentElement.scrollHeight;
     const scrollTop = document.documentElement.scrollTop;
@@ -237,7 +244,7 @@ const DittoDetail = () => {
           action={<LangSelectButton />}
         />
       </div>
-      <img className="main-img" src={dittoData!.imagePath ?? defaultImage} />
+      <img className="main-img" src={dittoData!.imagePath ?? defaultImage} onClick={handleImageClick} />
       <div className="content-wrapper">
         <UserProfileWithComment
           userProfileData={dittoData!.userData.userProfileData}
@@ -304,6 +311,9 @@ const DittoDetail = () => {
           list={dittoData?.isMine ? expandedMyDittoOptionsContent : expandedDittoOptionsContent}
           setIsOpen={setIsExpandedDittoOptions}
         />
+      )}
+      {isModalOpen && (
+        <ImageModal setIsOpen={setIsModalOpen} imageUrl={dittoData!.imagePath ?? defaultImage} width={90} />
       )}
     </DittoDetailStyle>
   );

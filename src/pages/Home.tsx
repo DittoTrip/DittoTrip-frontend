@@ -107,6 +107,8 @@ const HomeStyled = styled.div`
     position: relative;
     display: inline-block;
 
+    cursor: pointer;
+
     .alarm-icon {
       font-size: 20px;
       path {
