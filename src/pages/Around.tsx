@@ -63,14 +63,21 @@ const Around = () => {
   };
 
   useEffect(() => {
-    fetchAroundSpotList();
-  }, [mapX, mapY, currentPage]);
+    if (mapX && mapY && currentPage === 1) {
+      fetchAroundSpotList();
+    }
+  }, [mapX, mapY]);
 
   useEffect(() => {
     setAroundList([]);
     setCurrentPage(1);
-    fetchAroundSpotList();
   }, [i18n.language]);
+
+  useEffect(() => {
+    if (currentPage > 1) {
+      fetchAroundSpotList();
+    }
+  }, [currentPage]);
 
   const handleScroll = useCallback(() => {
     const scrollHeight = document.documentElement.scrollHeight;

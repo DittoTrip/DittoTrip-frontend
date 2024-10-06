@@ -30,6 +30,7 @@ const ContentItemStyled = styled.div`
     width: 100px;
     height: 100px;
     border-radius: 50%;
+    object-fit: cover;
   }
   .content-item-name {
     ${({ theme }) => theme.font.body4}

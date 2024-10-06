@@ -47,6 +47,8 @@ const LangSelectButtonStyled = styled.div<{ backgroundColor: ColorKey }>`
   background-color: ${({ theme, backgroundColor }) =>
     backgroundColor ? theme.color[backgroundColor] : theme.color.subColor1};
 
+  cursor: pointer;
+
   .langSelectButton {
     display: flex;
     justify-content: center;

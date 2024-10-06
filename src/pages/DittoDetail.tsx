@@ -312,7 +312,9 @@ const DittoDetail = () => {
 const DittoDetailStyle = styled.div`
   .title {
     ${({ theme }) => theme.font.title}
-    color :  ${({ theme }) => theme.color.keyColor}
+    color :  ${({ theme }) => theme.color.keyColor};
+
+    cursor: pointer;
   }
   .app-bar {
     margin-bottom: 20px;
@@ -353,6 +355,10 @@ const DittoDetailStyle = styled.div`
       font-weight: bold;
 
       margin-bottom: 10px;
+    }
+
+    .ditto-content {
+      white-space: pre-wrap;
     }
 
     .tag-wrapper {
