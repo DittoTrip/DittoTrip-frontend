@@ -41,7 +41,6 @@ const MyPage = () => {
     if (!isFollowed) {
       const res = await addFollow(userData!.userData.userId.toString());
       if (res == 200) {
-        alert(`${t('message.followOk')}`);
         setIsFollowed(1);
       } else {
         alert(`${t('message.followFail')}`);
@@ -49,7 +48,6 @@ const MyPage = () => {
     } else {
       const res = await deleteFollow(userData!.userData.userId.toString());
       if (res == 200) {
-        alert(`${t('message.unFollow')}`);
         setIsFollowed(null);
       } else {
         alert(`${t('message.unFollowFail')}`);
@@ -104,7 +102,7 @@ const MyPage = () => {
               <div className="user-badge" onClick={() => navigate(`/badge?user=${userData?.userData.userId}`)}>
                 {userData?.userData.userProfileData.badgeData
                   ? userData?.userData.userProfileData.badgeData.name
-                  : '스타터 디토'}
+                  : '여행의 새싹'}
                 <div className="chevron">
                   <FontAwesomeIcon icon={faChevronRight} className="right-icon" />
                 </div>

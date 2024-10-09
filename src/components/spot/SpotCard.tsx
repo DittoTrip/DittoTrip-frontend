@@ -1,6 +1,4 @@
 import { styled } from 'styled-components';
-import Dot from '../common/Dot';
-import Star from '../common/Star';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
@@ -12,16 +10,21 @@ interface Props {
   data: Item;
   setSelectedAddress: (selectedAddress: string) => void;
   setIsOpen: (isOpen: boolean) => void;
+  handleImageClick: (image: string) => void;
 }
 
-const SpotCard = ({ data, setSelectedAddress, setIsOpen }: Props) => {
+const SpotCard = ({ data, setSelectedAddress, setIsOpen, handleImageClick }: Props) => {
   const handleAddressClick = () => {
     setSelectedAddress(data.addr1);
     setIsOpen(true);
   };
   return (
     <SpotCardStyled>
-      <img className="spot-image" src={data.firstimage || defaultImage} />
+      <img
+        className="spot-image"
+        src={data.firstimage || defaultImage}
+        onClick={() => handleImageClick(data.firstimage || defaultImage)}
+      />
       <div className="spot-info">
         <div className="spot-info-name">{data.title}</div>
         <div className="spot-info-distance">{formatDistance(data.dist)}</div>

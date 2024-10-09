@@ -18,6 +18,7 @@ import useBookmarkedSpot from '../hooks/spot/useSpotLike';
 import useVisitedSpot from '../hooks/spot/useSpotVisit';
 import { ReviewData } from '../models/spot/spotModel';
 import { defaultImage } from '../constants/constant';
+import ImageModal from '../components/common/ImageModal';
 
 const Spot = () => {
   const { t } = useTranslation();
@@ -40,12 +41,24 @@ const Spot = () => {
 
   const { markSpotAsVisited } = useVisitedSpot(id!);
 
+  // 사진 이미지 모달
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalImage, setModalImage] = useState<string | null>(null);
+  const handleImageClick = (image: string) => {
+    setModalImage(image);
+    setIsModalOpen(true);
+  };
+
   if (loading) return <ErrorPage message={'Loading'} type="loading" />;
   else if (error) return <ErrorPage message={'spot id를 확인해주세요'} type="error" />;
 
   return (
     <SpotStyle>
-      <img className="main-img" src={spotDetailData?.spotData.imagePath ?? defaultImage} />
+      <img
+        className="main-img"
+        src={spotDetailData?.spotData.imagePath ?? defaultImage}
+        onClick={() => handleImageClick(spotDetailData?.spotData.imagePath ?? defaultImage)}
+      />
       <div className="content-wrapper">
         <div className="spot-name-button">
           <div className="spot-name">{spotDetailData?.spotData.name}</div>
@@ -77,6 +90,7 @@ const Spot = () => {
             width={112}
             height={76}
             gap={16}
+            handleImageClick={handleImageClick}
           />
         </div>
 
@@ -116,6 +130,8 @@ const Spot = () => {
           <FontAwesomeIcon icon={faChevronRight} />
         </Link>
       </div>
+
+      {isModalOpen && <ImageModal setIsOpen={setIsModalOpen} imageUrl={modalImage ?? defaultImage} width={90} />}
     </SpotStyle>
   );
 };

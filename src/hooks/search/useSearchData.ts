@@ -10,7 +10,7 @@ import { searchUser } from '../../api/user';
 import { defaultPageOptions } from '../../constants/constant';
 import { UserData } from '../../models/user/userModel';
 
-const useSearchData = (tapId: number) => {
+const useSearchData = (tapId: number, sort: string | null) => {
   // 데이터 관리
   const [spotListData, setSpotListData] = useState<SpotData[]>([]);
   const [contentListData, setContentListData] = useState<CategoryData[]>([]);
@@ -30,16 +30,23 @@ const useSearchData = (tapId: number) => {
   const location = useLocation();
   const params = new URLSearchParams(location.search);
   const search = params.get('search');
-  const sort = params.get('sort');
+  // const sort = params.get('sort');
 
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition(position => {
-      setUserX(position.coords.longitude);
-      setUserY(position.coords.latitude);
-    });
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        setUserX(position.coords.longitude);
+        setUserY(position.coords.latitude);
+      },
+      error => {
+        console.error(error.message);
+        setUserX(null);
+        setUserY(null);
+      }
+    );
   }, []);
 
-  const loadMoreSpotData = async () => {
+  const loadMoreSpotData = async (prev: SpotData[]) => {
     const data = { userX, userY, page: spotPage, sort, query: search };
     console.log(sort, search, data);
     if (search === null) {
@@ -48,38 +55,32 @@ const useSearchData = (tapId: number) => {
 
     const newData = (await searchSpot(data)).spotDataList;
 
-    console.log(newData);
-
-    setSpotListData(prev => [...prev, ...newData]);
+    setSpotListData([...prev, ...newData]);
     setSpotPage(prevPage => prevPage + 1);
   };
 
-  const loadMoreContentData = async () => {
+  const loadMoreContentData = async (prev: CategoryData[]) => {
     if (search === null) {
       return;
     }
 
     const newData = (await searchCategory(search, 'CONTENT', contentPage)).categoryDataList;
 
-    console.log(newData);
-
-    setContentListData(prev => [...prev, ...newData]);
+    setContentListData([...prev, ...newData]);
     setContentPage(prevPage => prevPage + 1);
   };
 
-  const loadMoreCelebrityData = async () => {
+  const loadMoreCelebrityData = async (prev: CategoryData[]) => {
     if (search === null) {
       return;
     }
 
     const newData = (await searchCategory(search, 'PERSON', celebrityPage)).categoryDataList;
 
-    console.log(newData);
-
-    setCelebrityListData(prev => [...prev, ...newData]);
+    setCelebrityListData([...prev, ...newData]);
     setCelebrityPage(prevPage => prevPage + 1);
   };
-  const loadMoreUserData = async () => {
+  const loadMoreUserData = async (prev: UserData[]) => {
     if (search === null) {
       return;
     }
@@ -87,9 +88,7 @@ const useSearchData = (tapId: number) => {
 
     const newData = (await searchUser(data)).userDataList;
 
-    console.log(newData);
-
-    setUserListData(prev => [...prev, ...newData]);
+    setUserListData([...prev, ...newData]);
     setUserPage(prevPage => prevPage + 1);
   };
 
@@ -105,18 +104,18 @@ const useSearchData = (tapId: number) => {
     setUserListData([]);
 
     if (tapId == 1) {
-      loadMoreSpotData();
+      loadMoreSpotData([]);
     }
     if (tapId == 2) {
-      loadMoreContentData();
+      loadMoreContentData([]);
     }
     if (tapId == 3) {
-      loadMoreCelebrityData();
+      loadMoreCelebrityData([]);
     }
     if (tapId == 4) {
-      loadMoreUserData();
+      loadMoreUserData([]);
     }
-  }, [search, sort, tapId]);
+  }, [search, sort, tapId, userX]);
 
   return {
     spotListData,

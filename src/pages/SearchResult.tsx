@@ -39,17 +39,17 @@ const SearchResult = () => {
       handleClick: () => {
         setSelectedSortId(0);
         setIsSortOpen(false);
-        setSearchParams({ sort: 'createdDateTime,desc' });
+        setSpotPage(0);
       },
     },
     {
       id: 1,
       text: t('list.sortOptions.distance'),
-      sort: 'distance',
+      sort: 'distance,desc',
       handleClick: () => {
         setSelectedSortId(1);
         setIsSortOpen(false);
-        setSearchParams({ sort: 'distance,desc' });
+        setSpotPage(0);
       },
     },
     {
@@ -59,7 +59,7 @@ const SearchResult = () => {
       handleClick: () => {
         setSelectedSortId(2);
         setIsSortOpen(false);
-        setSearchParams({ sort: 'rating,desc' });
+        setSpotPage(0);
       },
     },
   ];
@@ -80,15 +80,16 @@ const SearchResult = () => {
     setCelebrityPage,
     setUserPage,
     // setSpotListData,
-  } = useSearchData(selectedTapId);
+  } = useSearchData(selectedTapId, sortOptions[selectedSortId].sort ?? null);
 
   useEffect(() => {
-    setSearchParams({ search: searchWord, sort: sortOptions[selectedSortId].sort! });
+    setSearchParams({ search: searchWord });
+
     setSpotPage(0);
     setContentPage(0);
     setCelebrityPage(0);
     setUserPage(0);
-  }, [searchWord, selectedSortId]);
+  }, [searchWord]);
 
   return (
     <SearchResultStyled>

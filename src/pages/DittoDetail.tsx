@@ -188,7 +188,6 @@ const DittoDetail = () => {
     if (!isFollowed) {
       const res = await addFollow(dittoData!.userData.userId.toString());
       if (res == 200) {
-        alert(`${t('message.followOk')}`);
         setIsFollowed(1);
       } else {
         alert(`${t('message.followFail')}`);
@@ -196,7 +195,6 @@ const DittoDetail = () => {
     } else {
       const res = await deleteFollow(dittoData!.userData.userId.toString());
       if (res == 200) {
-        alert(`${t('message.unFollow')}`);
         setIsFollowed(null);
       } else {
         alert(`${t('message.unFollowFail')}`);

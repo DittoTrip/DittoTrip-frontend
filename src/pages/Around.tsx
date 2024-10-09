@@ -6,12 +6,13 @@ import SpotCard from '../components/spot/SpotCard';
 import { useCallback, useEffect, useState } from 'react';
 import BottomSheet from '../components/bottomsheet/BottomSheet';
 import { useSearchParams } from 'react-router-dom';
-import { defaultPageOptions } from '../constants/constant';
+import { defaultImage, defaultPageOptions } from '../constants/constant';
 import { aroundSpotList } from '../api/spot';
 import { Item } from '../models/spot/publicSpotModel';
 import ErrorPage from './Error';
 import LangSelectButton from '../components/LangSelectButton';
 import i18n from '../lang/i18n';
+import ImageModal from '../components/common/ImageModal';
 
 const Around = () => {
   const { t } = useTranslation();
@@ -28,11 +29,19 @@ const Around = () => {
   const [aroundList, setAroundList] = useState<Item[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
-  const fetchAroundSpotList = async () => {
+  // 사진 이미지 모달
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalImage, setModalImage] = useState<string | null>(null);
+  const handleImageClick = (image: string) => {
+    setModalImage(image);
+    setIsModalOpen(true);
+  };
+
+  const fetchAroundSpotList = async (page: number) => {
     if (mapX && mapY) {
       const req = {
         numOfRows: 10,
-        pageNo: currentPage,
+        pageNo: page,
         MobileOS: 'WIN',
         MobileApp: 'Ditto',
         _type: 'json',
@@ -43,9 +52,9 @@ const Around = () => {
         serviceKey: import.meta.env.VITE_PUBLIC_DATA_KEY,
       };
 
-      setLoading(true);
-
       try {
+        setLoading(true);
+
         const res = await aroundSpotList(req);
         const totalCount = res.data.response.body.totalCount || 0;
 
@@ -62,20 +71,23 @@ const Around = () => {
     }
   };
 
-  useEffect(() => {
-    if (mapX && mapY && currentPage === 1) {
-      fetchAroundSpotList();
-    }
-  }, [mapX, mapY]);
+  // useEffect(() => {
+  //   if (mapX && mapY && currentPage === 1) {
+  //     fetchAroundSpotList();
+  //   }
+  // }, [mapX, mapY]);
 
   useEffect(() => {
     setAroundList([]);
     setCurrentPage(1);
+
+    fetchAroundSpotList(1);
+    window.scrollTo(0, 0);
   }, [i18n.language]);
 
   useEffect(() => {
     if (currentPage > 1) {
-      fetchAroundSpotList();
+      fetchAroundSpotList(currentPage);
     }
   }, [currentPage]);
 
@@ -95,23 +107,30 @@ const Around = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [handleScroll]);
 
-  if (loading && currentPage == 1) {
-    return <ErrorPage message={'Loading...'} type="loading" />;
-  }
-
   return (
     <AroundStyle>
       <div className="app-bar">
         <AppBar leading={true} title={<div className="title">{t('around.title')}</div>} action={<LangSelectButton />} />
       </div>
-      <div className="content-wrapper">
-        {aroundList.map(data => (
-          <SpotCard data={data} setIsOpen={setIsOpen} setSelectedAddress={setSelectedAddress} />
-        ))}
-        {!loading && aroundList.length == 0 && <div className="empty-data">주변 관광지 데이터가 없습니다. </div>}
-      </div>
+
+      {loading && currentPage == 1 ? (
+        <ErrorPage message={'Loading...'} type="loading" />
+      ) : (
+        <div className="content-wrapper">
+          {aroundList.map(data => (
+            <SpotCard
+              data={data}
+              setIsOpen={setIsOpen}
+              setSelectedAddress={setSelectedAddress}
+              handleImageClick={handleImageClick}
+            />
+          ))}
+          {!loading && aroundList.length == 0 && <div className="empty-data">주변 관광지 데이터가 없습니다. </div>}
+        </div>
+      )}
 
       {isOpen && <BottomSheet title={t('bottomsheet.address')} content={selectedAddress} setIsOpen={setIsOpen} />}
+      {isModalOpen && <ImageModal setIsOpen={setIsModalOpen} imageUrl={modalImage ?? defaultImage} width={90} />}
     </AroundStyle>
   );
 };

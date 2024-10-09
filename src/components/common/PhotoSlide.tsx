@@ -5,16 +5,17 @@ interface Props {
   width: number;
   height: number;
   gap: number;
+  handleImageClick: (image: string) => void;
 }
 
-const PhotoSlide = ({ photoList, width, height, gap }: Props) => {
+const PhotoSlide = ({ photoList, width, height, gap, handleImageClick }: Props) => {
   return (
     <PhotoSlideStyled width={width} height={height} gap={gap}>
       <ul className="photo-slide">
         {photoList?.map(item => {
           return (
             <li>
-              <img src={item} className="still-cut" />
+              <img src={item} className="still-cut" onClick={() => handleImageClick(item)} />
             </li>
           );
         })}
