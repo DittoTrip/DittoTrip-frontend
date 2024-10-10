@@ -41,7 +41,7 @@ const SearchBar = ({ setSearchWord, placeholder, handleSubmit }: SearchBarProps)
         placeholder={placeholder}
         value={searchTerm}
         onChange={e => setSearchTerm(e.target.value)}
-        onKeyDown={handleKeyDown} // Handle Enter key
+        onKeyDown={handleKeyDown}
       />
     </SearchContainer>
   );

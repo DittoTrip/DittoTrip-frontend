@@ -30,12 +30,13 @@ const DittoWrite = () => {
     watch,
   } = useForm<FormInputs>();
 
-  const [selectedMainImage, setSelectedMainImage] = useState<File | null>(null);
-  const [mainPreviewUrl, setMainPreviewUrl] = useState<string | null>(null);
-  const [tags, setTags] = useState<string[]>([]);
-  const body = watch('body');
   const navigate = useNavigate();
   const { isLoggedIn } = useAuthStore();
+
+  const [selectedMainImage, setSelectedMainImage] = useState<File | null>(null);
+  const [mainPreviewUrl, setMainPreviewUrl] = useState<string | null>(null);
+  const body = watch('body');
+  const tags = watch('hashtagNames');
   const [sending, setSending] = useState(false);
 
   useEffect(() => {
@@ -48,7 +49,7 @@ const DittoWrite = () => {
         if (existingDitto) {
           setValue('title', existingDitto.dittoData.title);
           setValue('body', existingDitto.dittoData.body);
-          setTags(existingDitto.dittoData.hashtags || []);
+          setValue('hashtagNames', existingDitto.dittoData.hashtags);
           setMainPreviewUrl(existingDitto.dittoData.imagePath);
           const file = await convertURLtoFile(existingDitto.dittoData.imagePath);
           setSelectedMainImage(file);
@@ -59,12 +60,10 @@ const DittoWrite = () => {
   }, [dittoId, setValue]);
 
   const handleAddTag = (newTag: string) => {
-    setTags([...tags, newTag]);
-    setValue('hashtagNames', [...tags, newTag]);
+    setValue('hashtagNames', tags ? [...tags, newTag] : [newTag]);
   };
 
   const handleDeleteTag = (tag: string) => {
-    setTags(tags.filter(t => t !== tag));
     setValue(
       'hashtagNames',
       tags.filter(t => t !== tag)
@@ -141,7 +140,7 @@ const DittoWrite = () => {
           <div className="spot-box">
             <div className="tag-wrapper">
               <span className="text-title">{t('write.tags')}</span>
-              <span className="tag-length">({tags.length}/10)</span>
+              <span className="tag-length">({tags ? tags.length : 0}/10)</span>
             </div>
             <TagInput tags={tags} handleAddTag={handleAddTag} handleDeleteTag={handleDeleteTag} />
             {errors.hashtagNames && <span>{errors.hashtagNames.message}</span>}

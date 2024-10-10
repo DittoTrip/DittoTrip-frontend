@@ -112,6 +112,7 @@ const EditNicknameStyle = styled.div`
     padding: 15px;
     flex: 1;
     margin: 0px;
+    min-width: 0;
 
     outline: none;
     border: none;

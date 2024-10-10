@@ -83,7 +83,7 @@ const BottomSheetStyled = styled.div`
 
     @media screen and (min-width: 600px) {
       width: 600px;
-      left: calc(50vw - 300px);
+      left: calc(50% - 300px);
     }
   }
 

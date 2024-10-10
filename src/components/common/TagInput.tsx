@@ -1,4 +1,4 @@
-import { useState, KeyboardEvent, ChangeEvent } from 'react';
+import { KeyboardEvent, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { styled } from 'styled-components';
 
@@ -11,30 +11,31 @@ interface Props {
 const TagInput = ({ tags, handleAddTag, handleDeleteTag }: Props) => {
   const { t } = useTranslation();
 
-  const [inputValue, setInputValue] = useState('');
+  const textRef = useRef<HTMLInputElement>(null);
+  const [isComposing, setIsComposing] = useState(false);
 
   // 태그 추가
   const handleAddNewTag = (event: KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'Enter' || event.key === ' ') {
+    const newTag = textRef.current!.value.trim();
+
+    if (event.key === 'Enter' && !isComposing) {
       event.preventDefault();
-      const newTag = inputValue.trim();
+
       //  중복 방지, 10개 이하, 공백 불가
-      if (!tags.includes(newTag) && tags.length < 10 && newTag.length > 0) {
+      if (!tags?.includes(newTag) && (!tags || tags?.length < 10) && newTag.length > 0) {
         handleAddTag(newTag);
+        textRef.current!.value = '';
+        textRef.current?.blur();
       } else if (tags.length >= 10) {
         alert(t('tag.tagLimitMessage'));
       }
-      setInputValue('');
     }
+    window.scrollTo(0, document.body.scrollHeight);
   };
   // 태그 삭제
-  const handleRemoveTag = (tag: string) => {
+  const handleRemoveTag = (event: React.MouseEvent<HTMLButtonElement>, tag: string) => {
+    event.preventDefault();
     handleDeleteTag(tag);
-  };
-
-  // inputValue 관리
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setInputValue(event.target.value);
   };
 
   return (
@@ -44,21 +45,23 @@ const TagInput = ({ tags, handleAddTag, handleDeleteTag }: Props) => {
         <input
           className="tag-input"
           type="text"
-          value={inputValue}
-          onChange={handleInputChange}
+          ref={textRef}
           onKeyDown={handleAddNewTag}
           placeholder={t('tag.placeholder')}
+          onCompositionStart={() => setIsComposing(true)}
+          onCompositionEnd={() => setIsComposing(false)}
         />
       </div>
       <div className="tag-list">
-        {tags.map((tag, index) => (
-          <div key={index} className="tag">
-            # {tag}
-            <button onClick={() => handleRemoveTag(tag)} className="tag-remove-button">
-              &times;
-            </button>
-          </div>
-        ))}
+        {tags &&
+          tags.map((tag, index) => (
+            <div key={index} className="tag">
+              # {tag}
+              <button onClick={e => handleRemoveTag(e, tag)} className="tag-remove-button">
+                &times;
+              </button>
+            </div>
+          ))}
       </div>
     </TagInputContainer>
   );
