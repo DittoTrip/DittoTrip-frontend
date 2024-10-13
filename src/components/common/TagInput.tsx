@@ -29,8 +29,8 @@ const TagInput = ({ tags, handleAddTag, handleDeleteTag }: Props) => {
       } else if (tags.length >= 10) {
         alert(t('tag.tagLimitMessage'));
       }
+      window.scrollTo(0, document.body.scrollHeight);
     }
-    window.scrollTo(0, document.body.scrollHeight);
   };
   // 태그 삭제
   const handleRemoveTag = (event: React.MouseEvent<HTMLButtonElement>, tag: string) => {

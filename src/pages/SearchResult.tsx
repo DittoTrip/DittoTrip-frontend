@@ -45,7 +45,7 @@ const SearchResult = () => {
     {
       id: 1,
       text: t('list.sortOptions.distance'),
-      sort: 'distance,desc',
+      sort: 'distance',
       handleClick: () => {
         setSelectedSortId(1);
         setIsSortOpen(false);
