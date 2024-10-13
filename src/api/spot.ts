@@ -74,7 +74,6 @@ export const searchSpot = async (params: SpotListRequest) => {
   const response = await api.get<SpotSearchListResponse>(`spot/list/search`, {
     params: { ...params },
   });
-  console.log(response.data);
   return response.data;
 };
 

@@ -35,7 +35,6 @@ export const searchCategory = async (query: string, majorType: MajorType, page: 
   const response = await api.get<CategoryResponse>(`category/list/search`, {
     params: { query, majorType, page },
   });
-  console.log(response.data);
   return response.data;
 };
 // 카테고리 검색 - 타입분류 x (스팟신청)

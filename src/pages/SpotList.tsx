@@ -70,17 +70,21 @@ const List = () => {
   const [userX, setUserX] = useState<number | null>(null);
   const [userY, setUserY] = useState<number | null>(null);
 
+  const [isLocationFetched, setIsLocationFetched] = useState(false);
+
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
       position => {
         setUserX(position.coords.longitude);
         setUserY(position.coords.latitude);
         setCurrentPage(0);
+        setIsLocationFetched(true);
       },
       error => {
         console.error(error.message);
         setUserX(null);
         setUserY(null);
+        setIsLocationFetched(true);
       }
     );
   }, []);
@@ -91,7 +95,8 @@ const List = () => {
     currentPage,
     defaultPageOptions,
     userX,
-    userY
+    userY,
+    isLocationFetched
   );
 
   console.log(userX, userY);

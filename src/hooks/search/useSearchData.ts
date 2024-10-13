@@ -32,23 +32,26 @@ const useSearchData = (tapId: number, sort: string | null) => {
   const search = params.get('search');
   // const sort = params.get('sort');
 
+  const [isLocationFetched, setIsLocationFetched] = useState(false);
+
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
       position => {
         setUserX(position.coords.longitude);
         setUserY(position.coords.latitude);
+        setIsLocationFetched(true);
       },
       error => {
         console.error(error.message);
         setUserX(null);
         setUserY(null);
+        setIsLocationFetched(true);
       }
     );
   }, []);
 
   const loadMoreSpotData = async (prev: SpotData[]) => {
     const data = { userX, userY, page: spotPage, sort, query: search };
-    console.log(sort, search, data);
     if (search === null) {
       return;
     }
@@ -93,6 +96,8 @@ const useSearchData = (tapId: number, sort: string | null) => {
   };
 
   useEffect(() => {
+    if (!isLocationFetched) return;
+
     setSpotPage(0);
     setContentPage(0);
     setCelebrityPage(0);
@@ -115,7 +120,7 @@ const useSearchData = (tapId: number, sort: string | null) => {
     if (tapId == 4) {
       loadMoreUserData([]);
     }
-  }, [search, sort, tapId, userX]);
+  }, [search, sort, tapId, isLocationFetched]);
 
   return {
     spotListData,

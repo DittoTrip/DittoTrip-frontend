@@ -12,7 +12,8 @@ const useSpotList = (
   page: number,
   size: number,
   userX: number | null,
-  userY: number | null
+  userY: number | null,
+  isLocationFetched: boolean
 ) => {
   const [spotData, setSpotData] = useState<SpotData[]>([]);
   const [categoryData, setCategoryData] = useState<CategoryData>();
@@ -23,6 +24,8 @@ const useSpotList = (
   const { t } = useTranslation();
 
   const fetchSpotList = async (prev: SpotData[]) => {
+    if (!isLocationFetched) return;
+
     const req = { page, sort, size, userX, userY };
     try {
       const response = await spotList(categoryId, req);
