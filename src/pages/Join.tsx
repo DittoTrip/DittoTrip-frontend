@@ -174,7 +174,7 @@ const Join = () => {
         .finally(() => {
           setLoading(false);
           alert(t('join.success'));
-          navigate('/');
+          navigate('/login');
         });
     } else {
       if (!nicknameChecked) {
